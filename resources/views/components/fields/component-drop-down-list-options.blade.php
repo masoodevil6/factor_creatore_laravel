@@ -1,0 +1,55 @@
+<style>
+    .list-option-{{$titleEn}}{
+        left: 10%;
+        width: 13rem;
+        top: 30px;
+        z-index: 1000;
+        display: none;
+    }
+    .list-option-{{$titleEn}}-active{
+        display: block !important;
+    }
+
+    .list-option span{
+        color: #000000;
+    }
+
+    .form-icon-item-drop-down{
+        line-height: 0.5rem;
+    }
+    .form-title-item-drop-down{
+        line-height: 0.5rem;
+    }
+</style>
+
+<div class=" font-size-12 position-relative">
+
+    <section  class="btn btn-success w-10-rem btn-sm" onclick="showListOption{{$titleEn}}(this)">
+
+        <i class="fa fa-cog"></i>
+        <span>
+            {{$titleFa}}
+        </span>
+
+    </section>
+
+    <section  class="list-option-{{$titleEn}} position-absolute rounded">
+        <section class="list-group rounded">
+            {{$slot}}
+        </section>
+    </section>
+</div>
+
+<script>
+    function showListOption{{$titleEn}}(element){
+
+        var listOption = $(".list-option-product");
+        var myListOption = $(element).parent().find(".list-option-{{$titleEn}}");
+        var isHasAction = myListOption.hasClass("list-option-{{$titleEn}}-active");
+
+        listOption.removeClass("list-option-{{$titleEn}}-active");
+        if(!isHasAction){
+            myListOption.addClass("list-option-{{$titleEn}}-active");
+        }
+    }
+</script>
