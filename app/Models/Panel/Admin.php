@@ -3,6 +3,7 @@
 namespace App\Models\Panel;
 
 use App\Models\User;
+
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -15,6 +16,9 @@ class Admin extends Model
     private static $panelPass = 75297530;
 
     protected $fillable = ["title" , "status"];
+
+
+
 
 
     ///==============================================

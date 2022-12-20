@@ -2,6 +2,8 @@
 namespace App\Repositories;
 
 use App\Repositories\InterFaceRepositories\IAdminRepository;
+use App\Repositories\InterFaceRepositories\ISettingRepository;
+use App\Repositories\InterFaceRepositories\IUserRepository;
 use App\Repositories\ModelRepositories\AdminRepository;
 use App\Repositories\InterFaceRepositories\IAdminUserRepository;
 use App\Repositories\ModelRepositories\AdminUserRepository;
@@ -9,6 +11,8 @@ use App\Repositories\InterFaceRepositories\IPanelGroupRepository;
 use App\Repositories\ModelRepositories\PanelGroupRepository;
 use App\Repositories\InterFaceRepositories\IPanelRepository;
 use App\Repositories\ModelRepositories\PanelRepository;
+use App\Repositories\ModelRepositories\SettingRepository;
+use App\Repositories\ModelRepositories\UserRepository;
 
 
 class ContextRepository{
@@ -18,6 +22,11 @@ class ContextRepository{
     private static $adminUserRepository;
     private static $panelGroupRepository;
     private static $panelRepository;
+
+    private static $settingRepository;
+
+    private static $userRepository;
+
 
 
 
@@ -58,6 +67,34 @@ class ContextRepository{
     }
 
 
+    //// =============================================
+    //// public
+    //// =============================================
+
+    public static function SettingRepository() : ISettingRepository
+    {
+        if (self::$settingRepository == null){
+            self::$settingRepository = new SettingRepository();
+        }
+        return self::$settingRepository;
+    }
+
+
+
+
+
+    //// =============================================
+    //// user
+    //// =============================================
+
+
+    public static function UserRepository() : IUserRepository
+    {
+        if (self::$userRepository == null){
+            self::$userRepository = new UserRepository();
+        }
+        return self::$userRepository;
+    }
 
 
 

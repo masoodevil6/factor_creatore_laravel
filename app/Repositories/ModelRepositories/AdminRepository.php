@@ -3,6 +3,9 @@ namespace App\Repositories\ModelRepositories;
 
 use App\Models\Panel\Admin;
 use App\Repositories\InterFaceRepositories\IAdminRepository;
+use App\ViewModel\Panel\AdminModel;
+use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Support\Facades\Hash;
 
 class AdminRepository extends BaseRepository implements IAdminRepository {
 
@@ -12,6 +15,24 @@ class AdminRepository extends BaseRepository implements IAdminRepository {
     }
 
 
+    public function getLastAdminMain(int $pw)
+    {
+        return $this->model::where("main" , $pw)->orderBy("id" , "desc")->first();
+    }
+
+    public function getListAdminMain(int $pw)
+    {
+        return  $this->model::where("main" , $pw)->get();
+    }
 
 
+    public function AdminAttachPanel(Admin $admin ,int $panelId): void
+    {
+        $admin->panels()->attach($panelId);
+    }
+
+    public function AdminAttachUser(Admin $admin, int $userId, string $password): void
+    {
+        $admin->users()->sync([$userId => ["status" => 1 , "password" => Hash::make($password)]]);
+    }
 }

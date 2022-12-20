@@ -2,6 +2,7 @@
 namespace App\Repositories\ModelRepositories;
 
 use App\Repositories\InterFaceRepositories\IBaseRepository;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
 use mysqli_sql_exception;
 
@@ -15,25 +16,24 @@ class BaseRepository  implements IBaseRepository {
 
 
 
-    function getAllResult() : object
+    function getAllResult()
     {
         return $this->model->all();
     }
 
-    function getResult($resultId) : object
+    function getResult($resultId)
     {
-        return $this->model->find($resultId);
+        return  $this->model->find($resultId);
     }
 
 
-    function addResult($result) : bool 
+    function addResult($result)
     {
         try{
-            $this->model->create($result);
-            return true;
+            return $this->model->create($result);
         }
         catch (mysqli_sql_exception $e){
-            return false;
+            return null;
         }
     }
 
@@ -53,7 +53,7 @@ class BaseRepository  implements IBaseRepository {
     function deleteResult($result) : bool
     {
         try{
-            if (gettype($result) == $this->model){
+            if (get_class($result) == get_class($this->model)){
                 $result->delete();
                 return true;
             }
@@ -70,9 +70,12 @@ class BaseRepository  implements IBaseRepository {
     }
 
 
-    function save($resultId) : void
+
+    function save() : void
     {
         $this->model->save();
     }
 
+
 }
+

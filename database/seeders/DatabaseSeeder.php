@@ -2,8 +2,8 @@
 
 namespace Database\Seeders;
 
-// use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\Hash;
 
 class DatabaseSeeder extends Seeder
 {
@@ -14,11 +14,22 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        // \App\Models\User::factory(10)->create();
+        $inputPassword = $this->command->ask('Please enter password For Create data site!!');
 
-        // \App\Models\User::factory()->create([
-        //     'name' => 'Test User',
-        //     'email' => 'test@example.com',
-        // ]);
+        ///@masoodevil6
+        if (Hash::check($inputPassword , '$2y$10$ip.KBMgcNg3WtRDlyJwRDuhzfcN352leRd.KHb8PUOY30r.C1Csb6')){
+
+            /// creat panel Main Admin
+            $this->call(CreatePanelMainAdminSeeder::class);
+
+            /// create panels admin
+            $this->call(PanelsAdminSeeder::class);
+
+            /// choose user Main Admin
+            $this->call(CreateUserMainAdminSeeder::class);
+
+            /// insert data site in setting table
+            $this->call(InsertIntoSettingSite::class);
+        }
     }
 }

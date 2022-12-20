@@ -12,6 +12,13 @@ class PanelGroupRepository extends BaseRepository implements IPanelGroupReposito
     }
 
 
+    function getPanelGroupWithTitle(string $title)
+    {
+        return $this->model->where("title_en" , $title)->first();
+    }
 
-
+    function deleteAllRecord(): void
+    {
+        $this->model->query()->delete();
+    }
 }
