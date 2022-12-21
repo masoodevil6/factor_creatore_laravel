@@ -1,13 +1,12 @@
 <?php
 
-namespace App\Repositories\InterFaceRepositories;
+namespace App\Repositories\InterFaceRepositories\Panels;
 
 use App\Models\Panel\Admin;
-use App\ViewModel\Panel\AdminModel;
-use Illuminate\Database\Eloquent\Collection;
+use App\Repositories\InterFaceRepositories\IBaseRepository;
 
 
-interface IAdminRepository extends IBaseRepository{
+interface IAdminRepository extends IBaseRepository {
 
     function getListAdminMain(int $pw);
 

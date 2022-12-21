@@ -1,8 +1,9 @@
 <?php
-namespace App\Repositories\ModelRepositories;
+namespace App\Repositories\ModelRepositories\Panels;
 
 use App\Models\Panel\AdminUser;
-use App\Repositories\InterFaceRepositories\IAdminUserRepository;
+use App\Repositories\InterFaceRepositories\Panels\IAdminUserRepository;
+use App\Repositories\ModelRepositories\BaseRepository;
 
 class AdminUserRepository extends BaseRepository implements IAdminUserRepository {
 

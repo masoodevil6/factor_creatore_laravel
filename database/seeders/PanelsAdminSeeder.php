@@ -7,8 +7,12 @@ use App\Repositories\ContextRepository;
 use Database\Seeders\PanelGroups\AdminGroup\CreatePanelGroupAdminSeeder;
 use Database\Seeders\PanelGroups\AdminGroup\CreatePanelPanelsInPanelGroupAdminSeeder;
 use Database\Seeders\PanelGroups\AdminGroup\CreatePanelUserAdminInPanelGroupAdminSeeder;
+use Database\Seeders\PanelGroups\FormGroup\CreatePanelFormCategoryPanelGroupFormSeeder;
+use Database\Seeders\PanelGroups\FormGroup\CreatePanelFormPanelGroupFormSeeder;
+use Database\Seeders\PanelGroups\FormGroup\CreatePanelGroupFormSeeder;
 use Database\Seeders\PanelGroups\PublicGroup\CreatePanelGroupPublicSeeder;
 use Database\Seeders\PanelGroups\PublicGroup\CreatePanelSettingSitePanelGroupPublicSeeder;
+use Database\Seeders\PanelGroups\PublicGroup\CreatePanelUnitGroupPublicSeeder;
 use Illuminate\Database\Seeder;
 
 class PanelsAdminSeeder extends Seeder
@@ -29,6 +33,15 @@ class PanelsAdminSeeder extends Seeder
         /// public ToolsPanel
         $this->call(CreatePanelGroupPublicSeeder::class);
         $this->call(CreatePanelSettingSitePanelGroupPublicSeeder::class);
+        $this->call(CreatePanelUnitGroupPublicSeeder::class);
+
+        /// Form ToolsPanel
+        $this->call(CreatePanelGroupFormSeeder::class);
+        $this->call(CreatePanelFormCategoryPanelGroupFormSeeder::class);
+        $this->call(CreatePanelFormPanelGroupFormSeeder::class);
+
+
+
         $this->call(InsertIntoSettingSite::class);
 
     }

@@ -1,8 +1,10 @@
 <?php
 
-namespace App\Models;
+namespace App\Models\Users;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
+use App\Models\Factors\Factor;
+use App\Models\Users\UserStore;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
@@ -41,4 +43,22 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+
+
+    ///==============================================
+    /// Relations
+    /// ==============================================
+
+    //// belongsTo
+
+
+    //// hasMany
+    public function factors(){
+        return $this->hasMany(Factor::class);
+    }
+
+    public function stores(){
+        return $this->hasMany(UserStore::class);
+    }
 }

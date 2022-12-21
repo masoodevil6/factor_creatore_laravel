@@ -1,8 +1,9 @@
 <?php
-namespace App\Repositories\ModelRepositories;
+namespace App\Repositories\ModelRepositories\Panels;
 
 use App\Models\Panel\Panel;
-use App\Repositories\InterFaceRepositories\IPanelRepository;
+use App\Repositories\InterFaceRepositories\Panels\IPanelRepository;
+use App\Repositories\ModelRepositories\BaseRepository;
 
 class PanelRepository extends BaseRepository implements IPanelRepository {
 

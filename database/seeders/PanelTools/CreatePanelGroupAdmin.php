@@ -1,7 +1,6 @@
 <?php
 namespace Database\Seeders\PanelTools;
 
-use App\Models\Panel\PanelGroup;
 use App\Repositories\ContextRepository;
 
 class CreatePanelGroupAdmin{

@@ -3,7 +3,6 @@ namespace Database\Seeders\PanelTools;
 
 use App\Models\Panel\Admin;
 use App\Repositories\ContextRepository;
-use function PHPUnit\Framework\throwException;
 use PHPUnit\Runner\Exception;
 
 class PanelAdmin{

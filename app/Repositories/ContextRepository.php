@@ -1,38 +1,43 @@
 <?php
 namespace App\Repositories;
 
-use App\Repositories\InterFaceRepositories\IAdminRepository;
-use App\Repositories\InterFaceRepositories\ISettingRepository;
-use App\Repositories\InterFaceRepositories\IUserRepository;
-use App\Repositories\ModelRepositories\AdminRepository;
-use App\Repositories\InterFaceRepositories\IAdminUserRepository;
-use App\Repositories\ModelRepositories\AdminUserRepository;
-use App\Repositories\InterFaceRepositories\IPanelGroupRepository;
-use App\Repositories\ModelRepositories\PanelGroupRepository;
-use App\Repositories\InterFaceRepositories\IPanelRepository;
-use App\Repositories\ModelRepositories\PanelRepository;
-use App\Repositories\ModelRepositories\SettingRepository;
-use App\Repositories\ModelRepositories\UserRepository;
+use App\Repositories\InterFaceRepositories\Factors\IFactorProductRepository;
+use App\Repositories\InterFaceRepositories\Factors\IFactorRepository;
+use App\Repositories\InterFaceRepositories\Forms\IFormCategoryRepository;
+use App\Repositories\InterFaceRepositories\Forms\IFormRepository;
+use App\Repositories\InterFaceRepositories\Panels\IAdminRepository;
+use App\Repositories\InterFaceRepositories\Panels\IAdminUserRepository;
+use App\Repositories\InterFaceRepositories\Panels\IPanelGroupRepository;
+use App\Repositories\InterFaceRepositories\Panels\IPanelRepository;
+use App\Repositories\InterFaceRepositories\Publics\IUnitRepository;
+use App\Repositories\InterFaceRepositories\Users\ISettingRepository;
+use App\Repositories\InterFaceRepositories\Users\IUserRepository;
+use App\Repositories\InterFaceRepositories\Users\IUserStoreRepository;
+use App\Repositories\ModelRepositories\Factors\FactorProductRepository;
+use App\Repositories\ModelRepositories\Factors\FactorRepository;
+use App\Repositories\ModelRepositories\Forms\FormCategoryRepository;
+use App\Repositories\ModelRepositories\Forms\FormRepository;
+use App\Repositories\ModelRepositories\Panels\AdminRepository;
+use App\Repositories\ModelRepositories\Panels\AdminUserRepository;
+use App\Repositories\ModelRepositories\Panels\PanelGroupRepository;
+use App\Repositories\ModelRepositories\Panels\PanelRepository;
+use App\Repositories\ModelRepositories\Publics\UnitRepository;
+use App\Repositories\ModelRepositories\Publics\UserStoreRepository;
+use App\Repositories\ModelRepositories\Users\SettingRepository;
+use App\Repositories\ModelRepositories\Users\UserRepository;
 
 
 class ContextRepository{
 
 
+    //// =============================================
+    //// admin
+    //// =============================================
+
     private static $adminRepository;
     private static $adminUserRepository;
     private static $panelGroupRepository;
     private static $panelRepository;
-
-    private static $settingRepository;
-
-    private static $userRepository;
-
-
-
-
-    //// =============================================
-    //// admin
-    //// =============================================
 
     public static function AdminRepository() : IAdminRepository
     {
@@ -67,9 +72,68 @@ class ContextRepository{
     }
 
 
+
     //// =============================================
-    //// public
+    //// factors
     //// =============================================
+
+    private static $factorProductRepository;
+    private static $factorRepository;
+
+
+    public static function FactorProductRepository() : IFactorProductRepository
+    {
+        if (self::$factorProductRepository == null){
+            self::$factorProductRepository = new FactorProductRepository();
+        }
+        return self::$factorProductRepository;
+    }
+
+    public static function FactorRepository() : IFactorRepository
+    {
+        if (self::$factorRepository == null){
+            self::$factorRepository = new FactorRepository();
+        }
+        return self::$factorRepository;
+    }
+
+
+
+
+
+
+    //// =============================================
+    //// forms
+    //// =============================================
+
+    private static $formCategoryRepository;
+    private static $formRepository;
+
+    public static function FormCategoryRepository() : IFormCategoryRepository
+    {
+        if (self::$formCategoryRepository == null){
+            self::$formCategoryRepository = new FormCategoryRepository();
+        }
+        return self::$formCategoryRepository;
+    }
+
+    public static function FormRepository() : IFormRepository
+    {
+        if (self::$formRepository == null){
+            self::$formRepository = new FormRepository();
+        }
+        return self::$formRepository;
+    }
+
+
+
+
+    //// =============================================
+    //// publics
+    //// =============================================
+
+    private static $settingRepository;
+    private static $unitRepository;
 
     public static function SettingRepository() : ISettingRepository
     {
@@ -79,14 +143,25 @@ class ContextRepository{
         return self::$settingRepository;
     }
 
+    public static function UnitRepository() : IUnitRepository
+    {
+        if (self::$unitRepository == null){
+            self::$unitRepository = new UnitRepository();
+        }
+        return self::$unitRepository;
+    }
+
+
 
 
 
 
     //// =============================================
-    //// user
+    //// users
     //// =============================================
 
+    private static $userRepository;
+    private static $userStoreRepository;
 
     public static function UserRepository() : IUserRepository
     {
@@ -94,6 +169,14 @@ class ContextRepository{
             self::$userRepository = new UserRepository();
         }
         return self::$userRepository;
+    }
+
+    public static function UserStoreRepository() : IUserStoreRepository
+    {
+        if (self::$userStoreRepository == null){
+            self::$userStoreRepository = new UserStoreRepository();
+        }
+        return self::$userStoreRepository;
     }
 
 
