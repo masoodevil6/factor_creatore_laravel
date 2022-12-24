@@ -1,0 +1,22 @@
+.alert_result{
+    position: fixed;
+    bottom: 5%;
+    left: 50%;
+    z-index: 100000;
+    transform: translate(-50% , -5%);
+    width: 80%;
+    background: #607D8B;
+    border-radius: 5px;
+    border: 1px #504738 solid;
+    margin: 20px 0 ;
+    line-height: 40px;
+    text-align: center;
+    display: block;
+    color: #ffffff;
+
+    box-shadow:           0 0 8px #3c3c3c  , 0 2px 0 #fff6 inset , 0 -2px 0 #38383866 inset;
+    -webkit-box-shadow:   0 0 8px #3c3c3c  , 0 2px 0 #fff6 inset , 0 -2px 0 #38383866 inset;
+    -moz-box-shadow:      0 0 8px #3c3c3c  , 0 2px 0 #fff6 inset , 0 -2px 0 #38383866 inset;
+
+    padding: 0 10px;
+}

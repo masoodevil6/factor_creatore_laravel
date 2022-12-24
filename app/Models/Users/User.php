@@ -61,4 +61,8 @@ class User extends Authenticatable
     public function stores(){
         return $this->hasMany(UserStore::class);
     }
+
+    public function otps(){
+        return $this->hasMany(Otp::class);
+    }
 }

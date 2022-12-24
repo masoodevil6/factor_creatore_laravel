@@ -22,6 +22,6 @@ interface IBaseRepository
 
     function deleteResultById(int $resultId) : bool ;
 
-    function save() : void ;
+    function save($model) : void ;
 
 }

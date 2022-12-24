@@ -1,7 +1,6 @@
 <?php
 namespace App\Http\Services\Messages;
 
-use App\Http\Interfaces\MessageInterface;
 
 class MessageService {
 

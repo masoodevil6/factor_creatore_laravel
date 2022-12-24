@@ -41,7 +41,9 @@ class BaseRepository  implements IBaseRepository {
     function updateResult($result) : bool
     {
         try{
+
             $this->model->update($result);
+            dd($this->model->update($result));
             return true;
         }
         catch (mysqli_sql_exception $e){
@@ -71,9 +73,9 @@ class BaseRepository  implements IBaseRepository {
 
 
 
-    function save() : void
+    function save($model) : void
     {
-        $this->model->save();
+        $model->save();
     }
 
 

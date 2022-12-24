@@ -12,9 +12,15 @@ class UserRepository extends BaseRepository implements IUserRepository {
         parent::__construct(new User());
     }
 
-
     function GetUserWithEmail(string $userEmail)
     {
         return $this->model->where("email" , $userEmail)->first();
     }
+
+    function GetUserWithPhone(string $userPhone)
+    {
+        return $this->model->where("mobile" , $userPhone)->first();
+    }
+
+
 }

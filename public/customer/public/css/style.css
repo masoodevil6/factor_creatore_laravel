@@ -1,0 +1,312 @@
+.container, .container-fluid, .container-lg, .container-md, .container-sm, .container-xl, .container-xxl {
+    width: 100%;
+    padding-left: var(--bs-gutter-x,.75rem);
+    padding-right: var(--bs-gutter-x,.75rem);
+    margin-left: auto;
+    margin-right: auto;
+}
+
+@media (min-width: 1400px){
+    .container, .container-lg, .container-md, .container-sm, .container-xl, .container-xxl {
+        max-width: 1320px;
+    }
+}
+
+
+@media (min-width: 992px) {
+    main{
+        min-height : calc(100vh - 300px);
+    }
+}
+
+
+
+
+.blue-gray-dark{
+    background-color: #3c4b5e;
+}
+.blue-gray-xdark{
+    background-color: #0f1c2c;
+}
+
+.blue-gray-200{
+    background-color: #B0BEC5;
+}
+.blue-gray-300{
+    background-color: #90A4AE;
+}
+.blue-gray-400{
+    background-color: #78909C;
+}
+.blue-gray-600{
+    background-color: #546E7A;
+}
+
+
+
+
+.gray-100{
+    background-color: #F5F5F5;
+}
+.gray-200{
+    background-color: #EEEEEE;
+}
+.gray-300{
+    background-color: #E0E0E0;
+}
+.gray-400{
+    background-color: #BDBDBD;
+}
+.gray-500{
+    background-color: #9E9E9E;
+}
+.gray-600{
+    background-color: #757575;
+}
+
+
+
+
+.cyan-50{
+    background-color: #E0F7FA;
+}
+.cyan-300{
+    background-color: #80DEEA;
+}
+.cyan-400{
+    background-color: #26C6DA;
+}
+.cyan-500{
+    background-color: #00ACC1;
+}
+.cyan-A400{
+    background-color: #00E5FF;
+}
+
+
+
+
+
+
+.color-family-a-1{
+    background-color:  #3596B5;
+}
+.color-family-a-2{
+    background-color:  #296073;
+}
+.color-family-a-3{
+    background-color:  #ADC5CF;
+}
+.color-family-a-4{
+    background-color:  #845EC2 ;
+}
+
+
+
+.color-family-b-1{
+    background-color:  #133C55;
+}
+.color-family-b-2{
+    background-color:  #59a5d8;
+}
+
+
+
+.color-family-c-1{
+    background-color:  #001d3d;
+}
+.color-family-c-2{
+    background-color:  #00509d;
+}
+
+
+
+
+
+
+
+
+
+
+.font-size-md{
+    font-size: 10pt;
+}
+.font-size-lg{
+    font-size: 12pt;
+}
+.font-size-xlg{
+    font-size: 14pt;
+}
+
+
+.line-height-30{
+    line-height: 30px;
+}
+
+
+
+
+@font-face{
+    font-family: IRANSans;
+    src: url("/public/fonts/IRANSans/IRANSansWeb_Light.woff") format("woff");
+}
+*{
+    direction: rtl;
+    text-align: right;
+    font-family: IRANSans;
+}
+
+body{
+    background-color: #e0e1dd;
+}
+
+
+.cursor-pointer{
+    cursor: pointer;
+}
+
+
+
+/*===============================*/
+.breadcrumb-item a{
+    background-color: #66635b ;
+    color: #FFCC80;
+    line-height: 35px;
+}
+
+
+
+
+#section-header{
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 10000;
+}
+
+
+
+
+
+#progress-scroll-bar{
+    height: 4px;
+    background-color: #0082ff;
+}
+
+
+#main-search-box{
+    outline-width: 0;
+    border-style: none;
+    border-radius: 5px;
+    font-size: 10pt;
+    padding-top: 7px;
+    padding-bottom: 11px;
+    padding-right: 11%;
+}
+#main-search-box::placeholder{
+    color: #ffffff;
+    padding-right: 10px;
+}
+#icon-main-search-box{
+    width: 20px;
+    height: 20px;
+    top: 50%;
+    right: 2%;
+    transform: translate(-50%, -50%);
+}
+#btn-main-search-box{
+    background-position: -406px -50px;
+    background-size: 600px 600px;
+    top: 50%;
+    left: 0;
+    transform: translate(-50%, -50%);
+    cursor: pointer;
+    padding: 0;
+    border-radius: 100%;
+    width: 40px;
+    height: 40px;
+    line-height: 40px;
+
+}
+
+
+
+#logo-site{
+    width: 150px ;
+}
+
+
+
+#inside-form-navigation{
+    border-width: 3px !important;
+    border-color: #001d3d !important;
+
+    max-height: calc(100vh - 103px);
+}
+
+.item-nav-social {
+    height: 35px;
+    line-height: 35px;
+}
+
+.item-nav-category:first-child  {
+    border: none;
+}
+
+#form-items-social{
+    border-radius: 5px 5px 0 0;
+}
+
+
+
+
+#icon-empty-result{
+    line-height: 75px;
+    font-size: 60px;
+}
+#text-empty-result{
+    line-height: 75px;
+}
+
+
+@media (max-width: 992px) {
+
+    #inside-form-navigation{
+        overflow: auto;
+    }
+
+    #form-items-nav {
+        border-radius: 5px;
+    }
+
+    .item-nav-category  {
+        border-top: solid 1px white;
+        height: 40px;
+        line-height: 40px;
+    }
+
+    #form-section-header{
+        height: 55px;
+    }
+
+}
+
+@media (min-width: 992px) {
+
+    #form-items-nav , #form-items-social{
+        height: 35px;
+        line-height: 35px;
+        border-radius: 5px 5px 0 0;
+    }
+
+    .item-nav-category  {
+        border-right: solid 1px white;
+        height: 35px;
+        line-height: 35px;
+    }
+
+
+    #form-section-header{
+        height: 103px;
+    }
+}

@@ -1,7 +1,8 @@
 <?php
 namespace App\Http\Services\Messages\Email;
 
-use App\Http\Interfaces\MessageInterface;
+use App\Http\Services\Messages\MessageInterface;
+use App\Models\Publics\Setting;
 use Illuminate\Support\Facades\Mail;
 
 class EmailService implements MessageInterface {
@@ -13,10 +14,20 @@ class EmailService implements MessageInterface {
     ];
     private $to;
 
+    private $storeName="";
+    private $storeNameEn="";
+    private $storeEmail="";
+    function __construct()
+    {
+        $this->getDataSite();
+    }
+
+
     public function fire()
     {
-        Mail::to($this->to)
-            ->send(new EmailViewProvider($this->details , $this->subject , $this->from) );
+        $emailClass = new EmailViewProvider($this->details , $this->subject , $this->from , $this->storeName  , $this->storeEmail);
+
+        Mail::to($this->to)->send($emailClass);
         return true;
     }
 
@@ -53,10 +64,20 @@ class EmailService implements MessageInterface {
         return $this->from;
     }
 
-    public function setFrom($address , $name)
+    public function setFrom($address="" , $name="")
     {
+        $myAddress = "noReply@".$this->storeNameEn.".com";
+        if ($address != ""){
+            $myAddress = $address;
+        }
+
+        $myStoreName = $this->storeName;
+        if ($name != ""){
+            $myStoreName = $name;
+        }
+
         $this->from = [
-            ["address" => $address , "name" => $name]
+            ["address" => $myAddress , "name" => $myStoreName]
         ];
     }
 
@@ -74,5 +95,21 @@ class EmailService implements MessageInterface {
     }
 
 
-
+    ////===============================
+    /// model
+    /// ===============================
+    private function getDataSite(){
+        $storeData = Setting::whereIn("titleEn" , ["site_name" , "site_name_en" , "site_email"])->get();
+        foreach ($storeData As $itemStore){
+            if ($itemStore->titleEn == "site_name"){
+                $this->storeName = $itemStore->value;
+            }
+            if ($itemStore->titleEn == "site_name_en"){
+                $this->storeNameEn = $itemStore->value;
+            }
+            if ($itemStore->titleEn == "site_email"){
+                $this->storeEmail = $itemStore->value;
+            }
+        }
+    }
 }

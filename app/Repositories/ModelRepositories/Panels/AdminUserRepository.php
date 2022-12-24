@@ -4,6 +4,7 @@ namespace App\Repositories\ModelRepositories\Panels;
 use App\Models\Panel\AdminUser;
 use App\Repositories\InterFaceRepositories\Panels\IAdminUserRepository;
 use App\Repositories\ModelRepositories\BaseRepository;
+use Illuminate\Support\Facades\Auth;
 
 class AdminUserRepository extends BaseRepository implements IAdminUserRepository {
 
@@ -11,6 +12,17 @@ class AdminUserRepository extends BaseRepository implements IAdminUserRepository
     {
         parent::__construct(new AdminUser());
     }
+
+
+    function getLoginClientToPanelAdmin()
+    {
+        return $this->model
+            ->select("admins.id")
+            ->where("admin_user.user_id" , Auth::id())
+            ->join("admins" , "admin_user.admin_id" , "=" , "admins.id")
+            ->first();
+    }
+
 
 
 }

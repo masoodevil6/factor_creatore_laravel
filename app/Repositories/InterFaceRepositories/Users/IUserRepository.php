@@ -8,4 +8,6 @@ interface IUserRepository extends IBaseRepository {
 
   function GetUserWithEmail(string $userEmail);
 
+  function GetUserWithPhone(string $userPhone);
+
 }

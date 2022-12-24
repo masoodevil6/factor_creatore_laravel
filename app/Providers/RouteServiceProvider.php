@@ -17,8 +17,21 @@ class RouteServiceProvider extends ServiceProvider
      *
      * @var string
      */
-    public const HOME = '/home';
-    protected $namespace = 'App\\Http\\Controllers';
+    const HOME = '/home';
+
+    const CUSTOMER_HOME = "home";
+
+    const ADMIN_LOGIN = 'admin-auth.form-login';
+    const ADMIN_PANEL = 'admin.home';
+
+
+    protected $namespaceAdmin = 'App\\Http\\Controllers\\Admin';
+    protected $namespaceAPI = 'App\\Http\\Controllers\\API';
+    protected $namespaceAuth = 'App\\Http\\Controllers\\Auth';
+    protected $namespaceCustomer = 'App\\Http\\Controllers\\Customer';
+    protected $namespaceCustomerPanel= 'App\\Http\\Controllers\\CustomerPanel';
+
+
 
     /**
      * Define your route model bindings, pattern filters, and other route configuration.
@@ -29,22 +42,54 @@ class RouteServiceProvider extends ServiceProvider
     {
         $this->configureRateLimiting();
 
+
         $this->routes(function () {
+
             Route::middleware('api')
+                ->namespace($this->namespaceAPI)
                 ->prefix('api')
                 ->group(base_path('routes/api.php'));
 
 
-            Route::middleware('web')
-                ->namespace($this->namespace."\Admin")
-                ->prefix('admin-panel')
-                ->group(base_path('routes/admin.php'));
+
+            Route::middleware("web")->group(function (){
+
+                /// pages
+                Route::namespace($this->namespaceCustomer)
+                    ->group(base_path('routes/web.php'));
 
 
-            Route::middleware('web')
-                ->namespace($this->namespace)
-                ->group(base_path('routes/web.php'));
+                /// auth client pages
+                Route::prefix("auth")
+                    ->namespace($this->namespaceAuth."\Customer")
+                    ->group(base_path('routes/auth.php'));
+
+
+                /// panel client pages
+                ///
+
+
+
+                /// auth client pages
+                Route::prefix("admin-auth")
+                    ->middleware(["auth"])
+                    ->namespace($this->namespaceAuth."\Admin")
+                    ->group(base_path('routes/authAdmin.php'));
+
+
+                /// admin pages
+                Route::namespace($this->namespaceAdmin)
+                    ->middleware(["auth" , "auth.admin"])
+                    ->prefix('admin-panel')
+                    ->group(base_path('routes/admin.php'));
+
+            });
+
+
         });
+
+
+
     }
 
     /**
@@ -56,6 +101,26 @@ class RouteServiceProvider extends ServiceProvider
     {
         RateLimiter::for('api', function (Request $request) {
             return Limit::perMinute(60)->by($request->user()?->id ?: $request->ip());
+        });
+
+
+
+        RateLimiter::for('customer-login-register-limiter', function (Request $request) {
+            return Limit::perMinute(5)->by($request->ip());
+        });
+
+        RateLimiter::for('customer-login-confirm-limiter', function (Request $request) {
+            return Limit::perMinute(5)->by(url()->current().$request->ip());
+        });
+
+        RateLimiter::for('customer-login-resend-limiter', function (Request $request) {
+            return Limit::perMinute(5)->by( url()->current().$request->ip());
+        });
+
+
+
+        RateLimiter::for('admin-login-try-limiter', function (Request $request) {
+            return Limit::perMinute(5)->by( url()->current().$request->ip());
         });
     }
 }

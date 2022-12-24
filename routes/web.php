@@ -13,4 +13,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', "TestController@index");
+Route::get('/', function (){
+
+    dd(\Illuminate\Support\Facades\Auth::user());
+})->name("home");

@@ -1,0 +1,9 @@
+<script src="{{asset("public/js/jquery-3.6.0.min.js")}}"></script>
+<script src="{{asset("admin/public/js/popper.js")}}"></script>
+<script src="{{asset("public/js/bootstrap/bootstrap.min.js")}}"></script>
+<script src="{{asset("admin/public/select2/js/select2.min.js")}}"></script>
+<script src="{{asset("admin/public/ckeditor/ckeditor.js")}}"></script>
+<script src="{{asset("admin/public/ckeditor/config.js")}}"></script>
+<script src="{{asset("admin/public/js/grid.js")}}"></script>
+<script src="{{asset("public/sweetalert/sweetalert2.all.min.js")}}"></script>
+<script src="{{asset("admin/public/js/delete-confirm.js")}}"></script>

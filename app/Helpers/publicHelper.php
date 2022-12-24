@@ -2,8 +2,33 @@
 
 use Morilog\Jalali\Jalalian;
 
+function setTimeStampMiladi($years="1400" , $month=1 , $day=1){
+    if ($month < 10){
+        $month = "0".$month;
+    }
+
+    if ($day < 10){
+        $day = "0".$day;
+    }
+    return date("Y-m-d H:i:s" ,Jalalian::fromFormat('Y-m-d H:i:s', $years."-".$month."-".$day." 00:00:00")->getTimestamp());
+}
+
+function setTimeStampMiladiDate($date="1400-1-1 00:00:00"){
+
+    return date("Y-m-d H:i:s" ,Jalalian::fromFormat('Y-m-d H:i:s', $date)->getTimestamp());
+}
+
 function jalaliDate($date , $format = "%A, %d %B %y"){
     return Jalalian::forge($date)->format($format);
+}
+
+function getArrayJaliliDate($date){
+    $date = Jalalian::forge($date);
+    return [
+        "year" => $date->getYear(),
+        "month" => $date->getMonth(),
+        "day" => $date->getDay()
+    ];
 }
 
 
@@ -46,6 +71,8 @@ function convertArabicToEnglish($number){
     return $number;
 }
 
+
+
 function convertEnglishToPersian($number){
 
     $number = str_replace("0" ,"۰" ,  $number);
@@ -62,3 +89,139 @@ function convertEnglishToPersian($number){
     return $number;
 }
 ///=====================================================
+
+function filterPhoneNumber($phone){
+    $phone = ltrim($phone , 0);
+    $phone = substr($phone, 0 , 2) == '98' ?  substr($phone , 2) : $phone;
+    $phone = str_replace("+98" , "" , $phone );
+
+    return $phone;
+}
+///=====================================================
+
+function validateNationalCode($nationalCode){
+
+    $nationalCode = trim($nationalCode , " .");
+    $nationalCode = convertArabicToEnglish($nationalCode);
+    $nationalCode = convertPersianToEnglish($nationalCode);
+
+    $bannedArray = [
+        "0000000000" , "1111111111" , "2222222222" , "3333333333" , "4444444444" , "55555555555" , "6666666666" , "77777777777", "8888888888", "9999999999"
+    ];
+
+    if (empty($nationalCode)){
+        return false;
+    }
+    else if(count(str_split($nationalCode)) != 10){
+        return false;
+    }
+    else if(in_array($nationalCode , $bannedArray)){
+        return false;
+    }
+    else{
+        $sum = 0;
+        for ($i = 0 ; $i<9 ; $i++){
+            $sum += (int) $nationalCode[$i]* (10 - $i);
+        }
+
+        $dividedRemaining = $sum%11;
+
+        if ($dividedRemaining < 2){
+            $lastDigit = $dividedRemaining;
+        }
+        else{
+            $lastDigit = 11 - $dividedRemaining;
+        }
+
+        if ((int) $nationalCode[9] == $lastDigit){
+            return true;
+        }
+        else{
+            return false;
+        }
+    }
+
+}
+
+///=====================================================
+
+function getLocationLogoSite(){
+    $dir = "images/site/site";
+    if(file_exists($dir.".webp")){
+        return asset($dir.".webp");
+    }
+    else if(file_exists($dir.".png")){
+        return asset($dir.".png");
+    }
+    else if(file_exists($dir.".jpg")){
+        return asset($dir.".jpg");
+    }
+    else if(file_exists($dir.".jpeg")){
+        return asset($dir.".jpeg");
+    }
+    return "";
+
+}
+
+//=======================================================
+function readyNumPage($page , $maxPage){
+    if ($page<1){
+        return 1;
+    }
+    else if ($page>$maxPage){
+        return (int) $maxPage;
+    }
+    return (int) $page;
+}
+
+function readyPageinate($PageTotal , $pageSelected){
+
+    if ($pageSelected < 1){
+        $pageSelected = 1;
+    }
+    else if ($pageSelected > $PageTotal){
+        $pageSelected = $PageTotal;
+    }
+
+
+    $startSeparate = true;
+    $endSeparate = true;
+    $min = 1;
+    $minPager = $pageSelected - 2;
+    $maxPager = $pageSelected + 2;
+    $max = $PageTotal;
+    if ($min >= $minPager){
+        $minPager = $min;
+        $startSeparate = false;
+    }
+    if ($max <= $maxPager){
+        $maxPager = $max;
+        $endSeparate = false;
+    }
+
+
+    $resultExp = [
+        "pagers" => [] ,
+        "pageSelected" => $pageSelected
+    ];
+
+    if ($startSeparate){
+        array_push($resultExp["pagers"] , [1]);
+    }
+
+    $res = [];
+    for ($i=$minPager ; $i<=$maxPager ; $i++){
+
+        array_push($res , $i);
+    }
+    array_push($resultExp["pagers"] , $res);
+
+    if ($endSeparate){
+        array_push($resultExp["pagers"] , [$PageTotal]);
+    }
+
+    //dd($minPager , $maxPager , $res);
+
+
+    return $resultExp;
+}

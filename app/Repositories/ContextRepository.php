@@ -10,6 +10,7 @@ use App\Repositories\InterFaceRepositories\Panels\IAdminUserRepository;
 use App\Repositories\InterFaceRepositories\Panels\IPanelGroupRepository;
 use App\Repositories\InterFaceRepositories\Panels\IPanelRepository;
 use App\Repositories\InterFaceRepositories\Publics\IUnitRepository;
+use App\Repositories\InterFaceRepositories\Users\IOtpRepository;
 use App\Repositories\InterFaceRepositories\Users\ISettingRepository;
 use App\Repositories\InterFaceRepositories\Users\IUserRepository;
 use App\Repositories\InterFaceRepositories\Users\IUserStoreRepository;
@@ -23,12 +24,12 @@ use App\Repositories\ModelRepositories\Panels\PanelGroupRepository;
 use App\Repositories\ModelRepositories\Panels\PanelRepository;
 use App\Repositories\ModelRepositories\Publics\UnitRepository;
 use App\Repositories\ModelRepositories\Publics\UserStoreRepository;
+use App\Repositories\ModelRepositories\Users\OtpRepository;
 use App\Repositories\ModelRepositories\Users\SettingRepository;
 use App\Repositories\ModelRepositories\Users\UserRepository;
 
 
 class ContextRepository{
-
 
     //// =============================================
     //// admin
@@ -129,11 +130,12 @@ class ContextRepository{
 
 
     //// =============================================
-    //// publics
+    //// public
     //// =============================================
 
     private static $settingRepository;
     private static $unitRepository;
+
 
     public static function SettingRepository() : ISettingRepository
     {
@@ -162,6 +164,7 @@ class ContextRepository{
 
     private static $userRepository;
     private static $userStoreRepository;
+    private static $otpRepository;
 
     public static function UserRepository() : IUserRepository
     {
@@ -177,6 +180,14 @@ class ContextRepository{
             self::$userStoreRepository = new UserStoreRepository();
         }
         return self::$userStoreRepository;
+    }
+
+    public static function OtpRepository() : IOtpRepository
+    {
+        if (self::$otpRepository == null){
+            self::$otpRepository = new OtpRepository();
+        }
+        return self::$otpRepository;
     }
 
 
