@@ -25,4 +25,20 @@ class AdminUserRepository extends BaseRepository implements IAdminUserRepository
 
 
 
+    function LoginUserAdmin(int $id)
+    {
+        $panelClass = $this->model->where("user_id" , $id)->first();
+        Auth::guard("admin")->login($panelClass);
+    }
+
+
+    function GetUserAdminAuth(){
+        return Auth::guard("admin")->user();
+    }
+
+
+    function GetPanelUserAdminAuth($adminUser)
+    {
+        return $adminUser->admin;
+    }
 }

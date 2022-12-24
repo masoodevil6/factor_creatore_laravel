@@ -14,12 +14,12 @@
                     }
                     @endphp
 
-                    <a href="@if($itemNav["route"] == "") # @else {{route($itemNav["route"] , $paramsRoute)}} @endif">
+                    <a class="px-2" href="@if($itemNav["route"] == "") # @else {{route($itemNav["route"] , $paramsRoute)}} @endif">
                         {{$itemNav["title"]}}
                     </a>
                 </li>
             @elseif($itemNav["current"] == 1)
-                <li class="breadcrumb-item active font-size-12" aria-current="page">
+                <li class="breadcrumb-item active font-size-12 my-2" aria-current="page">
                     {{$itemNav["title"]}}
                 </li>
             @endif

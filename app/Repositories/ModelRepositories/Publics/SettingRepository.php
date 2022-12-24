@@ -1,8 +1,8 @@
 <?php
-namespace App\Repositories\ModelRepositories\Users;
+namespace App\Repositories\ModelRepositories\Publics;
 
 use App\Models\Publics\Setting;
-use App\Repositories\InterFaceRepositories\Users\ISettingRepository;
+use App\Repositories\InterFaceRepositories\Publics\ISettingRepository;
 use App\Repositories\ModelRepositories\BaseRepository;
 
 class SettingRepository extends BaseRepository implements ISettingRepository {

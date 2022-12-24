@@ -12,11 +12,15 @@ interface IBaseRepository
 {
     function getAllResult();
 
+    function getPaginateResult($numInPage=15);
+
     function getResult($resultId) ;
 
     function addResult($result)  ;
 
-    function updateResult($result) : bool;
+    function changeStatusResult(Model $model , $field="status" , $defaultValue=null);
+
+    function updateResult(Model $result , $data) : bool;
 
     function deleteResult(Model $result) : bool ;
 

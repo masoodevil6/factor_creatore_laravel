@@ -17,7 +17,7 @@ class CreatePanelFormPanelGroupFormSeeder extends Seeder
         $panelGroupTitleEn = "Form";
         $panelIcon = "fa fa-archive";
         $panelName = "فرم ها";
-        $panelLink = "admin.public.form.index";
+        $panelLink = "admin.forms.form.index";
 
         new CreatePanelAdmin($panelGroupTitleEn , $panelIcon , $panelName , $panelLink);
     }

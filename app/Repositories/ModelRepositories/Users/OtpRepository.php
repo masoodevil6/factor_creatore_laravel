@@ -10,7 +10,7 @@ use Illuminate\Support\Str;
 
 class OtpRepository extends BaseRepository implements IOtpRepository {
 
-    private static $maxTimeRequest= 50;
+    private $maxTimeRequest= 5;
 
     public function __construct()
     {
@@ -35,7 +35,7 @@ class OtpRepository extends BaseRepository implements IOtpRepository {
             $lastRequest =
                 $this->model
                     ->where("user_id" , $userId)
-                    ->where("created_at" , ">=" , Carbon::now()->subMinutes(self::$maxTimeRequest)
+                    ->where("created_at" , ">=" , Carbon::now()->subMinutes($this->maxTimeRequest)
                     ->toDateTimeString())->first();
             if (empty($lastRequest)){
                 $status = true;
@@ -63,7 +63,7 @@ class OtpRepository extends BaseRepository implements IOtpRepository {
         $otp = $this->model
             ->where("token" , $token)
             ->where("used" , 0)
-            ->where("created_at" , ">=" , Carbon::now()->subMinutes(self::$maxTimeRequest)->toDateTimeString());
+            ->where("created_at" , ">=" , Carbon::now()->subMinutes($this->maxTimeRequest)->toDateTimeString());
         if ($userId > 0){
             $otp =$otp->where("user_id" , $userId);
         }
@@ -91,12 +91,8 @@ class OtpRepository extends BaseRepository implements IOtpRepository {
         return false;
     }
 
-    function getOtpToken(string $token)
+    function getMaxTimeRequest()
     {
-        return $this->model
-            ->where("token" , $token)
-            ->where("used" , 0)
-            ->where("created_at" , "<=" , Carbon::now()->subMinutes(self::$maxTimeRequest)->toDateTimeString())
-            ->first();
+        return $this->maxTimeRequest;
     }
 }

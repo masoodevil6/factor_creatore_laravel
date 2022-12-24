@@ -21,6 +21,12 @@ class BaseRepository  implements IBaseRepository {
         return $this->model->all();
     }
 
+    function getPaginateResult($numInPage = 15)
+    {
+        return $this->model->simplePaginate($numInPage);
+    }
+
+
     function getResult($resultId)
     {
         return  $this->model->find($resultId);
@@ -38,12 +44,46 @@ class BaseRepository  implements IBaseRepository {
     }
 
 
-    function updateResult($result) : bool
+    function changeStatusResult(Model $result, $field = "status" , $defaultValue=null)
+    {
+        $resultExp=[
+            "status" => true ,
+            "exp" => null
+        ];
+
+        $gotoRequest = false;
+        if ($defaultValue == null){
+            $gotoRequest = true;
+        }
+        else{
+            if (in_array($defaultValue, [0 , 1])){
+                $gotoRequest = true;
+            }
+        }
+
+        if ($gotoRequest){
+
+            if ($defaultValue == null){
+                $result[$field] = $result[$field] == 0 ? 1 : 0;
+            }
+            else{
+                $result[$field] = $defaultValue;
+            }
+            $this->save($result);
+
+            $resultExp["status"] = true;
+            $resultExp["exp"] = $this->resultJsonChangeStatus($result , $result[$field] , false , $field , $result[$field]);
+
+        }
+        return $resultExp;
+    }
+
+
+
+    function updateResult(Model $result , $data) : bool
     {
         try{
-
-            $this->model->update($result);
-            dd($this->model->update($result));
+            $result->update($data);
             return true;
         }
         catch (mysqli_sql_exception $e){
@@ -52,7 +92,7 @@ class BaseRepository  implements IBaseRepository {
     }
 
 
-    function deleteResult($result) : bool
+    function deleteResult(Model $result) : bool
     {
         try{
             if (get_class($result) == get_class($this->model)){
@@ -76,6 +116,36 @@ class BaseRepository  implements IBaseRepository {
     function save($model) : void
     {
         $model->save();
+    }
+
+
+
+
+    ////// ==========================================================
+    protected function resultJsonChangeStatus($resultAction , $fieldResult , $reverse = false , $field="status" , $finalValue=0){
+        if ($resultAction){
+            if ($fieldResult == 1){
+                if ($reverse){
+                    return response()->json(["status" => true , "checked" => false , "field" => $field  , "value" => $finalValue]);
+                }
+                else{
+                    return response()->json(["status" => true , "checked" => true , "field" => $field , "value" => $finalValue]);
+                }
+
+            }
+            else{
+                if ($reverse){
+                    return response()->json(["status" => true , "checked" => true , "field" => $field , "value" => $finalValue]);
+                }
+                else{
+                    return response()->json(["status" => true , "checked" => false , "field" => $field , "value" => $finalValue]);
+                }
+
+            }
+        }
+        else{
+            return response()->json(["status" => false]);
+        }
     }
 
 

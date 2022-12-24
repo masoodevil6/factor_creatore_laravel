@@ -4,6 +4,7 @@ namespace App\Repositories\ModelRepositories\Panels;
 use App\Models\Panel\Admin;
 use App\Repositories\InterFaceRepositories\Panels\IAdminRepository;
 use App\Repositories\ModelRepositories\BaseRepository;
+use Illuminate\Support\Facades\Hash;
 
 class AdminRepository extends BaseRepository implements IAdminRepository {
 
@@ -32,5 +33,10 @@ class AdminRepository extends BaseRepository implements IAdminRepository {
     public function AdminAttachUser(Admin $admin, int $userId, string $password): void
     {
         $admin->users()->sync([$userId => ["status" => 1 , "password" => Hash::make($password)]]);
+    }
+
+    function SyncPanelForAdminPanel(Admin $admin, array $data)
+    {
+        $admin->panels()->sync($data);
     }
 }

@@ -17,7 +17,7 @@ class CreatePanelFormCategoryPanelGroupFormSeeder extends Seeder
         $panelGroupTitleEn = "Form";
         $panelIcon = "fa fa-th-list";
         $panelName = "دسته بندی فرم ها";
-        $panelLink = "admin.public.form-category.index";
+        $panelLink = "admin.forms.form-category.index";
 
         new CreatePanelAdmin($panelGroupTitleEn , $panelIcon , $panelName , $panelLink);
     }

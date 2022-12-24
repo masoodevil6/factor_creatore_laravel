@@ -7,6 +7,8 @@ use App\Http\Requests\Auth\Admin\LoginAdminRequest;
 use App\Http\Services\RedirectRoute\RedirectRouteService;
 use App\Models\AdminUser;
 use App\Providers\RouteServiceProvider;
+use App\Repositories\ContextRepository;
+use App\Repositories\ModelRepositories\Panels\AdminUserRepository;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
@@ -16,7 +18,16 @@ use function Symfony\Component\Mime\Header\get;
 class LoginAdminPanelCustomerController extends Controller
 {
 
-    //use AuthenticatableUser;
+    private $adminUserRepository;
+    private $userRepository;
+
+    public function __construct()
+    {
+        $this->adminUserRepository = ContextRepository::AdminUserRepository();
+        $this->userRepository = ContextRepository::UserRepository();
+    }
+
+
 
     public function formLogin(){
 
@@ -25,8 +36,7 @@ class LoginAdminPanelCustomerController extends Controller
             $isMaxRequest = $_GET["is-max-request"];
         }
 
-        //dd(Auth::guard("admin")->check());
-        $user = Auth::user();
+        $user = $this->userRepository->GetUserAuthInfo();
 
         return view("admin.auth.index" , compact("user" , "isMaxRequest"));
     }
@@ -37,15 +47,14 @@ class LoginAdminPanelCustomerController extends Controller
 
         $myPassword = $request->get("password");
 
-        $user= Auth::user();
+        $user = $this->userRepository->GetUserAuthInfo();
+        $panel = $this->userRepository->GetUserPanelAuthAdminInfo($user);
 
-        $panel = $user->admins()->first();
         if (!empty($panel)){
-            $password = $panel->pivot->password;
+            $password =  $this->userRepository->GetUserPasswordAuthPanelAdmin($panel);
 
             if (Hash::check($myPassword , $password)){
-                $panelClass = AdminUser::where("user_id" , $user->id)->first();
-                Auth::guard("admin")->login($panelClass);
+                $this->adminUserRepository->LoginUserAdmin($user->id);
                 return redirect()->route("admin.home");
             }
             else{

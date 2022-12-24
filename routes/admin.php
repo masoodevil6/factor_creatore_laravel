@@ -4,12 +4,11 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\Home\HomeAdminController;
 use App\Http\Controllers\Admin\Password\PasswordAdminController;
 
-use App\Http\Controllers\Admin\Users\UserCommentAdminController;
 use App\Http\Controllers\Admin\Panel\PanelAdminController;
 use App\Http\Controllers\Admin\Panel\UserAdminController;
 use App\Http\Controllers\Admin\Publics\PublicSettingAdminController;
-use App\Http\Controllers\Admin\Users\TicketCategoriesAdminController;
-use App\Http\Controllers\Admin\Users\TicketsAdminController;
+use App\Http\Controllers\Admin\Publics\UnitAdminController;
+use App\Http\Controllers\Admin\Form\FormCategoryController;
 
 
 
@@ -22,6 +21,8 @@ Route::namespace("Password")->prefix("password")->controller(PasswordAdminContro
     Route::get("request/{requestChangePassword:token}" , "getRequestTokenForChangePassword")->name("admin.password.get-request-token");
 
 });
+
+
 
 
 
@@ -41,14 +42,161 @@ Route::namespace("Home")->group(function (){
 
 
 
+/// =================================================
+/// admin Panel
+/// =================================================
+
+Route::namespace("Panel")->group(function (){
+
+    Route::prefix("admin")->controller(PanelAdminController::class)->group(function (){
+
+        Route::get("/" , "index")->name("admin.panel.admin.index");
+
+        Route::get("/create" , "create")->name("admin.panel.admin.create");
+        Route::post("/store" , "store")->name("admin.panel.admin.store");
+
+        Route::get("/edit/{admin}" , "edit")->name("admin.panel.admin.edit");
+        Route::post("/update/{admin}" , "update")->name("admin.panel.admin.update");
+
+        Route::get("/panels/{admin}" , "panels")->name("admin.panel.admin.panels");
+        Route::post("/store-panels/{admin}" , "storePanels")->name("admin.panel.admin.storePanels");
+
+        Route::delete("/destroy/{admin}" ,  "destroy")->name("admin.panel.admin.destroy");
+
+        Route::post("/status/{admin}" , "status")->name("admin.panel.admin.status");
+    });
+
+    Route::prefix("user-admin")->controller(UserAdminController::class)->group(function (){
+
+        Route::get("/" , "index")->name("admin.panel.user-admin.index");
+
+        Route::get("/create" , "create")->name("admin.panel.user-admin.create");
+        Route::post("/store" , "store")->name("admin.panel.user-admin.store");
+
+        Route::get("/edit/{user:email}" , "edit")->name("admin.panel.user-admin.edit");
+        Route::put("/update/{user:email}" , "update")->name("admin.panel.user-admin.update");
+
+        Route::delete("/destroy/{user:email}" ,  "destroy")->name("admin.panel.user-admin.destroy");
+
+        Route::post("/status/{user:email}" , "status")->name("admin.panel.user-admin.status");
+    });
+});
+
+
+
+
 
 /// =================================================
-/// User Page Admin
+/// public setting
+/// =================================================
+
+Route::namespace("Publics")->group(function (){
+
+    Route::prefix("setting")->controller(PublicSettingAdminController::class)->group(function (){
+
+        Route::get("/" , "index")->name("admin.public.setting.index");
+        Route::post("/update" , "update")->name("admin.public.setting.update");
+
+    });
+
+
+    Route::prefix("unit")->controller(UnitAdminController::class)->group(function (){
+
+        Route::get("/" , "index")->name("admin.public.unit.index");
+
+        Route::get("/create" , "create")->name("admin.public.unit.create");
+        Route::post("/store" , "store")->name("admin.public.unit.store");
+
+        Route::get("/edit/{unit}" , "edit")->name("admin.public.unit.edit");
+        Route::put("/update/{unit}" , "update")->name("admin.public.unit.update");
+
+        Route::delete("/destroy/{unit}" ,  "destroy")->name("admin.public.unit.destroy");
+
+    });
+
+});
+
+
+
+
+
+
+/// =================================================
+/// form panel
+/// =================================================
+
+
+Route::namespace("Factors")->group(function (){
+
+    Route::prefix("factor")->group(function (){
+
+        Route::get("/" , function (){})->name("admin.factors.factor.index");
+
+    });
+
+});
+
+
+
+
+/// =================================================
+/// form panel
+/// =================================================
+
+Route::namespace("Form")->group(function (){
+
+    Route::prefix("form-category")->controller(FormCategoryController::class)->group(function (){
+
+        Route::get("/" , "index")->name("admin.forms.form-category.index");
+
+        Route::get("/create" , "create")->name("admin.forms.form-category.create");
+        Route::post("/store" , "store")->name("admin.forms.form-category.store");
+
+        Route::get("/edit/{formCategory}" , "edit")->name("admin.forms.form-category.edit");
+        Route::put("/update/{formCategory}" , "update")->name("admin.forms.form-category.update");
+
+        Route::delete("/destroy/{formCategory}" ,  "destroy")->name("admin.forms.form-category.destroy");
+
+        Route::post("/status/{formCategory}" , "status")->name("admin.forms.form-category.status");
+
+    });
+
+
+    Route::prefix("form")->group(function (){
+
+        Route::get("/" , function (){})->name("admin.forms.form.index");
+
+    });
+
+
+});
+
+
+
+
+
+
+/// =================================================
+/// user panel
 /// =================================================
 
 Route::namespace("Users")->group(function (){
 
-    Route::prefix("comments")->controller(UserCommentAdminController::class)->group(function (){
+    Route::prefix("user")->group(function (){
+
+        Route::get("/" , function (){})->name("admin.users.user.index");
+
+    });
+
+
+    Route::prefix("user-store")->group(function (){
+
+        Route::get("/" , function (){})->name("admin.users.user-store.index");
+
+    });
+
+
+    /*Route::prefix("comments")->controller(UserCommentAdminController::class)->group(function (){
 
         Route::get("/" , "index")->name("admin.user.comments.index");
 
@@ -88,7 +236,9 @@ Route::namespace("Users")->group(function (){
         Route::post("/submit-answer/{ticketFolder}" , "submitAnswer")->name("admin.user.tickets.submit-answer");
         Route::post("/change-status/{ticketFolder}" , "changeStatusTicket")->name("admin.user.tickets.change-status");
 
-    });
+    });*/
+
+
 
 });
 
@@ -96,65 +246,3 @@ Route::namespace("Users")->group(function (){
 
 
 
-/// =================================================
-/// admin Panel
-/// =================================================
-
-Route::namespace("Panel")->group(function (){
-
-    Route::prefix("admin")->controller(PanelAdminController::class)->group(function (){
-
-        Route::get("/" , "index")->name("admin.panel.admin.index");
-
-        Route::get("/create" , "create")->name("admin.panel.admin.create");
-        Route::post("/store" , "store")->name("admin.panel.admin.store");
-
-        Route::get("/edit/{admin}" , "edit")->name("admin.panel.admin.edit");
-        Route::post("/update/{admin}" , "update")->name("admin.panel.admin.update");
-
-        Route::get("/panels/{admin}" , "panels")->name("admin.panel.admin.panels");
-        Route::post("/store-panels/{admin}" , "storePanels")->name("admin.panel.admin.storePanels");
-
-        Route::delete("/destroy/{admin}" ,  "destroy")->name("admin.panel.admin.destroy");
-
-        Route::post("/status/{admin}" , "status")->name("admin.panel.admin.status");
-    });
-
-
-    Route::prefix("user-admin")->controller(UserAdminController::class)->group(function (){
-
-        Route::get("/" , "index")->name("admin.panel.user-admin.index");
-
-        Route::get("/create" , "create")->name("admin.panel.user-admin.create");
-        Route::post("/store" , "store")->name("admin.panel.user-admin.store");
-
-        Route::get("/edit/{user:email}" , "edit")->name("admin.panel.user-admin.edit");
-        Route::put("/update/{user:email}" , "update")->name("admin.panel.user-admin.update");
-
-        Route::delete("/destroy/{user:email}" ,  "destroy")->name("admin.panel.user-admin.destroy");
-
-        Route::post("/status/{user:email}" , "status")->name("admin.panel.user-admin.status");
-    });
-
-});
-
-
-
-
-
-
-/// =================================================
-/// public setting
-/// =================================================
-
-Route::namespace("Publics")->group(function (){
-
-    Route::prefix("setting")->controller(PublicSettingAdminController::class)->group(function (){
-
-        Route::get("/" , "index")->name("admin.public.setting.index");
-        Route::post("/update" , "update")->name("admin.public.setting.update");
-
-    });
-
-
-});

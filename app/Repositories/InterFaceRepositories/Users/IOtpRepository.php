@@ -14,6 +14,8 @@ interface IOtpRepository extends IBaseRepository {
 
     function getTypeValueOtp($typeId);
 
-    function getOtpToken(string $token);
+    function getMaxTimeRequest();
+
+
 
 }

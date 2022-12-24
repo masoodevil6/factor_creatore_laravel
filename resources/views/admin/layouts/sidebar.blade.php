@@ -9,7 +9,7 @@
                     پنل:
                 </section>
                 <section class="col-8">
-                    {{--{{$panelName}}--}}
+                    {{$panelName}}
                 </section>
             </section>
 

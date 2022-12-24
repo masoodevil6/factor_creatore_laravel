@@ -4,7 +4,10 @@ namespace App\Models\Users;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 use App\Models\Factors\Factor;
+use App\Models\Panel\Admin;
+use App\Models\Panel\AdminUser;
 use App\Models\Users\UserStore;
+use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
@@ -47,11 +50,25 @@ class User extends Authenticatable
 
 
     ///==============================================
+    /// functions
+    /// ==============================================
+
+    public static function fullName() :Attribute{
+
+        return Attribute::make(
+            get: fn($value , $attr) => ($attr["name"] !="" || $attr["family"] != "" ) ? $attr["name"]." ".$attr["family"] : "کاربر"
+        );
+    }
+
+
+    ///==============================================
     /// Relations
     /// ==============================================
 
     //// belongsTo
-
+    public function admins(){
+        return $this->belongsToMany(Admin::class)->withPivot("status" , "password");
+    }
 
     //// hasMany
     public function factors(){
@@ -64,5 +81,10 @@ class User extends Authenticatable
 
     public function otps(){
         return $this->hasMany(Otp::class);
+    }
+
+
+    public function admin(){
+        return $this->hasOne(AdminUser::class);
     }
 }

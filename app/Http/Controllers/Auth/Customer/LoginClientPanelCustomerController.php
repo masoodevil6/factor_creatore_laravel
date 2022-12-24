@@ -115,7 +115,7 @@ class LoginClientPanelCustomerController extends Controller
         }
         else if ($redirect == null && $otp != null){
 
-            $maxTime = (new \Carbon\Carbon($otp->created_at))->addMinutes(5)->timestamp;
+            $maxTime = $this->otpRepository->getMaxTimeRequest();
 
             $now = Carbon::now()->timestamp;
 
@@ -141,11 +141,11 @@ class LoginClientPanelCustomerController extends Controller
 
             if ($otp->type == 0 && empty($user->mobile_verified_at)){
                 $user -> mobile_verified_at = Carbon::now();
-                $user->save();
+                $this->userRepository->save($user);
             }
             else if ($otp->type == 1 && empty($user->email_verified_at)){
                 $user -> email_verified_at = Carbon::now();
-                $user->save();
+                $this->userRepository->save($user);
             }
 
             Auth::login($user);
@@ -159,14 +159,9 @@ class LoginClientPanelCustomerController extends Controller
 
 
 
-
-
-
-
-
     public function resendToken($token){
 
-        $otp = $this->otpRepository->getOtpToken($token);
+        $otp = $this->otpRepository->existOtpRequest($token);
 
         $newToken = null;
         if (!empty($otp)){

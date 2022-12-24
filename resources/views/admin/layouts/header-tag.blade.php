@@ -147,7 +147,7 @@
 
                 </span>--}}
 
-                {{--<span class=" ml-3 ml-md-5 position-relative">
+                <span class=" ml-3 ml-md-5 position-relative">
 
                     <span id="header-profile-toggle" class="pointer">
                         <i class="fa fa-user-circle-o" aria-hidden="true"></i>
@@ -157,29 +157,26 @@
 
                     <section id="header-profile" class="header-profile rounded">
                         <section class="list-group rounded">
-                            <a href="#" class="d-flex justify-content-between list-group-item list-group-item-action header-profile-link">
+
+                            <a href="{{route("admin.public.setting.index")}}" class="d-flex justify-content-between list-group-item list-group-item-action header-profile-link">
                                 <span class="header-profile-icon">
                                     <i class="fas fa-cog"></i>
                                 </span>
                                 <span class="header-profile-title">تنظیمات</span>
                             </a>
+
                             <a href="#" class="d-flex justify-content-between list-group-item list-group-item-action header-profile-link">
                                 <span class="header-profile-icon">
                                     <i class="fas fa-user"></i>
                                 </span>
                                 <span class="header-profile-title">کاربر</span>
                             </a>
+
                             <a href="#" class="d-flex justify-content-between list-group-item list-group-item-action header-profile-link">
                                 <span class="header-profile-icon">
                                     <i class="far fa-envelope"></i>
                                 </span>
                                 <span class="header-profile-title">پیام ها</span>
-                            </a>
-                            <a href="#" class="d-flex justify-content-between list-group-item list-group-item-action header-profile-link">
-                                <span class="header-profile-icon">
-                                    <i class="fas fa-lock"></i>
-                                </span>
-                                <span class="header-profile-title">قفل صفحه</span>
                             </a>
 
                             <a href="{{route("admin.password.change-password")}}" class="d-flex justify-content-between list-group-item list-group-item-action header-profile-link">
@@ -198,7 +195,7 @@
                         </section>
                     </section>
 
-                </span>--}}
+                </span>
 
             </section>
 

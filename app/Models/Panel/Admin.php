@@ -2,8 +2,8 @@
 
 namespace App\Models\Panel;
 
-use App\Models\Users;
 
+use App\Models\Users\User;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -31,16 +31,11 @@ class Admin extends Model
 
 
 
-
-
     ///==============================================
     /// Relations
     /// ==============================================
 
     //// belongsTo
-
-
-    //// belongsToMany
     public function panels(){
         return $this->belongsToMany(Panel::class)->orderBy("id");
     }

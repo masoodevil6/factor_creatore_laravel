@@ -7,12 +7,14 @@ use App\Http\Requests\Admin\Admin\AdminPanelsRequest;
 use App\Http\Requests\Admin\Admin\AdminRequest;
 use App\Models\Panel\Admin;
 use App\Models\Panel\Panel;
+use App\Repositories\ContextRepository;
 use Illuminate\Http\Request;
 use function Symfony\Component\HttpFoundation\add;
 use function Symfony\Component\Mime\getTo;
 
 class PanelAdminController extends MainAdminController
 {
+
 
     function __construct()
     {
@@ -50,7 +52,7 @@ class PanelAdminController extends MainAdminController
             "part"=> "بخش مدیریت ادمین ها",
             "navigation" =>[
                 [
-                    "route" => "admin.user.comments.index" ,
+                    "route" => "admin.panel.admin.index" ,
                     "current" => 0,
                     "title" => "لیست پنل ها"
                 ],
@@ -70,7 +72,7 @@ class PanelAdminController extends MainAdminController
     {
         $input = $request->all();
 
-        Admin::create($input);
+        ContextRepository::AdminRepository()->addResult($input);
 
         return $this ->redirectIndex("پنل جدید با موفقیت اضافه شد");
     }
@@ -88,7 +90,7 @@ class PanelAdminController extends MainAdminController
             "part"=> "بخش مدیریت ادمین ها",
             "navigation" =>[
                 [
-                    "route" => "admin.user.comments.index" ,
+                    "route" => "admin.panel.admin.index" ,
                     "current" => 0,
                     "title" => "لیست پنل ها"
                 ],
@@ -108,7 +110,7 @@ class PanelAdminController extends MainAdminController
         if ($this->checkNormalPanel($admin)){
             $input = $request->all();
 
-            $admin->update($input);
+            ContextRepository::AdminRepository()->updateResult($admin , $input);
 
             return $this ->redirectIndex("پنل مورد نظر با موفقیت ویرایش شد");
         }
@@ -127,12 +129,12 @@ class PanelAdminController extends MainAdminController
             "part"=> "بخش مدیریت ادمین ها",
             "navigation" =>[
                 [
-                    "route" => "admin.user.comments.index" ,
+                    "route" => "admin.panel.admin.index" ,
                     "current" => 0,
                     "title" => "لیست پنل ها"
                 ],
                 [
-                    "route" => "admin.panel.admin.index" ,
+                    "route" => "admin.panel.admin.panels" ,
                     "valueRoute" => $admin->id ,
                     "current" => 0,
                     "title" => "پنل ".$admin->title
@@ -145,7 +147,8 @@ class PanelAdminController extends MainAdminController
             ]
         ];
 
-        $panels = Panel::all();
+        $panels = ContextRepository::PanelRepository()->getAllResult();
+
         $panels = $this->getTotalListPanels($panels , $admin);
 
         return view("admin.admin.admin.list-panels" , compact("nav" , "admin" , "panels"));
@@ -156,7 +159,7 @@ class PanelAdminController extends MainAdminController
         if ($this->checkNormalPanel($admin)){
             $inputs = $request->all()["panels"];
 
-            $admin->panels()->sync($inputs);
+            ContextRepository::AdminRepository()->SyncPanelForAdminPanel($admin , $inputs);
 
             return $this ->redirectIndex("دسترسی ها پنل با موفقیت ثبت گردید");
         }
@@ -167,10 +170,12 @@ class PanelAdminController extends MainAdminController
 
 
 
-    public function destroy(AdminRequest $admin)
+    public function destroy(Admin $admin)
     {
         if ($this->checkNormalPanel($admin)){
-            $admin->delete();
+
+            ContextRepository::AdminRepository()->deleteResult($admin);
+
             return $this ->redirectIndex("پنل مورد نظر با موفقیت حذف شد");
         }
         return $this->redirectErrorAccess();
@@ -196,7 +201,8 @@ class PanelAdminController extends MainAdminController
     /// =======================================
 
     private function getPublicListAdminPanels(){
-        $admins = Admin::all();
+
+        $admins = ContextRepository::AdminRepository()->getAllResult();
 
         foreach ($admins As $key => $itemAdmin){
             if ($itemAdmin["main"] != 0){

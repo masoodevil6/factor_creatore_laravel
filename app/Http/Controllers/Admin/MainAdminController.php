@@ -6,6 +6,7 @@ use App\Http\Services\File\FileService;
 use App\Http\Services\Images\ImageService;
 use App\Http\Services\RedirectRoute\RedirectRouteService;
 use App\Models\Panel\PanelGroup;
+use App\Repositories\ContextRepository;
 use Illuminate\Auth\Authenticatable;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
@@ -157,7 +158,9 @@ class MainAdminController extends BaseController
     }
 
 
-    //// change status 0 and 1
+
+
+    /*//// change status 0 and 1
     protected function changeStatus(Model $model , $field="status" , $defaultValue=null)
     {
         $gotoRequest = false;
@@ -210,7 +213,7 @@ class MainAdminController extends BaseController
         else{
             return response()->json(["status" => false]);
         }
-    }
+    }*/
 
 
 
@@ -236,9 +239,8 @@ class MainAdminController extends BaseController
 
         if (Auth::guard("admin")->check()){
 
-            $adminUser= Auth::guard("admin")->user();
-            $panelAdmin = $adminUser->admin;
-
+            $adminUser = ContextRepository::AdminUserRepository()->GetUserAdminAuth();
+            $panelAdmin = ContextRepository::AdminUserRepository()->GetPanelUserAdminAuth($adminUser);
 
             $panelAdminTitle = $panelAdmin->title;
 
@@ -247,8 +249,6 @@ class MainAdminController extends BaseController
                 if ($panelAdmin->status == 1 && $adminUser->status ==1){
 
                     $listPanels = $panelAdmin->panels;
-
-
 
                     $panels = $this->getTotalListPanels($listPanels);
 

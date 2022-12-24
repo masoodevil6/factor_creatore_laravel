@@ -2,11 +2,13 @@
 
 namespace App\Models\Panel;
 
+use App\Models\Users\User;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Database\Eloquent\Model;
 use function Symfony\Component\Mime\Header\get;
 
-class AdminUser extends Model
+class AdminUser extends Authenticatable
 {
     use HasFactory;
     protected $table = "admin_user";

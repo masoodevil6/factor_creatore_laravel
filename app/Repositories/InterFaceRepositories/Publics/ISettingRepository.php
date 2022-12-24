@@ -1,5 +1,5 @@
 <?php
-namespace App\Repositories\InterFaceRepositories\Users;
+namespace App\Repositories\InterFaceRepositories\Publics;
 
 
 use App\Repositories\InterFaceRepositories\IBaseRepository;

@@ -3,12 +3,11 @@
 namespace App\Http\Controllers\Admin\Panel;
 
 use App\Http\Controllers\Admin\MainAdminController;
-use App\Http\Controllers\PanelCustomerController;
+
 use App\Http\Requests\Admin\Admin\UserAdminRequest;
-use App\Models\Panel\Admin;
-use App\Models\User;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Hash;
+use App\Models\Users\User;
+use App\Repositories\ContextRepository;
+
 
 class UserAdminController extends MainAdminController
 {
@@ -59,7 +58,7 @@ class UserAdminController extends MainAdminController
             ]
         ];
 
-        $admins = Admin::all();
+        $admins = ContextRepository::AdminRepository()->getAllResult();
 
         return view("admin.admin.user-admin.create" , compact("nav" , "admins"));
     }
@@ -69,9 +68,7 @@ class UserAdminController extends MainAdminController
     {
         $inputs = $request->all();
 
-        $user=User::where("email" , $inputs["user_email"])->first();
-
-        $user->admins()->sync([$inputs["admin_id"]=>["status"=> $inputs["status"] , "password" => Hash::make("md1401")]]);
+        ContextRepository::UserRepository()->SyncPanelUserAdmin($inputs["user_email"] , $inputs["admin_id"] , $inputs["status"]);
 
         return $this ->redirectIndex("موقعیت پنل کاربر مورد نظر با موفقیت تعییر یافت");
     }
@@ -98,7 +95,7 @@ class UserAdminController extends MainAdminController
             ]
         ];
 
-        $admins = Admin::all();
+        $admins = ContextRepository::AdminRepository()->getAllResult();
 
         return view("admin.admin.user-admin.create" , compact("nav" , "admins" , "user"));
     }
@@ -108,7 +105,7 @@ class UserAdminController extends MainAdminController
     {
         $inputs = $request->all();
 
-        $user->admins()->updateExistingPivot($user->admins->get(0) , [ "admin_id" => $inputs["admin_id"] , "status"=> $inputs["status"]]);
+        ContextRepository::UserRepository()->UpdatePanelUserAdmin($user , $inputs["admin_id"] , $inputs["status"] );
 
         return $this ->redirectIndex("موقعیت پنل کاربر مورد نظر با موفقیت تعییر یافت");
     }
@@ -120,7 +117,8 @@ class UserAdminController extends MainAdminController
 
     public function destroy(User $user)
     {
-        $user->admins()->detach();
+        ContextRepository::UserRepository()->DetachPanelUserAdmin($user);
+
         return $this ->redirectIndex("کاربر مورد نظر از لیست ادیمن ها، با موفقیت حذف شد");
     }
 
@@ -149,12 +147,14 @@ class UserAdminController extends MainAdminController
 
 
 
+
     //// ==============================================
     /// Model
     /// ===============================================
 
     private function getAllUserAdmin(){
-        $admins = Admin::all();
+
+        $admins = ContextRepository::AdminRepository()->getAllResult();
 
         $resultExp = [];
         foreach ($admins As $itemAdmin){

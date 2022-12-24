@@ -68,6 +68,7 @@ class PanelAdmin{
             $user = $this->userRepository->GetUserWithEmail($userEmail);
 
             if (!empty($user)){
+                $this->userRepository->DetachAllPanelUserAdmin($user->id );
                 $this->adminRepository->AdminAttachUser($panelMinAdmin , $user->id , $passwordAdmin);
             }
             else{
