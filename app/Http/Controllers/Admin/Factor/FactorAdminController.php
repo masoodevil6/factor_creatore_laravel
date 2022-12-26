@@ -8,8 +8,6 @@ use App\Http\Services\Forms\BaseFormToolService;
 use App\Http\Services\Forms\FactorService;
 use App\Models\Factors\Factor;
 use App\Repositories\ContextRepository;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Storage;
 
 class FactorAdminController extends MainAdminController
 {
@@ -41,8 +39,6 @@ class FactorAdminController extends MainAdminController
 
 
 
-
-
     public function show(Factor $factor){
         /// navigation page
         $nav = [
@@ -61,10 +57,10 @@ class FactorAdminController extends MainAdminController
             ]
         ];
 
-        $dataFactor = new BaseFormToolService($factor);
-        $factorInfo = $dataFactor->getFactorModel();
-        $products = $dataFactor->getProducts();
-        $totalPrice = $dataFactor->getTotalPrice();
+        $dataFactor = $this->getModelInfoFactor($factor);
+        $factorInfo = $dataFactor["factorInfo"];
+        $products = $dataFactor["products"];
+        $totalPrice = $dataFactor["totalPrice"];
 
         $forms = ContextRepository::FormRepository()->getAllResult();
 
@@ -87,8 +83,6 @@ class FactorAdminController extends MainAdminController
 
 
 
-
-
     public function destroy(Factor $factor){
         ContextRepository::FactorRepository()->deleteResult($factor);
         return $this ->redirectIndex("فاکتور با موفقیت حذف شد");
@@ -104,12 +98,21 @@ class FactorAdminController extends MainAdminController
 
 
 
-    public function download(Factor $factor){
-        $location = "users/".$factor->user_id."/factors/".$factor->res_num.".pdf";
-        if (Storage::exists($location)){
-            return Storage::download($location);
-        }
-        return abort(404);
+    public function download(Factor $factor , FactorService $factorService){
+        return $factorService->downloadFactor($factor);
     }
 
+
+
+
+
+    ////// =======================================
+    private function getModelInfoFactor(Factor $factor){
+        $dataFactor = new BaseFormToolService($factor);
+        return[
+            "factorInfo" => $dataFactor->getFactorModel(),
+            "products" => $dataFactor->getProducts(),
+            "totalPrice" => $dataFactor->getTotalPrice(),
+        ];
+    }
 }

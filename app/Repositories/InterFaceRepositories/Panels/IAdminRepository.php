@@ -17,4 +17,6 @@ interface IAdminRepository extends IBaseRepository {
     function AdminAttachUser(Admin $admin , int $userId , string $password) : void;
 
     function SyncPanelForAdminPanel(Admin $admin , array $data);
+
+
 }

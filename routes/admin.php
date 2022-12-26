@@ -21,7 +21,8 @@ Route::namespace("Password")->prefix("password")->controller(PasswordAdminContro
 
     Route::Post("change" , "sendTokenForChangePassword")->name("admin.password.send-token");
 
-    Route::get("request/{requestChangePassword:token}" , "getRequestTokenForChangePassword")->name("admin.password.get-request-token");
+    Route::get("request/{token}" , "getRequestTokenForChangePassword")->name("admin.password.get-request-token");
+    //Route::get("request/{requestChangePassword:token}" , "getRequestTokenForChangePassword")->name("admin.password.get-request-token");
 
 });
 

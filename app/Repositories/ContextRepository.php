@@ -9,6 +9,7 @@ use App\Repositories\InterFaceRepositories\Panels\IAdminRepository;
 use App\Repositories\InterFaceRepositories\Panels\IAdminUserRepository;
 use App\Repositories\InterFaceRepositories\Panels\IPanelGroupRepository;
 use App\Repositories\InterFaceRepositories\Panels\IPanelRepository;
+use App\Repositories\InterFaceRepositories\Panels\IRequestChangePasswordRepository;
 use App\Repositories\InterFaceRepositories\Publics\ISettingRepository;
 use App\Repositories\InterFaceRepositories\Publics\IUnitRepository;
 use App\Repositories\InterFaceRepositories\Users\IOtpRepository;
@@ -22,6 +23,7 @@ use App\Repositories\ModelRepositories\Panels\AdminRepository;
 use App\Repositories\ModelRepositories\Panels\AdminUserRepository;
 use App\Repositories\ModelRepositories\Panels\PanelGroupRepository;
 use App\Repositories\ModelRepositories\Panels\PanelRepository;
+use App\Repositories\ModelRepositories\Panels\RequestChangePasswordRepository;
 use App\Repositories\ModelRepositories\Publics\SettingRepository;
 use App\Repositories\ModelRepositories\Publics\UnitRepository;
 use App\Repositories\ModelRepositories\Users\OtpRepository;
@@ -39,6 +41,7 @@ class ContextRepository{
     private static $adminUserRepository;
     private static $panelGroupRepository;
     private static $panelRepository;
+    private static $requestChangePasswordRepository;
 
     public static function AdminRepository() : IAdminRepository
     {
@@ -68,6 +71,14 @@ class ContextRepository{
     {
         if (self::$panelRepository == null){
             self::$panelRepository = new PanelRepository();
+        }
+        return self::$panelRepository;
+    }
+
+    public static function RequestChangePasswordRepository() : IRequestChangePasswordRepository
+    {
+        if (self::$panelRepository == null){
+            self::$panelRepository = new RequestChangePasswordRepository();
         }
         return self::$panelRepository;
     }

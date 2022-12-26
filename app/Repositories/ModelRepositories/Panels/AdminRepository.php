@@ -4,6 +4,7 @@ namespace App\Repositories\ModelRepositories\Panels;
 use App\Models\Panel\Admin;
 use App\Repositories\InterFaceRepositories\Panels\IAdminRepository;
 use App\Repositories\ModelRepositories\BaseRepository;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 
 class AdminRepository extends BaseRepository implements IAdminRepository {

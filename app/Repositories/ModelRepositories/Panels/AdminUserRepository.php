@@ -5,6 +5,7 @@ use App\Models\Panel\AdminUser;
 use App\Repositories\InterFaceRepositories\Panels\IAdminUserRepository;
 use App\Repositories\ModelRepositories\BaseRepository;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 
 class AdminUserRepository extends BaseRepository implements IAdminUserRepository {
 
@@ -40,5 +41,16 @@ class AdminUserRepository extends BaseRepository implements IAdminUserRepository
     function GetPanelUserAdminAuth($adminUser)
     {
         return $adminUser->admin;
+    }
+
+
+    function GetEmailAdminAuth($password)
+    {
+        $adminPanel = $this->GetUserAdminAuth();
+        if (Hash::check($password , $adminPanel->password)){
+
+            return $adminPanel->user -> email;
+        }
+        return null;
     }
 }

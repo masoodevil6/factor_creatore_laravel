@@ -3,25 +3,17 @@
 namespace App\Http\Controllers\Admin\Password;
 
 use App\Http\Controllers\Admin\MainAdminController;
-use App\Http\Controllers\PanelCustomerController;
+
 use App\Http\Requests\Admin\Password\PasswordRequest;
 use App\Http\Services\Messages\Email\EmailService;
 use App\Http\Services\Messages\MessageService;
-use App\Models\AdminUser;
-use App\Models\Publics\Setting;
-use App\Models\RequestChangePassword;
-use App\Models\User;
-use Carbon\Carbon;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
+use App\Repositories\ContextRepository;
 use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Str;
-use Nette\Utils\DateTime;
+
 
 class PasswordAdminController extends MainAdminController
 {
 
-    private $expireRequestTokenMinute = 30;
 
 
     function __construct()
@@ -45,40 +37,28 @@ class PasswordAdminController extends MainAdminController
     }
 
 
+
     public function sendTokenForChangePassword(PasswordRequest $request){
 
         $data = $request->all();
 
-        $adminPanel = Auth::guard("admin")->user();
-        $adminPanelPassword = $adminPanel->password;
+        $userEmail = ContextRepository::AdminUserRepository()->GetEmailAdminAuth($data["last_password"]);
 
-        if (Hash::check($data["last_password"] , $adminPanelPassword)){
-            $user = $adminPanel->user;
-            $token =  Str::random(35);
+        if (!empty($userEmail)){
 
-            $existRequest = RequestChangePassword::where("user_email" , $user->email )->first();
+            if (ContextRepository::RequestChangePasswordRepository()->CheckExistLastRequest($userEmail)){
 
-            if (empty($existRequest) || (!empty($existRequest) && Carbon::parse($existRequest-> created_at)->addMinutes($this->expireRequestTokenMinute) < Carbon::now())){
-                RequestChangePassword::create([
-                    "user_email" => $user->email ,
-                    "user_password" => Hash::make($data["password"]) ,
-                    "token" => $token,
-                    "active" => 1
-                ]);
+                $token = ContextRepository::RequestChangePasswordRepository()->CreateRequestToken($userEmail ,$data["password"]);
 
-                $this->sendTokenEmailForClient($token , $user->email);
+                $this->sendTokenEmailForClient($token , $userEmail);
 
                 return $this->redirectIndex("ایمیل تایید درخواست برای شما ارسال گشت");
             }
-            else{
-                return $this->redirectIndex("شما در طول 30 دقیقه گذشته درخواستی تغییر رمزی را ارسال کرده اید [محدودیت درخواست]" , true);
-            }
 
-        }
-        else{
-            return $this->redirectIndex("رمز وارد شده صحیح نمی باشد" , true);
+            return $this->redirectIndex("شما در طول 30 دقیقه گذشته درخواستی تغییر رمزی را ارسال کرده اید [محدودیت درخواست]" , true);
         }
 
+        return $this->redirectIndex("رمز وارد شده صحیح نمی باشد" , true);
     }
 
 
@@ -87,34 +67,28 @@ class PasswordAdminController extends MainAdminController
     /// Send Token For Password
     /// ========================================================
 
-    public function getRequestTokenForChangePassword(RequestChangePassword $requestChangePassword){
+    public function getRequestTokenForChangePassword($token){
 
-        $user = User::where("email" , $requestChangePassword->user_email)->first();
-        $adminUser = $user->admin;
+        $requestChangePassword = ContextRepository::RequestChangePasswordRepository()->CheckValidRequestToken($token);
 
-        if (!empty($adminUser)){
+        if (!empty($requestChangePassword)){
+            $user = ContextRepository::UserRepository()->GetUserWithEmail($requestChangePassword->user_email);
+            $adminUser = $user->admin;
 
-            if ($requestChangePassword->active == 1 && Carbon::parse($requestChangePassword-> created_at)->addMinutes($this->expireRequestTokenMinute) >= Carbon::now()){
+            if (!empty($adminUser)){
 
-                $adminUser->update([
-                   "password" =>  $requestChangePassword->user_password
-                ]);
+                ContextRepository::AdminUserRepository()->updateResult($adminUser , ["password" =>  $requestChangePassword->user_password]);
 
-                $requestChangePassword->update([
-                    "active" => 0
-                ]);
+                ContextRepository::RequestChangePasswordRepository()->updateResult($requestChangePassword, [ "active" => 0 ]);
 
                 return $this->redirectIndex("درخواست با موفقیت اعمال گشت" , false , route("admin.home"));
             }
             else{
-                return $this->redirectIndex("تاریخ درخواست منقضی شده است، لذا دوباره تلاش نمایید" , true);
+                return redirect()->route("home");
             }
-
-        }
-        else{
-            return redirect()->route("home");
         }
 
+        return $this->redirectIndex("تاریخ درخواست منقضی شده است، لذا دوباره تلاش نمایید" , true);
     }
 
 

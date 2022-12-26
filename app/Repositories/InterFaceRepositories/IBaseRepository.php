@@ -10,11 +10,11 @@ use Illuminate\Database\Eloquent\Model;
 
 interface IBaseRepository
 {
-    function getAllResult();
+    function getAllResult($ifStatus=false);
 
-    function getPaginateResult($numInPage=15);
+    function getPaginateResult( $ifStatus=false , $numInPage=15);
 
-    function getResult($resultId) ;
+    function getResult($resultId , $ifStatus=false) ;
 
     function addResult($result)  ;
 

@@ -16,20 +16,32 @@ class BaseRepository  implements IBaseRepository {
 
 
 
-    function getAllResult()
+    function getAllResult($ifStatus=false)
     {
-        return $this->model->all();
+        $res = $this->model;
+        if ($ifStatus){
+            $res =$res->where("status" , 1);
+        }
+        return $res->all();
     }
 
-    function getPaginateResult($numInPage = 15)
+    function getPaginateResult($ifStatus=false ,$numInPage = 15 )
     {
-        return $this->model->simplePaginate($numInPage);
+        $res = $this->model;
+        if ($ifStatus){
+            $res =$res->where("status" , 1);
+        }
+        return $res->simplePaginate($numInPage);
     }
 
 
-    function getResult($resultId)
+    function getResult($resultId , $ifStatus=false)
     {
-        return  $this->model->find($resultId);
+        $res = $this->model;
+        if ($ifStatus){
+            $res =$res->where("status" , 1);
+        }
+        return $res->find($resultId);
     }
 
 
