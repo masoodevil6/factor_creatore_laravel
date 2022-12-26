@@ -2,7 +2,6 @@
 
 namespace App\Models\Users;
 
-use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -12,7 +11,7 @@ class UserStore extends Model
 
     protected $fillable = [
         "name" , "phone", "address",
-        "user_id "
+        "user_id"
     ];
 
 

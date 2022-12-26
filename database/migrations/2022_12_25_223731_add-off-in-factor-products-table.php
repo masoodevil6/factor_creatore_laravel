@@ -13,13 +13,8 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('forms', function (Blueprint $table) {
-            $table->id();
-            $table->string("name");
-            $table->string("class");
-            $table->text("image")->nullable();
-            $table->foreignId("form_category_id")->constrained("form_categories")->onUpdate("cascade")->onDelete("cascade");
-            $table->timestamps();
+        Schema::table('factor_products', function (Blueprint $table) {
+            $table->bigInteger("off")->default(0);
         });
     }
 
@@ -30,6 +25,8 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('forms');
+        Schema::table('factor_products', function (Blueprint $table) {
+            $table->removeColumn("off");
+        });
     }
 };

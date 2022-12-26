@@ -10,6 +10,10 @@ class Form extends Model
 {
     use HasFactory;
 
+    protected $casts =[
+        "image" => "array"
+    ];
+
     protected $fillable = ["name" , "class", "image", "status", "form_category_id"];
 
 
@@ -18,7 +22,7 @@ class Form extends Model
     /// ==============================================
 
     //// belongsTo
-    public function fromCategory(){
+    public function formCategory(){
         return $this->belongsTo(FormCategory::class);
     }
 

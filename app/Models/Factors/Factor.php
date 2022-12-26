@@ -3,7 +3,7 @@
 namespace App\Models\Factors;
 
 use App\Models\Forms\Form;
-use App\Models\User;
+use App\Models\Users\User;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -18,6 +18,8 @@ class Factor extends Model
         "file_name", "logo_name",
         "form_id", "user_id",
         "status"];
+
+    protected $with=["products"];
 
 
 

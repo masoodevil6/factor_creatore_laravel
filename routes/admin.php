@@ -9,6 +9,9 @@ use App\Http\Controllers\Admin\Panel\UserAdminController;
 use App\Http\Controllers\Admin\Publics\PublicSettingAdminController;
 use App\Http\Controllers\Admin\Publics\UnitAdminController;
 use App\Http\Controllers\Admin\Form\FormCategoryController;
+use App\Http\Controllers\Admin\Users\UserStoreAdminController;
+use App\Http\Controllers\Admin\Form\FormController;
+use App\Http\Controllers\Admin\Factor\FactorAdminController;
 
 
 
@@ -126,11 +129,20 @@ Route::namespace("Publics")->group(function (){
 /// =================================================
 
 
-Route::namespace("Factors")->group(function (){
+Route::namespace("Factor")->controller(FactorAdminController::class )->group(function (){
 
     Route::prefix("factor")->group(function (){
 
-        Route::get("/" , function (){})->name("admin.factors.factor.index");
+        Route::get("/" , "index")->name("admin.factors.factor.index");
+
+        Route::get("/show/{factor}" , "show")->name("admin.factors.factor.show");
+        Route::post("/change-form/{factor}" , "changeForm")->name("admin.factors.factor.change-form");
+
+        Route::delete("/destroy/{factor}" ,  "destroy")->name("admin.factors.factor.destroy");
+
+        Route::post("/status/{factor}" , "status")->name("admin.factors.factor.status");
+
+        Route::get("/download/{factor}" , "download")->name("admin.factors.factor.download");
 
     });
 
@@ -162,9 +174,19 @@ Route::namespace("Form")->group(function (){
     });
 
 
-    Route::prefix("form")->group(function (){
+    Route::prefix("form")->controller(FormController::class)->group(function (){
 
-        Route::get("/" , function (){})->name("admin.forms.form.index");
+        Route::get("/" , "index")->name("admin.forms.form.index");
+
+        Route::get("/create" , "create")->name("admin.forms.form.create");
+        Route::post("/store" , "store")->name("admin.forms.form.store");
+
+        Route::get("/edit/{form}" , "edit")->name("admin.forms.form.edit");
+        Route::put("/update/{form}" , "update")->name("admin.forms.form.update");
+
+        Route::delete("/destroy/{form}" ,  "destroy")->name("admin.forms.form.destroy");
+
+        Route::post("/status/{form}" , "status")->name("admin.forms.form.status");
 
     });
 
@@ -189,9 +211,18 @@ Route::namespace("Users")->group(function (){
     });
 
 
-    Route::prefix("user-store")->group(function (){
+    Route::prefix("user-store")->controller(UserStoreAdminController::class)->group(function (){
 
-        Route::get("/" , function (){})->name("admin.users.user-store.index");
+
+        Route::get("/" , "index")->name("admin.users.user-store.index");
+
+        Route::get("/create" , "create")->name("admin.users.user-store.create");
+        Route::post("/store" , "store")->name("admin.users.user-store.store");
+
+        Route::get("/edit/{userStore}" , "edit")->name("admin.users.user-store.edit");
+        Route::put("/update/{userStore}" , "update")->name("admin.users.user-store.update");
+
+        Route::delete("/destroy/{userStore}" ,  "destroy")->name("admin.users.user-store.destroy");
 
     });
 

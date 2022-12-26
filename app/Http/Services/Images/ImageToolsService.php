@@ -143,10 +143,10 @@ class ImageToolsService{
         return $this->FinalImageDirectory.DIRECTORY_SEPARATOR.$this->FinalImageName;
     }
 
-    protected function provider(){
+    protected function provider($singleFileInDirectory=false){
 
         //set properties
-        if (empty($this->getImageDirectory())){
+        if (empty($this->getImageDirectory()) && !$singleFileInDirectory){
             $this->setImageDirectory(date("Y") .DIRECTORY_SEPARATOR . date("m") .DIRECTORY_SEPARATOR . date("d"));
         }
 

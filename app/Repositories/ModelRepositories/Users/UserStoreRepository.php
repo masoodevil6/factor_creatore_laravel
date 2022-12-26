@@ -1,5 +1,5 @@
 <?php
-namespace App\Repositories\ModelRepositories\Publics;
+namespace App\Repositories\ModelRepositories\Users;
 
 use App\Models\Users\UserStore;
 use App\Repositories\InterFaceRepositories\Users\IUserStoreRepository;

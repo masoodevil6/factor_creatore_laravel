@@ -40,7 +40,7 @@ class FormCategoryController extends MainAdminController
             "part"=> "بخش مدیریت دسته بندی فرم ها",
             "navigation" =>[
                 [
-                    "route" => "admin.public.unit.index" ,
+                    "route" => "admin.forms.form-category.index" ,
                     "current" => 0,
                     "title" => "لیست دسته بندی فرم ها"
                 ],
@@ -70,7 +70,7 @@ class FormCategoryController extends MainAdminController
             "part"=> "بخش مدیریت دسته بندی فرم ها",
             "navigation" =>[
                 [
-                    "route" => "admin.public.unit.index" ,
+                    "route" => "admin.forms.form-category.index" ,
                     "current" => 0,
                     "title" => "لیست دسته بندی فرم ها"
                 ],

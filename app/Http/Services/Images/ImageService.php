@@ -19,22 +19,22 @@ use function unlink;
 
 class ImageService extends ImageToolsService {
 
-    public function save($image){
+    public function save($image ,  $singleFileInDirectory=false){
 
         //set image
         $this->setImage($image);
 
-        return $this->uploadImageComplete($image);
+        return $this->uploadImageComplete($image , 0 , 0 , $singleFileInDirectory);
     }
 
 
 
 
-    public function fitAndSave($image , $width , $height){
+    public function fitAndSave($image , $width , $height,  $singleFileInDirectory=false){
         //set image
         $this->setImage($image);
 
-        return $this->uploadImageComplete($image , $width , $height);
+        return $this->uploadImageComplete($image , $width , $height , $singleFileInDirectory);
     }
 
 
@@ -46,7 +46,7 @@ class ImageService extends ImageToolsService {
      * 'currentImage'  =>    imageDefault
      * ]
      */
-    public function createIndexAndSave($image){
+    public function createIndexAndSave($image , $singleFileInDirectory=false){
 
         $resultExp = [];
 
@@ -78,7 +78,7 @@ class ImageService extends ImageToolsService {
 
             $this->setImageName($currentImageName);
 
-            $result = $this->uploadImageComplete($image , $itemImageSize["width"] , $itemImageSize["height"]);
+            $result = $this->uploadImageComplete($image , $itemImageSize["width"] , $itemImageSize["height"] , $singleFileInDirectory);
 
             if (!$result){
                 return false;
@@ -98,15 +98,14 @@ class ImageService extends ImageToolsService {
     }
 
 
-    protected function uploadImageComplete($image , $width=0 , $height=0){
+    protected function uploadImageComplete($image , $width=0 , $height=0 ,  $singleFileInDirectory=false){
 
         /// execute provider
-        $this->provider();
+        $this->provider($singleFileInDirectory);
 
         //save in public
         // in php => $_Files["image"]["tmp_mane"] === in laravel $image->getRealPath()
 
-        ;
         $result = Image::make($image->getRealPath());
         if ($width > 0 && $height>0){
             $result->fit($width , $height);
