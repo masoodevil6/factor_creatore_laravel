@@ -12,6 +12,7 @@ use App\Repositories\InterFaceRepositories\Panels\IPanelRepository;
 use App\Repositories\InterFaceRepositories\Panels\IRequestChangePasswordRepository;
 use App\Repositories\InterFaceRepositories\Publics\ISettingRepository;
 use App\Repositories\InterFaceRepositories\Publics\IUnitRepository;
+use App\Repositories\InterFaceRepositories\Users\ICommentRepository;
 use App\Repositories\InterFaceRepositories\Users\IOtpRepository;
 use App\Repositories\InterFaceRepositories\Users\IUserRepository;
 use App\Repositories\InterFaceRepositories\Users\IUserStoreRepository;
@@ -26,6 +27,7 @@ use App\Repositories\ModelRepositories\Panels\PanelRepository;
 use App\Repositories\ModelRepositories\Panels\RequestChangePasswordRepository;
 use App\Repositories\ModelRepositories\Publics\SettingRepository;
 use App\Repositories\ModelRepositories\Publics\UnitRepository;
+use App\Repositories\ModelRepositories\Users\CommentRepository;
 use App\Repositories\ModelRepositories\Users\OtpRepository;
 use App\Repositories\ModelRepositories\Users\UserRepository;
 use App\Repositories\ModelRepositories\Users\UserStoreRepository;
@@ -176,6 +178,7 @@ class ContextRepository{
     private static $userRepository;
     private static $userStoreRepository;
     private static $otpRepository;
+    private static $commentRepository;
 
     public static function UserRepository() : IUserRepository
     {
@@ -199,6 +202,14 @@ class ContextRepository{
             self::$otpRepository = new OtpRepository();
         }
         return self::$otpRepository;
+    }
+
+    public static function CommentRepository() : ICommentRepository
+    {
+        if (self::$commentRepository == null){
+            self::$commentRepository = new CommentRepository();
+        }
+        return self::$commentRepository;
     }
 
 

@@ -14,7 +14,7 @@
 
             <section class="body-content d-flex justify-content-between pb-2 border-bottom">
 
-                <a href="{{route("admin.user.comments.index")}}" class="btn btn-info btn-sm">
+                <a href="{{route("admin.users.comment.index")}}" class="btn btn-info btn-sm">
                     بازگشت
                 </a>
 
@@ -24,7 +24,7 @@
             <section class="mt-3 border-bottom">
 
                 <x-fields.component-from-data
-                        :action='route("admin.user.comments.update" , $comment->id )'>
+                        :action='route("admin.users.comment.update" , $comment->id )'>
 
 
                     <x-fields.component-select-options

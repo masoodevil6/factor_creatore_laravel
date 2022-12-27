@@ -5,16 +5,16 @@ namespace App\Http\Controllers\Admin\Users;
 use App\Http\Controllers\Admin\MainAdminController;
 use App\Http\Requests\Admin\User\AnswerCommentRequest;
 use App\Http\Requests\Admin\User\EditCommentRequest;
-use App\Models\User\Comment;
+use App\Models\Users\Comment;
+use App\Repositories\ContextRepository;
 
 class UserCommentAdminController extends MainAdminController
 {
 
     function __construct()
     {
-        parent::__construct(route("admin.user.comments.index") );
+        parent::__construct(route("admin.users.comment.index") );
     }
-
 
 
     public function index()
@@ -30,10 +30,11 @@ class UserCommentAdminController extends MainAdminController
             ]
         ];
 
-        $comments = Comment::simplePaginate(15);
+        $comments = ContextRepository::CommentRepository()->getPaginateResult();
 
         return view("admin.user.comment.index" , compact("nav" , "comments"));
     }
+
 
 
     public function adminAnswer(Comment $comment)
@@ -43,7 +44,7 @@ class UserCommentAdminController extends MainAdminController
             "part"=> "بخش مدیریت کاربران",
             "navigation" =>[
                 [
-                    "route" => "admin.user.comments.index" ,
+                    "route" => "admin.users.comment.index" ,
                     "current" => 0,
                     "title" => "لیست نظرات"
                 ],
@@ -55,7 +56,7 @@ class UserCommentAdminController extends MainAdminController
             ]
         ];
 
-        $comment->update(["seen" => 1]);
+        ContextRepository::CommentRepository()->updateResult($comment , ["seen" => 1]);
 
         return view("admin.user.comment.answer" , compact("nav" , "comment"));
     }
@@ -63,24 +64,17 @@ class UserCommentAdminController extends MainAdminController
     public function storeAnswer(AnswerCommentRequest $request , Comment $comment)
     {
         $data = $request->all();
-        $inputs = [];
 
+        $data = [
+            "body" => $data["body"] ,
+            "parent_id" => $comment->id ,
+            "user_id" => 1 ,
+            "approved" => 1 ,
+            "status" => 1 ,
+            "seen" => 1 ,
+        ];
 
-        $inputs["body"] = $data["body"];
-        $inputs["parent_id"] = $comment->id;
-        $inputs["music_id"] = $comment->music_id;
-        $inputs["user_id"] = 1;
-        $inputs["approved"] = 1;
-        $inputs["status"] = 1;
-        $inputs["seen"] = 1;
-
-
-        if (empty($comment->answers)){
-            Comment::create($inputs);
-        }
-        else{
-            $comment->answers[0]->update($inputs);
-        }
+        ContextRepository::CommentRepository()->AdminAnswerCommentUser($comment , $data);
 
         return $this ->redirectIndex("پاسخ شما به نظر انتخاب شده، با موفقیت ثبت شد");
     }
@@ -98,7 +92,7 @@ class UserCommentAdminController extends MainAdminController
             "part"=> "بخش مدیریت کاربران",
             "navigation" =>[
                 [
-                    "route" => "admin.user.comments.index" ,
+                    "route" => "admin.users.comment.index" ,
                     "current" => 0,
                     "title" => "لیست نظرات"
                 ],
@@ -110,7 +104,7 @@ class UserCommentAdminController extends MainAdminController
             ]
         ];
 
-        $comment->update(["seen" => 1]);
+        ContextRepository::CommentRepository()->updateResult($comment , ["seen" => 1]);
 
         return view("admin.user.comment.edit" , compact("nav" , "comment"));
     }
@@ -118,12 +112,15 @@ class UserCommentAdminController extends MainAdminController
     public function update(EditCommentRequest $request, Comment $comment)
     {
         $data = $request->all();
-        $inputs = [];
-        $inputs["body"] = $data["body"];
-        $inputs["approved"] = $data["approved"];
-        $inputs["status"] = $data["approved"];
 
-        $comment->update($inputs);
+        $data = [
+            "body" => $data["body"] ,
+            "approved" => $data["approved"] ,
+            "status" => $data["status"]
+        ];
+
+        ContextRepository::CommentRepository()->updateResult($comment , $data);
+
         return $this ->redirectIndex("نظر انتخاب شده با موفقیت ویرایش شد");
     }
 
@@ -132,7 +129,7 @@ class UserCommentAdminController extends MainAdminController
 
     public function destroy(Comment $comment)
     {
-        $comment->delete();
+        ContextRepository::CommentRepository()->deleteResult($comment);
         return $this ->redirectIndex("نظر با موفقیت حذف شد");
     }
 
@@ -142,11 +139,17 @@ class UserCommentAdminController extends MainAdminController
 
 
     public function status(Comment $comment){
-        return $this->changeStatus($comment);
+        $result = ContextRepository::CommentRepository()->changeStatusResult($comment);
+        if ($result["status"]){
+            return $result["exp"];
+        }
     }
 
 
     public function approved(Comment $comment){
-        return $this->changeStatus($comment , "approved");
+        $result = ContextRepository::CommentRepository()->changeStatusResult($comment , "approved");
+        if ($result["status"]){
+            return $result["exp"];
+        }
     }
 }

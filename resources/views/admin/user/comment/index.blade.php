@@ -46,7 +46,7 @@
 
                 <tbody>
                 @foreach($comments As $key => $itemComment)
-                <x-row-tables.user.component-item-user-commmnet
+                <x-row-tables.admin.component-item-user-commmnet
                     :comment-key='$key+1'
                     :comment-id="$itemComment -> id"
                     :comment-body="$itemComment -> body"

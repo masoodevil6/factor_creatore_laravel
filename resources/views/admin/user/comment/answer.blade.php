@@ -14,7 +14,7 @@
 
             <section class="body-content d-flex justify-content-between pb-2 border-bottom">
 
-                <a href="{{route("admin.user.comments.index")}}" class="btn btn-info btn-sm">
+                <a href="{{route("admin.users.comment.index")}}" class="btn btn-info btn-sm">
                     بازگشت
                 </a>
 
@@ -23,26 +23,15 @@
 
             <section class="mt-3 border-bottom row">
 
-                <section class=" mx-2 border-bottom col-12 row  m-0 p-0">
-
-                        <span class="col-3 line-height-40 text-center bg-grey-shine">
-                            موسیقی
-                        </span>
-
-                    <a href="{{route("admin.music.music.subtitle.index" ,$comment->music->id )}}" class="col-8 line-height-40 text-center bg-white">
-                        {{$comment->music->title}}
-                    </a>
-
-                </section>
 
                 <section class=" mx-2 border-bottom col-12 row m-0 p-0">
 
-                        <span class="col-3 line-height-40 text-center bg-grey-shine">
-                            نام نویسنده نظر
-                        </span>
+                    <span class="col-3 line-height-40 text-center bg-grey-shine">
+                        نام نویسنده نظر
+                    </span>
 
-                    <a href="#" class="col-8 line-height-40 text-center bg-white">
-                        {{--{{$comment->user->fullName}}--}}
+                    <a href="{{--{{route("admin.users.user.info" , $comment->user->id)}}--}}" class="col-8 line-height-40 text-center bg-white">
+                        {{$comment->user->fullName}}
                     </a>
 
                 </section>
@@ -69,12 +58,12 @@
             <section class="mt-3 border-bottom">
 
                 <x-fields.component-from-data
-                        :action='route("admin.user.comments.storeAnswer" , $comment->id )'>
+                        :action='route("admin.users.comment.storeAnswer" , $comment->id )'>
 
 
                     <x-fields.component-sk-editor
                             title-en="body"
-                            title-fa="بیوگرافی"
+                            title-fa="متن پاسخ"
                             ck-editor="0"
                             value="" />
 

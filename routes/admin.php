@@ -12,6 +12,7 @@ use App\Http\Controllers\Admin\Form\FormCategoryController;
 use App\Http\Controllers\Admin\Users\UserStoreAdminController;
 use App\Http\Controllers\Admin\Form\FormController;
 use App\Http\Controllers\Admin\Factor\FactorAdminController;
+use App\Http\Controllers\Admin\Users\UserCommentAdminController;
 
 
 
@@ -22,7 +23,6 @@ Route::namespace("Password")->prefix("password")->controller(PasswordAdminContro
     Route::Post("change" , "sendTokenForChangePassword")->name("admin.password.send-token");
 
     Route::get("request/{token}" , "getRequestTokenForChangePassword")->name("admin.password.get-request-token");
-    //Route::get("request/{requestChangePassword:token}" , "getRequestTokenForChangePassword")->name("admin.password.get-request-token");
 
 });
 
@@ -214,7 +214,6 @@ Route::namespace("Users")->group(function (){
 
     Route::prefix("user-store")->controller(UserStoreAdminController::class)->group(function (){
 
-
         Route::get("/" , "index")->name("admin.users.user-store.index");
 
         Route::get("/create" , "create")->name("admin.users.user-store.create");
@@ -228,24 +227,25 @@ Route::namespace("Users")->group(function (){
     });
 
 
-    /*Route::prefix("comments")->controller(UserCommentAdminController::class)->group(function (){
+    Route::prefix("comments")->controller(UserCommentAdminController::class)->group(function (){
 
-        Route::get("/" , "index")->name("admin.user.comments.index");
+        Route::get("/" , "index")->name("admin.users.comment.index");
 
-        Route::get("/admin-answer/{comment}" , "adminAnswer")->name("admin.user.comments.adminAnswer");
-        Route::post("/store-answer/{comment}" , "storeAnswer")->name("admin.user.comments.storeAnswer");
+        Route::get("/admin-answer/{comment}" , "adminAnswer")->name("admin.users.comment.adminAnswer");
+        Route::post("/store-answer/{comment}" , "storeAnswer")->name("admin.users.comment.storeAnswer");
 
-        Route::get("/edit/{comment}" , "edit")->name("admin.user.comments.edit");
-        Route::post("/update/{comment}" , "update")->name("admin.user.comments.update");
+        Route::get("/edit/{comment}" , "edit")->name("admin.users.comment.edit");
+        Route::post("/update/{comment}" , "update")->name("admin.users.comment.update");
 
-        Route::delete("/destroy/{comment}" ,  "destroy")->name("admin.user.comments.destroy");
+        Route::delete("/destroy/{comment}" ,  "destroy")->name("admin.users.comment.destroy");
 
-        Route::post("/status/{comment}" , "status")->name("admin.user.comments.status");
-        Route::post("/approved/{comment}" , "approved")->name("admin.user.comments.approved");
+        Route::post("/status/{comment}" , "status")->name("admin.users.comment.status");
+        Route::post("/approved/{comment}" , "approved")->name("admin.users.comment.approved");
     });
 
 
-    Route::prefix("ticket-categories")->controller(TicketCategoriesAdminController::class)->group(function (){
+
+    /*Route::prefix("ticket-categories")->controller(TicketCategoriesAdminController::class)->group(function (){
 
         Route::get("/" , "index")->name("admin.user.ticket-categories.index");
 
