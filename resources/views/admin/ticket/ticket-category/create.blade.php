@@ -14,7 +14,7 @@
 
             <section class="body-content d-flex justify-content-between pb-2 border-bottom">
 
-                <a href="{{route("admin.user.ticket-categories.index")}}" class="btn btn-info btn-sm">
+                <a href="{{route("admin.tickets.ticket-category.index")}}" class="btn btn-info btn-sm">
                     بازگشت
                 </a>
 
@@ -24,7 +24,7 @@
             <section class="mt-3 border-bottom">
 
                 <x-fields.component-from-data
-                        :action='(isset($ticketCategory["id"]) && $ticketCategory["id"] > 0) ? route("admin.user.ticket-categories.update" , $ticketCategory->id ) : route("admin.user.ticket-categories.store" ) '>
+                        :action='(isset($ticketCategory["id"]) && $ticketCategory["id"] > 0) ? route("admin.tickets.ticket-category.update" , $ticketCategory->id ) : route("admin.tickets.ticket-category.store" ) '>
 
                     @if(isset($ticketCategory["id"]) && $ticketCategory["id"] > 0)
                         @method("put")

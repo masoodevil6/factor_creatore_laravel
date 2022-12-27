@@ -11,6 +11,8 @@ interface IAdminUserRepository extends IBaseRepository {
 
     function GetUserAdminAuth();
 
+    function GetUserIdAdminAuth();
+
     function GetPanelUserAdminAuth($adminUser);
 
     function GetEmailAdminAuth($password);

@@ -13,6 +13,8 @@ use App\Http\Controllers\Admin\Users\UserStoreAdminController;
 use App\Http\Controllers\Admin\Form\FormController;
 use App\Http\Controllers\Admin\Factor\FactorAdminController;
 use App\Http\Controllers\Admin\Users\UserCommentAdminController;
+use App\Http\Controllers\Admin\Tickets\TicketCategoriesAdminController;
+use App\Http\Controllers\Admin\Tickets\TicketsAdminController;
 
 
 
@@ -243,33 +245,44 @@ Route::namespace("Users")->group(function (){
         Route::post("/approved/{comment}" , "approved")->name("admin.users.comment.approved");
     });
 
+});
 
 
-    /*Route::prefix("ticket-categories")->controller(TicketCategoriesAdminController::class)->group(function (){
 
-        Route::get("/" , "index")->name("admin.user.ticket-categories.index");
 
-        Route::get("/create" , "create")->name("admin.user.ticket-categories.create");
-        Route::post("/store" , "store")->name("admin.user.ticket-categories.store");
 
-        Route::get("/edit/{ticketCategory}" , "edit")->name("admin.user.ticket-categories.edit");
-        Route::put("/update/{ticketCategory}" , "update")->name("admin.user.ticket-categories.update");
 
-        Route::delete("/destroy/{ticketCategory}" ,  "destroy")->name("admin.user.ticket-categories.destroy");
+/// =================================================
+/// user panel
+/// =================================================
 
-        Route::post("/status/{ticketCategory}" , "status")->name("admin.user.ticket-categories.status");
+Route::namespace("Tickets")->group(function (){
+
+
+    Route::prefix("ticket-categories")->controller(TicketCategoriesAdminController::class)->group(function (){
+
+        Route::get("/" , "index")->name("admin.tickets.ticket-category.index");
+
+        Route::get("/create" , "create")->name("admin.tickets.ticket-category.create");
+        Route::post("/store" , "store")->name("admin.tickets.ticket-category.store");
+
+        Route::get("/edit/{ticketCategory}" , "edit")->name("admin.tickets.ticket-category.edit");
+        Route::put("/update/{ticketCategory}" , "update")->name("admin.tickets.ticket-category.update");
+
+        Route::delete("/destroy/{ticketCategory}" ,  "destroy")->name("admin.tickets.ticket-category.destroy");
+
+        Route::post("/status/{ticketCategory}" , "status")->name("admin.tickets.ticket-category.status");
     });
 
 
     Route::prefix("tickets")->controller(TicketsAdminController::class)->group(function (){
-        Route::get("/" , "index")->name("admin.user.tickets.index");
+        Route::get("/" , "index")->name("admin.tickets.ticket.index");
 
-        Route::get("/answer/{ticketFolder}" , "answer")->name("admin.user.tickets.answer");
-        Route::post("/submit-answer/{ticketFolder}" , "submitAnswer")->name("admin.user.tickets.submit-answer");
-        Route::post("/change-status/{ticketFolder}" , "changeStatusTicket")->name("admin.user.tickets.change-status");
+        Route::get("/answer/{ticketFolder}" , "answer")->name("admin.tickets.ticket.answer");
+        Route::post("/submit-answer/{ticketFolder}" , "submitAnswer")->name("admin.tickets.ticket.submit-answer");
+        Route::post("/change-status/{ticketFolder}" , "changeStatusTicket")->name("admin.tickets.ticket.change-status");
 
-    });*/
-
+    });
 
 
 });

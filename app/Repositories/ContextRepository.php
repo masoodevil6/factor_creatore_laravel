@@ -12,6 +12,9 @@ use App\Repositories\InterFaceRepositories\Panels\IPanelRepository;
 use App\Repositories\InterFaceRepositories\Panels\IRequestChangePasswordRepository;
 use App\Repositories\InterFaceRepositories\Publics\ISettingRepository;
 use App\Repositories\InterFaceRepositories\Publics\IUnitRepository;
+use App\Repositories\InterFaceRepositories\Tickets\ITicketCategoryRepository;
+use App\Repositories\InterFaceRepositories\Tickets\ITicketFolderRepository;
+use App\Repositories\InterFaceRepositories\Tickets\ITicketRepository;
 use App\Repositories\InterFaceRepositories\Users\ICommentRepository;
 use App\Repositories\InterFaceRepositories\Users\IOtpRepository;
 use App\Repositories\InterFaceRepositories\Users\IUserRepository;
@@ -27,6 +30,9 @@ use App\Repositories\ModelRepositories\Panels\PanelRepository;
 use App\Repositories\ModelRepositories\Panels\RequestChangePasswordRepository;
 use App\Repositories\ModelRepositories\Publics\SettingRepository;
 use App\Repositories\ModelRepositories\Publics\UnitRepository;
+use App\Repositories\ModelRepositories\Tickets\TicketCategoryRepository;
+use App\Repositories\ModelRepositories\Tickets\TicketFolderRepository;
+use App\Repositories\ModelRepositories\Tickets\TicketRepository;
 use App\Repositories\ModelRepositories\Users\CommentRepository;
 use App\Repositories\ModelRepositories\Users\OtpRepository;
 use App\Repositories\ModelRepositories\Users\UserRepository;
@@ -213,5 +219,39 @@ class ContextRepository{
     }
 
 
+
+
+
+    //// =============================================
+    //// tickets
+    //// =============================================
+
+    private static $ticketRepository;
+    private static $ticketCategoryRepository;
+    private static $ticketFolderRepository;
+
+    public static function TicketRepository() : ITicketRepository
+    {
+        if (self::$ticketRepository == null){
+            self::$ticketRepository = new TicketRepository();
+        }
+        return self::$ticketRepository;
+    }
+
+    public static function TicketCategoryRepository() : ITicketCategoryRepository
+    {
+        if (self::$ticketCategoryRepository == null){
+            self::$ticketCategoryRepository = new TicketCategoryRepository();
+        }
+        return self::$ticketCategoryRepository;
+    }
+
+    public static function TicketFolderRepository() : ITicketFolderRepository
+    {
+        if (self::$ticketFolderRepository == null){
+            self::$ticketFolderRepository = new TicketFolderRepository();
+        }
+        return self::$ticketFolderRepository;
+    }
 
 }

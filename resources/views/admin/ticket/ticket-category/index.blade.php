@@ -19,7 +19,7 @@
 
             <section class="body-content d-flex justify-content-between pb-2 border-bottom">
 
-                <a href="{{route("admin.user.ticket-categories.create")}}" class="btn btn-info btn-sm">
+                <a href="{{route("admin.tickets.ticket-category.create")}}" class="btn btn-info btn-sm">
                     دسته بندی جدید
                 </a>
 
@@ -46,7 +46,7 @@
 
                     <tbody>
                     @foreach($ticketCategories As $key => $itemTicketCategory)
-                        <x-row-tables.user.component-item-ticket-categories
+                        <x-row-tables.admin.component-item-ticket-categories
                                 :ticket-category-key='$key+1'
                                 :ticket-category-id="$itemTicketCategory -> id"
                                 :ticket-category-title="$itemTicketCategory -> title"

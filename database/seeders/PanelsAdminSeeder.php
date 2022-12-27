@@ -15,6 +15,9 @@ use Database\Seeders\PanelGroups\FormGroup\CreatePanelGroupFormSeeder;
 use Database\Seeders\PanelGroups\PublicGroup\CreatePanelGroupPublicSeeder;
 use Database\Seeders\PanelGroups\PublicGroup\CreatePanelSettingSitePanelGroupPublicSeeder;
 use Database\Seeders\PanelGroups\PublicGroup\CreatePanelUnitGroupPublicSeeder;
+use Database\Seeders\PanelGroups\TicketGroup\CreatePanelGroupTicketSeeder;
+use Database\Seeders\PanelGroups\TicketGroup\CreatePanelTicketCategoryInPanelGroupUserSeeder;
+use Database\Seeders\PanelGroups\TicketGroup\CreatePanelTicketInPanelGroupUserSeeder;
 use Database\Seeders\PanelGroups\UserGroup\CreatePanelCommentPanelGroupUserSeeder;
 use Database\Seeders\PanelGroups\UserGroup\CreatePanelGroupUserSeeder;
 use Database\Seeders\PanelGroups\UserGroup\CreatePanelUserPanelGroupUserSeeder;
@@ -55,6 +58,13 @@ class PanelsAdminSeeder extends Seeder
         $this->call(CreatePanelUserPanelGroupUserSeeder::class);
         $this->call(CreatePanelUserStorePanelGroupUserSeeder::class);
         $this->call(CreatePanelCommentPanelGroupUserSeeder::class);
+
+        // ticket ToolsPanel
+        $this->call(CreatePanelGroupTicketSeeder::class);
+        $this->call(CreatePanelTicketCategoryInPanelGroupUserSeeder::class);
+        $this->call(CreatePanelTicketInPanelGroupUserSeeder::class);
+
+
 
 
         $this->call(InsertIntoSettingSite::class);

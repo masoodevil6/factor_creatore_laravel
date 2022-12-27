@@ -9,6 +9,7 @@
 
 @section("content")
 
+
     <b class="d-block border-bottom border-success text-success mb-2 px-2">
         اطلاعات
     </b>
@@ -32,6 +33,19 @@
             </section>
         </section>
     </section>
+
+    <section class="border-bottom col-12 row m-0 p-0">
+
+        <span class="col-3 line-height-40 text-center bg-grey-shine">
+            نویسنده تیکت
+        </span>
+
+        <a href="{{--{{route("admin.users.user.info" , $comment->user->id)}}--}}" class="col-9 line-height-40 text-center bg-white">
+            {{$ticketFolder->user->fullName}}
+        </a>
+
+    </section>
+
 
 
 
@@ -70,14 +84,12 @@
 
 
 
-
-
     <section class="row p-0 m-0 ">
         <section class="main-body-container col-12 my-2 px-2 ">
 
             <section class="body-content d-flex justify-content-between pb-2 border-bottom">
 
-                <a href="{{route("admin.user.tickets.index")}}" class="btn btn-info btn-sm">
+                <a href="{{route("admin.tickets.ticket.index")}}" class="btn btn-info btn-sm">
                     بازگشت
                 </a>
 
@@ -87,7 +99,7 @@
             <section class="mt-3 border-bottom">
 
                 <x-fields.component-from-data
-                        :action='route("admin.user.tickets.change-status" , $ticketFolder->id ) '>
+                        :action='route("admin.tickets.ticket.change-status" , $ticketFolder->id ) '>
 
                     <x-fields.component-select-options
                             title-en="status"
@@ -115,7 +127,7 @@
                 <section class="mt-3 border-bottom">
 
                     <x-fields.component-from-data
-                            :action='route("admin.user.tickets.submit-answer" , $ticketFolder->id ) '>
+                            :action='route("admin.tickets.ticket.submit-answer" , $ticketFolder->id ) '>
 
                         <x-fields.component-sk-editor
                                 title-en="text"

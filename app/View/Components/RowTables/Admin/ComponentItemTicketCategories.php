@@ -1,6 +1,6 @@
 <?php
 
-namespace App\View\Components\RowTables\User;
+namespace App\View\Components\RowTables\Admin;
 
 use Illuminate\View\Component;
 
@@ -26,6 +26,6 @@ class ComponentItemTicketCategories extends Component
      */
     public function render()
     {
-        return view('components.row-tables.user.component-item-ticket-categories');
+        return view('components.row-tables.admin.component-item-ticket-categories');
     }
 }

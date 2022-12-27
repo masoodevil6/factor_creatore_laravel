@@ -47,7 +47,7 @@
                     <tbody>
                     @foreach($ticketFolders As $key => $itemTicketFolder)
 
-                        <x-row-tables.user.component-item-tickets
+                        <x-row-tables.admin.component-item-tickets
                                 :ticket-folder-key="$key+1"
                                 :ticket-folder-id="$itemTicketFolder -> id"
                                 :ticket-folder-title="$itemTicketFolder -> title"
