@@ -12,4 +12,8 @@ class FactorRepository extends BaseRepository implements IFactorRepository {
         parent::__construct(new Factor());
     }
 
+    function GetUserFactors(int $userId)
+    {
+        return $this->model->where("user_id" , $userId)->get();
+    }
 }

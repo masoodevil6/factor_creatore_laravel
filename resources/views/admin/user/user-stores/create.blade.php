@@ -26,12 +26,11 @@
             </section>
 
             @if(isset($userStore["id"]) && $userStore["id"] > 0)
-                <section class="mt-3 border-bottom row">
+                <section class="body-content d-flex justify-content-between pb-2 border-bottom">
 
-                    <x-fields.component-row-data
-                            title='کاربر'
-                            col='col-12'
-                            :value='$userStore -> user->fullName'/>
+                    <x-row-tables.admin.component-info-user
+                            :user-id='$userStore -> user->id'
+                            :user-full-name="$userStore -> user -> fullName"/>
 
                 </section>
             @endif

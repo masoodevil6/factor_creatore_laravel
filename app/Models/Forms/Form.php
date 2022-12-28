@@ -3,6 +3,7 @@
 namespace App\Models\Forms;
 
 use App\Models\Factors\Factor;
+use App\Models\Subscribes\Subscribe;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -14,7 +15,7 @@ class Form extends Model
         "image" => "array"
     ];
 
-    protected $fillable = ["name" , "class", "image", "status", "form_category_id"];
+    protected $fillable = ["name" , "class", "image", "status", "form_category_id" , "subscribe_id"];
 
 
     ///==============================================
@@ -26,8 +27,14 @@ class Form extends Model
         return $this->belongsTo(FormCategory::class);
     }
 
+    public function subscribe(){
+        return $this->belongsTo(Subscribe::class);
+    }
+
+
     //// hasMany
     public function factors(){
         return $this->hasMany(Factor::class);
     }
+
 }

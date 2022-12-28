@@ -45,7 +45,6 @@
                 'status' : status
             },
             success: function (res) {
-                console.log(res)
                 clearLastSelectedBtnStatus{{$method}}(element);
                 if (res["status"]){
                     if (res["checked"]){

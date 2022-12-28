@@ -20,6 +20,13 @@
 
             </section>
 
+            <section class="body-content d-flex justify-content-between pb-2 border-bottom">
+
+                <x-row-tables.admin.component-info-user
+                        :user-id='$comment -> user->id'
+                        :user-full-name="$comment -> user -> fullName"/>
+
+            </section>
 
             <section class="mt-3 border-bottom">
 

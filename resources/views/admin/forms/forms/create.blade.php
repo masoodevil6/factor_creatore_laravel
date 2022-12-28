@@ -53,6 +53,24 @@
 
 
                         <x-fields.component-select-options
+                                title-en="subscribe_id"
+                                title-fa="اشتراک">
+
+                            <option value="" @if(isset($form["subscribe_id"]) && $form["subscribe_id"] == null) selected @endif>
+                                بدون اشتراک
+                            </option>
+
+                            @foreach($subscribes as $itemSubscribe)
+                                <option value="{{$itemSubscribe->id}}" @if(isset($form["subscribe_id"]) && $itemSubscribe["id"] == $form["subscribe_id"]) selected @endif>
+                                    {{$itemSubscribe -> title}}
+                                </option>
+                            @endforeach
+
+
+                        </x-fields.component-select-options>
+
+
+                        <x-fields.component-select-options
                                 title-en="class_name"
                                 title-fa="کلاس فرم">
 
@@ -67,13 +85,13 @@
 
                         </x-fields.component-select-options>
 
-
                         <x-fields.component-upload-image
                                 title-en="image"
                                 title-fa="تصویر" >
 
-                            @if(isset($forms["image"]) && $forms["location"] != "")
-                                <img class="d-block m-auto" src="{{asset($forms->image->location["indexArray"][$singerImage->image->location["currentImage"]])}}" height="150" alt="تصویر">
+
+                            @if(isset($form["image"]) && $form["image"] != "")
+                                <img class="d-block m-auto" src="{{asset($form["image"]["indexArray"][$form["image"]["currentImage"]])}}" height="150" alt="تصویر">
                             @endif
 
                         </x-fields.component-upload-image>

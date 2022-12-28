@@ -34,18 +34,11 @@
         </section>
     </section>
 
-    <section class="border-bottom col-12 row m-0 p-0">
 
-        <span class="col-3 line-height-40 text-center bg-grey-shine">
-            نویسنده تیکت
-        </span>
 
-        <a href="{{--{{route("admin.users.user.info" , $comment->user->id)}}--}}" class="col-9 line-height-40 text-center bg-white">
-            {{$ticketFolder->user->fullName}}
-        </a>
-
-    </section>
-
+    <x-row-tables.admin.component-info-user
+            :user-id='$ticketFolder -> user->id'
+            :user-full-name="$ticketFolder -> user -> fullName"/>
 
 
 

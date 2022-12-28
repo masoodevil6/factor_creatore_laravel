@@ -5,4 +5,6 @@ use App\Repositories\InterFaceRepositories\IBaseRepository;
 
 interface IFactorRepository extends IBaseRepository {
 
+    function GetUserFactors(int $userId);
+
 }

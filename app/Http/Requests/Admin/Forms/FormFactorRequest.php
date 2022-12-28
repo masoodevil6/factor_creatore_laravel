@@ -29,6 +29,7 @@ class FormFactorRequest extends FormRequest
             "class_name" => ["required" , new FormExist()] ,
             "image" => "image|mimes:png,jpg,jpeg,webp" ,
             "form_category_id" => "required|exists:form_categories,id" ,
+            "subscribe_id" => "nullable|exists:subscribes,id" ,
             "status" => "required|numeric|in:0,1"
         ];
     }
@@ -40,6 +41,7 @@ class FormFactorRequest extends FormRequest
             "class_name" => "فرم",
             "image" => "نمونه تصویر فرم",
             "form_category_id" => "دسته بندی فرم",
+            "subscribe_id" => "اشتراک فرم",
             "status" => "وضعیت فرم",
         ];
     }

@@ -24,18 +24,9 @@
             <section class="mt-3 border-bottom row">
 
 
-                <section class=" mx-2 border-bottom col-12 row m-0 p-0">
-
-                    <span class="col-3 line-height-40 text-center bg-grey-shine">
-                        نام نویسنده نظر
-                    </span>
-
-                    <a href="{{--{{route("admin.users.user.info" , $comment->user->id)}}--}}" class="col-8 line-height-40 text-center bg-white">
-                        {{$comment->user->fullName}}
-                    </a>
-
-                </section>
-
+                <x-row-tables.admin.component-info-user
+                        :user-id='$comment -> user->id'
+                        :user-full-name="$comment -> user -> fullName"/>
 
                 <x-fields.component-row-data
                         title='وضعیت'

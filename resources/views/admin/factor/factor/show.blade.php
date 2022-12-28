@@ -24,7 +24,13 @@
 
             </section>
 
+            <section class="body-content d-flex justify-content-between pb-2 border-bottom">
 
+                <x-row-tables.admin.component-info-user
+                        :user-id='$factor-> user->id'
+                        :user-full-name="$factor-> user -> fullName"/>
+
+            </section>
 
 
             <section class="mt-3 border-bottom">

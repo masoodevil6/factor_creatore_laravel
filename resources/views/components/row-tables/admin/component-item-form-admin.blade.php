@@ -12,6 +12,9 @@
         {{$formCategory}}
     </td>
     <td class="font-size-12">
+        {{$formSubscribe}}
+    </td>
+    <td class="font-size-12">
         {{$formClass}}
     </td>
     <td class="font-size-12">

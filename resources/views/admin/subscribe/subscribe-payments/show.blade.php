@@ -21,11 +21,17 @@
             </section>
 
 
+
             <section class="mt-5 border-bottom row p-0 m-0">
 
                 <section class="col-12 gray-400 text-white text-center">
                     اطلاعات کاربر
                 </section>
+
+                <x-row-tables.admin.component-info-user
+                        :user-id='$subscribePayment -> user->id'
+                        :user-full-name="$subscribePayment -> user -> fullName"/>
+
 
                 <x-fields.component-row-data
                         title='نام کاربر'
@@ -42,6 +48,7 @@
                 <x-fields.component-row-data
                         title='زمان ثبت نام'
                         :value='jalaliDate($subscribePayment-> user -> created_at)  '/>
+
 
             </section>
 
@@ -116,6 +123,14 @@
                 <x-fields.component-row-data
                         title='مدت'
                         :value='$subscribePayment-> subscribe -> duration == null ? "نامحدود" :   $subscribePayment-> subscribe -> duration." ماه" '/>
+
+                <x-fields.component-row-data
+                        title='دانلود'
+                        :value='$subscribePayment-> subscribe -> download == null ? "نامحدود" :   $subscribePayment-> subscribe -> download." بار" '/>
+
+                <x-fields.component-row-data
+                        title='پخش'
+                        :value='$subscribePayment-> subscribe -> play == null ? "نامحدود" :   $subscribePayment-> subscribe -> play." بار" '/>
 
 
             </section>

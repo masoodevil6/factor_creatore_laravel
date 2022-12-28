@@ -2,6 +2,7 @@
 
 namespace App\Models\Subscribes;
 
+use App\Models\Forms\Form;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -50,5 +51,9 @@ class Subscribe extends Model
     //// has many
     public function payments(){
         return $this->hasMany(SubscribePayment::class);
+    }
+
+    public function forms(){
+        return $this->hasMany(Form::class);
     }
 }

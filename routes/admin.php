@@ -18,6 +18,7 @@ use App\Http\Controllers\Admin\Tickets\TicketsAdminController;
 use App\Http\Controllers\Admin\Banks\BackAdminController;
 use App\Http\Controllers\Admin\Subscribes\SubscribesAdminController;
 use App\Http\Controllers\Admin\Subscribes\SubscribePaymentsAdminController;
+use App\Http\Controllers\Admin\Users\UserController;
 
 
 
@@ -210,9 +211,16 @@ Route::namespace("Form")->group(function (){
 
 Route::namespace("Users")->group(function (){
 
-    Route::prefix("user")->group(function (){
+    Route::prefix("user")->controller(UserController::class)->group(function (){
 
-        Route::get("/" , function (){})->name("admin.users.user.index");
+        Route::get("/" , "index")->name("admin.users.user.index");
+
+        Route::get("/show/{user}" , "show")->name("admin.users.user.show");
+        Route::post("/update/{user}" , "changeInfo")->name("admin.users.user.change-info");
+
+        Route::get("/factors/{user}" , "factors")->name("admin.users.user.factors");
+
+        Route::post("/status/{user}" , "status")->name("admin.users.user.status");
 
     });
 

@@ -20,6 +20,10 @@
 
             </section>
 
+            <x-row-tables.admin.component-info-user
+                    :user-id='$subscribePayment -> user->id'
+                    :user-full-name="$subscribePayment -> user -> fullName"/>
+
 
             <section class="mt-3 border-bottom">
 

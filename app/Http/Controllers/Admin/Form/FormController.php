@@ -31,12 +31,21 @@ class FormController extends MainAdminController
             ]
         ];
 
-        $forms= ContextRepository::FormRepository()->getPaginateResult();
+        $subscribeId = 0;
+        if (isset($_GET["subscribe"])){
+            $subscribeId = $_GET["subscribe"];
+        }
+        $subscribes = ContextRepository::SubscribeRepository()->getAllResult();
+
+        $forms= ContextRepository::FormRepository()->SearchAllFormWithFilterSubscribe($subscribeId);
         foreach ($forms as $key => $form){
             $forms[$key]["class_name"] = $this->getNameClass($form["class"]);
         }
 
-        return view("admin.forms.forms.index" , compact("nav" , "forms"));
+
+
+
+        return view("admin.forms.forms.index" , compact("nav" ,"subscribeId"  , "subscribes" , "forms"));
     }
 
 
@@ -62,8 +71,9 @@ class FormController extends MainAdminController
 
         $formCategories = ContextRepository::FormCategoryRepository()->getAllResult();
         $classes = $this->getListFormClass();
+        $subscribes = ContextRepository::SubscribeRepository()->getAllResult();
 
-        return view("admin.forms.forms.create" , compact("nav" , "classes"  , "formCategories"));
+        return view("admin.forms.forms.create" , compact("nav" , "classes"  , "formCategories" , "subscribes"));
     }
 
     public function store(FormFactorRequest $request){
@@ -107,8 +117,9 @@ class FormController extends MainAdminController
 
         $formCategories = ContextRepository::FormCategoryRepository()->getAllResult();
         $classes = $this->getListFormClass();
+        $subscribes = ContextRepository::SubscribeRepository()->getAllResult();
 
-        return view("admin.forms.forms.create" , compact("nav" , "form" , "classes" , "formCategories"));
+        return view("admin.forms.forms.create" , compact("nav" , "form" , "classes" , "formCategories" , "subscribes"));
     }
 
     public function update(FormFactorRequest $request, Form $form){

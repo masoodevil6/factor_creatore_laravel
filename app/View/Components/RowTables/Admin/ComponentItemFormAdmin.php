@@ -12,10 +12,11 @@ class ComponentItemFormAdmin extends Component
     public $formName;
     public $formImage = "";
     public $formCategory;
+    public $formSubscribe;
     public $formClass;
     public $formStatus;
 
-    public function __construct($formKey , $formId , $formName, $formImage, $formCategory, $formClass, $formStatus)
+    public function __construct($formKey , $formId , $formName, $formImage, $formCategory , $formSubscribe, $formClass, $formStatus)
     {
         $this -> formKey = $formKey;
         $this -> formId = $formId;
@@ -26,6 +27,7 @@ class ComponentItemFormAdmin extends Component
         }
 
         $this -> formCategory = $formCategory;
+        $this -> formSubscribe = $formSubscribe;
         $this -> formClass = $formClass;
         $this -> formStatus = $formStatus;
     }
