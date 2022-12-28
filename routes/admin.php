@@ -15,6 +15,9 @@ use App\Http\Controllers\Admin\Factor\FactorAdminController;
 use App\Http\Controllers\Admin\Users\UserCommentAdminController;
 use App\Http\Controllers\Admin\Tickets\TicketCategoriesAdminController;
 use App\Http\Controllers\Admin\Tickets\TicketsAdminController;
+use App\Http\Controllers\Admin\Banks\BackAdminController;
+use App\Http\Controllers\Admin\Subscribes\SubscribesAdminController;
+use App\Http\Controllers\Admin\Subscribes\SubscribePaymentsAdminController;
 
 
 
@@ -290,4 +293,69 @@ Route::namespace("Tickets")->group(function (){
 
 
 
+/// =================================================
+/// bank panel
+/// =================================================
 
+Route::namespace("Banks")->group(function (){
+
+
+    Route::prefix("banks")->controller(BackAdminController::class)->group(function (){
+
+        Route::get("/" , "index")->name("admin.banks.bank.index");
+
+        Route::get("/create" , "create")->name("admin.banks.bank.create");
+        Route::post("/store" , "store")->name("admin.banks.bank.store");
+
+        Route::get("/edit/{back}" , "edit")->name("admin.banks.bank.edit");
+        Route::put("/update/{back}" , "update")->name("admin.banks.bank.update");
+
+        Route::delete("/destroy/{back}" ,  "destroy")->name("admin.banks.bank.destroy");
+
+        Route::post("/status/{back}" , "status")->name("admin.banks.bank.status");
+    });
+
+});
+
+
+
+
+/// =================================================
+/// User Page Admin
+/// =================================================
+
+Route::namespace("Subscribes")->group(function (){
+
+    Route::prefix("subscribes")->controller(SubscribesAdminController::class)->group(function (){
+
+        Route::get("/" , "index")->name("admin.subscribes.subscribe.index");
+
+        Route::get("/create" , "create")->name("admin.subscribes.subscribe.create");
+        Route::post("/store" , "store")->name("admin.subscribes.subscribe.store");
+
+        Route::get("/edit/{subscribe}" , "edit")->name("admin.subscribes.subscribe.edit");
+        Route::put("/update/{subscribe}" , "update")->name("admin.subscribes.subscribe.update");
+
+        Route::delete("/destroy/{subscribe}" ,  "destroy")->name("admin.subscribes.subscribe.destroy");
+
+        Route::post("/status/{subscribe}" , "status")->name("admin.subscribes.subscribe.status");
+
+    });
+
+    Route::prefix("payments")->controller(SubscribePaymentsAdminController::class)->group(function (){
+
+        Route::get("/" , "index")->name("admin.subscribes.subscribe-payment.index");
+
+        Route::get("/show/{subscribePayment}" , "show")->name("admin.subscribes.subscribe-payment.show");
+
+        Route::get("/create" , "create")->name("admin.subscribes.subscribe-payment.create");
+        Route::post("/store" , "store")->name("admin.subscribes.subscribe-payment.store");
+
+        Route::get("/edit/{subscribePayment}" , "edit")->name("admin.subscribes.subscribe-payment.edit");
+        Route::put("/update/{subscribePayment}" , "update")->name("admin.subscribes.subscribe-payment.update");
+
+        Route::delete("/destroy/{subscribePayment}" ,  "destroy")->name("admin.subscribes.subscribe-payment.destroy");
+
+    });
+
+});

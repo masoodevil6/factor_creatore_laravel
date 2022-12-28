@@ -1,6 +1,7 @@
 <?php
 namespace App\Repositories;
 
+use App\Repositories\InterFaceRepositories\Banks\IBanckRepository;
 use App\Repositories\InterFaceRepositories\Factors\IFactorProductRepository;
 use App\Repositories\InterFaceRepositories\Factors\IFactorRepository;
 use App\Repositories\InterFaceRepositories\Forms\IFormCategoryRepository;
@@ -12,6 +13,8 @@ use App\Repositories\InterFaceRepositories\Panels\IPanelRepository;
 use App\Repositories\InterFaceRepositories\Panels\IRequestChangePasswordRepository;
 use App\Repositories\InterFaceRepositories\Publics\ISettingRepository;
 use App\Repositories\InterFaceRepositories\Publics\IUnitRepository;
+use App\Repositories\InterFaceRepositories\Subscribes\ISubscribePaymentRepository;
+use App\Repositories\InterFaceRepositories\Subscribes\ISubscribeRepository;
 use App\Repositories\InterFaceRepositories\Tickets\ITicketCategoryRepository;
 use App\Repositories\InterFaceRepositories\Tickets\ITicketFolderRepository;
 use App\Repositories\InterFaceRepositories\Tickets\ITicketRepository;
@@ -19,6 +22,7 @@ use App\Repositories\InterFaceRepositories\Users\ICommentRepository;
 use App\Repositories\InterFaceRepositories\Users\IOtpRepository;
 use App\Repositories\InterFaceRepositories\Users\IUserRepository;
 use App\Repositories\InterFaceRepositories\Users\IUserStoreRepository;
+use App\Repositories\ModelRepositories\Banks\BankRepository;
 use App\Repositories\ModelRepositories\Factors\FactorProductRepository;
 use App\Repositories\ModelRepositories\Factors\FactorRepository;
 use App\Repositories\ModelRepositories\Forms\FormCategoryRepository;
@@ -30,6 +34,8 @@ use App\Repositories\ModelRepositories\Panels\PanelRepository;
 use App\Repositories\ModelRepositories\Panels\RequestChangePasswordRepository;
 use App\Repositories\ModelRepositories\Publics\SettingRepository;
 use App\Repositories\ModelRepositories\Publics\UnitRepository;
+use App\Repositories\ModelRepositories\Subscribes\SubscribePaymentRepository;
+use App\Repositories\ModelRepositories\Subscribes\SubscribeRepository;
 use App\Repositories\ModelRepositories\Tickets\TicketCategoryRepository;
 use App\Repositories\ModelRepositories\Tickets\TicketFolderRepository;
 use App\Repositories\ModelRepositories\Tickets\TicketRepository;
@@ -85,10 +91,10 @@ class ContextRepository{
 
     public static function RequestChangePasswordRepository() : IRequestChangePasswordRepository
     {
-        if (self::$panelRepository == null){
-            self::$panelRepository = new RequestChangePasswordRepository();
+        if (self::$requestChangePasswordRepository == null){
+            self::$requestChangePasswordRepository = new RequestChangePasswordRepository();
         }
-        return self::$panelRepository;
+        return self::$requestChangePasswordRepository;
     }
 
 
@@ -254,4 +260,43 @@ class ContextRepository{
         return self::$ticketFolderRepository;
     }
 
+
+
+    //// =============================================
+    //// Banks
+    //// =============================================
+    private static $bankRepository;
+
+    public static function BankRepository() : IBanckRepository
+    {
+        if (self::$bankRepository == null){
+            self::$bankRepository = new BankRepository();
+        }
+        return self::$bankRepository;
+    }
+
+
+    //// =============================================
+    //// subscribes
+    //// =============================================
+    private static $subscribeRepository;
+    private static $subscribePaymentRepository;
+
+
+
+    public static function SubscribeRepository() : ISubscribeRepository
+    {
+        if (self::$subscribeRepository == null){
+            self::$subscribeRepository = new SubscribeRepository();
+        }
+        return self::$subscribeRepository;
+    }
+
+    public static function SubscribePaymentRepository() : ISubscribePaymentRepository
+    {
+        if (self::$subscribePaymentRepository == null){
+            self::$subscribePaymentRepository = new SubscribePaymentRepository();
+        }
+        return self::$subscribePaymentRepository;
+    }
 }

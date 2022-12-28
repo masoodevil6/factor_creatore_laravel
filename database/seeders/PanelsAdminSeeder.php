@@ -7,6 +7,8 @@ use App\Repositories\ContextRepository;
 use Database\Seeders\PanelGroups\AdminGroup\CreatePanelGroupAdminSeeder;
 use Database\Seeders\PanelGroups\AdminGroup\CreatePanelPanelsInPanelGroupAdminSeeder;
 use Database\Seeders\PanelGroups\AdminGroup\CreatePanelUserAdminInPanelGroupAdminSeeder;
+use Database\Seeders\PanelGroups\BankGroup\CreatePanelBankInPanelGroupBankSeeder;
+use Database\Seeders\PanelGroups\BankGroup\CreatePanelGroupBankSeeder;
 use Database\Seeders\PanelGroups\FactorGroup\CreatePanelFactorsInPanelGroupFactorSeeder;
 use Database\Seeders\PanelGroups\FactorGroup\CreatePanelGroupFactorSeeder;
 use Database\Seeders\PanelGroups\FormGroup\CreatePanelFormCategoryPanelGroupFormSeeder;
@@ -15,6 +17,9 @@ use Database\Seeders\PanelGroups\FormGroup\CreatePanelGroupFormSeeder;
 use Database\Seeders\PanelGroups\PublicGroup\CreatePanelGroupPublicSeeder;
 use Database\Seeders\PanelGroups\PublicGroup\CreatePanelSettingSitePanelGroupPublicSeeder;
 use Database\Seeders\PanelGroups\PublicGroup\CreatePanelUnitGroupPublicSeeder;
+use Database\Seeders\PanelGroups\SubscribeGroup\CreatePanelGroupSubscribeSeeder;
+use Database\Seeders\PanelGroups\SubscribeGroup\CreatePanelSubscribePanelGroupSubscribeSeeder;
+use Database\Seeders\PanelGroups\SubscribeGroup\CreatePanelSubscribePaymentsPanelGroupSubscribeSeeder;
 use Database\Seeders\PanelGroups\TicketGroup\CreatePanelGroupTicketSeeder;
 use Database\Seeders\PanelGroups\TicketGroup\CreatePanelTicketCategoryInPanelGroupUserSeeder;
 use Database\Seeders\PanelGroups\TicketGroup\CreatePanelTicketInPanelGroupUserSeeder;
@@ -64,7 +69,14 @@ class PanelsAdminSeeder extends Seeder
         $this->call(CreatePanelTicketCategoryInPanelGroupUserSeeder::class);
         $this->call(CreatePanelTicketInPanelGroupUserSeeder::class);
 
+        // Bank ToolsPanel
+        $this->call(CreatePanelGroupBankSeeder::class);
+        $this->call(CreatePanelBankInPanelGroupBankSeeder::class);
 
+        /// subscribe ToolsPanel
+        $this->call(CreatePanelGroupSubscribeSeeder::class);
+        $this->call(CreatePanelSubscribePanelGroupSubscribeSeeder::class);
+        $this->call(CreatePanelSubscribePaymentsPanelGroupSubscribeSeeder::class);
 
 
         $this->call(InsertIntoSettingSite::class);
