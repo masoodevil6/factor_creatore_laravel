@@ -160,63 +160,6 @@ class MainAdminController extends BaseController
 
 
 
-    /*//// change status 0 and 1
-    protected function changeStatus(Model $model , $field="status" , $defaultValue=null)
-    {
-        $gotoRequest = false;
-        if ($defaultValue == null){
-            $gotoRequest = true;
-        }
-        else{
-            if (in_array($defaultValue, [0 , 1])){
-                $gotoRequest = true;
-            }
-        }
-
-        if ($gotoRequest){
-
-            if ($defaultValue == null){
-                $model[$field] = $model[$field] == 0 ? 1 : 0;
-            }
-            else{
-                $model[$field] = $defaultValue;
-            }
-            $result = $model->save();
-
-
-            return $this->resultJsonChangeStatus($result , $model[$field] , false , $field , $model[$field]);
-        }
-        return false;
-    }
-
-    protected function resultJsonChangeStatus($resultAction , $fieldResult , $reverse = false , $field="status" , $finalValue=0){
-        if ($resultAction){
-            if ($fieldResult == 1){
-                if ($reverse){
-                    return response()->json(["status" => true , "checked" => false , "field" => $field  , "value" => $finalValue]);
-                }
-                else{
-                    return response()->json(["status" => true , "checked" => true , "field" => $field , "value" => $finalValue]);
-                }
-
-            }
-            else{
-                if ($reverse){
-                    return response()->json(["status" => true , "checked" => true , "field" => $field , "value" => $finalValue]);
-                }
-                else{
-                    return response()->json(["status" => true , "checked" => false , "field" => $field , "value" => $finalValue]);
-                }
-
-            }
-        }
-        else{
-            return response()->json(["status" => false]);
-        }
-    }*/
-
-
-
 
 
 

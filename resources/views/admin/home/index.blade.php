@@ -9,5 +9,7 @@
 @section("content")
 
 
+    @include("admin.home.panels")
+
 
 @endsection

@@ -114,4 +114,102 @@ class AdminUserRepository extends BaseRepository implements IAdminUserRepository
 
         return $this->model->simplePaginate($numInPage);
     }
+
+
+
+    function SearchPanelAdmin(string $panelName="")
+    {
+        $admin = $this->GetUserAdminAuth();
+        $this->model = $this->model->join('admin_panel' , 'admin_user.admin_id', "=", 'admin_panel.admin_id');
+
+        if ($panelName != ""){
+            $this->model = $this->model->join('panels', function($join) use ($panelName){
+                $join->on('admin_panel.panel_id', "=", 'panels.id');
+                $join
+                    ->where("panels.name"  , "like" , $panelName."%")
+                    ->orWhere("panels.name"  , "like" , "%".$panelName)
+                    ->orWhere("panels.name"  , "like" , "%".$panelName."%")
+                    ->orWhere("panels.name"  , "like" , $panelName);
+            });
+        }
+        else{
+            $this->model = $this->model->join('panels' , 'admin_panel.panel_id', "=", 'panels.id');
+        }
+
+        $this->model = $this->model->join('panel_groups' , 'panels.panel_group_id', "=", 'panel_groups.id');
+
+
+        $resultPanels = $this->model->where("admin_user.admin_id" , $admin->admin_id)->where("admin_user.status" , 1)->distinct()
+            ->get(
+                [
+                    "panels.id As panel_id" , "panels.icon As panel_icon" , "panels.name As panel_name" , "panels.link As panel_link" ,
+                    "panel_groups.id As group_id" , "panel_groups.title As group_title" ,
+                ]
+            );
+
+        return $this->readyPanels($resultPanels);
+    }
+
+
+
+    private function readyPanels($resultPanels){
+        $resultExp = [];
+
+        foreach ($resultPanels As $itemPanel){
+            $existGroup = false;
+            foreach ($resultExp As $groupPanel){
+                if ($itemPanel["group_id"] == $groupPanel["group_id"]){
+                    $existGroup = true;
+                    break;
+                }
+            }
+
+            if (!$existGroup){
+
+                $group=[
+                    "group_id" => $itemPanel["group_id"] ,
+                    "group_title" => $itemPanel["group_title"] ,
+                    "panels" => []
+                ];
+
+                $group["panels"] = $this->readyPanelsInGroup($group , $resultPanels);
+
+                array_push($resultExp , $group);
+            }
+        }
+
+        return $resultExp;
+    }
+
+
+    private function readyPanelsInGroup($group , $allPanels){
+
+        $resultExp = [];
+        foreach ($allPanels As $item){
+            if ($item["group_id"] == $group["group_id"]){
+
+                $existPanel = false;
+                foreach ($resultExp As $itemPanel){
+                    if ($item["panel_id"] == $itemPanel["panel_id"]){
+                        $existPanel = true;
+                        break;
+                    }
+                }
+
+                if (!$existPanel){
+
+                    $panel=[
+                        "panel_id" => $item["group_id"] ,
+                        "panel_icon" => $item["panel_icon"] ,
+                        "panel_name" => $item["panel_name"] ,
+                        "panel_link" => $item["panel_link"]
+                    ];
+
+                    array_push($resultExp , $panel);
+                }
+            }
+        }
+
+        return $resultExp;
+    }
 }

@@ -18,4 +18,6 @@ interface IAdminUserRepository extends IBaseRepository {
     function GetEmailAdminAuth($password);
 
     function SearchAdminUser($userName ="" , $userEmail="" , $panelSearcher = 0, $numInPage = 15);
+
+    function SearchPanelAdmin(string $panelName="");
 }

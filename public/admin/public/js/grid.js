@@ -229,3 +229,9 @@ function errorToast(message) {
 
 
 ///// ======================================================
+
+function searchPanel(url) {
+
+    var searchPanel = $.trim($("input[name=search-box-panel]").val());
+    window.location.href = url+"?search="+searchPanel;
+}
