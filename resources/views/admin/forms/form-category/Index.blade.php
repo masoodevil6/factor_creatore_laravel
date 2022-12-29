@@ -67,7 +67,7 @@
                     <tbody>
                     @foreach($formCategories As $key => $itemFormCategory)
                         <x-row-tables.admin.component-item-form-category-admin
-                                :form-category-key='$key+1'
+                                :form-category-key='($formCategories->currentPage() -1 )*$formCategories->perPage() + $key+1'
                                 :form-category-id="$itemFormCategory -> id"
                                 :form-category-title="$itemFormCategory -> title"
                                 :form-category-status="$itemFormCategory -> status"/>
@@ -77,6 +77,9 @@
                 </table>
 
             </section>
+
+            <x-row-tables.admin.component-pageinate-panels
+                    :list="$formCategories"/>
 
         </section>
     </section>

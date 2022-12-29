@@ -102,7 +102,7 @@
                     <tbody>
                     @foreach($subscribePayments As $key => $itemSubscribePayment)
                         <x-row-tables.admin.component-item-subscribe-payment
-                                :subscribe-payment-key="$key+1"
+                                :subscribe-payment-key="($subscribePayments->currentPage() -1 )* $subscribePayments->perPage() + $key+1"
                                 :subscribe-payment-id="$itemSubscribePayment -> id"
                                 :subscribe-payment-title="$itemSubscribePayment -> subscribe -> title"
                                 :subscribe-payment-user="$itemSubscribePayment -> user -> fullName"
@@ -115,6 +115,9 @@
                 </table>
 
             </section>
+
+            <x-row-tables.admin.component-pageinate-panels
+                    :list="$subscribePayments"/>
 
         </section>
     </section>

@@ -22,6 +22,6 @@ class FormRepository extends BaseRepository implements IFormRepository {
             $this->model = $this->addSearcher("name" , $formName);
         }
 
-        return $this->model->simplePaginate($numInPage);
+        return $this->model->paginate($numInPage);
     }
 }

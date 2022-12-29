@@ -19,6 +19,6 @@ class TicketCategoryRepository extends BaseRepository implements ITicketCategory
         if ($categoryTitle != ""){
             $this->model = $this->addSearcher('title' , $categoryTitle);
         }
-        return $this->model->simplePaginate($numInPage);
+        return $this->model->paginate($numInPage);
     }
 }

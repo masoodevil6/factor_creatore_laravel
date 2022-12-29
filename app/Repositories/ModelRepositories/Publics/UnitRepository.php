@@ -18,6 +18,6 @@ class UnitRepository extends BaseRepository implements IUnitRepository {
             $this->model = $this->addSearcher("name" , $unitName);
         }
 
-        return $this->model->simplePaginate($numInPage);
+        return $this->model->paginate($numInPage);
     }
 }

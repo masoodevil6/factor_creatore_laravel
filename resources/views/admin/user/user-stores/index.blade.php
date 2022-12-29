@@ -75,7 +75,7 @@
                     <tbody>
                     @foreach($userStores As $key => $itemUserStore)
                         <x-row-tables.admin.component-item-user-store-admin
-                                :user-Store-key='$key+1'
+                                :user-Store-key='($userStores->currentPage() -1 )* $userStores->perPage() + $key+1'
                                 :user-Store-id="$itemUserStore -> id"
                                 :user-Store-name="$itemUserStore -> nameStore"
                                 :user-Store-phone="$itemUserStore -> phone"
@@ -87,6 +87,10 @@
                 </table>
 
             </section>
+
+            <x-row-tables.admin.component-pageinate-panels
+                    :list="$userStores"/>
+
 
         </section>
     </section>

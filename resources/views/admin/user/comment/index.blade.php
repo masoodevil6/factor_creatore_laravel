@@ -70,7 +70,7 @@
                 <tbody>
                 @foreach($comments As $key => $itemComment)
                 <x-row-tables.admin.component-item-user-commmnet
-                    :comment-key='$key+1'
+                    :comment-key='($comments->currentPage() -1 )*$comments->perPage() + $key+1'
                     :comment-id="$itemComment -> id"
                     :comment-user-name="$itemComment -> user -> fullName"
                     :comment-body="$itemComment -> body"
@@ -84,6 +84,9 @@
             </table>
 
         </section>
+
+        <x-row-tables.admin.component-pageinate-panels
+                :list="$comments"/>
 
     </section>
 </section>

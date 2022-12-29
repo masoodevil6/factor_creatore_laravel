@@ -58,6 +58,6 @@ class SubscribePaymentRepository extends BaseRepository implements ISubscribePay
             $this->model = $this->model->where('subscribe_payments.subscribe_id' , $subscribe);
         }
 
-        return $this->model->simplePaginate($numInPage);
+        return $this->model->paginate($numInPage);
     }
 }

@@ -18,6 +18,6 @@ class FormCategoryRepository extends BaseRepository implements IFormCategoryRepo
             $this->model = $this->addSearcher("title" , $categoryTitle);
         }
 
-        return $this->model->simplePaginate($numInPage);
+        return $this->model->paginate($numInPage);
     }
 }

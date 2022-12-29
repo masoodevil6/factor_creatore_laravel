@@ -59,7 +59,7 @@
                     <tbody>
                     @foreach($units As $key => $itemUnit)
                         <x-row-tables.admin.component-item-unit-admin
-                                :unit-key='$key+1'
+                                :unit-key='($units->currentPage() -1 )*$units->perPage() + $key+1'
                                 :unit-id="$itemUnit -> id"
                                 :unit-name="$itemUnit -> name"/>
                     @endforeach
@@ -68,6 +68,9 @@
                 </table>
 
             </section>
+
+            <x-row-tables.admin.component-pageinate-panels
+                    :list="$units"/>
 
         </section>
     </section>

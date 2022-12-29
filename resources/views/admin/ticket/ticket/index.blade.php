@@ -93,7 +93,7 @@
                     @foreach($ticketFolders As $key => $itemTicketFolder)
 
                         <x-row-tables.admin.component-item-tickets
-                                :ticket-folder-key="$key+1"
+                                :ticket-folder-key="($ticketFolders->currentPage() -1 )* $ticketFolders->perPage() + $key+1"
                                 :ticket-folder-id="$itemTicketFolder -> id"
                                 :ticket-folder-title="$itemTicketFolder -> title"
                                 :ticket-folder-user="$itemTicketFolder -> user -> fullName"
@@ -106,6 +106,9 @@
                 </table>
 
             </section>
+
+            <x-row-tables.admin.component-pageinate-panels
+                    :list="$ticketFolders"/>
 
         </section>
     </section>

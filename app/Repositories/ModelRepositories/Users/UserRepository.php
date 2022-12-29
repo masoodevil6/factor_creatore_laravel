@@ -69,7 +69,7 @@ class UserRepository extends BaseRepository implements IUserRepository {
             $this->model = $this->addSearcher("CONCAT(`name`, ' ', `family`)" , $userName);
         }
 
-        return $this->model->simplePaginate($numInPage);
+        return $this->model->paginate($numInPage);
     }
 
 

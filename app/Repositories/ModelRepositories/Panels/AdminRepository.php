@@ -48,6 +48,6 @@ class AdminRepository extends BaseRepository implements IAdminRepository {
             $this->model = $this->addSearcher("title" , $panelName);
         }
 
-        return $this->model->simplePaginate($numInPage);
+        return $this->model->paginate($numInPage);
     }
 }

@@ -42,6 +42,6 @@ class CommentRepository extends BaseRepository implements ICommentRepository {
             });
         }
 
-        return $this->model->simplePaginate($numInPage);
+        return $this->model->paginate($numInPage);
     }
 }

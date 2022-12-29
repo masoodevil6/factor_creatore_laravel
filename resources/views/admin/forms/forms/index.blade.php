@@ -2,7 +2,7 @@
 @section("titlePage" , "ادمین- لیست فرم ها")
 
 @section("head-tag")
-    <meta name="link-this-page" content="{{ route("admin.forms.form.index") }}" />
+
 @endsection
 
 
@@ -83,7 +83,7 @@
                     <tbody>
                     @foreach($forms As $key => $itemForm)
                         <x-row-tables.admin.component-item-form-admin
-                                :form-key='$key+1'
+                                :form-key='($forms->currentPage() -1 )*$forms->perPage() + $key+1'
                                 :form-id="$itemForm -> id"
                                 :form-name="$itemForm -> name"
                                 :form-image="$itemForm -> image"
@@ -98,6 +98,9 @@
 
             </section>
 
+            <x-row-tables.admin.component-pageinate-panels
+                    :list="$forms"/>
+
         </section>
     </section>
 
@@ -106,15 +109,4 @@
 
 @section("footer-tag")
 
-    <script>
-        function changeFilterSubscribes(element) {
-            var route  = $('meta[name="link-this-page"]').attr('content');
-            var subscribeId = $(element).val();
-            var location = route;
-            if(subscribeId > 0){
-                location += "?subscribe="+subscribeId;
-            }
-            window.location.href = location;
-        }
-    </script>
 @endsection

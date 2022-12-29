@@ -41,6 +41,6 @@ class UserStoreRepository extends BaseRepository implements IUserStoreRepository
             $this->model = $this->addSearcher("user_stores.name" , $userStore);
         }
 
-        return $this->model->simplePaginate($numInPage);
+        return $this->model->paginate($numInPage);
     }
 }

@@ -112,7 +112,7 @@ class AdminUserRepository extends BaseRepository implements IAdminUserRepository
             $this->model = $this->model->where("admin_id" , $panelSearcher);
         }
 
-        return $this->model->simplePaginate($numInPage);
+        return $this->model->paginate($numInPage);
     }
 
 

@@ -66,7 +66,7 @@
                     <tbody>
                     @foreach($banks As $key => $itemBank)
                         <x-row-tables.admin.component-item-bank-admin
-                                :bank-key='$key+1'
+                                :bank-key='($banks->currentPage() -1 )*$banks->perPage() + $key+1'
                                 :bank-id="$itemBank -> id"
                                 :bank-title="$itemBank -> title"
                                 :bank-status="$itemBank -> status"/>
@@ -76,6 +76,9 @@
                 </table>
 
             </section>
+
+            <x-row-tables.admin.component-pageinate-panels
+                    :list="$banks"/>
 
         </section>
     </section>

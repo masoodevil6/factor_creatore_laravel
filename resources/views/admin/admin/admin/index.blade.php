@@ -65,7 +65,7 @@
                     <tbody>
                     @foreach($admins As $key => $itemAdmin)
                         <x-row-tables.admin.component-item-admin
-                                :admin-key='$key+1'
+                                :admin-key='($admins->currentPage() -1 )*$admins->perPage() + $key+1'
                                 :admin-id="$itemAdmin -> id"
                                 :admin-title="$itemAdmin -> title"
                                 :admin-status="$itemAdmin -> status"/>
@@ -75,6 +75,9 @@
                 </table>
 
             </section>
+
+            <x-row-tables.admin.component-pageinate-panels
+                    :list="$admins"/>
 
         </section>
     </section>

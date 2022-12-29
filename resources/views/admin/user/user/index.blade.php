@@ -68,7 +68,7 @@
                     <tbody>
                     @foreach($users As $key => $itemUser)
                         <x-row-tables.admin.component-item-user
-                                :user-key='$key+1'
+                                :user-key='($users->currentPage() -1 )*$users->perPage() + $key+1'
                                 :user-id="$itemUser -> id"
                                 :user-full-name="$itemUser -> fullName"
                                 :user-status="$itemUser -> status"/>
@@ -79,7 +79,11 @@
 
             </section>
 
+            <x-row-tables.admin.component-pageinate-panels
+                    :list="$users"/>
+
         </section>
+
     </section>
 
 

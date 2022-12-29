@@ -20,6 +20,6 @@ class BankRepository extends BaseRepository implements IBanckRepository {
             $this->model = $this->addSearcher("title" , $bankName);
         }
 
-        return $this->model->simplePaginate($numInPage);
+        return $this->model->paginate($numInPage);
     }
 }

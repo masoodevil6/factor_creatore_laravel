@@ -78,7 +78,7 @@
                     <tbody>
                     @foreach($factors As $key => $itemFactor)
                         <x-row-tables.admin.component-item-factor-admin
-                                :factor-key='$key+1'
+                                :factor-key='($factors->currentPage() -1 )*$factors->perPage() + $key+1'
                                 :factor-id="$itemFactor -> id"
                                 :factor-res-num="$itemFactor -> res_num"
                                 :factor-user="$itemFactor -> user"
@@ -91,6 +91,9 @@
                 </table>
 
             </section>
+
+            <x-row-tables.admin.component-pageinate-panels
+                    :list="$factors"/>
 
         </section>
     </section>

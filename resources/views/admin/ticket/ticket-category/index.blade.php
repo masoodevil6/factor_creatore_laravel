@@ -65,7 +65,7 @@
                     <tbody>
                     @foreach($ticketCategories As $key => $itemTicketCategory)
                         <x-row-tables.admin.component-item-ticket-categories
-                                :ticket-category-key='$key+1'
+                                :ticket-category-key='($ticketCategories->currentPage() -1 )* $ticketCategories->perPage() + $key+1'
                                 :ticket-category-id="$itemTicketCategory -> id"
                                 :ticket-category-title="$itemTicketCategory -> title"
                                 :ticket-category-status='$itemTicketCategory -> status'/>
@@ -75,6 +75,9 @@
                 </table>
 
             </section>
+
+            <x-row-tables.admin.component-pageinate-panels
+                    :list="$ticketCategories"/>
 
         </section>
     </section>

@@ -39,6 +39,6 @@ class FactorRepository extends BaseRepository implements IFactorRepository {
             $this->model = $this->addSearcher("res_num" , $resNum);
         }
 
-        return $this->model->simplePaginate($numInPage);
+        return $this->model->paginate($numInPage);
     }
 }

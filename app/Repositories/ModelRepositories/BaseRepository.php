@@ -32,7 +32,7 @@ class BaseRepository  implements IBaseRepository {
         if ($ifStatus){
             $res =$res->where("status" , 1);
         }
-        return $res->simplePaginate($numInPage);
+        return $res->paginate($numInPage);
     }
 
 

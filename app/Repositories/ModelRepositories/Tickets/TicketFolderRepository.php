@@ -38,7 +38,7 @@ class TicketFolderRepository extends BaseRepository implements ITicketFolderRepo
             $this->model = $this->model->where('ticket_folders.ticket_category_id' , $ticketCategory);
         }
 
-        return $this->model->withCount("ticketsNotSeen")->orderBy("tickets_not_seen_count" , "desc")->simplePaginate($numInPage);
+        return $this->model->withCount("ticketsNotSeen")->orderBy("tickets_not_seen_count" , "desc")->paginate($numInPage);
     }
 
 
