@@ -7,4 +7,5 @@ interface ISubscribePaymentRepository extends IBaseRepository {
 
     function CreateRecordForUser(string $userEmail ,  array $data) : int ;
 
+    function SearchSubscribePayment(string $userName="", string $resNum="" , int $Status=-1, int $subscribe=0 , $numInPage=15);
 }

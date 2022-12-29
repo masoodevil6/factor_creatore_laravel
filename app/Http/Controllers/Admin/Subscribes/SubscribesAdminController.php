@@ -32,8 +32,13 @@ class SubscribesAdminController extends MainAdminController
             ]
         ];
 
-        $subscribes = ContextRepository::SubscribeRepository()->getPaginateResult();
-        return view("admin.subscribe.subscribes.index" , compact("nav" , "subscribes"));
+        $subSearch = "";
+        if (isset($_GET["sub"])){
+            $subSearch = $_GET["sub"];
+        }
+        $subscribes = ContextRepository::SubscribeRepository()->SearchSubscribe($subSearch);
+
+        return view("admin.subscribe.subscribes.index" , compact("nav" , "subscribes" , "subSearch"));
     }
 
 

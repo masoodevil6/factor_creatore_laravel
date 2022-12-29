@@ -29,9 +29,13 @@ class BackAdminController extends MainAdminController
             ]
         ];
 
-        $banks = ContextRepository::BankRepository()->getPaginateResult();
+        $bankSearch = "";
+        if (isset($_GET["bank"])){
+            $bankSearch = $_GET["bank"];
+        }
+        $banks = ContextRepository::BankRepository()->SearchBank($bankSearch);
 
-        return view("admin.banks.bank.index" , compact("nav" , "banks"));
+        return view("admin.banks.bank.index" , compact("nav" , "banks" , "bankSearch"));
     }
 
 

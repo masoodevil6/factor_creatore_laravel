@@ -1,8 +1,13 @@
 <style>
+    .form-selectection-{{$titleEn}}{
+        width: fit-content
+    }
+
     .list-option-{{$titleEn}}{
         left: 10%;
         width: 13rem;
         top: 30px;
+        right: 0;
         z-index: 1000;
         display: none;
     }
@@ -22,9 +27,9 @@
     }
 </style>
 
-<div class=" font-size-12 position-relative">
+<div class="form-selectection-{{$titleEn}} font-size-12 position-relative">
 
-    <section  class="btn btn-success w-10-rem btn-sm" onclick="showListOption{{$titleEn}}(this)">
+    <section  class="btn btn-success w-10-rem btn-sm" onclick="showListOption{{$titleEn}}(this)" >
 
         <i class="fa fa-cog"></i>
         <span>
@@ -43,13 +48,17 @@
 <script>
     function showListOption{{$titleEn}}(element){
 
-        var listOption = $(".list-option-product");
+        var listOption = $(".list-option-{{$titleEn}}");
         var myListOption = $(element).parent().find(".list-option-{{$titleEn}}");
-        var isHasAction = myListOption.hasClass("list-option-{{$titleEn}}-active");
 
-        listOption.removeClass("list-option-{{$titleEn}}-active");
-        if(!isHasAction){
+
+        if (!myListOption.hasClass("list-option-{{$titleEn}}-active")){
+            listOption.removeClass("list-option-{{$titleEn}}-active");
             myListOption.addClass("list-option-{{$titleEn}}-active");
         }
+        else {
+            listOption.removeClass("list-option-{{$titleEn}}-active");
+        }
+
     }
 </script>

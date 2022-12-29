@@ -6,6 +6,6 @@ use App\Repositories\InterFaceRepositories\IBaseRepository;
 
 interface IFormRepository extends IBaseRepository {
 
-    function SearchAllFormWithFilterSubscribe(int $subscribeId ,$numInPage = 15);
+    function SearchForm(string $formName="" , int $subscribeId=0 ,$numInPage = 15);
 
 }

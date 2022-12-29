@@ -29,9 +29,17 @@ class UserStoreAdminController extends MainAdminController
             ]
         ];
 
-        $userStores = ContextRepository::UserStoreRepository()->getPaginateResult();
+        $userSearch = "";
+        if (isset($_GET["user"])){
+            $userSearch = $_GET["user"];
+        }
+        $storeSearch = "";
+        if (isset($_GET["store"])){
+            $storeSearch = $_GET["store"];
+        }
+        $userStores = ContextRepository::UserStoreRepository()->SearchUserStore($userSearch , $storeSearch);
 
-        return view("admin.user.user-stores.index" , compact("nav" , "userStores"));
+        return view("admin.user.user-stores.index" , compact("nav" , "userStores" , "userSearch" , "storeSearch"));
     }
 
 

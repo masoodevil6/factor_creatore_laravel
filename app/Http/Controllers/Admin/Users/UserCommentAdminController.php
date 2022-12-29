@@ -30,9 +30,13 @@ class UserCommentAdminController extends MainAdminController
             ]
         ];
 
-        $comments = ContextRepository::CommentRepository()->getPaginateResult();
+        $userSearch = "";
+        if (isset($_GET["user"])){
+            $userSearch = $_GET["user"];
+        }
+        $comments = ContextRepository::CommentRepository()->SearchUserComment($userSearch);
 
-        return view("admin.user.comment.index" , compact("nav" , "comments"));
+        return view("admin.user.comment.index" , compact("nav" , "comments" , "userSearch"));
     }
 
 

@@ -5,6 +5,7 @@ use App\Models\Ticket\TicketFolder;
 use App\Repositories\ContextRepository;
 use App\Repositories\InterFaceRepositories\Tickets\ITicketFolderRepository;
 use App\Repositories\ModelRepositories\BaseRepository;
+use Illuminate\Support\Facades\DB;
 
 
 class TicketFolderRepository extends BaseRepository implements ITicketFolderRepository {
@@ -15,10 +16,32 @@ class TicketFolderRepository extends BaseRepository implements ITicketFolderRepo
     }
 
 
-    public function GetNewTicketFolder($numInPage=15)
+    public function SearchTicketFolder(string $userName="", int $Status=-1, int $ticketCategory=0 , $numInPage=15)
     {
-        return TicketFolder::withCount("ticketsNotSeen")->orderBy("tickets_not_seen_count" , "desc")->simplePaginate($numInPage);
+
+        if ($userName != ""){
+            $this->model = $this->model->join('users', function($join) use ($userName){
+                $join->on('ticket_folders.user_id', "=", 'users.id');
+                $join
+                    ->where(DB::raw("CONCAT(users.`name`, ' ', users.`family`)")  , "like" , $userName."%")
+                    ->orWhere(DB::raw("CONCAT(users.`name`, ' ', users.`family`)")  , "like" , "%".$userName)
+                    ->orWhere(DB::raw("CONCAT(users.`name`, ' ', users.`family`)")  , "like" , "%".$userName."%")
+                    ->orWhere(DB::raw("CONCAT(users.`name`, ' ', users.`family`)")  , "like" , $userName);
+            });
+        }
+
+        if (in_array($Status , [0 , 1])){
+            $this->model = $this->model->where('ticket_folders.status' , $Status);
+        }
+
+        if ($ticketCategory > 0){
+            $this->model = $this->model->where('ticket_folders.ticket_category_id' , $ticketCategory);
+        }
+
+        return $this->model->withCount("ticketsNotSeen")->orderBy("tickets_not_seen_count" , "desc")->simplePaginate($numInPage);
     }
+
+
 
     public function AnswerTicketFolder(TicketFolder $ticketFolder , string $ticketText): bool
     {

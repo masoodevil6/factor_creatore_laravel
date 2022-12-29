@@ -12,12 +12,16 @@ class FormRepository extends BaseRepository implements IFormRepository {
         parent::__construct(new Form());
     }
 
-    function SearchAllFormWithFilterSubscribe(int $subscribeId ,$numInPage = 15)
+    function SearchForm(string $formName = "", int $subscribeId = 0, $numInPage = 15)
     {
-        $res = $this->model;
         if ($subscribeId > 0){
-            $res =$res->where("subscribe_id" , $subscribeId);
+            $this->model = $this->model->where("subscribe_id" , $subscribeId);
         }
-        return $res->simplePaginate($numInPage);
+
+        if ($formName != ""){
+            $this->model = $this->addSearcher("name" , $formName);
+        }
+
+        return $this->model->simplePaginate($numInPage);
     }
 }

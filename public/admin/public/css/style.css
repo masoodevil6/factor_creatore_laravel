@@ -101,6 +101,15 @@
 }
 
 
+.max-height-30{
+    max-height: 30px;
+}
+
+.max-height-40{
+    max-height: 40px;
+}
+
+
 /* admin posts */
 .alert_required{
     color: #ff50a1 !important;

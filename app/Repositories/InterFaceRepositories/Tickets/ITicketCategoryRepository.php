@@ -5,5 +5,6 @@ use App\Repositories\InterFaceRepositories\IBaseRepository;
 
 interface ITicketCategoryRepository extends IBaseRepository {
 
+    function SearchFormCategory($categoryTitle="" , $numInPage=15);
 
 }

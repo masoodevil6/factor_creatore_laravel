@@ -33,9 +33,29 @@ class SubscribePaymentsAdminController extends MainAdminController
             ]
         ];
 
-        $subscribePayments = ContextRepository::SubscribePaymentRepository()->getPaginateResult();
+        $userSearch = "";
+        if (isset($_GET["user"])){
+            $userSearch = $_GET["user"];
+        }
+        $resSearch = "";
+        if (isset($_GET["res"])){
+            $resSearch = $_GET["res"];
+        }
+        $statusSearch = -1;
+        if (isset($_GET["status"])){
+            $statusSearch = $_GET["status"];
+        }
+        $subscribeSearch = -1;
+        if (isset($_GET["sub"])){
+            $subscribeSearch = $_GET["sub"];
+        }
+        $subscribePayments = ContextRepository::SubscribePaymentRepository()->SearchSubscribePayment($userSearch , $resSearch , $statusSearch , $subscribeSearch);
 
-        return view("admin.subscribe.subscribe-payments.index" , compact("nav" , "subscribePayments"));
+        $subscribes = ContextRepository::SubscribeRepository()->getAllResult();
+
+        return view("admin.subscribe.subscribe-payments.index" ,
+            compact("nav" , "subscribePayments" , "subscribes" , "userSearch", "resSearch", "statusSearch", "subscribeSearch")
+        );
     }
 
 

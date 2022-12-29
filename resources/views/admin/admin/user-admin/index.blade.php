@@ -19,12 +19,52 @@
 
             <section class="body-content d-flex justify-content-between pb-2 border-bottom">
 
-                <a href="{{route("admin.panel.user-admin.create")}}" class="btn btn-info btn-sm">
+                <a href="{{route("admin.panel.user-admin.create")}}" class="btn btn-info btn-sm max-height-30">
                     افزودن ادمین جدید
                 </a>
 
-                <div class="mx-2">
-                    <input type="text" placeholder="جستجو ..." class="form-control form-control-sm form-text">
+
+                <div class="mx-2 ">
+                    <p class="text-center text-white font-size-12  bg-grey m-0 rounded">
+                        فیلتر ها
+                    </p>
+
+                    <form action="{{ route("admin.panel.user-admin.index") }}" method="get" class="border border-dark rounded p-1 d-flex">
+                        <div class="d-block">
+                            <div class="float-right mx-1">
+                                <label for="filter-for-user" class="d-block text-right font-size-12 mt-2 mb-0 px-2 bg-grey">
+                                    کاربر
+                                </label>
+                                <input name="user" id="filter-for-user" type="text" value="{{$userSearch}}" placeholder="جستجو کاربر ..." class="form-control form-control-sm form-text">
+                            </div>
+
+                            <div class="float-right mx-1">
+                                <label for="filter-for-email" class="d-block text-right font-size-12 mt-2 mb-0 px-2 bg-grey">
+                                    ایمیل
+                                </label>
+                                <input name="email" id="filter-for-email" type="text" value="{{$userEmailSearch}}" placeholder="جستجو ایمیل ..." class="form-control form-control-sm form-text">
+                            </div>
+
+                            <div class="float-right mx-1">
+                                <label for="filter-for-panel" class="d-block text-right font-size-12 mt-2 mb-0 px-2 bg-grey">
+                                    پنل
+                                </label>
+                                <select name="panel" id="filter-for-panel" class="form-control form-control-sm form-text">
+                                    <option value="0" @if($panelSearcher==0) selected @endif> همه </option>
+                                    @foreach($panels As $itemPanel)
+                                        <option value="{{$itemPanel->id}}" @if($panelSearcher==$itemPanel->id) selected @endif> {{$itemPanel->title}} </option>
+                                    @endforeach
+                                </select>
+                            </div>
+
+                        </div>
+
+
+                        <button type="submit"  class="btn btn-info round float-left font-size-md mt-1">
+                            <i class="fa fa-search"></i>
+                            جستجو
+                        </button>
+                    </form>
                 </div>
 
             </section>

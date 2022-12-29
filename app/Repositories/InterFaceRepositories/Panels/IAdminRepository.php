@@ -18,5 +18,6 @@ interface IAdminRepository extends IBaseRepository {
 
     function SyncPanelForAdminPanel(Admin $admin , array $data);
 
+    function SearchAdminPanel(string $panelName ,$numInPage = 15);
 
 }

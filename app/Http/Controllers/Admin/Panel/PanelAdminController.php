@@ -37,9 +37,16 @@ class PanelAdminController extends MainAdminController
             ]
         ];
 
-        $admins = $this->getPublicListAdminPanels();
 
-        return view("admin.admin.admin.index" , compact("nav" , "admins"));
+
+        $panelSearcher = "";
+        if (isset($_GET["panel"])){
+            $panelSearcher = $_GET["panel"];
+        }
+
+        $admins = $this->getPublicListAdminPanels($panelSearcher);
+
+        return view("admin.admin.admin.index" , compact("nav" , "admins" , "panelSearcher"));
     }
 
 
@@ -200,9 +207,9 @@ class PanelAdminController extends MainAdminController
     /// model
     /// =======================================
 
-    private function getPublicListAdminPanels(){
+    private function getPublicListAdminPanels($panelName=""){
 
-        $admins = ContextRepository::AdminRepository()->getAllResult();
+        $admins = ContextRepository::AdminRepository()->SearchAdminPanel($panelName);
 
         foreach ($admins As $key => $itemAdmin){
             if ($itemAdmin["main"] != 0){

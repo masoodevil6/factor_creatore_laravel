@@ -32,9 +32,26 @@ class UserAdminController extends MainAdminController
             ]
         ];
 
-        $AdminUsers = $this->getAllUserAdmin();
+        $userSearch = "";
+        if (isset($_GET["user"])){
+            $userSearch = $_GET["user"];
+        }
+        $userEmailSearch = "";
+        if (isset($_GET["email"])){
+            $userEmailSearch = $_GET["email"];
+        }
+        $panelSearcher = 0;
+        if (isset($_GET["panel"])){
+            $panelSearcher = $_GET["panel"];
+        }
 
-        return view("admin.admin.user-admin.index" , compact("nav" , "AdminUsers"));
+        $panels = ContextRepository::AdminRepository()->getAllResult();
+        $AdminUsers = $this->getAllUserAdmin($userSearch , $userEmailSearch , $panelSearcher);
+
+        return view("admin.admin.user-admin.index" ,
+            compact("nav" , "AdminUsers" , "panels" ,
+                "userSearch" , "userEmailSearch" , "panelSearcher")
+        );
     }
 
 
@@ -152,24 +169,22 @@ class UserAdminController extends MainAdminController
     /// Model
     /// ===============================================
 
-    private function getAllUserAdmin(){
+    private function getAllUserAdmin($userSearch ="" , $userEmailSearch="" , $panelSearcher = 0){
 
-        $admins = ContextRepository::AdminRepository()->getAllResult();
+        $admins = ContextRepository::AdminUserRepository()->SearchAdminUser($userSearch , $userEmailSearch , $panelSearcher);
 
         $resultExp = [];
         foreach ($admins As $itemAdmin){
-            foreach ($itemAdmin->users As $itemUser){
-                $result=[
-                    "admin_id"=>$itemAdmin->id,
-                    "admin_title"=>$itemAdmin->title,
-                    "user_id"=> $itemUser->id,
-                    "user_email"=> $itemUser->email,
-                    "user_name"=> $itemUser ->fullName,
-                    "status"=> $itemUser ->pivot->status,
-                ];
+            $result=[
+                "admin_id"=>$itemAdmin->id,
+                "admin_title"=>$itemAdmin->title,
+                "user_id"=> $itemAdmin->user_id,
+                "user_email"=> $itemAdmin->email,
+                "user_name"=> $itemAdmin ->name." ".$itemAdmin ->family,
+                "status"=> $itemAdmin->status,
+            ];
 
-                array_push($resultExp , $result);
-            }
+            array_push($resultExp , $result);
         }
 
         return $resultExp;

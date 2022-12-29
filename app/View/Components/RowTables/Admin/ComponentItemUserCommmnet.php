@@ -10,6 +10,7 @@ class ComponentItemUserCommmnet extends Component
 
     public $commentKey;
     public $commentId;
+    public $commentUserName;
     public $commentBody;
     public $commentSeen;
     public $commentParent;
@@ -20,10 +21,11 @@ class ComponentItemUserCommmnet extends Component
     public $commentApproved;
 
 
-    public function __construct($commentKey , $commentId , $commentBody , $commentParent , $commentStatus , $commentSeen , $commentApproved)
+    public function __construct($commentKey , $commentId , $commentUserName, $commentBody , $commentParent , $commentStatus , $commentSeen , $commentApproved)
     {
         $this->commentKey = $commentKey;
         $this->commentId = $commentId;
+        $this->commentUserName = $commentUserName;
         $this->commentBody = $commentBody;
         $this->commentParent = $commentParent;
 

@@ -31,9 +31,18 @@ class FactorAdminController extends MainAdminController
             ]
         ];
 
-        $factors= ContextRepository::FactorRepository()->getPaginateResult();
+        $userSearch = "";
+        if (isset($_GET["user"])){
+            $userSearch = $_GET["user"];
+        }
+        $resNumSearch = "";
+        if (isset($_GET["res"])){
+            $resNumSearch = $_GET["res"];
+        }
+        $factors= ContextRepository::FactorRepository()->SearchFactors($userSearch , $resNumSearch);
 
-        return view("admin.factor.factor.index" , compact("nav" , "factors"));
+
+        return view("admin.factor.factor.index" , compact("nav" , "factors" , "userSearch" , "resNumSearch"));
     }
 
 

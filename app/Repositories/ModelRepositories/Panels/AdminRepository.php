@@ -40,4 +40,14 @@ class AdminRepository extends BaseRepository implements IAdminRepository {
     {
         $admin->panels()->sync($data);
     }
+
+
+    function SearchAdminPanel(string $panelName, $numInPage = 15)
+    {
+        if ($panelName != ""){
+            $this->model = $this->addSearcher("title" , $panelName);
+        }
+
+        return $this->model->simplePaginate($numInPage);
+    }
 }

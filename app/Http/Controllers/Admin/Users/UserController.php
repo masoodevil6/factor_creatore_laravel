@@ -28,9 +28,13 @@ class UserController extends MainAdminController
             ]
         ];
 
-        $users = ContextRepository::UserRepository()->getPaginateResult();
+        $userSearch = "";
+        if (isset($_GET["user"])){
+            $userSearch = $_GET["user"];
+        }
+        $users = ContextRepository::UserRepository()->SearchUser($userSearch);
 
-        return view("admin.user.user.index" , compact("nav" , "users"));
+        return view("admin.user.user.index" , compact("nav" , "users" , "userSearch"));
     }
 
 
@@ -68,29 +72,7 @@ class UserController extends MainAdminController
 
 
 
-    public function factors(User $user)
-    {
-        /// navigation page
-        $nav = [
-            "part"=> "بخش مدیریت کاربران",
-            "navigation" =>[
-                [
-                    "route" => "admin.users.comment.index" ,
-                    "current" => 0,
-                    "title" => "لیست کاربران"
-                ],
-                [
-                    "route" => "" ,
-                    "current" => 1,
-                    "title" => "فاکتور های کاربر"
-                ]
-            ]
-        ];
 
-        $factors = ContextRepository::FactorRepository()->GetUserFactors($user->id);
-
-        return view("admin.user.user.factors" , compact("nav" , "user" , "factors"));
-    }
 
 
 

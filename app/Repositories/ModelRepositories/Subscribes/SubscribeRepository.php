@@ -14,4 +14,11 @@ class SubscribeRepository extends BaseRepository implements ISubscribeRepository
     }
 
 
+    function SearchSubscribe(string $subscribeName = "", $numInPage = 15)
+    {
+        if ($subscribeName != ""){
+            $this->model = $this->addSearcher('title' , $subscribeName);
+        }
+        return $this->model->simplePaginate($numInPage);
+    }
 }

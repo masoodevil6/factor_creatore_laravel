@@ -34,9 +34,23 @@ class TicketsAdminController extends MainAdminController
             ]
         ];
 
-        $ticketFolders = ContextRepository::TicketFolderRepository()->GetNewTicketFolder();
+        $userSearch = "";
+        if (isset($_GET["user"])){
+            $userSearch = $_GET["user"];
+        }
+        $StatusSearch = -1;
+        if (isset($_GET["status"])){
+            $StatusSearch = $_GET["status"];
+        }
+        $ticketCategorySearch = 0;
+        if (isset($_GET["cat"])){
+            $ticketCategorySearch = $_GET["cat"];
+        }
+        $ticketFolders = ContextRepository::TicketFolderRepository()->SearchTicketFolder($userSearch , $StatusSearch , $ticketCategorySearch);
 
-        return view("admin.ticket.ticket.index" , compact("nav" , "ticketFolders"));
+        $ticketCategories = ContextRepository::TicketCategoryRepository()->getAllResult();
+
+        return view("admin.ticket.ticket.index" , compact("nav" , "ticketFolders" , "ticketCategories" , "userSearch" , "StatusSearch" , "ticketCategorySearch"));
     }
 
 

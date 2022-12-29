@@ -19,12 +19,31 @@
 
             <section class="body-content d-flex justify-content-between pb-2 border-bottom">
 
-                <a href="{{route("admin.banks.bank.create")}}" class="btn btn-info btn-sm">
+                <a href="{{route("admin.banks.bank.create")}}" class="btn btn-info btn-sm max-height-30">
                     بانک جدید
                 </a>
 
-                <div class="mx-2">
-                    <input type="text" placeholder="جستجو ..." class="form-control form-control-sm form-text">
+                <div class="mx-2 ">
+                    <p class="text-center text-white font-size-12  bg-grey m-0 rounded">
+                        فیلتر ها
+                    </p>
+
+                    <form action="{{ route("admin.banks.bank.index") }}" method="get" class=" border border-dark rounded p-1 d-flex">
+                        <div class="d-block">
+                            <div class="float-right mx-1">
+                                <label for="filter-for-form-bank" class="d-block text-right font-size-12 mt-2 mb-0 px-2 bg-grey">
+                                    عنوان بانک
+                                </label>
+                                <input name="bank" id="filter-for-form-bank" type="text" value="{{$bankSearch}}" placeholder="جستجو بانک ..." class="form-control form-control-sm form-text">
+                            </div>
+
+                        </div>
+
+                        <button type="submit"  class="btn btn-info round float-left font-size-md mt-1">
+                            <i class="fa fa-search"></i>
+                            جستجو
+                        </button>
+                    </form>
                 </div>
 
             </section>

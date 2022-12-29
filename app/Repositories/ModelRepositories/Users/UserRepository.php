@@ -5,6 +5,7 @@ use App\Models\Users\User;
 use App\Repositories\InterFaceRepositories\Users\IUserRepository;
 use App\Repositories\ModelRepositories\BaseRepository;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 
 class UserRepository extends BaseRepository implements IUserRepository {
@@ -62,6 +63,18 @@ class UserRepository extends BaseRepository implements IUserRepository {
 
 
 
+    function SearchUser(string $userName = "" , $numInPage=15)
+    {
+        if ($userName != ""){
+            $this->model = $this->addSearcher("CONCAT(`name`, ' ', `family`)" , $userName);
+        }
+
+        return $this->model->simplePaginate($numInPage);
+    }
+
+
+
+
 
 
     function GetUserAuthInfo()
@@ -78,5 +91,6 @@ class UserRepository extends BaseRepository implements IUserRepository {
     {
         return $panel->pivot->password;
     }
+
 
 }

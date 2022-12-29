@@ -13,4 +13,13 @@ class BankRepository extends BaseRepository implements IBanckRepository {
         parent::__construct(new Bank());
     }
 
+
+    function SearchBank(string $bankName = "", $numInPage = 15)
+    {
+        if ($bankName != ""){
+            $this->model = $this->addSearcher("title" , $bankName);
+        }
+
+        return $this->model->simplePaginate($numInPage);
+    }
 }

@@ -28,4 +28,6 @@ interface IBaseRepository
 
     function save($model) : void ;
 
+    function addSearcher(string $property , string $value);
+
 }

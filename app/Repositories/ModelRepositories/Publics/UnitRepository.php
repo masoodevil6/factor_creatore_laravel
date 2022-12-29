@@ -12,4 +12,12 @@ class UnitRepository extends BaseRepository implements IUnitRepository {
         parent::__construct(new Unit());
     }
 
+    function SearchUnit($unitName = "", $numInPage = 15)
+    {
+        if ($unitName != ""){
+            $this->model = $this->addSearcher("name" , $unitName);
+        }
+
+        return $this->model->simplePaginate($numInPage);
+    }
 }

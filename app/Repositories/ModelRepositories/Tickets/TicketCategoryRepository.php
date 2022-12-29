@@ -14,4 +14,11 @@ class TicketCategoryRepository extends BaseRepository implements ITicketCategory
     }
 
 
+    function SearchFormCategory($categoryTitle = "", $numInPage = 15)
+    {
+        if ($categoryTitle != ""){
+            $this->model = $this->addSearcher('title' , $categoryTitle);
+        }
+        return $this->model->simplePaginate($numInPage);
+    }
 }

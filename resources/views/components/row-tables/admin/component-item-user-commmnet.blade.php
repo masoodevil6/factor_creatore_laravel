@@ -6,6 +6,9 @@
         {{$commentBody}}
     </td>
     <td class="font-size-12">
+        {{$commentUserName}}
+    </td>
+    <td class="font-size-12">
         @if($commentParent == null)
             -
         @else

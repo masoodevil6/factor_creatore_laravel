@@ -27,9 +27,13 @@ class FormCategoryController extends MainAdminController
             ]
         ];
 
-        $formCategories = ContextRepository::FormCategoryRepository()->getPaginateResult();
+        $cateSearch = "";
+        if (isset($_GET["cate"])){
+            $cateSearch = $_GET["cate"];
+        }
+        $formCategories = ContextRepository::FormCategoryRepository()->SearchFormCategory($cateSearch);
 
-        return view("admin.forms.form-category.index" , compact("nav" , "formCategories"));
+        return view("admin.forms.form-category.index" , compact("nav" , "formCategories" , "cateSearch"));
     }
 
 

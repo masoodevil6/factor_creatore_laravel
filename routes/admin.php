@@ -218,8 +218,6 @@ Route::namespace("Users")->group(function (){
         Route::get("/show/{user}" , "show")->name("admin.users.user.show");
         Route::post("/update/{user}" , "changeInfo")->name("admin.users.user.change-info");
 
-        Route::get("/factors/{user}" , "factors")->name("admin.users.user.factors");
-
         Route::post("/status/{user}" , "status")->name("admin.users.user.status");
 
     });

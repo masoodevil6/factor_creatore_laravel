@@ -31,9 +31,13 @@ class UnitAdminController extends MainAdminController
             ]
         ];
 
-        $units = ContextRepository::UnitRepository()->getPaginateResult();
+        $unitSearch = "";
+        if (isset($_GET["unit"])){
+            $unitSearch = $_GET["unit"];
+        }
+        $units = ContextRepository::UnitRepository()->SearchUnit($unitSearch);
 
-        return view("admin.publics.Unit.index" , compact("nav" , "units"));
+        return view("admin.publics.Unit.index" , compact("nav" , "units" , "unitSearch"));
     }
 
 

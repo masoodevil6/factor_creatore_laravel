@@ -5,5 +5,5 @@ use App\Repositories\InterFaceRepositories\IBaseRepository;
 
 interface IUnitRepository extends IBaseRepository {
 
-
+    function SearchUnit($unitName="" , $numInPage=15);
 }

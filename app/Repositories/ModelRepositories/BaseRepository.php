@@ -4,6 +4,7 @@ namespace App\Repositories\ModelRepositories;
 use App\Repositories\InterFaceRepositories\IBaseRepository;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\DB;
 use mysqli_sql_exception;
 
 class BaseRepository  implements IBaseRepository {
@@ -132,6 +133,22 @@ class BaseRepository  implements IBaseRepository {
 
 
 
+    function addSearcher(string $property  , string $value)
+    {
+        return $this->model->where(function($where) use ($property , $value){
+
+            $where->orWhere(DB::raw($property)  , "like" , $value."%")
+                ->orWhere(DB::raw($property)  , "like" , "%".$value)
+                ->orWhere(DB::raw($property) , "like" , "%".$value."%")
+                ->orWhere(DB::raw($property)  , "like" , $value);
+
+        });
+
+    }
+
+
+
+
 
     ////// ==========================================================
     protected function resultJsonChangeStatus($resultAction , $fieldResult , $reverse = false , $field="status" , $finalValue=0){
@@ -159,6 +176,7 @@ class BaseRepository  implements IBaseRepository {
             return response()->json(["status" => false]);
         }
     }
+
 
 
 }

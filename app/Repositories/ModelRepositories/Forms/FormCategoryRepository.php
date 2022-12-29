@@ -12,4 +12,12 @@ class FormCategoryRepository extends BaseRepository implements IFormCategoryRepo
         parent::__construct(new FormCategory());
     }
 
+    function SearchFormCategory(string $categoryTitle="", $numInPage = 15)
+    {
+        if ($categoryTitle != ""){
+            $this->model = $this->addSearcher("title" , $categoryTitle);
+        }
+
+        return $this->model->simplePaginate($numInPage);
+    }
 }

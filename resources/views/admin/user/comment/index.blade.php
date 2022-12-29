@@ -21,9 +21,31 @@
 
             <div></div>
 
-            <div class="mx-2">
-                <input type="text" placeholder="جستجو ..." class="form-control form-control-sm form-text">
+            <div class="mx-2 ">
+                <p class="text-center text-white font-size-12  bg-grey m-0 rounded">
+                    فیلتر ها
+                </p>
+
+                <form action="{{ route("admin.users.comment.index") }}" method="get" class=" border border-dark rounded p-1 d-flex">
+
+                    <div class="d-block">
+                        <div class="float-right mx-1">
+                            <label for="filter-for-user" class="d-block text-right font-size-12 mt-2 mb-0 px-2 bg-grey">
+                                کاربر
+                            </label>
+                            <input name="user" id="filter-for-user" type="text" value="{{$userSearch}}" placeholder="جستجو ..." class="form-control form-control-sm form-text">
+                        </div>
+                    </div>
+
+                    <button type="submit" class="btn btn-info round float-left font-size-md mt-1">
+                        <i class="fa fa-search"></i>
+                        جستجو
+                    </button>
+
+                </form>
+
             </div>
+
 
         </section>
 
@@ -33,8 +55,9 @@
                 <thead>
                 <tr>
                     <th scope="col">#</th>
-                    <th scope="col" class="w-50  font-size-12">متن نظر</th>
-                    <th scope="col" class="w-10  font-size-12">والد</th>
+                    <th scope="col" class="w-45  font-size-12">متن نظر</th>
+                    <th scope="col" class="w-10  font-size-12">نویسنده</th>
+                    <th scope="col" class="w-5  font-size-12">والد</th>
                     <th scope="col" class="w-10  font-size-12">وضعیت</th>
                     <th scope="col" class="w-10  font-size-12">تاییدیه</th>
                     <th scope="col" class="text-center  font-size-12">
@@ -49,6 +72,7 @@
                 <x-row-tables.admin.component-item-user-commmnet
                     :comment-key='$key+1'
                     :comment-id="$itemComment -> id"
+                    :comment-user-name="$itemComment -> user -> fullName"
                     :comment-body="$itemComment -> body"
                     :comment-parent="$itemComment -> parent"
                     :comment-seen="$itemComment -> seen"

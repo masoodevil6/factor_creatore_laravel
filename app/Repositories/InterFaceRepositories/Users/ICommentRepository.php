@@ -8,4 +8,5 @@ interface ICommentRepository extends IBaseRepository {
 
     function AdminAnswerCommentUser(Comment $comment ,array $dataComment);
 
+    function SearchUserComment(string $userName="" , $numInPage=15);
 }

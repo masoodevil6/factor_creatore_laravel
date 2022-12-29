@@ -21,8 +21,53 @@
 
                 <div></div>
 
-                <div class="mx-2">
-                    <input type="text" placeholder="جستجو ..." class="form-control form-control-sm form-text">
+
+                <div class="mx-2 ">
+                    <p class="text-center text-white font-size-12  bg-grey m-0 rounded">
+                        فیلتر ها
+                    </p>
+
+                    <form action="{{ route("admin.tickets.ticket.index") }}" method="get" class=" border border-dark rounded p-1 d-flex">
+                        <div class="d-block">
+                            <div class="float-right mx-1">
+                                <label for="filter-for-user" class="d-block text-right font-size-12 mt-2 mb-0 px-2 bg-grey">
+                                    کاربر
+                                </label>
+                                <input name="user" id="filter-for-user" type="text" value="{{$userSearch}}" placeholder="جستجو ..." class="form-control form-control-sm form-text">
+                            </div>
+
+                            <div class="float-right mx-1">
+                                <label for="filter-for-status" class="d-block text-right font-size-12 mt-2 mb-0 px-2 bg-grey">
+                                    وضعیت تیکت
+                                </label>
+                                <select name="status" id="filter-for-status" class="form-control form-control-sm form-text">
+
+                                    <option value="-1" @if($StatusSearch==-1) selected @endif> همه </option>
+                                    <option value="0" @if($StatusSearch==0) selected @endif> بسته </option>
+                                    <option value="1" @if($StatusSearch==1) selected @endif> باز </option>
+                                </select>
+                            </div>
+
+                            <div class="float-right mx-1">
+                                <label for="filter-for-cat" class="d-block text-right font-size-12 mt-2 mb-0 px-2 bg-grey">
+                                    دسته بندی
+                                </label>
+                                <select name="cat" id="filter-for-cat" class="form-control form-control-sm form-text">
+
+                                    <option value="0" @if($ticketCategorySearch==0) selected @endif> همه </option>
+                                    @foreach($ticketCategories As $itemTicketCategory)
+                                        <option value="{{$itemTicketCategory->id}}" @if($ticketCategorySearch==$itemTicketCategory->id) selected @endif> {{$itemTicketCategory->title}} </option>
+                                    @endforeach
+                                </select>
+                            </div>
+
+                        </div>
+
+                        <button type="submit"  class="btn btn-info round float-left font-size-md mt-1">
+                            <i class="fa fa-search"></i>
+                            جستجو
+                        </button>
+                    </form>
                 </div>
 
             </section>

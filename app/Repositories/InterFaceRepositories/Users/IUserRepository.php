@@ -23,6 +23,10 @@ interface IUserRepository extends IBaseRepository {
 
 
 
+  function SearchUser(string $userName="" , $numInPage=15);
+
+
+
   function GetUserAuthInfo();
 
   function GetUserPanelAuthAdminInfo($user);

@@ -19,34 +19,45 @@
 
             <section class="body-content d-flex justify-content-between pb-2 border-bottom">
 
-                <a href="{{route("admin.forms.form.create")}}" class="btn btn-info btn-sm" style="max-height: 35px">
+                <a href="{{route("admin.forms.form.create")}}" class="btn btn-info btn-sm max-height-30">
                     دسته بندی فرم جدید
                 </a>
 
-                <div class="mx-2">
-                    <input type="text" placeholder="جستجو ..." class="form-control form-control-sm form-text">
+                <div class="mx-2 ">
+                    <p class="text-center text-white font-size-12  bg-grey m-0 rounded">
+                        فیلتر ها
+                    </p>
 
-                    <div>
-                        <label for="filter-for-subscribes" class="d-block text-right font-size-12 mt-2 mb-0 px-2 bg-grey">
-                            فیلتر اشتراک
-                        </label>
+                    <form action="{{ route("admin.forms.form.index") }}" method="get" class=" border border-dark rounded p-1 d-flex">
+                        <div class="d-block">
+                            <div class="float-right mx-1">
+                                <label for="filter-for-form-name" class="d-block text-right font-size-12 mt-2 mb-0 px-2 bg-grey">
+                                    عنوان فرم
+                                </label>
+                                <input name="name" id="filter-for-form-name" type="text" value="{{$formNameSearch}}" placeholder="جستجو ..." class="form-control form-control-sm form-text">
+                            </div>
 
-                        <select id="filter-for-subscribes" onchange="changeFilterSubscribes(this)" class=" form-control form-control-sm form-text font-size-12 my-0" aria-label="Default select example">
+                            <div class="float-right mx-1">
+                                <label for="filter-for-subscribe" class="d-block text-right font-size-12 mt-2 mb-0 px-2 bg-grey">
+                                    اشتراک
+                                </label>
+                                <select name="subscribe" id="filter-for-subscribe" class="form-control form-control-sm form-text">
 
-                            <option value="" @if($subscribeId == null) selected @endif>
-                                همه
-                            </option>
+                                    <option value="0" @if($subscribeSearch==0) selected @endif> همه </option>
+                                    @foreach($subscribes As $itemSubscribe)
+                                        <option value="{{$itemSubscribe->id}}" @if($subscribeSearch==$itemSubscribe->id) selected @endif> {{$itemSubscribe->title}} </option>
+                                    @endforeach
+                                </select>
+                            </div>
 
-                            @foreach($subscribes As $itemSubscribe)
-                                <option value="{{$itemSubscribe["id"]}}" @if($subscribeId==$itemSubscribe["id"]) selected @endif>
-                                    {{$itemSubscribe["title"]}}
-                                </option>
-                            @endforeach
+                        </div>
 
-                        </select>
-                    </div>
+                        <button type="submit"  class="btn btn-info round float-left font-size-md mt-1">
+                            <i class="fa fa-search"></i>
+                            جستجو
+                        </button>
+                    </form>
                 </div>
-
 
             </section>
 

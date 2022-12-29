@@ -31,21 +31,23 @@ class FormController extends MainAdminController
             ]
         ];
 
-        $subscribeId = 0;
+        $subscribeSearch = 0;
         if (isset($_GET["subscribe"])){
-            $subscribeId = $_GET["subscribe"];
+            $subscribeSearch = $_GET["subscribe"];
         }
-        $subscribes = ContextRepository::SubscribeRepository()->getAllResult();
+        $formNameSearch = "";
+        if (isset($_GET["name"])){
+            $formNameSearch = $_GET["name"];
+        }
 
-        $forms= ContextRepository::FormRepository()->SearchAllFormWithFilterSubscribe($subscribeId);
+        $forms= ContextRepository::FormRepository()->SearchForm($formNameSearch , $subscribeSearch);
+
+        $subscribes = ContextRepository::SubscribeRepository()->getAllResult();
         foreach ($forms as $key => $form){
             $forms[$key]["class_name"] = $this->getNameClass($form["class"]);
         }
 
-
-
-
-        return view("admin.forms.forms.index" , compact("nav" ,"subscribeId"  , "subscribes" , "forms"));
+        return view("admin.forms.forms.index" , compact("nav" ,"subscribes"  , "forms" , "subscribeSearch" , "formNameSearch"));
     }
 
 

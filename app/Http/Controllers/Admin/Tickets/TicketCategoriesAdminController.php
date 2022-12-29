@@ -28,10 +28,13 @@ class TicketCategoriesAdminController extends MainAdminController
                 ]
             ]
         ];
+        $cateSearch = "";
+        if (isset($_GET["cate"])){
+            $cateSearch = $_GET["cate"];
+        }
+        $ticketCategories = ContextRepository::TicketCategoryRepository()->SearchFormCategory($cateSearch);
 
-        $ticketCategories = ContextRepository::TicketCategoryRepository()->getPaginateResult();
-
-        return view("admin.ticket.ticket-category.index" , compact("nav" , "ticketCategories"));
+        return view("admin.ticket.ticket-category.index" , compact("nav" , "ticketCategories" , "cateSearch"));
     }
 
 

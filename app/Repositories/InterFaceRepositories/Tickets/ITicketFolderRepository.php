@@ -6,7 +6,7 @@ use App\Repositories\InterFaceRepositories\IBaseRepository;
 
 interface ITicketFolderRepository extends IBaseRepository {
 
-    public function GetNewTicketFolder($numInPage=15);
+    function SearchTicketFolder(string $userName="", int $Status=-1, int $ticketCategory=0 , $numInPage=15);
 
     public function AnswerTicketFolder(TicketFolder $ticketFolder , string $ticketText) : bool;
 
