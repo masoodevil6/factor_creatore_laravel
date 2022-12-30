@@ -3,18 +3,19 @@
 namespace App\View\Components\RowTables\Admin;
 
 use Illuminate\View\Component;
+use Symfony\Component\HttpFoundation\Request;
 
 class ComponentPageinatePanels extends Component
 {
 
     public $array = [];
-    public function __construct($list)
+    public function __construct($list , Request $request)
     {
         $max = floor($list->total() / $list->perPage()) + 1;
         if ($list->total() % $list->perPage() == 0){
             $max = floor($list->total() / $list->perPage());
         }
-        $this->ReadyPageInate($list->currentPage() , $max , $list->path());
+        $this->ReadyPageInate($list->currentPage() , $max , $request->getUri() , $list->path());
     }
 
     /**
@@ -29,7 +30,7 @@ class ComponentPageinatePanels extends Component
     }
 
 
-    private function ReadyPageInate($currentPage = 1 , $total , $path = ""){
+    private function ReadyPageInate($currentPage = 1 , $total , $path = "" , $realPath=""){
 
         $min = 1;
         $max = 5;
@@ -47,25 +48,39 @@ class ComponentPageinatePanels extends Component
             $max = $total + 2;
         }
         for($i = $min ; $i <= $max; $i++){
-            array_push($this->array , $this->GetInfoPage($i , $currentPage , $path));
+            array_push($this->array , $this->GetInfoPage($i , $currentPage , $path , $realPath));
         }
     }
 
-    private function GetInfoPage($page=1  , $currentPage=1 ,$url = ""){
+    private function GetInfoPage($page=1  , $currentPage=1 ,$url = "" , $realUrl=""){
 
         $resultExp = [
-            "link" => $url ,
+            "link" => $realUrl ,
             "page" => $page ,
             "selected" => 0
         ];
 
-        $query = parse_url($url, PHP_URL_QUERY);
-
-        if ($query) {
-            $resultExp["link"] .= '&page='.$page;
+        $url_parts = parse_url($url);
+        if (isset($url_parts['query'])) { // Avoid 'Undefined index: query'
+            parse_str($url_parts['query'], $params);
         } else {
-            $resultExp["link"] .= '?page='.$page;
+            $params = array();
         }
+
+        $existPageParam = false;
+        foreach ($params As $key=>$param){
+            if ($key == "page"){
+                $params[$key] = $page;
+                $existPageParam = true;
+                break;
+            }
+        }
+        if (!$existPageParam){
+            $params["page"] = $page;
+        }
+
+        $url_parts['query'] = http_build_query($params);
+        $resultExp["link"] .= '?'.$url_parts['query'];
 
         if ($currentPage == $page){
             $resultExp["selected"] = 1;

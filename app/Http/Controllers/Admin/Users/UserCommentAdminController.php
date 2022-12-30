@@ -7,6 +7,7 @@ use App\Http\Requests\Admin\User\AnswerCommentRequest;
 use App\Http\Requests\Admin\User\EditCommentRequest;
 use App\Models\Users\Comment;
 use App\Repositories\ContextRepository;
+use Symfony\Component\HttpFoundation\Request;
 
 class UserCommentAdminController extends MainAdminController
 {
@@ -17,7 +18,7 @@ class UserCommentAdminController extends MainAdminController
     }
 
 
-    public function index()
+    public function index(Request $request)
     {
         $nav = [
             "part"=> "بخش مدیریت کاربران",
@@ -35,6 +36,7 @@ class UserCommentAdminController extends MainAdminController
             $userSearch = $_GET["user"];
         }
         $comments = ContextRepository::CommentRepository()->SearchUserComment($userSearch);
+        //dd($request->getUri());
 
         return view("admin.user.comment.index" , compact("nav" , "comments" , "userSearch"));
     }

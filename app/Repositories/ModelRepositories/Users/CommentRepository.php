@@ -27,7 +27,7 @@ class CommentRepository extends BaseRepository implements ICommentRepository {
     }
 
 
-    function SearchUserComment(string $userName = "", $numInPage = 15)
+    function SearchUserComment(string $userName = "", $numInPage = 1)
     {
         if ($userName != ""){
             $this->model = $this->model->join('users', function($join) use ($userName){
