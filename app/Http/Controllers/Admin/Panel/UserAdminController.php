@@ -46,7 +46,8 @@ class UserAdminController extends MainAdminController
         }
 
         $panels = ContextRepository::AdminRepository()->getAllResult();
-        $AdminUsers = $this->getAllUserAdmin($userSearch , $userEmailSearch , $panelSearcher);
+        $AdminUsers = ContextRepository::AdminUserRepository()->SearchAdminUser($userSearch , $userEmailSearch , $panelSearcher);
+
 
         return view("admin.admin.user-admin.index" ,
             compact("nav" , "AdminUsers" , "panels" ,
@@ -164,29 +165,4 @@ class UserAdminController extends MainAdminController
 
 
 
-
-    //// ==============================================
-    /// Model
-    /// ===============================================
-
-    private function getAllUserAdmin($userSearch ="" , $userEmailSearch="" , $panelSearcher = 0){
-
-        $admins = ContextRepository::AdminUserRepository()->SearchAdminUser($userSearch , $userEmailSearch , $panelSearcher);
-
-        $resultExp = [];
-        foreach ($admins As $itemAdmin){
-            $result=[
-                "admin_id"=>$itemAdmin->id,
-                "admin_title"=>$itemAdmin->title,
-                "user_id"=> $itemAdmin->user_id,
-                "user_email"=> $itemAdmin->email,
-                "user_name"=> $itemAdmin ->name." ".$itemAdmin ->family,
-                "status"=> $itemAdmin->status,
-            ];
-
-            array_push($resultExp , $result);
-        }
-
-        return $resultExp;
-    }
 }

@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Customer\CustomerHomeController;
 
 /*
 |--------------------------------------------------------------------------
@@ -13,7 +14,10 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function (){
 
-    dd(\Illuminate\Support\Facades\Auth::user());
-})->name("home");
+Route::prefix("/")->controller(CustomerHomeController::class)->group(function (){
+
+    Route::get("/" , "home")->name("customer.home");
+
+});
+

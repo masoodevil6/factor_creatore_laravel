@@ -1,7 +1,8 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
 <meta http-equiv="X-UA-Compatible" content="ie=edge">
-<link rel="shortcut icon" href="{{asset("images/site/site.ico")}}" type="image/icon">
+<link rel="shortcut icon" href="{{getLocationIconSite()}}" type="image/icon">
+
 <link rel="stylesheet" href="{{asset("public/css/bootstrap/bootstrap.min.css")}}">
 <link rel="stylesheet" href="{{asset("public/fontawesome/css/all.min.css")}}">
 <link rel="stylesheet" href="{{asset("public/fontawesome/css/v4-shims.min.css")}}">
@@ -19,3 +20,5 @@
 <script src="{{asset("public/plugins/music-player/music-get-data.js")}}"></script>
 <script src="{{asset("public/plugins/music-player/music-favorite.js")}}"></script>
 <script src="{{asset("public/plugins/music-player/music-like.js")}}"></script>
+
+

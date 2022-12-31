@@ -150,7 +150,7 @@ class LoginClientPanelCustomerController extends Controller
 
             Auth::login($user);
 
-            return redirect()->route("home");
+            return redirect()->route("customer.home");
 
         }
 
@@ -185,7 +185,7 @@ class LoginClientPanelCustomerController extends Controller
 
     public function logout(){
         Auth::logout();
-        return redirect()->route("home");
+        return redirect()->route("customer.home");
     }
 
 

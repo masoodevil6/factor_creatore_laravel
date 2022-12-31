@@ -150,10 +150,10 @@ class FileToolsService{
         return $this->FinalFileDirectory.DIRECTORY_SEPARATOR.$this->FinalFileName;
     }
 
-    protected function provider(){
+    protected function provider($singleFileInDirectory = false){
 
         //set properties
-        if (empty($this->getFileDirectory())){
+        if (empty($this->getFileDirectory()) && !$singleFileInDirectory){
             $this->setFileDirectory(date("Y") .DIRECTORY_SEPARATOR . date("m") .DIRECTORY_SEPARATOR . date("d"));
         }
 

@@ -44,8 +44,8 @@ class ComponentPageinatePanels extends Component
             $max = $total;
         }
         else if ($currentPage > 3 && $currentPage < $total - 2){
-            $min = $total - 2;
-            $max = $total + 2;
+            $min = $currentPage - 2;
+            $max = $currentPage + 2;
         }
         for($i = $min ; $i <= $max; $i++){
             array_push($this->array , $this->GetInfoPage($i , $currentPage , $path , $realPath));

@@ -18,6 +18,10 @@
                     بازگشت
                 </a>
 
+                <x-row-tables.admin.component-drop-down-list-user-panels
+                        :user-id='$user -> id'
+                        :user-name="$user->fullName"/>
+
             </section>
 
 

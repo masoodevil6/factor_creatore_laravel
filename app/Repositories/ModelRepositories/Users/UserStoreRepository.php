@@ -20,7 +20,7 @@ class UserStoreRepository extends BaseRepository implements IUserStoreRepository
 
     function SearchUserStore(string $userName, string $userStore, $numInPage = 15)
     {
-        $this->model = $this->model->select("user_stores.*" , "user_stores.name as nameStore" , "users.*");
+        $this->model = $this->model->select("user_stores.*" , "user_stores.name as nameStore" , "users.name" , "users.family");
         if ($userName != ""){
             $this->model = $this->model->join('users', function($join) use ($userName){
 

@@ -10,7 +10,7 @@
             </span>
 
             <span class="logo">
-                <img src="admin-assets/images/logo.png" alt="">
+                <img src="{{getLocationLogoSite()}}" width="160" alt="">
             </span>
 
             <span id="body-header-show" class="d-md-none">

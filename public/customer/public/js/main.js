@@ -16,7 +16,33 @@ function do_scroll_progress() {
     progressBarScrollPage.animate({"width" : percentScrollWindowTop + "%"} , 15);
 }
 
-
 $(document).ready(function(){
     $('.dropdown-toggle').dropdown()
 });
+
+
+
+
+
+
+var blurNavMobile = $("#blur-nav-mobile");
+var nav = $("#nav");
+
+function OpenOrCloseNavPhone() {
+    if (nav.hasClass("nav-open")){
+        CloseNavPhone();
+    }
+    else{
+        OpenNavPhone();
+    }
+}
+
+function OpenNavPhone() {
+    blurNavMobile.removeClass("d-none");
+    nav.addClass("nav-open")
+}
+
+function CloseNavPhone() {
+    blurNavMobile.addClass("d-none");
+    nav.removeClass("nav-open");
+}

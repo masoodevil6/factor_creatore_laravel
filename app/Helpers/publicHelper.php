@@ -160,7 +160,14 @@ function getLocationLogoSite(){
         return asset($dir.".jpeg");
     }
     return "";
+}
 
+function getLocationIconSite(){
+    $dir = "images/site/site";
+    if(file_exists($dir.".ico")){
+        return asset($dir.".ico");
+    }
+    return "";
 }
 
 //=======================================================

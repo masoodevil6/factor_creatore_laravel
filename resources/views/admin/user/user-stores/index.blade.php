@@ -63,8 +63,8 @@
                         <th scope="col">#</th>
                         <th scope="col" class="w-15  font-size-12">فروشگاه</th>
                         <th scope="col" class="w-15  font-size-12">تلفن</th>
-                        <th scope="col" class="w-15  font-size-12">کاربر</th>
                         <th scope="col" class="w-25  font-size-12">آدرس</th>
+                        <th scope="col" class="w-15  font-size-12">کاربر</th>
                         <th scope="col" class="text-center  font-size-12">
                             <i class="fa fa-cogs"></i>
                             <span>تنظیمات</span>

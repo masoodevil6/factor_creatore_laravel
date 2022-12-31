@@ -6,7 +6,7 @@
     @include("customer.layouts.head-tag")
     @yield("head-tag")
 </head>
-<body>
+<body class="color-family-2">
 
 <!-- end main one col -->
 @include("customer.layouts.header")

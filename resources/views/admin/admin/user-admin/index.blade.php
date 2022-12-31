@@ -90,11 +90,11 @@
                     @foreach($AdminUsers As $key => $itemUserAdmin)
                         <x-row-tables.admin.component-item-user-admin
                                 :user-admin-key='($AdminUsers->currentPage() -1 )*$AdminUsers->perPage() + $key+1'
-                                :user-admin-status="$itemUserAdmin['status']"
-                                :admin-title="$itemUserAdmin['admin_title']"
-                                :user-id="$itemUserAdmin['user_id']"
-                                :user-email="$itemUserAdmin['user_email']"
-                                :user-name="$itemUserAdmin['user_name']"/>
+                                :user-admin-status="$itemUserAdmin->status"
+                                :admin-title="$itemUserAdmin->title"
+                                :user-id="$itemUserAdmin->user_id"
+                                :user-email="$itemUserAdmin->email"
+                                :user-name="$itemUserAdmin ->name.' '.$itemUserAdmin ->family"/>
                     @endforeach
                     </tbody>
 

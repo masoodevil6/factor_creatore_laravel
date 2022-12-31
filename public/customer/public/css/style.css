@@ -13,13 +13,10 @@
 }
 
 
-@media (min-width: 992px) {
-    main{
-        min-height : calc(100vh - 300px);
-    }
+
+main{
+    min-height : calc(100vh - 220px);
 }
-
-
 
 
 .blue-gray-dark{
@@ -87,6 +84,14 @@
 
 
 
+.color-family-1{
+    background-color:  #2d3436;
+}
+.color-family-2{
+    background-color:  #f7f1e3;
+}
+
+
 
 .color-family-a-1{
     background-color:  #3596B5;
@@ -127,7 +132,6 @@
 
 
 
-
 .font-size-md{
     font-size: 10pt;
 }
@@ -156,22 +160,22 @@
     font-family: IRANSans;
 }
 
-body{
-    background-color: #e0e1dd;
-}
-
 
 .cursor-pointer{
     cursor: pointer;
 }
 
 
+.text-hover-white:hover{
+    color: white;
+}
+
 
 /*===============================*/
 .breadcrumb-item a{
     background-color: #66635b ;
     color: #FFCC80;
-    line-height: 35px;
+    line-height: 25px;
 }
 
 
@@ -186,11 +190,13 @@ body{
 
 
 
-
+#form-progress-scroll-bar{
+    background: #ffc107 ;
+ }
 
 #progress-scroll-bar{
     height: 4px;
-    background-color: #0082ff;
+    background-color: #2d3436;
 }
 
 
@@ -269,6 +275,40 @@ body{
 }
 
 
+
+
+
+
+
+#blur-nav-mobile{
+    position: fixed;
+    background: rgba(0, 0, 0, 0.25);
+    z-index: 1000;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+}
+
+.btn-nav i{
+    width: 30px;
+    height: 28px;
+    line-height: 25px;
+    border-width: 2px !important;
+    padding: 2.5px;
+}
+.btn-nav span{
+    border-width: 2px !important;
+    line-height: 30px;
+}
+
+
+#form-footer-social{
+    height: 40px;
+}
+
+
+
 @media (max-width: 992px) {
 
     #inside-form-navigation{
@@ -285,8 +325,40 @@ body{
         line-height: 40px;
     }
 
+
+
+
+
+    #nav{
+        overflow: auto;
+        position: fixed;
+        height: 100%;
+        width: 60%;
+        max-width: 300px;
+        z-index: 1001;
+        transition: right 500ms;
+        right: -301px;
+    }
+
+    .nav-open{
+        right: 0 !important;
+    }
+
+
     #form-section-header{
-        height: 55px;
+        height: 45px;
+    }
+
+    #btn-show-nav-mobile{
+        height: 30px;
+        border-width: 2px;
+        padding: 5px 15px;
+    }
+
+    .btn-nav{
+        width: 90%;
+        max-width: 200px;
+        display: block;
     }
 
 }
@@ -306,7 +378,23 @@ body{
     }
 
 
+
+
+
+    #nav{
+        height: 100%;
+        width: 300px;
+    }
+
+
+    .btn-nav{
+        padding: 0 15px;
+        height: 30px;
+    }
+
+
     #form-section-header{
-        height: 103px;
+        height: 45px;
+        max-width: 1320px;
     }
 }

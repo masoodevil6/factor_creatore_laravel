@@ -18,28 +18,28 @@ use function unlink;
 class FileService extends FileToolsService {
 
 
-    public function moveToPublic($file){
+    public function moveToPublic($file , $singleFileInDirectory=false){
 
         //set file
         $this->setFile($file);
 
-        return $this->uploadFileComplete($file);
+        return $this->uploadFileComplete($file , $singleFileInDirectory );
     }
 
-    public function moveToStorage($file){
+    public function moveToStorage($file , $singleFileInDirectory=false){
 
         //set file
         $this->setFile($file);
 
-        return $this->uploadFileComplete($file , false);
+        return $this->uploadFileComplete($file , $singleFileInDirectory , false  );
     }
 
 
 
-    protected function uploadFileComplete($file , $pubic=true){
+    protected function uploadFileComplete($file , $singleFileInDirectory=false , $pubic=true ){
 
         /// execute provider
-        $this->provider();
+        $this->provider($singleFileInDirectory);
 
         //save in public
         // in php => $_Files["file"]["tmp_mane"] === in laravel $file->getRealPath()
