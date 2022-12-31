@@ -96,7 +96,7 @@ function resizeCustomerPanel(){
     var listPnaels = $("#list_panel_customer");
     var panelView = $("#panel_view");
     var screenWidth = $( window ).width();
-    if (screenWidth < 768){
+    if (screenWidth < 992){
         if (intoPanel){
             listPnaels.removeClass("d-block").addClass("d-none");
             panelView.removeClass("d-none").addClass("d-block");

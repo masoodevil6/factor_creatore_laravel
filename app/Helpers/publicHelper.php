@@ -71,8 +71,6 @@ function convertArabicToEnglish($number){
     return $number;
 }
 
-
-
 function convertEnglishToPersian($number){
 
     $number = str_replace("0" ,"۰" ,  $number);
@@ -141,6 +139,24 @@ function validateNationalCode($nationalCode){
         }
     }
 
+}
+
+function checkPhoneGet($phone){;
+    if(preg_match("/^(\+98|98|0)9\d{9}$/" , $phone)){
+        return filterPhoneNumber($phone);
+    }
+    else{
+        return "";
+    }
+}
+
+function checkEmailGet($email){
+    if (filter_var($email,FILTER_VALIDATE_EMAIL)){
+        return $email;
+    }
+    else{
+        return "";
+    }
 }
 
 ///=====================================================

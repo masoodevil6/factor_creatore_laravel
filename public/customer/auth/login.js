@@ -26,5 +26,8 @@ var x = setInterval(function() {
         clearInterval(x);
         timer.addClass("d-none");
         resendOtp.removeClass("d-none");
+
+        $("#form-send-result").addClass("d-none");
+        $("#expired-code").removeClass("d-none");
     }
 }, 1000);

@@ -73,7 +73,7 @@ class LoginAdminPanelCustomerController extends Controller
 
 
     public function logout(){
-        Auth::guard("admin")->logout();
+        ContextRepository::AdminUserRepository()->LogoutAuthAdminPanel();
         return redirect()->route(RouteServiceProvider::CUSTOMER_HOME);
     }
 

@@ -1,7 +1,9 @@
 <?php
 namespace App\Repositories\ModelRepositories\Users;
 
+use App\Models\Users\Otp;
 use App\Models\Users\User;
+use App\Repositories\ContextRepository;
 use App\Repositories\InterFaceRepositories\Users\IUserRepository;
 use App\Repositories\ModelRepositories\BaseRepository;
 use Illuminate\Support\Facades\Auth;
@@ -25,6 +27,40 @@ class UserRepository extends BaseRepository implements IUserRepository {
         return $this->model->where("mobile" , $userPhone)->first();
     }
 
+    function UpdateUserInfo(string $userName, string $userFamily) :bool
+    {
+        $user = $this->GetUserAuthInfo();
+        if (!empty($user)){
+            return $this->updateResult($user , [
+                "name" => $userName ,
+                "family" => $userFamily ,
+            ]);
+        }
+        return false;
+    }
+
+
+    function UpdateUserEmailOrPhone(Otp $otp): bool
+    {
+        if ($this->GetUserAuthId() == $otp->user_id){
+            $type = $otp->type;
+            $input = $otp->input_login;
+            $user = $this->GetUserAuthInfo();
+
+            if ($type == 0){
+                $data = ["mobile" => $input];
+            }
+            else if ($type == 1){
+                $data = ["email" => $input];
+            }
+
+            ContextRepository::OtpRepository()->UpdateUsedTokenOtp($otp);
+            $this->updateResult($user , $data);
+
+            return true;
+        }
+        return false;
+    }
 
 
 
@@ -82,6 +118,13 @@ class UserRepository extends BaseRepository implements IUserRepository {
         return Auth::user();
     }
 
+    function GetUserAuthId()
+    {
+        return Auth::id();
+    }
+
+
+
     function GetUserPanelAuthAdminInfo($user)
     {
         return $user->admins()->first();
@@ -91,6 +134,17 @@ class UserRepository extends BaseRepository implements IUserRepository {
     {
         return $panel->pivot->password;
     }
+
+
+    function LogoutAuthUser()
+    {
+        if (Auth::check()){
+            Auth::logout();
+        }
+    }
+
+
+
 
 
 }

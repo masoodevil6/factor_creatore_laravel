@@ -2,6 +2,7 @@
 namespace App\Repositories\InterFaceRepositories\Users;
 
 
+use App\Models\Users\Otp;
 use App\Repositories\InterFaceRepositories\IBaseRepository;
 
 interface IOtpRepository extends IBaseRepository {
@@ -16,6 +17,7 @@ interface IOtpRepository extends IBaseRepository {
 
     function getMaxTimeRequest();
 
+    function UpdateUsedTokenOtp(Otp $otp) :bool ;
 
 
 }

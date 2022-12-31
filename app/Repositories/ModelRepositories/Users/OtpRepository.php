@@ -35,8 +35,8 @@ class OtpRepository extends BaseRepository implements IOtpRepository {
             $lastRequest =
                 $this->model
                     ->where("user_id" , $userId)
-                    ->where("created_at" , ">=" , Carbon::now()->subMinutes($this->maxTimeRequest)
-                    ->toDateTimeString())->first();
+                    ->where("created_at" , ">=" , Carbon::now()->subMinutes($this->maxTimeRequest)->toDateTimeString())
+                    ->first();
             if (empty($lastRequest)){
                 $status = true;
             }
@@ -54,6 +54,12 @@ class OtpRepository extends BaseRepository implements IOtpRepository {
             "token" => $token ,
             "status" => $status
         ];
+    }
+
+
+    function UpdateUsedTokenOtp(Otp $otp) :bool
+    {
+        return $this->updateResult($otp , ["used" => 1]);
     }
 
 
@@ -95,4 +101,7 @@ class OtpRepository extends BaseRepository implements IOtpRepository {
     {
         return $this->maxTimeRequest;
     }
+
+
+
 }

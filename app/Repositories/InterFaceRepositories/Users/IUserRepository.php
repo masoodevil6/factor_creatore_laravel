@@ -2,6 +2,7 @@
 namespace App\Repositories\InterFaceRepositories\Users;
 
 
+use App\Models\Users\Otp;
 use App\Models\Users\User;
 use App\Repositories\InterFaceRepositories\IBaseRepository;
 
@@ -10,6 +11,12 @@ interface IUserRepository extends IBaseRepository {
   function GetUserWithEmail(string $userEmail);
 
   function GetUserWithPhone(string $userPhone);
+
+  function UpdateUserInfo(string $userName , string $userFamily) : bool ;
+
+  function UpdateUserEmailOrPhone(Otp $otp) : bool ;
+
+
 
 
 
@@ -29,9 +36,13 @@ interface IUserRepository extends IBaseRepository {
 
   function GetUserAuthInfo();
 
+  function GetUserAuthId();
+
   function GetUserPanelAuthAdminInfo($user);
 
   function GetUserPasswordAuthPanelAdmin($panel);
+
+  function LogoutAuthUser();
 
 
 }

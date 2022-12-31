@@ -15,16 +15,22 @@ class BasePanelCustomerPanel extends BaseController
     use AuthorizesRequests, DispatchesJobs, ValidatesRequests;
 
     protected $listCustomerPanels;
+    protected $panel;
+    public $panelName = "personal-info";
 
     function __construct(ListCustomerPanels $listCustomerPanels)
     {
+        /// list panel customer
         $this->listCustomerPanels = $listCustomerPanels;
+        $this->panel = $this->listCustomerPanels -> searchCustomerPanel($this->panelName);
 
         $listPanels = $listCustomerPanels->getListPanel();
         View::composer("customer-panels.list-customer-panels" , function ($view) use($listPanels){
             $view->with("listPanels" , $listPanels);
         });
 
+
+        /// get total setting pages
         ContextRepository::SettingRepository()->SetSettingInfoPage();
     }
 

@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\PanelCustomer\Panels;
 
 use App\Http\Controllers\PanelCustomer\Panels\PanelCustomer\PanelMainCustomer;
+use Illuminate\Support\Facades\Config;
+use League\Flysystem\Exception;
 
 class ListCustomerPanels{
 
@@ -15,7 +17,20 @@ class ListCustomerPanels{
 
     public function __construct()
     {
-        array_push($this->listPanels, new PanelMainCustomer());
+        $panels = Config::get("customerPanels.panels");
+        foreach ($panels as $panel){
+            array_push($this->listPanels, $this->getPanelClass($panel));
+        }
+    }
+
+
+    private function getPanelClass($namespace){
+        try{
+            return (new \ReflectionClass($namespace))->newInstance();
+        }
+        catch (Exception $e){
+            return null;
+        }
     }
 
 

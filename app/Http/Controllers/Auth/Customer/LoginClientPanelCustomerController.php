@@ -115,7 +115,7 @@ class LoginClientPanelCustomerController extends Controller
         }
         else if ($redirect == null && $otp != null){
 
-            $maxTime = $this->otpRepository->getMaxTimeRequest();
+            $maxTime = (new \Carbon\Carbon($otp->created_at))->addMinutes($this->otpRepository->getMaxTimeRequest())->timestamp;
 
             $now = Carbon::now()->timestamp;
 
@@ -184,7 +184,8 @@ class LoginClientPanelCustomerController extends Controller
 
 
     public function logout(){
-        Auth::logout();
+        ContextRepository::UserRepository()->LogoutAuthUser();
+        ContextRepository::AdminUserRepository()->LogoutAuthAdminPanel();
         return redirect()->route("customer.home");
     }
 

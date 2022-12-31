@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\Hash;
 
 class AdminUserRepository extends BaseRepository implements IAdminUserRepository {
 
+    private $guardPanelAdmin = "admin";
     public function __construct()
     {
         parent::__construct(new AdminUser());
@@ -35,11 +36,11 @@ class AdminUserRepository extends BaseRepository implements IAdminUserRepository
 
 
     function GetUserAdminAuth(){
-        return Auth::guard("admin")->user();
+        return Auth::guard($this->guardPanelAdmin)->user();
     }
 
     function GetUserIdAdminAuth(){
-        return Auth::guard("admin")->id();
+        return Auth::guard($this->guardPanelAdmin)->id();
     }
 
 
@@ -57,6 +58,14 @@ class AdminUserRepository extends BaseRepository implements IAdminUserRepository
             return $adminPanel->user -> email;
         }
         return null;
+    }
+
+
+    function LogoutAuthAdminPanel()
+    {
+        if (Auth::guard($this->guardPanelAdmin)->check()){
+            Auth::guard($this->guardPanelAdmin)->logout();
+        }
     }
 
 
@@ -212,4 +221,5 @@ class AdminUserRepository extends BaseRepository implements IAdminUserRepository
 
         return $resultExp;
     }
+
 }

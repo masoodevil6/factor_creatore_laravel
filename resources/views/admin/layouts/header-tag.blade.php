@@ -43,11 +43,11 @@
                                 <span class="header-profile-title">تنظیمات</span>
                             </a>
 
-                            <a href="#" class="d-flex justify-content-between list-group-item list-group-item-action header-profile-link">
+                            <a href="{{route("customer-panel.home")}}" class="d-flex justify-content-between list-group-item list-group-item-action header-profile-link">
                                 <span class="header-profile-icon">
                                     <i class="fas fa-user"></i>
                                 </span>
-                                <span class="header-profile-title">کاربر</span>
+                                <span class="header-profile-title">پنل کاربری</span>
                             </a>
 
                             <a href="{{route("admin.tickets.ticket.index")}}" class="d-flex justify-content-between list-group-item list-group-item-action header-profile-link">
