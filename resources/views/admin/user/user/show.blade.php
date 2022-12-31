@@ -18,9 +18,11 @@
                     بازگشت
                 </a>
 
-                <x-row-tables.admin.component-drop-down-list-user-panels
-                        :user-id='$user -> id'
-                        :user-name="$user->fullName"/>
+                <div style="margin-left: 50px">
+                    <x-row-tables.admin.component-drop-down-list-user-panels
+                            :user-id='$user -> id'
+                            :user-name="$user->fullName"/>
+                </div>
 
             </section>
 

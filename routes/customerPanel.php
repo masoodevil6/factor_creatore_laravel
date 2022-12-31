@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 
 use App\Http\Controllers\PanelCustomer\MainPanelCustomerController;
 use App\Http\Controllers\PanelCustomer\PersonalPanelCustomerController;
+use App\Http\Controllers\PanelCustomer\TicketsPanelCustomerController;
 
 /*
 |--------------------------------------------------------------------------
@@ -28,6 +29,16 @@ Route::prefix("personal-info")->controller(PersonalPanelCustomerController::clas
     Route::Post("/send-verify-phone-or-email" , "sendVerifyPhoneOrEmail")->name("customer-panel.persional-info.send-verify-phone-or-email");
 
     Route::Post("/verify-phone-or-email" , "VerifyPhoneOrEmail")->name("customer-panel.persional-info.verify-phone-or-email");
+
+});
+
+
+/// panel tickets
+Route::prefix("tickets")->controller(TicketsPanelCustomerController::class)->group(function (){
+
+    Route::Post("/get-list-info-ticket" , "getListInfoTicket")->name("customer-panel.tickets-info.get-list-info-ticket");
+
+    Route::Post("/submit-new-ticket" , "submitNewTicket")->name("customer-panel.tickets-info.submit-new-ticket");
 
 });
 

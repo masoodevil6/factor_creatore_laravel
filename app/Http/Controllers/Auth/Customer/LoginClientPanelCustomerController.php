@@ -5,18 +5,13 @@ namespace App\Http\Controllers\Auth\Customer;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Auth\Customer\LoginRegisterRequest;
-use App\Http\Services\Messages\Email\EmailService;
-use App\Http\Services\Messages\MessageService;
-use App\Http\Services\Messages\SMS\SmsService;
+use App\Http\Services\Messages\Email\Emails;
+use App\Http\Services\Messages\SMS\SMSs;
 use App\Http\Services\RedirectRoute\RedirectRouteService;
-use App\Models\Otp;
-use App\Models\User;
 use App\Repositories\ContextRepository;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Str;
 
 class LoginClientPanelCustomerController extends Controller
 {
@@ -208,14 +203,14 @@ class LoginClientPanelCustomerController extends Controller
 
         /// send sms for user
         if ($type==0){
-            $resultSendSms = $this -> sendTokenSmsForClient($result["code"] , $inputLogin);
+            $resultSendSms = (new SMSs())->sendTokenSmsForClientLogin($result["code"] , $inputLogin);
             if ($resultSendSms){
                 $token = $result["token"];
             }
         }
         /// send email for user
         else if ($type == 1){
-            $resultSendEmail = $this -> sendTokenEmailForClient($result["code"] , $inputLogin);
+            $resultSendEmail = (new Emails())->sendTokenEmailForClientLogin($result["code"] , $inputLogin);
             if ($resultSendEmail){
                 $token = $result["token"];
             }
@@ -225,40 +220,8 @@ class LoginClientPanelCustomerController extends Controller
     }
 
 
-    protected function sendTokenSmsForClient($otp_Code , $userPhone){
-        $smsText = "کاربر گرامی کد تایید شما:
-\n
-        ".$otp_Code;
 
-        $smsService = new SmsService();
-        $smsService->setFrom(Config::get("sms.otf_from"));
-        $smsService->setTo(["0".$userPhone]);
-        $smsService->setText($smsText);
-        $smsService->setIsFlash(true);
-
-        $messageService = new MessageService($smsService);
-        return $messageService->send();
-    }
-
-    protected function sendTokenEmailForClient($otp_Code , $userEmail){
-
-        $details = [
-            "title" => "ایمیل فعال سازی" ,
-            "body" => "کد فعال سازی شما: "." <b style='margin: 0 20px'>$otp_Code</b>"
-        ];
-
-        $emailService = new EmailService();
-        $emailService->setDetails($details);
-        $emailService->setFrom();
-        $emailService->setSubject("کد اهراز هویت");
-        $emailService->setTo($userEmail);
-
-        $messageService = new MessageService($emailService);
-        return $messageService->send();
-    }
-
-
-
+    ///// ==============================================
 
     protected function checkOtpRequest($token , $otpCode=""){
 
@@ -280,7 +243,7 @@ class LoginClientPanelCustomerController extends Controller
                         "otp" => null ,
                         "redirect" => RedirectRouteService::setMsgResultText("کد نامعتبر می باشد")
                             ->doRedirectRouteErrorResult()
-                            ->setRouteRedirect(route("auth.customer.loginConfirmForm"))
+                            ->setRouteRedirect(route("auth.customer.loginConfirmForm" , $token))
                             ->doRedirect()
                     ];
 

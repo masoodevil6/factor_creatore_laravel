@@ -123,6 +123,18 @@ class UserRepository extends BaseRepository implements IUserRepository {
         return Auth::id();
     }
 
+    function LogoutAuthUser()
+    {
+        if (Auth::check()){
+            Auth::logout();
+        }
+    }
+
+
+
+
+
+
 
 
     function GetUserPanelAuthAdminInfo($user)
@@ -134,17 +146,6 @@ class UserRepository extends BaseRepository implements IUserRepository {
     {
         return $panel->pivot->password;
     }
-
-
-    function LogoutAuthUser()
-    {
-        if (Auth::check()){
-            Auth::logout();
-        }
-    }
-
-
-
 
 
 }

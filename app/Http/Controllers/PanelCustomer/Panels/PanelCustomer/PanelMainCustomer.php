@@ -33,9 +33,9 @@ class PanelMainCustomer extends BasePanelCustomer implements IPanelMainCustomer 
     //// ================================================
     /// method function
     /// =================================================
-    public function submitPersionalInfoClient($data){
+    public function submitPersionalInfoClient($userName , $userFamily){
 
-        if ( ContextRepository::UserRepository()->UpdateUserInfo($data["name"] , $data["family"])){
+        if ( ContextRepository::UserRepository()->UpdateUserInfo($userName , $userFamily)){
             return redirect()->back()->with("alert-section-success" , "اطلاعات با موفقیت ویرایش شد");
         }
 

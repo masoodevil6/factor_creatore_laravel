@@ -58,4 +58,97 @@ class TicketFolderRepository extends BaseRepository implements ITicketFolderRepo
         return false;
 
     }
+
+
+
+
+    function GetAllTicketFolderAuthUser()
+    {
+        return $this->model
+            ->where("user_id" , ContextRepository::UserRepository()->GetUserAuthId())
+            ->get();
+    }
+
+    function GetSelectedTicketFolderAuthUser(int $ticketFolderId)
+    {
+
+        $tickets = $this->model
+            ->select("*")
+            ->leftjoin("tickets" ,"tickets.ticket_folder_id" , "=" , "ticket_folders.id")
+            ->where("ticket_folders.id" , $ticketFolderId)
+            ->where("ticket_folders.user_id" , ContextRepository::UserRepository()->GetUserAuthId())
+            ->get();
+
+        return $this->readyTicketsTopToDown($tickets);
+    }
+
+
+    function SubmitTicketAuthUser($ticketCategoryId , $ticketFolderId , $title , $text)
+    {
+
+        $isTrue= false;
+        if ($ticketFolderId != null){
+
+            $ticketFolder = $this->model
+                ->where("id" , $ticketFolderId)
+                ->where("user_id" ,  ContextRepository::UserRepository()->GetUserAuthId())
+                ->first();
+
+            if ($ticketFolder->status["id"] == 1){
+
+                ContextRepository::TicketRepository()->addResult([
+                    "ticket_folder_id" => $ticketFolderId ,
+                    "text" => $text ,
+                ]);
+
+                $isTrue = true;
+            }
+        }
+        else{
+
+            $ticketFolder = $this->addResult([
+                "ticket_category_id" => $ticketCategoryId ,
+                "user_id" =>  ContextRepository::UserRepository()->GetUserAuthId() ,
+                "title" => $title ,
+                "status" => 1
+            ]);
+
+            ContextRepository::TicketRepository()->addResult([
+                "ticket_folder_id" => $ticketFolder->id ,
+                "text" => $text ,
+            ]);
+
+            $isTrue = true;
+        }
+
+        return $isTrue;
+    }
+
+
+
+
+    ///// ========================================
+    private function readyTicketsTopToDown($tickets){
+        $resultExp = [
+            "parent"=>[],
+            "children"=>[],
+        ];
+
+        if (sizeof($tickets) > 0){
+
+            foreach ($tickets As $key => $item){
+                if ($key == 0){
+                    $resultExp["parent"] = $item;
+                }
+                else {
+                    array_push($resultExp["children"] , $item);
+                }
+            }
+        }
+
+        return $resultExp;
+    }
+
+
+
 }

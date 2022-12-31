@@ -23,7 +23,7 @@ class BaseRepository  implements IBaseRepository {
         if ($ifStatus){
             $res =$res->where("status" , 1);
         }
-        return $res->all();
+        return $res->get();
     }
 
     function getPaginateResult($ifStatus=false ,$numInPage = 15 )

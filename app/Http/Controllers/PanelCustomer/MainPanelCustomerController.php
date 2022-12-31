@@ -20,7 +20,6 @@ class MainPanelCustomerController extends BasePanelCustomerPanel
     }
 
     public function getViewPanel(Request $request){
-
         $panelName = $request->get("panel_name");
 
         return $this->getPanelView($panelName);

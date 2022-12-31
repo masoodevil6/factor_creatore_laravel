@@ -16,6 +16,7 @@ interface IUserRepository extends IBaseRepository {
 
   function UpdateUserEmailOrPhone(Otp $otp) : bool ;
 
+  function SearchUser(string $userName="" , $numInPage=15);
 
 
 
@@ -30,7 +31,9 @@ interface IUserRepository extends IBaseRepository {
 
 
 
-  function SearchUser(string $userName="" , $numInPage=15);
+
+
+
 
 
 
@@ -38,11 +41,17 @@ interface IUserRepository extends IBaseRepository {
 
   function GetUserAuthId();
 
+  function LogoutAuthUser();
+
+
+
+
+
   function GetUserPanelAuthAdminInfo($user);
 
   function GetUserPasswordAuthPanelAdmin($panel);
 
-  function LogoutAuthUser();
+
 
 
 }

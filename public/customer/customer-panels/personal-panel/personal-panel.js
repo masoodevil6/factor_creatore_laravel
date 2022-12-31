@@ -50,13 +50,11 @@ function checkVerifyCodeMobileOrEmail() {
         "code" : code ,
         "_token": $('meta[name="csrf-token-customer-panel"]').attr('content')
     };
-    console.log(data)
     $.ajax({
         url: $('meta[name="url-verify-email-or-phone-client"]').attr('content'),
         type: "POST",
         data: data,
         success: function (result) {
-            console.log(result)
             if (result == 1){
                 goBackPersonalPanelClient();
                 goToThisFirstFormPanel();

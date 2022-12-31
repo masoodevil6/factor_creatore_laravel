@@ -10,4 +10,10 @@ interface ITicketFolderRepository extends IBaseRepository {
 
     public function AnswerTicketFolder(TicketFolder $ticketFolder , string $ticketText) : bool;
 
+    function GetAllTicketFolderAuthUser();
+
+    function GetSelectedTicketFolderAuthUser(int $ticketFolderId);
+
+    function SubmitTicketAuthUser($ticketCategoryId , $ticketFolderId , $title , $text);
+
 }

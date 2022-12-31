@@ -19,14 +19,14 @@ class ListCustomerPanels{
     {
         $panels = Config::get("customerPanels.panels");
         foreach ($panels as $panel){
-            array_push($this->listPanels, $this->getPanelClass($panel));
+            $this->getPanelClass($panel);
         }
     }
 
 
     private function getPanelClass($namespace){
         try{
-            return (new \ReflectionClass($namespace))->newInstance();
+            array_push($this->listPanels, (new \ReflectionClass($namespace))->newInstance());
         }
         catch (Exception $e){
             return null;
@@ -45,6 +45,7 @@ class ListCustomerPanels{
 
     public function searchCustomerPanel($panelTitleEn){
         foreach ($this->listPanels As $itemPanel){
+
             if ($panelTitleEn == $itemPanel -> getTitleEn()){
                 return $itemPanel;
             }

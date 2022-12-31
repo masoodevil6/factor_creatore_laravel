@@ -39,7 +39,6 @@ function getViewItemCustomerPanel(panelName , setHistoryUrl=true) {
         "panel_name" : panelName ,
         "_token": $('meta[name="csrf-token-customer-panel"]').attr('content')
     };
-
     $.ajax({
         url: $('meta[name="url-get-view-panel"]').attr('content'),
         type: "POST",
@@ -51,7 +50,8 @@ function getViewItemCustomerPanel(panelName , setHistoryUrl=true) {
             if (setHistoryUrl){
                 setUrlHistoryPanel(result["titleEn"]);
             }
-        }
+        },
+        dataType: "json"
     });
 }
 

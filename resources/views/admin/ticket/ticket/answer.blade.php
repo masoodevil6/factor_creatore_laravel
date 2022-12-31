@@ -19,7 +19,11 @@
                 <section class="font-size-lg">
                     {{$ticketFolder->title}}
                     [
-                    {{$ticketFolder->ticketCategory->title}}
+                    @if(!empty($ticketFolder->ticketCategory))
+                        {{$ticketFolder->ticketCategory->title}}
+                    @else
+                        دیگر
+                    @endif
                     ]
                 </section>
             </section>

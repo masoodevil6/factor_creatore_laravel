@@ -20,8 +20,7 @@ class PersonalPanelCustomerController extends BasePanelCustomerPanel
     }
 
     public function changeInfo(PanelPersionalInfoRequest $request){
-        $data = $request->all();
-        return $this->panel-> submitPersionalInfoClient($data);
+        return $this->panel-> submitPersionalInfoClient($request->get("name") , $request->get("family"));
     }
 
     public function sendVerifyPhoneOrEmail(PanelPersionalInfoPhoneOrEmailRequest $request){
