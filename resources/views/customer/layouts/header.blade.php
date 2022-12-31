@@ -52,7 +52,7 @@
                                 </button>
                                 <section class="dropdown-menu shadow">
                                     <section>
-                                        <a class="dropdown-item" href="#">
+                                        <a class="dropdown-item" href="{{route("customer-panel.home")}}">
                                             <i class="fa fa-user-circle"></i>
                                             <span class="pr-2  font-size-md">
                                                 پروفایل کاربری

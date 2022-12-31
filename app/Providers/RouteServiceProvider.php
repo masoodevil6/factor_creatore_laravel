@@ -29,7 +29,7 @@ class RouteServiceProvider extends ServiceProvider
     protected $namespaceAPI = 'App\\Http\\Controllers\\API';
     protected $namespaceAuth = 'App\\Http\\Controllers\\Auth';
     protected $namespaceCustomer = 'App\\Http\\Controllers\\Customer';
-    protected $namespaceCustomerPanel= 'App\\Http\\Controllers\\CustomerPanel';
+    protected $namespacePanelCustomer= 'App\\Http\\Controllers\\PanelCustomer';
 
 
 
@@ -59,6 +59,8 @@ class RouteServiceProvider extends ServiceProvider
                     ->group(base_path('routes/web.php'));
 
 
+
+
                 /// auth client pages
                 Route::prefix("auth")
                     ->namespace($this->namespaceAuth."\Customer")
@@ -66,7 +68,13 @@ class RouteServiceProvider extends ServiceProvider
 
 
                 /// panel client pages
-                ///
+                Route::middleware('auth')
+                    ->prefix("panel")
+                    ->namespace($this->namespacePanelCustomer)
+                    ->group(base_path('routes/customerPanel.php'));
+
+
+
 
 
 

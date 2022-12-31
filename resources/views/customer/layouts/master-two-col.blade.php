@@ -23,10 +23,10 @@
     @yield("head-content")
 
     <section class="row mx-0 mt-3">
-        <aside id="sidebar" class="sidebar col-md-3">
+        <aside id="sidebar" class="sidebar col-lg-3">
             @yield("sidebar")
         </aside>
-        <main id="main-body" class="main-body col-md-9">
+        <main id="main-body" class="main-body col-lg-9">
             @yield("main")
         </main>
     </section>

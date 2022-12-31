@@ -1,0 +1,15 @@
+
+.icon-item-customer-panel{
+    height: 35px;
+    width: 35px;
+    line-height: 35px;
+    border-width: 2px !important;
+}
+.title-item-customer-panel{
+    display: flow-root;
+    line-height: 35px;
+}
+
+.selected-item-customer{
+    background-color: #53affe !important;
+}
