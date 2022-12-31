@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Admin\Users;
 
 use App\Http\Controllers\Admin\MainAdminController;
-use App\Http\Requests\Admin\User\UserStoreRequest;
+use App\Http\Requests\Admin\User\PanelUserStoreSubmitRequest;
 use App\Models\Users\UserStore;
 use App\Repositories\ContextRepository;
 use Illuminate\Http\Request;
@@ -66,7 +66,7 @@ class UserStoreAdminController extends MainAdminController
         return view("admin.user.user-stores.create" , compact("nav"));
     }
 
-    public function store(UserStoreRequest $request){
+    public function store(PanelUserStoreSubmitRequest $request){
         $input = $request->all();
         $input["phone"] = filterPhoneNumber($input["phone"]);
         $user=ContextRepository::UserRepository()->GetUserWithEmail($input["user_email"]);
@@ -104,7 +104,7 @@ class UserStoreAdminController extends MainAdminController
         return view("admin.user.user-stores.create" , compact("nav" , "userStore"));
     }
 
-    public function update(UserStoreRequest $request, UserStore $userStore){
+    public function update(PanelUserStoreSubmitRequest $request, UserStore $userStore){
         $input = $request->all();
         $input["phone"] = filterPhoneNumber($input["phone"]);
         ContextRepository::UserStoreRepository()->updateResult($userStore , $input);

@@ -10,7 +10,7 @@
 
 </section>
 
-<section class="mx-2 border border-dark shadow bg-white mt-2 py-1 bg-white row p-0 m-0">
+<section class=" border border-dark shadow bg-white mt-2 py-1 bg-white row p-0 m-0">
 
     <x-fields.component-input-insert
             title-en="title"

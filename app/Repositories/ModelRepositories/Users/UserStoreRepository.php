@@ -2,9 +2,11 @@
 namespace App\Repositories\ModelRepositories\Users;
 
 use App\Models\Users\UserStore;
+use App\Repositories\ContextRepository;
 use App\Repositories\InterFaceRepositories\Users\IUserStoreRepository;
 use App\Repositories\ModelRepositories\BaseRepository;
 use Illuminate\Support\Facades\DB;
+use function Symfony\Component\Finder\size;
 
 class UserStoreRepository extends BaseRepository implements IUserStoreRepository {
 
@@ -17,6 +19,12 @@ class UserStoreRepository extends BaseRepository implements IUserStoreRepository
     {
         return $this->model->where("user_id" , $userId)->get();
     }
+
+    function GetStoresAuthUser()
+    {
+        return $this->model->where("user_id" , ContextRepository::UserRepository()->GetUserAuthId())->orderBy('id', 'desc')->get();
+    }
+
 
     function SearchUserStore(string $userName, string $userStore, $numInPage = 15)
     {
@@ -42,5 +50,32 @@ class UserStoreRepository extends BaseRepository implements IUserStoreRepository
         }
 
         return $this->model->paginate($numInPage);
+    }
+
+
+    function GetInfoStoresAuthUser($userStoreId)
+    {
+        return $this->model
+            ->where("id" , $userStoreId)
+            ->where("user_id" , ContextRepository::UserRepository()->GetUserAuthId())
+            ->first();
+    }
+
+    function AddOrEditStoreAuthUser($userStoreId=0, $userStoreName, $userStorePhone, $userStoreAddress)
+    {
+        $data = [
+            "name" => $userStoreName ,
+            "phone" => $userStorePhone ,
+            "address" => $userStoreAddress ,
+        ];
+
+        if ($userStoreId > 0){
+            $userStore = $this->GetInfoStoresAuthUser($userStoreId);
+            $this->updateResult($userStore , $data);
+        }
+        else{
+            $data["user_id"] = ContextRepository::UserRepository()->GetUserAuthId();
+            $this->addResult($data);
+        }
     }
 }

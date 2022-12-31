@@ -17,6 +17,8 @@
         @include("customer-panels.panels.panel-tickets.submit-ticket")
     </section>
 
+
     <script src="{{asset("customer/customer-panels/ticket-panel/ticket-panel.js")}}"></script>
+
 
 </section>

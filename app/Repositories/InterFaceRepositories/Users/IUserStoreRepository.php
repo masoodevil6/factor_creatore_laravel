@@ -8,4 +8,10 @@ interface IUserStoreRepository extends IBaseRepository {
     function GetUserStores(int $userId);
 
     function SearchUserStore(string $userName , string $userStore , $numInPage=15);
+
+    function GetStoresAuthUser();
+
+    function GetInfoStoresAuthUser($userStoreId);
+
+    function AddOrEditStoreAuthUser($userStoreId=0 , $userStoreName , $userStorePhone , $userStoreAddress);
 }

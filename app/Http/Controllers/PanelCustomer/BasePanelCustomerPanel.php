@@ -34,5 +34,11 @@ class BasePanelCustomerPanel extends BaseController
         ContextRepository::SettingRepository()->SetSettingInfoPage();
     }
 
+
+
+    protected function redirectPanel(){
+        return redirect()->route("customer-panel.home" , $this->panelName);
+    }
+
 }
 
