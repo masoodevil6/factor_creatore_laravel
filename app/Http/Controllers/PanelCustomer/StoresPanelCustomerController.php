@@ -16,11 +16,6 @@ class StoresPanelCustomerController extends BasePanelCustomerPanel
     }
 
 
-
-    public function getListUserStores(){
-        return $this->panel->returnPanelView();
-    }
-
     public function getInfoUserStores(Request $request){
         return $this->panel->getInfoUserStoreSelected($request->get("user_store_id"));
     }

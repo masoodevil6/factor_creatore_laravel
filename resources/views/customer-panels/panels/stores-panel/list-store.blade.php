@@ -9,7 +9,7 @@
         @foreach($stores As $key => $itemStore)
 
             <section class="col-12 col-lg-6 p-0 ">
-                <section  class="item-user-store border border-dark m-2  shadow font-size-md position-relative">
+                <section  class="item-panel border border-dark m-2  shadow font-size-md position-relative">
                     <section class="d-lg-flex d-block d-inline border-bottom border gray-300">
                         <section class="col-12 col-lg-4 border-lg-left border-white gray-100 font-weight-bold">
                             شماره
@@ -46,7 +46,7 @@
                         </section>
                     </section>
 
-                    <section onclick="selectUserStoreInfo({{$itemStore->id}})" class="btn-edit-store cursor-pointer position-absolute bg-warning border border-dark rounded shadow">
+                    <section onclick="selectUserStoreInfo({{$itemStore->id}})" class="btn-one btn-panel cursor-pointer position-absolute bg-warning border border-dark rounded shadow">
                         <i class="fa fa-edit position-absolute"></i>
                     </section>
 
@@ -54,7 +54,7 @@
                         @csrf
                         @method("delete")
 
-                        <section onclick="goToConfirmDeleteForm(this)" class="btn-delete-store cursor-pointer position-absolute bg-danger border border-dark rounded shadow">
+                        <section onclick="goToConfirmDeleteForm(this)" class="btn-two btn-panel cursor-pointer position-absolute bg-danger border border-dark rounded shadow">
                             <i class="fa fa-trash position-absolute text-white"></i>
                         </section>
                     </form>

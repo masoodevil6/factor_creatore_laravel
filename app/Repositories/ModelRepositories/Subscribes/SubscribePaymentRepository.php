@@ -5,6 +5,7 @@ use App\Models\Subscribes\SubscribePayment;
 use App\Repositories\ContextRepository;
 use App\Repositories\InterFaceRepositories\Subscribes\ISubscribePaymentRepository;
 use App\Repositories\ModelRepositories\BaseRepository;
+use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
 
 class SubscribePaymentRepository extends BaseRepository implements ISubscribePaymentRepository {
@@ -60,4 +61,147 @@ class SubscribePaymentRepository extends BaseRepository implements ISubscribePay
 
         return $this->model->paginate($numInPage);
     }
+
+
+
+
+
+
+    function GetAllSubscribeAuthUser($numInPage = 15)
+    {
+        $this->model = $this->model->select(
+            "subscribe_payments.id" , "subscribe_payments.amount" ,"subscribe_payments.status" ,
+            "subscribes.title" , "subscribes.real_price" , "subscribes.off_price" ,"subscribes.duration" ,
+            DB::raw("subscribe_payments.created_at As time_start"), DB::raw("ADDDATE(subscribe_payments.created_at, INTERVAL subscribes.duration MONTH) As time_end"));
+
+        $this->model = $this->model->join('subscribes', function($join){
+            $join->on('subscribe_payments.subscribe_id', "=", 'subscribes.id');
+            $join->where("subscribes.status"  , "1");
+        });
+
+        $result = $this->model
+            ->where("subscribe_payments.user_id" , ContextRepository::UserRepository()->GetUserAuthId())
+            ->paginate($numInPage);
+
+        foreach ($result As $key => $item){
+            $result[$key]["active"] =  $this->checkActiveSubscribe($item["time_start"] , $item["time_end"]);
+        }
+        return $result;
+    }
+
+
+    function GetInfoSubscribeAuthUser($subscribeId)
+    {
+        $this->model = $this->model->select(
+            "subscribe_payments.id" , "subscribe_payments.amount" ,"subscribe_payments.status" ,
+            "subscribes.title" , "subscribes.real_price" , "subscribes.off_price" ,"subscribes.duration" ,
+            "forms.id as form_id" , "forms.name as form_name" ,
+            DB::raw("subscribe_payments.created_at As time_start"), DB::raw("ADDDATE(subscribe_payments.created_at, INTERVAL subscribes.duration MONTH) As time_end"));
+
+
+        $this->model = $this->model->join('subscribes', function($join){
+            $join->on('subscribe_payments.subscribe_id', "=", 'subscribes.id');
+            $join->where("subscribes.status"  , "1");
+        });
+
+        $this->model = $this->model->join('forms', 'forms.subscribe_id', "=", 'subscribes.id');
+
+        $result = $this->model
+            ->where("subscribe_payments.id" , $subscribeId)
+            ->where("subscribe_payments.user_id" , ContextRepository::UserRepository()->GetUserAuthId())
+            ->get();
+
+        return $this->getInfoSubscribeUser($result);
+    }
+
+
+
+    function DeleteSubscribeAuthUser($subscribeId)
+    {
+        $subscribe = $this->model
+            ->where("id" , $subscribeId)
+            ->where("status" , 0)
+            ->where("user_id" , ContextRepository::UserRepository()->GetUserAuthId())
+            ->first();
+        if (!empty($subscribe)){
+            $subscribe->delete();
+        }
+    }
+
+
+
+
+
+
+
+
+
+
+
+    /////=============================================
+
+
+    private function getInfoSubscribeUser($result){
+        $resultExp = [];
+
+        if (sizeof($result) > 0){
+            $resultExp = [
+                "id" => $result[0]["id"] ,
+                "amount" => $result[0]["amount"] ,
+                "status" => $result[0]["status"] ,
+
+                "title" => $result[0]["title"] ,
+                "real_price" => $result[0]["real_price"] ,
+                "off_price" => $result[0]["off_price"] ,
+                "total_price" => ( $result[0]["real_price"] - $result[0]["off_price"] ) ,
+                "duration" => $result[0]["duration"] ,
+
+                "time_start" => $result[0]["time_start"] ,
+                "time_end" => $result[0]["time_end"] ,
+                "active" => $this->checkActiveSubscribe($result[0]["time_start"] , $result[0]["time_end"]) ,
+
+                "forms" => $this->getListFormsInSubscribe($result)
+            ];
+        }
+
+        return $resultExp;
+
+    }
+
+
+    private function getListFormsInSubscribe($result){
+
+        $forms=[];
+        foreach ($result As $itemResult){
+            $existForm = false;
+            foreach ($forms As $itemForm){
+                if ($itemResult["form_id"] == $itemForm["form_id"]){
+                    $existForm = true;
+                    break;
+                }
+            }
+
+            if (!$existForm){
+                $res = [
+                    "form_id" => $itemResult["form_id"] ,
+                    "form_name" => $itemResult["form_name"] ,
+                ];
+                array_push($forms , $res);
+            }
+        }
+        return $forms;
+    }
+
+
+    private function checkActiveSubscribe($timeStart , $timeEnd){
+
+        $timeStart = Carbon::parse($timeStart)->timestamp;
+        $timeEnd = Carbon::parse($timeEnd)->timestamp;
+        if ($timeStart <= $timeEnd){
+            return true;
+        }
+        return false;
+    }
+
+
 }
