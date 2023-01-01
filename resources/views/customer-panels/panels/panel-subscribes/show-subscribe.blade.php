@@ -112,8 +112,6 @@
 
 @if($userSubscribe["status"]["id"] == 0 && $userSubscribe["active"])
 
-
-
     <a href="#"  class="float-left font-size-md btn btn-success rounded  text-white text-center mt-2 py-1 shadow mr-2">
         <i class="fa fa-credit-card text-white"></i>
         خرید اشتراک

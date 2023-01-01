@@ -60,7 +60,7 @@
                                         </a>
                                     </section>
                                     <section>
-                                        <a class="dropdown-item" href="#">
+                                        <a class="dropdown-item" href="{{route("customer-panel.home" , "factors")}}">
                                             <i class="fa fa-book"></i>
                                             <span class="pr-2  font-size-md">
                                                 فاکتور ها

@@ -7,6 +7,7 @@ use App\Http\Controllers\PanelCustomer\PersonalPanelCustomerController;
 use App\Http\Controllers\PanelCustomer\TicketsPanelCustomerController;
 use App\Http\Controllers\PanelCustomer\StoresPanelCustomerController;
 use App\Http\Controllers\PanelCustomer\SubscribePanelCustomerController;
+use App\Http\Controllers\PanelCustomer\FactorsPanelCustomerController;
 
 /*
 |--------------------------------------------------------------------------
@@ -48,7 +49,7 @@ Route::prefix("tickets")->controller(TicketsPanelCustomerController::class)->gro
 /// panel stores
 Route::prefix("stores")->controller(StoresPanelCustomerController::class)->group(function (){
 
-    Route::Post("/get-info-user-store/{store?}" , "getInfoUserStores")->name("customer-panel.stores.get-info-user-store");
+    Route::Post("/get-info-user-store/" , "getInfoUserStores")->name("customer-panel.stores.get-info-user-store");
 
     Route::Post("/submit-new-user-store/{store?}" , "submitNewUserStore")->name("customer-panel.stores.submit-new-user-store");
 
@@ -63,6 +64,18 @@ Route::prefix("subscribes")->controller(SubscribePanelCustomerController::class)
     Route::Post("/get-info-user-subscribe" , "getInfoUserSubscribe")->name("customer-panel.subscribes.get-info-user-subscribe");
 
     Route::delete("/delete-user-subscribe/{subscribe}" , "deleteUserSubscribe")->name("customer-panel.subscribes.delete-user-subscribe");
+
+});
+
+
+/// panel subscribes
+Route::prefix("factors")->controller(FactorsPanelCustomerController::class)->group(function (){
+
+    Route::Post("/get-info-user-factor" , "getInfoUserFactor")->name("customer-panel.factors.get-info-user-factor");
+
+    Route::get("/download-user-factor/{resNum}" , "downloadUserFactor")->name("customer-panel.factors.download-user-factor");
+
+    Route::delete("/delete-user-factor/{resNum}" , "deleteUserFactor")->name("customer-panel.factors.delete-user-factor");
 
 });
 

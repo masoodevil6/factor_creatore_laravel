@@ -2,6 +2,7 @@
 namespace App\Repositories\ModelRepositories\Factors;
 
 use App\Models\Factors\Factor;
+use App\Repositories\ContextRepository;
 use App\Repositories\InterFaceRepositories\Factors\IFactorRepository;
 use App\Repositories\ModelRepositories\BaseRepository;
 use Illuminate\Support\Facades\DB;
@@ -40,5 +41,34 @@ class FactorRepository extends BaseRepository implements IFactorRepository {
         }
 
         return $this->model->paginate($numInPage);
+    }
+
+
+
+    function GetFactorAuthAuthUser($numInPage = 8)
+    {
+        if (isset($_GET["search"])){
+            $this->model = $this->addSearcher("res_num" , $_GET["search"]);
+        }
+
+        return $this->model
+            ->where("user_id" , ContextRepository::UserRepository()->GetUserAuthId())
+            ->paginate($numInPage);
+    }
+
+    function GetInfoSelectedFactorAuthUser($resNum)
+    {
+        return $this->model
+            ->where("user_id" , ContextRepository::UserRepository()->GetUserAuthId())
+            ->where("res_num" , $resNum)
+            ->first();
+    }
+
+    function DeleteSelectedFactorAuthUser($resNum)
+    {
+        $factor = $this->GetInfoSelectedFactorAuthUser($resNum);
+        if (!empty($factor)){
+            $this->deleteResult($factor);
+        }
     }
 }

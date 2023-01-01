@@ -9,4 +9,12 @@ interface IFactorRepository extends IBaseRepository {
 
     function SearchFactors(string $userName="" , $resNum="" , $numInPage=15);
 
+
+
+    function GetFactorAuthAuthUser($numInPage = 15);
+
+    function GetInfoSelectedFactorAuthUser($resNum);
+
+    function DeleteSelectedFactorAuthUser($resNum);
+
 }

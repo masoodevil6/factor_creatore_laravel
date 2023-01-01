@@ -29,6 +29,7 @@ class BaseFormToolService{
 
     private function readyFactorModel()
     {
+
         $this->factorModel = new FactorModel();
 
         $this->factorModel->setId($this->factor->id );
