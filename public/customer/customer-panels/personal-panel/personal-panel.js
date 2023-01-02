@@ -18,12 +18,13 @@ function submitEmailOrPhoneForVerify(element) {
         "input" : input ,
         "_token": $('meta[name="csrf-token-customer-panel"]').attr('content')
     };
-
+    var loading =  $("body").loadingAjax();
     $.ajax({
         url: $('meta[name="url-send-email-or-phone-client"]').attr('content'),
         type: "POST",
         data: data,
         success: function (result) {
+            loading.start();
             if (result != ""){
                 token = result;
                 formCheckCodePanelPersonalCustomer.removeClass("d-none");
@@ -33,8 +34,8 @@ function submitEmailOrPhoneForVerify(element) {
                 messageActionError();
             }
         },
-        error: function (e) {
-            console.log(e)
+        complete: function () {
+            loading.end();
         }
     });
 
@@ -50,11 +51,13 @@ function checkVerifyCodeMobileOrEmail() {
         "code" : code ,
         "_token": $('meta[name="csrf-token-customer-panel"]').attr('content')
     };
+    var loading =  $("body").loadingAjax();
     $.ajax({
         url: $('meta[name="url-verify-email-or-phone-client"]').attr('content'),
         type: "POST",
         data: data,
         success: function (result) {
+            loading.start();
             if (result == 1){
                 goBackPersonalPanelClient();
                 goToThisFirstFormPanel();
@@ -62,6 +65,9 @@ function checkVerifyCodeMobileOrEmail() {
             else{
                 messageActionError();
             }
+        },
+        complete: function () {
+            loading.end();
         }
     });
 }

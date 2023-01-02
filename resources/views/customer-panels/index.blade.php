@@ -6,6 +6,7 @@
     <meta name="url-this-panel" content="{{ route("customer-panel.home") }}" />
     <meta name="url-get-view-panel" content="{{ route("customer-panel.get-view-panel") }}" />
     <meta name="csrf-token-customer-panel" content="{{ csrf_token() }}" />
+    <script src="{{asset("plugins/loading_ajax/loading_ajax.js")}}"></script>
 @endsection
 
 

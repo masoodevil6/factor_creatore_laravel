@@ -9,7 +9,7 @@
     @endforeach
 
 
-        <a href="{{route("auth.customer.logout")}}" class="item-customer-panel text-hover-white d-block rounded m-2 cursor-pointer btn-warning text-decoration-none">
+        <a href="{{route("auth.customer.logout")}}" class="item-customer-panel text-hover-white d-block rounded m-2 cursor-pointer btn-danger text-decoration-none">
             <i class="icon-item-customer-panel float-right  px-2 border-left border-white fa fa-sign-out-alt" aria-hidden="true"></i>
             <span class="title-item-customer-panel pr-2 font-size-md font-weight-bold">
                 خروج

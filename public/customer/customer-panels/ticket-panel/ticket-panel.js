@@ -9,13 +9,18 @@ function selectTicketInfo(ticketId) {
         "ticket_id" : ticketId ,
         "_token": $('meta[name="csrf-token-customer-panel"]').attr('content')
     };
+    var loading =  $("body").loadingAjax();
     $.ajax({
         url: $('meta[name="url-get-list-info-ticket"]').attr('content'),
         type: "POST",
         data: data,
         success: function (result) {
+            loading.start();
             goToInfoPanelTickets();
             $("#list_info_tickets").html(result)
+        },
+        complete: function () {
+            loading.end();
         }
     });
 }
@@ -48,11 +53,13 @@ function submitNewTicketClient() {
         if ($ticketCategoryId > 0){
             data["ticket_category_id"] = $ticketCategoryId;
         }
+        var loading =  $("body").loadingAjax();
         $.ajax({
             url: $('meta[name="url-submit-new-ticket"]').attr('content'),
             type: "POST",
             data: data,
             success: function (result) {
+                loading.start();
                 if (result == 1){
                     messageActionSuccess();
                     goToThisFirstFormPanel();
@@ -60,6 +67,9 @@ function submitNewTicketClient() {
                 else {
                     messageActionError();
                 }
+            },
+            complete: function () {
+                loading.end();
             }
         });
     }

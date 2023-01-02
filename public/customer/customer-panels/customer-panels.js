@@ -39,17 +39,22 @@ function getViewItemCustomerPanel(panelName , setHistoryUrl=true) {
         "panel_name" : panelName ,
         "_token": $('meta[name="csrf-token-customer-panel"]').attr('content')
     };
+    var loading =  $("body").loadingAjax();
     $.ajax({
         url: $('meta[name="url-get-view-panel"]').attr('content'),
         type: "POST",
         data: data,
         success: function (result) {
+            loading.start();
             setTrueIntoPanel();
             $("#panel_view").html(result["view"]);
             selectedItemCustomerPanel(result["titleEn"]);
             if (setHistoryUrl){
                 setUrlHistoryPanel(result["titleEn"]);
             }
+        },
+        complete: function () {
+            loading.end();
         },
         dataType: "json"
     });

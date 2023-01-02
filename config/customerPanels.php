@@ -16,6 +16,7 @@ return [
         "App\Http\Controllers\PanelCustomer\Panels\PanelCustomer\PanelFactorCustomer" ,
         "App\Http\Controllers\PanelCustomer\Panels\PanelCustomer\PanelStoreCustomer" ,
         "App\Http\Controllers\PanelCustomer\Panels\PanelCustomer\PanelTicketCustomer" ,
+        "App\Http\Controllers\PanelCustomer\Panels\PanelCustomer\PanelCommentCustomer" ,
 
     ],
 

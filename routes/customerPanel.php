@@ -8,6 +8,7 @@ use App\Http\Controllers\PanelCustomer\TicketsPanelCustomerController;
 use App\Http\Controllers\PanelCustomer\StoresPanelCustomerController;
 use App\Http\Controllers\PanelCustomer\SubscribePanelCustomerController;
 use App\Http\Controllers\PanelCustomer\FactorsPanelCustomerController;
+use App\Http\Controllers\PanelCustomer\CommentPanelCustomerController;
 
 /*
 |--------------------------------------------------------------------------
@@ -76,6 +77,14 @@ Route::prefix("factors")->controller(FactorsPanelCustomerController::class)->gro
     Route::get("/download-user-factor/{resNum}" , "downloadUserFactor")->name("customer-panel.factors.download-user-factor");
 
     Route::delete("/delete-user-factor/{resNum}" , "deleteUserFactor")->name("customer-panel.factors.delete-user-factor");
+
+});
+
+
+/// panel subscribes
+Route::prefix("comments")->controller(CommentPanelCustomerController::class)->group(function (){
+
+    Route::delete("/delete-user-comment/{comment}" , "deleteUserComment")->name("customer-panel.comments.delete-user-comment");
 
 });
 

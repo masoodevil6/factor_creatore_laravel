@@ -22,7 +22,7 @@
         @include("customer.public.navigation")
     @endif
 
-    @yield("content")
+    @yield("main")
 </main>
 
 @include("customer.layouts.footer")

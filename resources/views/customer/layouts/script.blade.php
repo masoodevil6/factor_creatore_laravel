@@ -9,5 +9,5 @@
 <script src="{{asset("public/plugins/alert_screen/alert_screen.js")}}"></script>
 <script src="{{asset("public/js/messages.js")}}"></script>
 <script src="{{asset("public/plugins/owlcarousel/owl.carousel.js")}}"></script>
-<script src="{{asset("public/plugins/loading_ajax/loading_ajax.js")}}"></script>
+
 

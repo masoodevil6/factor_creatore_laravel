@@ -9,4 +9,9 @@ interface ICommentRepository extends IBaseRepository {
     function AdminAnswerCommentUser(Comment $comment ,array $dataComment);
 
     function SearchUserComment(string $userName="" , $numInPage=15);
+
+
+    function GetListCommentsAuthUser($numInPage=8);
+
+    function DeleteSelectedCommentAuthUser($commentId);
 }

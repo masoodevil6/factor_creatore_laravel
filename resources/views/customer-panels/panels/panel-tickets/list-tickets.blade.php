@@ -1,3 +1,4 @@
+@if(sizeof($ticketFolders) > 0)
 <section class="border border-dark shadow bg-white mt-2 mt-lg-0  bg-white">
 
     <section class="border-bottom border-dark color-family-1 text-center text-white">
@@ -49,6 +50,11 @@
     </section>
 
 </section>
+@else
+    <x-component-not-exist-item
+            title="تیکتی"/>
+@endif
+
 
 <section onclick="goToFormSubmitNewTicketClient()"  class="float-left font-size-md btn btn-success rounded  text-white text-center mt-2 py-1 shadow">
     ارسال تیکت جدید

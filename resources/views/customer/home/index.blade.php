@@ -10,6 +10,9 @@
 
 @section('main')
 
+    <section id="send-comment">
+
+    </section>
 @endsection
 
 @section("scripts")

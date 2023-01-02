@@ -9,8 +9,6 @@ class CustomerHomeController extends CustomerMainController
 {
 
     public function home(){
-
-
         return view("customer.home.index" );
     }
 

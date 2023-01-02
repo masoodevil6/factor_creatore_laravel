@@ -6,13 +6,18 @@ function selectUserSubscribeInfo(userStoreId=null) {
         "user_subscribe_id" : userStoreId ,
         "_token": $('meta[name="csrf-token-customer-panel"]').attr('content')
     };
+    var loading =  $("body").loadingAjax();
     $.ajax({
         url: $('meta[name="url-get-info-user-subscribe"]').attr('content'),
         type: "POST",
         data: data,
         success: function (result) {
+            loading.start();
             goToFormShowUserSubscribe();
             $("#form-show-user-subscribe").html(result)
+        },
+        complete: function () {
+            loading.end();
         }
     });
 }

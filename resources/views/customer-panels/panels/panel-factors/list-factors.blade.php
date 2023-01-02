@@ -97,6 +97,9 @@
                 :list="$realFactor"/>
 
     </section>
+@else
+    <x-component-not-exist-item
+            title="فاکتوری"/>
 @endif
 
 <a href="#"  class="float-left font-size-md btn btn-success rounded  text-white text-center mt-2 py-1 shadow">

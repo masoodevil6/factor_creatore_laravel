@@ -6,14 +6,18 @@ function selectUserStoreInfo(userStoreId=null) {
         "user_store_id" : userStoreId ,
         "_token": $('meta[name="csrf-token-customer-panel"]').attr('content')
     };
-
+    var loading =  $("body").loadingAjax();
     $.ajax({
         url: $('meta[name="url-get-info-user-store"]').attr('content'),
         type: "POST",
         data: data,
         success: function (result) {
+            loading.start();
             goToFormSubmitNewStoreClient();
             $("#form-add-or-edit-user-store").html(result)
+        },
+        complete: function () {
+            loading.end();
         }
     });
 }
