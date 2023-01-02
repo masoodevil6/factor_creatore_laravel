@@ -85,26 +85,33 @@
 
                         </x-fields.component-select-options>
 
+                        <x-fields.component-select-options
+                                title-en="status"
+                                title-fa="وضعیت">
+
+                            <option value="0" @if(isset($form["status"]) && $form["status"]==0) selected @endif>غیر فعال </option>
+                            <option value="1" @if(isset($form["status"]) && $form["status"]==1) selected @endif> فعال </option>
+
+                        </x-fields.component-select-options>
+
+                        <x-fields.component-select-options
+                                title-en="selected"
+                                title-fa="منتخب">
+
+                            <option value="0" @if(isset($form["selected"]) && $form["selected"]==0) selected @endif>غیر فعال </option>
+                            <option value="1" @if(isset($form["selected"]) && $form["selected"]==1) selected @endif> فعال </option>
+
+                        </x-fields.component-select-options>
+
                         <x-fields.component-upload-image
                                 title-en="image"
                                 title-fa="تصویر" >
-
 
                             @if(isset($form["image"]) && $form["image"] != "")
                                 <img class="d-block m-auto" src="{{asset($form["image"]["indexArray"][$form["image"]["currentImage"]])}}" height="150" alt="تصویر">
                             @endif
 
                         </x-fields.component-upload-image>
-
-
-                        <x-fields.component-select-options
-                                title-en="status"
-                                title-fa="وضعیت">
-
-                            <option value="0" @if(isset($forms["status"]) && $forms["status"]==0) selected @endif>غیر فعال </option>
-                            <option value="1" @if(isset($forms["status"]) && $forms["status"]==1) selected @endif> فعال </option>
-
-                        </x-fields.component-select-options>
 
 
                 </x-fields.component-from-data>

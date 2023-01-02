@@ -8,4 +8,5 @@ interface IFormRepository extends IBaseRepository {
 
     function SearchForm(string $formName="" , int $subscribeId=0 ,$numInPage = 15);
 
+    function GetLimitRandomSelectedForm(int $limit=10);
 }

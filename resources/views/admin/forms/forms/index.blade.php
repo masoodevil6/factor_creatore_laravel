@@ -68,11 +68,12 @@
                     <tr>
                         <th scope="col">#</th>
                         <th scope="col" class="w-15  font-size-12">عنوان فرم</th>
-                        <th scope="col" class="w-15  font-size-12">تصویر فرم</th>
-                        <th scope="col" class="w-15  font-size-12">دسته</th>
-                        <th scope="col" class="w-15  font-size-12">اشتراک</th>
+                        <th scope="col" class="w-10  font-size-12">تصویر فرم</th>
+                        <th scope="col" class="w-10  font-size-12">دسته</th>
+                        <th scope="col" class="w-10  font-size-12">اشتراک</th>
                         <th scope="col" class="w-15  font-size-12">کلاس</th>
                         <th scope="col" class="w-10  font-size-12">وضعیت</th>
+                        <th scope="col" class="w-10  font-size-12">منتخب</th>
                         <th scope="col" class="text-center  font-size-12">
                             <i class="fa fa-cogs"></i>
                             <span>تنظیمات</span>
@@ -90,7 +91,8 @@
                                 :form-category="$itemForm -> form_category_id != null ? $itemForm ->formCategory->title : '-'"
                                 :form-subscribe="$itemForm -> subscribe_id != null ? $itemForm ->subscribe->title : '-'"
                                 :form-class="$itemForm -> class_name"
-                                :form-status="$itemForm -> status"/>
+                                :form-status="$itemForm -> status"
+                                :form-selected="$itemForm -> selected"/>
                     @endforeach
                     </tbody>
 

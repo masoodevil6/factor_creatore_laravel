@@ -14,6 +14,12 @@
 
 
 
+.position-center{
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
 main{
     min-height : calc(100vh - 220px);
 }
@@ -140,6 +146,9 @@ main{
 }
 .font-size-xlg{
     font-size: 14pt;
+}
+.font-size-xxlg{
+    font-size: 20pt;
 }
 
 
@@ -386,9 +395,21 @@ main{
         width: 300px;
     }
 
+    #btn-header-client-panel{
+        overflow: hidden;
+    }
+    #btn-header-client-panel:after{
+        margin-bottom: 0.5rem;
+    }
+    #text-header-client-panel{
+        max-width: 175px;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        overflow: hidden;
+    }
 
     .btn-nav{
-        padding: 0 15px;
+        padding: 0 7.5px;
         height: 30px;
     }
 

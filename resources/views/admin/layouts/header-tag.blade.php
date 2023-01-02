@@ -10,7 +10,9 @@
             </span>
 
             <span class="logo">
-                <img src="{{getLocationLogoSite()}}" width="160" alt="">
+                <a class="text-decoration-none mr-2 pt-1" href="{{route("customer.home")}}">
+                    <img id="logo-site" src="{{getLocationLogoSite()}}" alt="logo">
+                </a>
             </span>
 
             <span id="body-header-show" class="d-md-none">

@@ -24,4 +24,13 @@ class FormRepository extends BaseRepository implements IFormRepository {
 
         return $this->model->paginate($numInPage);
     }
+
+    function GetLimitRandomSelectedForm(int $limit=10)
+    {
+        return $this->model
+            ->join('form_categories', "forms.form_category_id" , "=" , "form_categories.id")
+            ->where("forms.status" , 1)
+            ->where("forms.selected" , 1)
+            ->limit($limit)->inRandomOrder()->get();
+    }
 }

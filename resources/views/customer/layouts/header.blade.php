@@ -11,7 +11,7 @@
 
                     <section id="blur-nav-mobile" onclick="CloseNavPhone()" class="bg-grey d-lg-none d-none"></section>
 
-                    <section id="nav" class="col-lg-8 d-lg-flex color-family-1 shadow-lg">
+                    <section id="nav" class="col-lg-9 d-lg-flex color-family-1 shadow-lg">
 
                         <section class="d-lg-none d-flex justify-content-lg-center justify-content-center">
                             <a class="text-decoration-none mr-2 pt-1" href="{{route("customer.home")}}">
@@ -19,15 +19,30 @@
                             </a>
                         </section>
 
-                        <a href="{{route("customer.home")}}" title="خانه" class="btn-nav mx-2 my-2  btn btn-warning shadow border-none rounded text-decoration-none text-dark profile-button float-lg-left  ">
+                        <a href="{{route("customer.home")}}" title="خانه" class="btn-nav mx-2 my-2 text-hover-white  btn btn-warning shadow border-none rounded text-decoration-none profile-button float-lg-left  ">
                             <i  class="nav-icon fa fa-home   float-right border-left border-secondary"></i>
-                            <span class="pr-3  text-hover-white  font-size-md font-weight-bold">
+                            <span class="pr-3    font-size-md font-weight-bold">
                                 خانه
                             </span>
                         </a>
 
+                        <a href="#" title="خرید اشتراک" class="btn-nav mx-2 my-2 text-hover-white  btn btn-warning shadow border-none rounded text-decoration-none profile-button float-lg-left  ">
+                            <i  class="nav-icon fa fa-basket-shopping float-right border-left border-secondary"></i>
+                            <span class="pr-3    font-size-md font-weight-bold">
+                                خرید اشتراک
+                            </span>
+                        </a>
+
+                        <a href="#" title="درباره ما" class="btn-nav mx-2 my-2 text-hover-white btn btn-warning shadow border-none rounded text-decoration-none profile-button float-lg-left  ">
+                            <i class="nav-icon fa fa-store   float-right  border-left border-secondary "></i>
+                            <span class="pr-3 font-size-md font-weight-bold">
+                                درباره ما
+                            </span>
+                        </a>
+
+
                         @guest
-                            <a href="{{route("auth.customer.loginRegisterForm")}}" title="ورود/ثبت نام" class="btn mx-2 my-2 btn-nav btn-warning shadow border-none rounded text-decoration-none text-dark profile-button float-lg-left  ">
+                            <a href="{{route("auth.customer.loginRegisterForm")}}" title="ورود/ثبت نام" class="btn mx-2 my-2 text-hover-white btn-nav btn-warning shadow border-none rounded text-decoration-none profile-button float-lg-left  ">
                                 <i class="nav-icon fa fa-user-lock   float-right border-left border-secondary"></i>
                                 <span class="pr-3 text-hover-white  font-size-md font-weight-bold">
                                     ورود/ثبت نام
@@ -36,17 +51,17 @@
                         @endguest
                         @auth
 
-                            <a href="#" title="فاکتور جدید" class="btn btn-nav btn-warning position-relative mx-2 my-2 shadow border-none rounded text-decoration-none text-dark profile-button float-lg-left  ">
+                            <a href="#" title="فاکتور جدید" class="btn btn-nav btn-warning position-relative mx-2 text-hover-white my-2 shadow border-none rounded text-decoration-none  profile-button float-lg-left  ">
                                 <i class="nav-icon fa fa-file-text float-right border-left border-secondary"></i>
-                                <span class="pr-3 text-hover-white  font-size-md font-weight-bold">
+                                <span class="pr-3   font-size-md font-weight-bold">
                                     فاکتور جدید
                                 </span>
                             </a>
 
                             <section class="btn-group d-inline px-lg-2 my-lg-2 ">
-                                <button class="btn btn-warning btn-nav shadow mx-2 mx-lg-0 border-none rounde dropdown-toggle text-decoration-none text-dark profile-button text-dark" type="button" data-toggle="dropdown" aria-haspopup="true"  aria-expanded="true">
+                                <button id="btn-header-client-panel" class="btn btn-warning btn-nav shadow mx-2 text-hover-white mx-lg-0 border-none rounde dropdown-toggle text-decoration-none  profile-button " type="button" data-toggle="dropdown" aria-haspopup="true"  aria-expanded="true">
                                     <i class="nav-icon fa fa-user  float-right border-left border-secondary"></i>
-                                    <span class="pr-3 text-hover-white font-size-md font-weight-bold">
+                                    <span id="text-header-client-panel" class="pr-3  font-size-md font-weight-bold d-inline-block">
                                         {{Auth::user()->fullName}}
                                     </span>
                                 </button>
@@ -81,18 +96,11 @@
 
                         @endauth
 
-                        <a href="#" title="درباره ما" class="btn-nav mx-2 my-2  btn btn-warning shadow border-none rounded text-decoration-none text-dark profile-button float-lg-left  ">
-                            <i class="nav-icon fa fa-store   float-right  border-left border-secondary "></i>
-                            <span class="pr-3 text-hover-white font-size-md font-weight-bold">
-                                درباره ما
-                            </span>
-                        </a>
-
 
 
                     </section>
 
-                    <section class="d-flex col-12 col-lg-4">
+                    <section class="d-flex col-12 col-lg-3">
 
                         <section class="col-8 col-lg-12">
                             <section class="d-flex justify-content-lg-center justify-content-start ml-5 ml-lg-0">

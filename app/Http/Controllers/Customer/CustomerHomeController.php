@@ -3,13 +3,16 @@
 namespace App\Http\Controllers\Customer;
 
 use App\Http\Controllers\Controller;
+use App\Repositories\ContextRepository;
 use Illuminate\Http\Request;
 
 class CustomerHomeController extends CustomerMainController
 {
 
     public function home(){
-        return view("customer.home.index" );
+
+        $formsSelected = ContextRepository::FormRepository()->GetLimitRandomSelectedForm();
+        return view("customer.home.index" , compact("formsSelected"));
     }
 
 }

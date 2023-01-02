@@ -157,6 +157,14 @@ class FormController extends MainAdminController
     }
 
 
+    public function selected(Form $form){
+        $result = ContextRepository::FormRepository()->changeStatusResult($form , "selected");
+        if ($result["status"]){
+            return $result["exp"];
+        }
+    }
+
+
 
 
     //// =======================================================

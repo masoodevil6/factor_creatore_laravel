@@ -195,6 +195,8 @@ Route::namespace("Form")->group(function (){
 
         Route::post("/status/{form}" , "status")->name("admin.forms.form.status");
 
+        Route::post("/selected/{form}" , "selected")->name("admin.forms.form.selected");
+
     });
 
 

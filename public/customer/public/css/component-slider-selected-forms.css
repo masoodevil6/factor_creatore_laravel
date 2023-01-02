@@ -1,0 +1,27 @@
+.section-img-form{
+    width: 150px;
+    height: 150px;
+    padding: 80px;
+}
+
+.section-img-form img{
+    max-width: 150px;
+    max-height: 150px;
+}
+
+
+@media (max-width: 992px) {
+    #form-scroll-selected-forms{
+        overflow: auto;
+    }
+    .item-selected-form{
+        margin-right: 5px;
+        margin-left: 5px;
+    }
+}
+
+@media (min-width: 992px) {
+    #form-scroll-selected-forms{
+        overflow: hidden;
+    }
+}
