@@ -14,8 +14,9 @@ class ComponentItemSubscribe extends Component
     public $subscribeDownload;
     public $subscribePlay;
     public $subscribeStatus;
+    public $subscribeSelected;
 
-    public function __construct($subscribeKey , $subscribeId , $subscribeTitle , $subscribePrice , $subscribeDuration , $subscribeDownload , $subscribePlay , $subscribeStatus)
+    public function __construct($subscribeKey , $subscribeId , $subscribeTitle , $subscribePrice , $subscribeDuration , $subscribeDownload , $subscribePlay , $subscribeStatus , $subscribeSelected)
     {
 
         $this -> subscribeKey = $subscribeKey;
@@ -26,6 +27,7 @@ class ComponentItemSubscribe extends Component
         $this -> subscribeDownload = $subscribeDownload;
         $this -> subscribePlay = $subscribePlay;
         $this -> subscribeStatus = $subscribeStatus;
+        $this -> subscribeSelected = $subscribeSelected;
     }
 
     /**

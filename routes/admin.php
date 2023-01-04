@@ -348,6 +348,8 @@ Route::namespace("Subscribes")->group(function (){
 
         Route::post("/status/{subscribe}" , "status")->name("admin.subscribes.subscribe.status");
 
+        Route::post("/selected/{subscribe}" , "selected")->name("admin.subscribes.subscribe.selected");
+
     });
 
     Route::prefix("payments")->controller(SubscribePaymentsAdminController::class)->group(function (){

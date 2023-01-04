@@ -20,7 +20,9 @@ class SubscribeRequest extends FormRequest
             "duration" => "nullable|numeric" ,
             "download" => "nullable|numeric" ,
             "play" => "nullable|numeric" ,
-            "status" => "required|numeric|in:0,1"
+            "status" => "required|numeric|in:0,1",
+            "selected" => "required|numeric|in:0,1",
+            "description" => "required|min:2" ,
         ];
     }
 
@@ -33,6 +35,8 @@ class SubscribeRequest extends FormRequest
             "download" => "تعداد دانلود",
             "play" => "تعداد پخش",
             "status" => "وضعیت اشتراک",
+            "selected" => "اشتراک منتخب",
+            "description" => "توصیف اشتراک",
         ];
     }
 }

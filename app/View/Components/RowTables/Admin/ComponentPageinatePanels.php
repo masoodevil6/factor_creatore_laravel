@@ -9,13 +9,13 @@ class ComponentPageinatePanels extends Component
 {
 
     public $array = [];
-    public function __construct($list , Request $request)
+    public function __construct($list  , Request $request, $extraUrl="")
     {
         $max = floor($list->total() / $list->perPage()) + 1;
         if ($list->total() % $list->perPage() == 0){
             $max = floor($list->total() / $list->perPage());
         }
-        $this->ReadyPageInate($list->currentPage() , $max , $request->getUri() , $list->path());
+        $this->ReadyPageInate($list->currentPage() , $max  , $request->getUri() , $list->path() ,$extraUrl);
     }
 
     /**
@@ -30,7 +30,7 @@ class ComponentPageinatePanels extends Component
     }
 
 
-    private function ReadyPageInate($currentPage = 1 , $total , $path = "" , $realPath=""){
+    private function ReadyPageInate($currentPage = 1 , $total , $path = "" , $realPath=""  , $extraUrl){
 
         $min = 1;
         $max = 5;
@@ -48,11 +48,11 @@ class ComponentPageinatePanels extends Component
             $max = $currentPage + 2;
         }
         for($i = $min ; $i <= $max; $i++){
-            array_push($this->array , $this->GetInfoPage($i , $currentPage , $path , $realPath));
+            array_push($this->array , $this->GetInfoPage($i , $currentPage , $path , $realPath , $extraUrl));
         }
     }
 
-    private function GetInfoPage($page=1  , $currentPage=1 ,$url = "" , $realUrl=""){
+    private function GetInfoPage($page=1  , $currentPage=1 ,$url = "" , $realUrl="" , $extraUrl){
 
         $resultExp = [
             "link" => $realUrl ,
@@ -80,7 +80,7 @@ class ComponentPageinatePanels extends Component
         }
 
         $url_parts['query'] = http_build_query($params);
-        $resultExp["link"] .= '?'.$url_parts['query'];
+        $resultExp["link"] .= '?'.$url_parts['query'].$extraUrl;
 
         if ($currentPage == $page){
             $resultExp["selected"] = 1;

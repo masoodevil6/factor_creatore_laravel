@@ -20,6 +20,10 @@
     transform: translate(-50%, -50%);
 }
 
+.none-resizable-textarea {
+    resize: none;
+}
+
 main{
     min-height : calc(100vh - 220px);
 }
@@ -138,6 +142,9 @@ main{
 
 
 
+.font-size-sm{
+    font-size: 8pt;
+}
 .font-size-md{
     font-size: 10pt;
 }

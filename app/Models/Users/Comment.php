@@ -53,7 +53,12 @@ class Comment extends Model
 
 
     //// hasMany
+    public function answer(){
+        return $this->hasOne($this , "parent_id");
+    }
+
     public function answers(){
         return $this->hasMany($this , "parent_id");
     }
+
 }

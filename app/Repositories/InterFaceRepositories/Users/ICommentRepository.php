@@ -10,6 +10,7 @@ interface ICommentRepository extends IBaseRepository {
 
     function SearchUserComment(string $userName="" , $numInPage=15);
 
+    function GetListComments($numInPage=10);
 
     function GetListCommentsAuthUser($numInPage=8);
 

@@ -12,7 +12,7 @@
 @include("customer.layouts.header")
 
 <!-- start main one col -->
-<main id="main-body-one-col" class="container-xxl body-container">
+<main id="main-body-one-col" class="container-xxl body-container container">
 
     @include("public.alerts.alert_section.success")
     @include("public.alerts.alert_section.error")

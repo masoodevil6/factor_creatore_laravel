@@ -47,6 +47,21 @@ class CommentRepository extends BaseRepository implements ICommentRepository {
     }
 
 
+    function GetListComments($numInPage = 10)
+    {
+        $result = $this->model
+            ->with(["answer" , "user"])
+            ->whereRaw('comments.parent_id is null')
+            ->where("comments.status" , 1)
+            ->where("comments.approved" , 1)
+            ->paginate($numInPage);
+
+        $result->list = $this->readyListParentAndAnswerComments($result);
+
+        return $result;
+    }
+
+
 
 
     function GetListCommentsAuthUser($numInPage = 8)
@@ -62,7 +77,6 @@ class CommentRepository extends BaseRepository implements ICommentRepository {
 
         return $comments;
     }
-
 
 
     function DeleteSelectedCommentAuthUser($commentId)
@@ -81,6 +95,47 @@ class CommentRepository extends BaseRepository implements ICommentRepository {
 
 
     ///// =================================
+
+
+    private function readyListParentAndAnswerComments($comments){
+
+        $resultExp = [];
+        foreach ($comments As $itemParentComment){
+            $existParentComment = false;
+            foreach ($resultExp as $item){
+                if ($item["parent"]["id"] == $itemParentComment->id){
+                    $existParentComment=true;
+                    break;
+                }
+            }
+
+            if (!$existParentComment){
+
+                $result = [
+                    "parent" =>
+                        [
+                            "id" => $itemParentComment->id ,
+                            "body" => $itemParentComment->body ,
+                            "created_at" => jalaliDate($itemParentComment->created_at),
+                            "user" => $itemParentComment->user->fullName
+                        ],
+                    "answer"=>[]
+                ];
+
+                if (!empty($itemParentComment->answer)){
+                    $result["answer"] = [
+                        "id" => $itemParentComment ->answer -> id ,
+                        "body" => $itemParentComment ->answer -> body ,
+                        "created_at" => $itemParentComment ->answer -> created_at ,
+                    ];
+                }
+
+                array_push($resultExp , $result);
+
+            }
+        }
+        return $resultExp;
+    }
 
     private function readyListPanelAndChildComments($comments){
         $resultExp = [];
@@ -110,7 +165,9 @@ class CommentRepository extends BaseRepository implements ICommentRepository {
 
         return $resultExp;
 
-
     }
+
+
+
 
 }

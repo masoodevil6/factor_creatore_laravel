@@ -13,9 +13,10 @@
     <x-component-slider-selected-forms
             :forms-selected="$formsSelected"/>
 
-    <section id="send-comment">
+    @include("customer.home.list-subscribes")
 
-    </section>
+    @include("customer.home.list_comment")
+
 @endsection
 
 @section("scripts")

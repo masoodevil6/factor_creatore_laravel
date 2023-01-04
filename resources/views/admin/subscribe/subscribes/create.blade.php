@@ -63,6 +63,22 @@
 
                     </x-fields.component-select-options>
 
+                    <x-fields.component-select-options
+                            title-en="selected"
+                            title-fa="منتخب">
+
+                        <option value="0" @if(isset($subscribe["selected"]) && $subscribe["selected"]==0) selected @endif>غیر فعال </option>
+                        <option value="1" @if(isset($subscribe["selected"]) && $subscribe["selected"]==1) selected @endif> فعال </option>
+
+                    </x-fields.component-select-options>
+
+
+                        <x-fields.component-sk-editor
+                                title-en="description"
+                                title-fa="توصیف"
+                                :value="isset($subscribe['description']) ? $subscribe['description'] : ''" />
+
+
 
                 </x-fields.component-from-data>
 

@@ -55,12 +55,13 @@
                     <thead>
                     <tr>
                         <th scope="col">#</th>
-                        <th scope="col" class="w-30  font-size-12">عنوان</th>
+                        <th scope="col" class="w-20  font-size-12">عنوان</th>
                         <th scope="col" class="w-10  font-size-12">مبلغ</th>
                         <th scope="col" class="w-10  font-size-12">مدت</th>
                         <th scope="col" class="w-10  font-size-12">دانلود</th>
                         <th scope="col" class="w-10  font-size-12">پخش</th>
                         <th scope="col" class="w-10  font-size-12">وضعیت</th>
+                        <th scope="col" class="w-10  font-size-12">منتخب</th>
                         <th scope="col" class="text-center  font-size-12">
                             <i class="fa fa-cogs"></i>
                             <span>تنظیمات</span>
@@ -78,7 +79,8 @@
                                 :subscribe-duration="$itemSubscribe -> duration"
                                 :subscribe-download="$itemSubscribe -> download"
                                 :subscribe-play="$itemSubscribe -> play"
-                                :subscribe-status="$itemSubscribe -> status"/>
+                                :subscribe-status="$itemSubscribe -> status"
+                                :subscribe-selected="$itemSubscribe -> selected"/>
                     @endforeach
                     </tbody>
 

@@ -12,7 +12,7 @@ class Subscribe extends Model
     use HasFactory;
 
     protected $fillable = [
-        'title' , "real_price" , "off_price" , "duration", "status"
+        'title' , "real_price" , "off_price" , "duration" , "status" , "description" , "selected"
     ];
 
 

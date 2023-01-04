@@ -118,4 +118,12 @@ class SubscribesAdminController extends MainAdminController
             return $result["exp"];
         }
     }
+
+
+    public function selected(Subscribe $subscribe){
+        $result = ContextRepository::SubscribeRepository()->changeStatusResult($subscribe , "selected");
+        if ($result["status"]){
+            return $result["exp"];
+        }
+    }
 }

@@ -12,7 +12,10 @@ class CustomerHomeController extends CustomerMainController
     public function home(){
 
         $formsSelected = ContextRepository::FormRepository()->GetLimitRandomSelectedForm();
-        return view("customer.home.index" , compact("formsSelected"));
+        $subscribeSelected = ContextRepository::SubscribeRepository()->GetLimitRandomSelectedSubscribe();
+        $comments = ContextRepository::CommentRepository()->GetListComments();
+
+        return view("customer.home.index" , compact("formsSelected" , "subscribeSelected" , "comments"));
     }
 
 }
