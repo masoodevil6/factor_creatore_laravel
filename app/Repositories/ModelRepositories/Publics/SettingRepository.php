@@ -31,12 +31,13 @@ class SettingRepository extends BaseRepository implements ISettingRepository {
 
 
 
-    function SetSettingInfoPage(): void
+    function SetSettingInfoPage()
     {
         $settings = $this->getAllResult();
         $siteName = $this->getSiteName($settings);
         $socials = $this->getLocationSocialSite($settings);
         $aboutUs = $this->getAboutUsSite($settings);
+        $infoSite = $this->getInfoSite($settings);
 
         View::composer("customer.layouts.header" , function ($view) use($socials){
             $view->with("socials" , $socials);
@@ -46,8 +47,15 @@ class SettingRepository extends BaseRepository implements ISettingRepository {
             $view->with("socials" , $socials);
             $view->with("aboutUs" , $aboutUs);
             $view->with("version" , Config::get("app.version"));
-            $view->with("siteName" , $siteName);
+            $view->with("siteName" , $siteName["site_name_fa"]);
         });
+
+        return [
+            "siteName" => $siteName ,
+            "aboutUs" => $aboutUs ,
+            "infoSite" => $infoSite ,
+            "socials" => $socials
+        ];
     }
 
 
@@ -57,15 +65,22 @@ class SettingRepository extends BaseRepository implements ISettingRepository {
 
     protected function getSiteName($setting){
 
-        $siteName = [];
+        $siteName = "";
+        $siteNameEn = "";
 
         foreach ($setting As $itemSetting){
             if ($itemSetting["titleEn"] == "site_name"){
                 $siteName = $itemSetting["value"];
             }
+            else if ($itemSetting["titleEn"] == "site_name_en"){
+                $siteNameEn = $itemSetting["value"];
+            }
         }
 
-        return $siteName;
+        return [
+            "site_name_fa" => $siteName ,
+            "site_name_en" => $siteNameEn ,
+        ];
     }
 
     protected function getLocationSocialSite($setting){
@@ -117,30 +132,12 @@ class SettingRepository extends BaseRepository implements ISettingRepository {
         return $aboutUs;
     }
 
-    protected function getInfoSit($setting){
+    protected function getInfoSite($setting){
         $info = [];
 
         foreach ($setting As $itemSetting){
-            if ($itemSetting["titleEn"] == "address" && $itemSetting["value"] != null){
-                $res=[
-                    "title"=> "آدرس",
-                    "value"=> $itemSetting["value"],
-                ];
-                array_push($info , $res);
-            }
-            else if ($itemSetting["titleEn"] == "site_email" && $itemSetting["value"] != null){
-                $res=[
-                    "title"=> "ایمیل",
-                    "value"=> $itemSetting["value"],
-                ];
-                array_push($info , $res);
-            }
-            else if ($itemSetting["titleEn"] == "site_phone" && $itemSetting["value"] != null){
-                $res=[
-                    "title"=> "تلفن",
-                    "value"=> $itemSetting["value"],
-                ];
-                array_push($info , $res);
+            if (($itemSetting["titleEn"] == "address" || $itemSetting["titleEn"] == "site_email" || $itemSetting["titleEn"] == "site_phone") && $itemSetting["value"] != null){
+                $info[$itemSetting["titleEn"]] = $itemSetting["value"];
             }
         }
 

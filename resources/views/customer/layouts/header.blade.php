@@ -26,17 +26,10 @@
                             </span>
                         </a>
 
-                        <a href="#" title="خرید اشتراک" class="btn-nav mx-2 my-2 text-hover-white  btn btn-warning shadow border-none rounded text-decoration-none profile-button float-lg-left  ">
+                        <a href="{{route("customer.subscribes.list")}}" title="خرید اشتراک" class="btn-nav mx-2 my-2 text-hover-white  btn btn-warning shadow border-none rounded text-decoration-none profile-button float-lg-left  ">
                             <i  class="nav-icon fa fa-basket-shopping float-right border-left border-secondary"></i>
                             <span class="pr-3    font-size-md font-weight-bold">
                                 خرید اشتراک
-                            </span>
-                        </a>
-
-                        <a href="#" title="درباره ما" class="btn-nav mx-2 my-2 text-hover-white btn btn-warning shadow border-none rounded text-decoration-none profile-button float-lg-left  ">
-                            <i class="nav-icon fa fa-store   float-right  border-left border-secondary "></i>
-                            <span class="pr-3 font-size-md font-weight-bold">
-                                درباره ما
                             </span>
                         </a>
 
@@ -51,7 +44,7 @@
                         @endguest
                         @auth
 
-                            <a href="#" title="فاکتور جدید" class="btn btn-nav btn-warning position-relative mx-2 text-hover-white my-2 shadow border-none rounded text-decoration-none  profile-button float-lg-left  ">
+                            <a href="{{route("customer.create-factor.index")}}" title="فاکتور جدید" class="btn btn-nav btn-warning position-relative mx-2 text-hover-white my-2 shadow border-none rounded text-decoration-none  profile-button float-lg-left  ">
                                 <i class="nav-icon fa fa-file-text float-right border-left border-secondary"></i>
                                 <span class="pr-3   font-size-md font-weight-bold">
                                     فاکتور جدید
@@ -95,6 +88,14 @@
                             </section>
 
                         @endauth
+
+
+                        <a href="{{route("customer.about-us")}}" title="درباره ما" class="btn-nav mx-2 my-2 text-hover-white btn btn-warning shadow border-none rounded text-decoration-none profile-button float-lg-left  ">
+                            <i class="nav-icon fa fa-store   float-right  border-left border-secondary "></i>
+                            <span class="pr-3 font-size-md font-weight-bold">
+                                درباره ما
+                            </span>
+                        </a>
 
 
 

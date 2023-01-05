@@ -10,6 +10,8 @@
 
 @section('main')
 
+    @include("customer.home.banner-ready-factor")
+
     <x-component-slider-selected-forms
             :forms-selected="$formsSelected"/>
 

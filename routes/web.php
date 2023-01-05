@@ -2,6 +2,9 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Customer\CustomerHomeController;
+use App\Http\Controllers\Customer\CustomerAboutUsController;
+use App\Http\Controllers\Customer\CustomerCreateFactorController;
+use App\Http\Controllers\Customer\CustomerSubscribesController;
 
 /*
 |--------------------------------------------------------------------------
@@ -18,6 +21,26 @@ use App\Http\Controllers\Customer\CustomerHomeController;
 Route::prefix("/")->controller(CustomerHomeController::class)->group(function (){
 
     Route::get("/" , "home")->name("customer.home");
+
+});
+
+Route::prefix("/about-us")->controller(CustomerAboutUsController::class)->group(function (){
+
+    Route::get("/" , "aboutUs")->name("customer.about-us");
+
+});
+
+Route::prefix("/create-factor")->controller(CustomerCreateFactorController::class)->group(function (){
+
+    Route::get("/" , "index")->name("customer.create-factor.index");
+
+});
+
+Route::prefix("/subscribe")->controller(CustomerSubscribesController::class)->group(function (){
+
+    Route::get("/list" , "list")->name("customer.subscribes.list");
+
+    Route::get("/info/{subscribe_slug}" , "info")->name("customer.subscribes.info");
 
 });
 

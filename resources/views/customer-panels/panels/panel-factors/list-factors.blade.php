@@ -102,6 +102,6 @@
             title="فاکتوری"/>
 @endif
 
-<a href="#"  class="float-left font-size-md btn btn-success rounded  text-white text-center mt-2 py-1 shadow">
+<a href="{{route("customer.create-factor.index")}}"  class="float-left font-size-md btn btn-success rounded  text-white text-center mt-2 py-1 shadow">
     فاکتور جدید
 </a>

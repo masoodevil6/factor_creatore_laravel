@@ -1,4 +1,4 @@
-<footer class="row mt-5 mx-0 p-0 ">
+<footer class="row mt-2 mx-0 p-0 ">
 
     @include("public.social-site")
 

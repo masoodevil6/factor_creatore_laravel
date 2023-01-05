@@ -8,5 +8,5 @@ interface ISettingRepository extends IBaseRepository {
 
     function createItemSettingIfNotExist(string  $titleEn , string $titleFa , string $value) : void;
 
-    function SetSettingInfoPage() :void;
+    function SetSettingInfoPage();
 }

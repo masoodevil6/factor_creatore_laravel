@@ -1,4 +1,4 @@
-<p class="border-bottom font-weight-bold my-2">
+<p class="border-bottom font-weight-bold my-2 mt-4">
     فرم های منتخب
 </p>
 <section class="row border border-dark my-1 w-100 m-0 shadow ">
@@ -10,7 +10,7 @@
         <section id="scroll-selected-forms" class="d-flex">
             @foreach($formsSelected As $itemFormSelected)
                 @if(isset($itemFormSelected["image"]) && $itemFormSelected["image"] != "" && file_exists($itemFormSelected["image"]["indexArray"][$itemFormSelected["image"]["currentImage"]]))
-                    <a href="#" class="item-selected-form my-2 cursor-pointer text-decoration-none">
+                    <a href="{{route("customer.create-factor.index" , ["form" => $itemFormSelected["id"]])}}" class="item-selected-form my-2 cursor-pointer text-decoration-none">
 
                         <section class=" color-family-1 font-size-md">
                             <p class="text-white p-1 m-0 text-center">
