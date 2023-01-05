@@ -34,6 +34,12 @@ class Comment extends Model
 
 
 
+    ///==============================================
+    /// methods
+    /// ==============================================
+    public function likeCount(){
+        return $this->likes()->count("like_or_dislike");
+    }
 
 
 
@@ -59,6 +65,10 @@ class Comment extends Model
 
     public function answers(){
         return $this->hasMany($this , "parent_id");
+    }
+
+    public function likes(){
+        return $this->hasMany(CommentLike::class);
     }
 
 }

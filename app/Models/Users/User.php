@@ -77,6 +77,7 @@ class User extends Authenticatable
         return $this->belongsToMany(Admin::class)->withPivot("status" , "password");
     }
 
+
     //// hasMany
     public function factors(){
         return $this->hasMany(Factor::class);
@@ -93,5 +94,9 @@ class User extends Authenticatable
 
     public function admin(){
         return $this->hasOne(AdminUser::class);
+    }
+
+    public function likes(){
+        return $this->hasMany(CommentLike::class);
     }
 }

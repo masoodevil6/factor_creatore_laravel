@@ -27,4 +27,16 @@ class PanelCommentCustomer extends BasePanelCustomer implements IPanelCommentCus
         ContextRepository::CommentRepository()->DeleteSelectedCommentAuthUser($comment);
     }
 
+    public function SendNewCommandUser($body)
+    {
+        ContextRepository::CommentRepository()->SendNewCommandUser($body);
+    }
+
+    public function likeOrDislikeCommand($commentId , $likeOrDislike)
+    {
+        return ContextRepository::CommentLikeRepository()->LikeOrDislikeCommentWithAuthUser($commentId , $likeOrDislike);
+    }
+
+
+
 }

@@ -5,7 +5,8 @@
 @endif
 
 @auth
-    <form id="send-comment" method="post" action="#" class="d-block text-dark m-0 p-0 border border-dark my-2 w-100 m-0 shadow bg-white font-size-md cursor-pointer pb-1">
+    <form id="send-comment" method="post" action="{{route("customer-panel.commands.send-new-command-user")}}" class="d-block text-dark m-0 p-0 border border-dark my-2 w-100 m-0 shadow bg-white font-size-md cursor-pointer pb-1">
+        @csrf
         <p  class="font-size-lg border-bottom border-dark col-12 color-family-1 text-white px-2 p-1 m-0 ">
             ارسال نظر جدید توسط:
             <span class="font-weight-bold mr-2">
@@ -17,6 +18,7 @@
             <div class="mb-3">
                 <label for="bodyCommentClient" class="form-label">متن نظر</label>
                 <textarea name="body" class="form-control none-resizable-textarea"  id="bodyCommentClient" rows="2"></textarea>
+                <x-input-errors field="body"/>
             </div>
 
             <button type="submit" class="p-1 m-0  text-center btn btn-info font-size-md  border border-dark text-hover-white  justify-content-start">
@@ -30,7 +32,7 @@
 
 <section id="comments">
     @foreach($comments->list As $itemComment)
-        <section class="d-block text-dark m-0 p-0 border border-dark my-2 w-100 m-0 shadow bg-white  cursor-pointer pb-1">
+        <section class="d-block text-dark m-0 p-0 border border-dark my-2 w-100 m-0 shadow bg-white   pb-1">
             <section class="row border-bottom border-dark col-12 color-family-1 text-white px-2 p-1 m-0">
                 <section class="col-12 col-lg-8  ">
                     <p class="mb-1 font-size-md">
@@ -42,6 +44,14 @@
                 </section>
                 <section class="col-12 col-lg-4">
 
+                    <i onclick="dislikeCommentUser(this , {{$itemComment["parent"]["id"]}})"  class="fa  @if($itemComment["parent"]["like_or_dislike"] == -1) fa-thumbs-down text-warning @else fa-thumbs-o-down @endif icon_dislike_comment  float-left mt-lg-2  font-size-xxlg cursor-pointer"></i>
+
+                    <span class="text_count_like_comment float-left my-2 px-2 mx-3  line-height-30 direction-ltr">
+                        {{$itemComment["parent"]["count_like"]}}
+                    </span>
+
+                    <i onclick="likeCommentUser(this , {{$itemComment["parent"]["id"]}})"  class="fa @if($itemComment["parent"]["like_or_dislike"] == 1) fa-thumbs-up text-warning @else fa-thumbs-o-up @endif icon_like_comment float-left mt-lg-2 font-size-xxlg cursor-pointer"></i>
+
                 </section>
             </section>
 
@@ -52,7 +62,7 @@
 
             @if(!empty($itemComment["answer"]))
 
-                <section class="text-dark p-0 border border-dark m-2  shadow bg-white  cursor-pointer pb-1">
+                <section class="text-dark p-0 border border-dark m-2  shadow bg-white  pb-1">
                     <section class="row border-bottom border-dark col-12 color-family-1 text-white px-2 p-1 m-0">
                         <section class="col-12 ">
                             <p class="mb-1 font-size-md">
@@ -75,6 +85,7 @@
     <x-row-tables.admin.component-pageinate-panels
             :list="$comments"
             extra-url="#comments"/>
+
 </section>
 
 

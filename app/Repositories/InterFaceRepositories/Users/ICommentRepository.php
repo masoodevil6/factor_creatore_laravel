@@ -15,4 +15,6 @@ interface ICommentRepository extends IBaseRepository {
     function GetListCommentsAuthUser($numInPage=8);
 
     function DeleteSelectedCommentAuthUser($commentId);
+
+    function SendNewCommandUser($body);
 }

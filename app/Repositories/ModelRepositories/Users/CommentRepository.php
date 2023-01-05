@@ -2,6 +2,7 @@
 namespace App\Repositories\ModelRepositories\Users;
 
 use App\Models\Users\Comment;
+use App\Models\Users\CommentLike;
 use App\Repositories\ContextRepository;
 use App\Repositories\InterFaceRepositories\Users\ICommentRepository;
 use App\Repositories\ModelRepositories\BaseRepository;
@@ -49,7 +50,15 @@ class CommentRepository extends BaseRepository implements ICommentRepository {
 
     function GetListComments($numInPage = 10)
     {
+
         $result = $this->model
+            ->select([
+                "comments.*" ,
+                ])
+            ->addSelect([
+                "count_like" =>  ContextRepository::CommentLikeRepository()->GetQueryCountLikeComment("comments.id") ,
+                "like_or_dislike" =>  ContextRepository::CommentLikeRepository()->GetQueryLikeOrDisclikCommentWithAuthUser("comments.id") ,
+            ])
             ->with(["answer" , "user"])
             ->whereRaw('comments.parent_id is null')
             ->where("comments.status" , 1)
@@ -69,10 +78,11 @@ class CommentRepository extends BaseRepository implements ICommentRepository {
         $userId = ContextRepository::UserRepository()->GetUserAuthId();
         $comments =
             $this->model
-            ->where("user_id" , $userId)
-            ->where("status" , 1)
-            ->orwhere("parent_id" , $userId)
-            ->paginate($numInPage);
+                ->where("user_id" , $userId)
+                ->where("status" , 1)
+                ->orwhere("parent_id" , $userId)
+                ->orderby("id" , "desc")
+                ->paginate($numInPage);
         $comments->listComment = $this->readyListPanelAndChildComments($comments);
 
         return $comments;
@@ -84,6 +94,7 @@ class CommentRepository extends BaseRepository implements ICommentRepository {
         $comment =  $this->model
             ->where("user_id" , ContextRepository::UserRepository()->GetUserAuthId())
             ->where("status" , 1)
+            ->where("id" , $commentId)
             ->first();
         if (!empty($comment)){
             foreach ($comment->answers As $itemAnswer){
@@ -92,6 +103,19 @@ class CommentRepository extends BaseRepository implements ICommentRepository {
             $this->deleteResult($comment);
         }
     }
+
+
+
+    function SendNewCommandUser($body)
+    {
+        return $this->addResult([
+            "body" => $body ,
+            "user_id" => ContextRepository::UserRepository()->GetUserAuthId() ,
+            "approved" => 0 ,
+            "status" => 1 ,
+        ]);
+    }
+
 
 
     ///// =================================
@@ -117,10 +141,16 @@ class CommentRepository extends BaseRepository implements ICommentRepository {
                             "id" => $itemParentComment->id ,
                             "body" => $itemParentComment->body ,
                             "created_at" => jalaliDate($itemParentComment->created_at),
-                            "user" => $itemParentComment->user->fullName
+                            "user" => $itemParentComment->user->fullName ,
+                            "count_like" =>  0 ,
+                            "like_or_dislike" =>  $itemParentComment->like_or_dislike ,
                         ],
                     "answer"=>[]
                 ];
+
+                if ($itemParentComment->count_like  != null){
+                    $result["parent"]["count_like"] = $itemParentComment->count_like ;
+                }
 
                 if (!empty($itemParentComment->answer)){
                     $result["answer"] = [
@@ -168,6 +198,5 @@ class CommentRepository extends BaseRepository implements ICommentRepository {
     }
 
 
-
-
 }
+

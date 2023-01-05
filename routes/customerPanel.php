@@ -84,6 +84,10 @@ Route::prefix("factors")->controller(FactorsPanelCustomerController::class)->gro
 /// panel subscribes
 Route::prefix("comments")->controller(CommentPanelCustomerController::class)->group(function (){
 
+    Route::Post("/send-new-command-user" , "SendNewCommandUser")->name("customer-panel.commands.send-new-command-user");
+
+    Route::Post("/like-or-dislike-command" , "likeOrDislikeCommand")->name("customer-panel.commands.like-or-dislike-command");
+
     Route::delete("/delete-user-comment/{comment}" , "deleteUserComment")->name("customer-panel.comments.delete-user-comment");
 
 });

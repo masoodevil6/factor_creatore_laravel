@@ -18,6 +18,7 @@ use App\Repositories\InterFaceRepositories\Subscribes\ISubscribeRepository;
 use App\Repositories\InterFaceRepositories\Tickets\ITicketCategoryRepository;
 use App\Repositories\InterFaceRepositories\Tickets\ITicketFolderRepository;
 use App\Repositories\InterFaceRepositories\Tickets\ITicketRepository;
+use App\Repositories\InterFaceRepositories\Users\ICommentLikeRepository;
 use App\Repositories\InterFaceRepositories\Users\ICommentRepository;
 use App\Repositories\InterFaceRepositories\Users\IOtpRepository;
 use App\Repositories\InterFaceRepositories\Users\IUserRepository;
@@ -39,6 +40,7 @@ use App\Repositories\ModelRepositories\Subscribes\SubscribeRepository;
 use App\Repositories\ModelRepositories\Tickets\TicketCategoryRepository;
 use App\Repositories\ModelRepositories\Tickets\TicketFolderRepository;
 use App\Repositories\ModelRepositories\Tickets\TicketRepository;
+use App\Repositories\ModelRepositories\Users\CommentLikeRepository;
 use App\Repositories\ModelRepositories\Users\CommentRepository;
 use App\Repositories\ModelRepositories\Users\OtpRepository;
 use App\Repositories\ModelRepositories\Users\UserRepository;
@@ -191,6 +193,7 @@ class ContextRepository{
     private static $userStoreRepository;
     private static $otpRepository;
     private static $commentRepository;
+    private static $commentLikeRepository;
 
     public static function UserRepository() : IUserRepository
     {
@@ -222,6 +225,14 @@ class ContextRepository{
             self::$commentRepository = new CommentRepository();
         }
         return self::$commentRepository;
+    }
+
+    public static function CommentLikeRepository() : ICommentLikeRepository
+    {
+        if (self::$commentLikeRepository == null){
+            self::$commentLikeRepository = new CommentLikeRepository();
+        }
+        return self::$commentLikeRepository;
     }
 
 

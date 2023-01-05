@@ -2,10 +2,10 @@
 
 @section('head-tag')
     <link rel="stylesheet" href="{{asset("customer/public/css/component-slider-selected-forms.css")}}">
-@endsection
-
-@section('head-content')
-
+    @auth
+        <meta name="csrf-token" content="{{ csrf_token() }}" />
+        <meta name="url-like-or-dislike-comment" content="{{ route("customer-panel.commands.like-or-dislike-command") }}" />
+    @endauth
 @endsection
 
 @section('main')
@@ -21,4 +21,7 @@
 
 @section("scripts")
     <script src="{{asset("customer/public/js/component-slider-selected-forms.js")}}"></script>
+    @auth
+        <script src="{{asset("customer/home/home.js")}}"></script>
+    @endauth
 @endsection
