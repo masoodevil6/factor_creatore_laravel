@@ -5,7 +5,7 @@
 <section class="row p-0 mx-2 my-1">
     @foreach($subscribe->info["forms"] As $itemForm)
 
-        <section class="col-6 col-md-4 col-3">
+        <section class="col-6 col-md-4 col-lg-3">
 
             <a @if(!empty($itemForm["image"])) href="{{asset($itemForm["image"])}}" @endif  class="d-block text-decoration-none text-dark border border-dark rounded shadow m-2 bg-white cursor-pointer">
                 <section class="color-family-1 text-white text-center">

@@ -10,7 +10,9 @@ use function e;
 use function file_exists;
 use function glob;
 use const GLOB_MARK;
+use Illuminate\Http\File;
 use Illuminate\Support\Facades\Config;
+use Illuminate\Support\Facades\Storage;
 use Intervention\Image\Facades\Image;
 use function is_dir;
 use function rmdir;
@@ -19,22 +21,22 @@ use function unlink;
 
 class ImageService extends ImageToolsService {
 
-    public function save($image ,  $singleFileInDirectory=false){
+    public function save($image ,  $singleFileInDirectory=false , $type="public"){
 
         //set image
         $this->setImage($image);
 
-        return $this->uploadImageComplete($image , 0 , 0 , $singleFileInDirectory);
+        return $this->uploadImageComplete($image , 0 , 0 , $singleFileInDirectory , $type);
     }
 
 
 
 
-    public function fitAndSave($image , $width , $height,  $singleFileInDirectory=false){
+    public function fitAndSave($image , $width , $height,  $singleFileInDirectory=false , $type="public"){
         //set image
         $this->setImage($image);
 
-        return $this->uploadImageComplete($image , $width , $height , $singleFileInDirectory);
+        return $this->uploadImageComplete($image , $width , $height , $singleFileInDirectory , $type);
     }
 
 
@@ -46,7 +48,7 @@ class ImageService extends ImageToolsService {
      * 'currentImage'  =>    imageDefault
      * ]
      */
-    public function createIndexAndSave($image , $singleFileInDirectory=false){
+    public function createIndexAndSave($image , $singleFileInDirectory=false , $type="public"){
 
         $resultExp = [];
 
@@ -78,7 +80,7 @@ class ImageService extends ImageToolsService {
 
             $this->setImageName($currentImageName);
 
-            $result = $this->uploadImageComplete($image , $itemImageSize["width"] , $itemImageSize["height"] , $singleFileInDirectory);
+            $result = $this->uploadImageComplete($image , $itemImageSize["width"] , $itemImageSize["height"] , $singleFileInDirectory , $type);
 
             if (!$result){
                 return false;
@@ -98,7 +100,7 @@ class ImageService extends ImageToolsService {
     }
 
 
-    protected function uploadImageComplete($image , $width=0 , $height=0 ,  $singleFileInDirectory=false){
+    protected function uploadImageComplete($image , $width=0 , $height=0 ,  $singleFileInDirectory=false , $type="public"){
 
         /// execute provider
         $this->provider($singleFileInDirectory);
@@ -111,8 +113,13 @@ class ImageService extends ImageToolsService {
             $result->fit($width , $height);
         }
 
+        $fileAddress = $this->getImageAddress();
+        $result->save($fileAddress , null , $this->getImageFormat() );
 
-        $result->save($this->getImageAddress() , null , $this->getImageFormat() );
+        if($type == "storage"){
+            Storage::putFileAs($result->dirname ,  new File(public_path($fileAddress) ), $result->basename);
+            unlink($fileAddress);
+        }
 
         return $result ? $this->getImageAddress() : false;
     }
@@ -146,23 +153,26 @@ class ImageService extends ImageToolsService {
         }
     }
 
-    public function deleteDirectoryAndFiles($directory){
-        if (!is_dir($directory)){
-            return false;
+
+
+    public function deleteDirectoryAndFiles($directory) {
+
+        $files = glob($directory.'/*'); //GLOB_MARK adds a slash to directories returned
+
+        foreach( $files as $file )
+        {
+            $this -> deleteDirectoryAndFiles( $file );
         }
 
-        $files = glob($directory."*" , GLOB_MARK);
-        foreach ($files As $itemFile){
-            if (is_dir($itemFile)){
-                $this -> deleteDirectoryAndFiles($itemFile);
-            }
-            else{
-                unlink($itemFile);
-            }
+        if(is_dir($directory))
+        {
+            rmdir($directory);
+        }
+        elseif(is_file($directory))
+        {
+            unlink( $directory );
         }
 
-        $result = rmdir($directory);
-        return $result;
     }
 
 }

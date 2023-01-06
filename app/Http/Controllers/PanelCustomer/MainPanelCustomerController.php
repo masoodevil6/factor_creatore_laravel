@@ -10,12 +10,19 @@ class MainPanelCustomerController extends BasePanelCustomerPanel
 
     public function index($panel=""){
 
+        $nav = [
+            [
+                "route" => "customer-panel.home" ,
+                "title" => "پنل کاربری"
+            ]
+        ];
+
         $panelSelected = $this->getPanelView($panel);
         $panelView = $panelSelected["view"];
         $panelTitle = $panelSelected["titleEn"];
 
         return view("customer-panels.index" ,
-            compact( "panel" , "panelView" , "panelTitle" , "panel")
+            compact( "nav" , "panel" , "panelView" , "panelTitle" , "panel")
         );
     }
 

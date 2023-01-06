@@ -9,6 +9,7 @@ use App\Http\Controllers\PanelCustomer\StoresPanelCustomerController;
 use App\Http\Controllers\PanelCustomer\SubscribePanelCustomerController;
 use App\Http\Controllers\PanelCustomer\FactorsPanelCustomerController;
 use App\Http\Controllers\PanelCustomer\CommentPanelCustomerController;
+use App\Http\Controllers\PanelCustomer\IamgesPanelCustomerController;
 
 /*
 |--------------------------------------------------------------------------
@@ -35,6 +36,21 @@ Route::prefix("personal-info")->controller(PersonalPanelCustomerController::clas
     Route::Post("/verify-phone-or-email" , "VerifyPhoneOrEmail")->name("customer-panel.persional-info.verify-phone-or-email");
 
 });
+
+
+/// panel tickets
+Route::prefix("logo")->controller(IamgesPanelCustomerController::class)->group(function (){
+
+    Route::get("/show-image-logo" , "showImageLogo")->name("customer-panel.logo.show-image-logo");
+    Route::Post("/upload-image-logo" , "uploadImageLogo")->name("customer-panel.logo.upload-image-logo");
+    Route::Post("/delete-image-logo" , "deleteImageLogo")->name("customer-panel.logo.delete-image-logo");
+
+    Route::get("/show-image-mohr" , "showImageMohr")->name("customer-panel.logo.show-image-mohr");
+    Route::Post("/upload-image-mohr" , "uploadImageMohr")->name("customer-panel.logo.upload-image-mohr");
+    Route::Post("/delete-image-mohr" , "deleteImageMohr")->name("customer-panel.logo.delete-image-mohr");
+
+});
+
 
 
 /// panel tickets

@@ -20,7 +20,6 @@ interface IUserRepository extends IBaseRepository {
 
 
 
-
   function SyncPanelUserAdmin(string  $user_email , int $adminId , int $AdminStatus , string $adminPassword="fa1401");
 
   function UpdatePanelUserAdmin(User $user , int $adminId , int $AdminStatus);
@@ -28,12 +27,6 @@ interface IUserRepository extends IBaseRepository {
   function DetachAllPanelUserAdmin(int $userId);
 
   function DetachPanelUserAdmin(User $user);
-
-
-
-
-
-
 
 
 
@@ -45,13 +38,21 @@ interface IUserRepository extends IBaseRepository {
 
 
 
-
-
   function GetUserPanelAuthAdminInfo($user);
 
   function GetUserPasswordAuthPanelAdmin($panel);
 
 
 
+
+
+  function GetImageUserLogo();
+  function UploadImageUserLogo($logoFile);
+  function DeleteImageUserLogo();
+
+
+  function GetImageUserMohr();
+  function UploadImageUserMohr($mohrFile);
+  function DeleteImageUserMohr();
 
 }

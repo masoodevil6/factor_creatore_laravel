@@ -13,6 +13,7 @@ return [
     "panels"=>[
         "App\Http\Controllers\PanelCustomer\Panels\PanelCustomer\PanelMainCustomer" ,
         "App\Http\Controllers\PanelCustomer\Panels\PanelCustomer\PanelSubscribeCustomer" ,
+        "App\Http\Controllers\PanelCustomer\Panels\PanelCustomer\PanelImagesCustomer" ,
         "App\Http\Controllers\PanelCustomer\Panels\PanelCustomer\PanelFactorCustomer" ,
         "App\Http\Controllers\PanelCustomer\Panels\PanelCustomer\PanelStoreCustomer" ,
         "App\Http\Controllers\PanelCustomer\Panels\PanelCustomer\PanelTicketCustomer" ,

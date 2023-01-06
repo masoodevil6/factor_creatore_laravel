@@ -1,20 +1,32 @@
 <?php
 namespace App\Repositories\ModelRepositories\Users;
 
+use App\Http\Services\Images\ImageService;
 use App\Models\Users\Otp;
 use App\Models\Users\User;
 use App\Repositories\ContextRepository;
 use App\Repositories\InterFaceRepositories\Users\IUserRepository;
 use App\Repositories\ModelRepositories\BaseRepository;
+use CKSource\CKFinder\Filesystem\Path;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Storage;
 
 class UserRepository extends BaseRepository implements IUserRepository {
+
+    protected $pathUser="";
+    protected $directoryUserLogo="";
+    protected $directoryUserMohr="";
 
     public function __construct()
     {
         parent::__construct(new User());
+        if (Auth::check()){
+
+            $this->pathUser = "users/".$this->GetUserAuthId();
+            $this->directoryUserLogo = "/logos/";
+            $this->directoryUserMohr = "/mohr/";
+        }
     }
 
     function GetUserWithEmail(string $userEmail)
@@ -31,10 +43,13 @@ class UserRepository extends BaseRepository implements IUserRepository {
     {
         $user = $this->GetUserAuthInfo();
         if (!empty($user)){
-            return $this->updateResult($user , [
-                "name" => $userName ,
-                "family" => $userFamily ,
-            ]);
+            return $this->updateResult(
+                $user ,
+                [
+                    "name" => $userName ,
+                    "family" => $userFamily ,
+                ]
+            );
         }
         return false;
     }
@@ -148,4 +163,95 @@ class UserRepository extends BaseRepository implements IUserRepository {
     }
 
 
+
+
+
+    function GetImageUserLogo()
+    {
+        return Storage::download($this->GetUserAuthInfo()->logo);
+    }
+
+    function UploadImageUserLogo($logoFile)
+    {
+        $resultFile = $this->uploadUserImageServer($logoFile , "logo");
+        if (!empty($resultFile)){
+            $this->DeleteImageUserLogo();
+            $this->updateResult($this->GetUserAuthInfo() , [
+                "logo" => $resultFile
+            ]);
+            $this->DeleteUserFolderInPublicDirectory();
+        }
+    }
+
+    function DeleteImageUserLogo()
+    {
+        $locationLogo = $this->GetUserAuthInfo()->logo;
+        if (!empty($locationLogo) && Storage::exists($locationLogo)){
+            $this->updateResult($this->GetUserAuthInfo() , [
+                "logo" => null
+            ]);
+            Storage::delete($locationLogo);
+        }
+    }
+
+
+
+
+
+
+    function GetImageUserMohr()
+    {
+        return Storage::download($this->GetUserAuthInfo()->mohr);
+    }
+
+    function UploadImageUserMohr($mohrFile)
+    {
+        $resultFile = $this->uploadUserImageServer($mohrFile , "mohr");
+        if (!empty($resultFile)){
+            $this->DeleteImageUserMohr();
+            $this->updateResult($this->GetUserAuthInfo() , [
+                "mohr" => $resultFile
+            ]);
+            $this->DeleteUserFolderInPublicDirectory();
+        }
+    }
+
+    function DeleteImageUserMohr()
+    {
+        $locationMohr = $this->GetUserAuthInfo()->mohr;
+        if (!empty($locationMohr) && Storage::exists($locationMohr)){
+            $this->updateResult($this->GetUserAuthInfo() , [
+                "mohr" => null
+            ]);
+            Storage::delete($locationMohr);
+        }
+    }
+
+
+
+
+
+    /////--------------------------------------------------
+    protected function uploadUserImageServer($fileImage , $type=""){
+
+        $imageService = new ImageService();
+
+        $imageService->setExclusiveDirectory($this->pathUser);
+        if ($type == "logo"){
+            $imageService->setImageDirectory($this->directoryUserLogo);
+        }
+        else if ($type == "mohr"){
+            $imageService->setImageDirectory($this->directoryUserMohr);
+        }
+
+        return $imageService -> save($fileImage , false , "storage");
+    }
+
+    protected function DeleteUserFolderInPublicDirectory(){
+        $imageService = new ImageService();
+        $imageService->deleteDirectoryAndFiles(public_path("users"));
+    }
+
 }
+
+//"users\/1\/logos\\2023\\01\\06\\1673032375.png"
