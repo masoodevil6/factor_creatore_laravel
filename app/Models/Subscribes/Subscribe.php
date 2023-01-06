@@ -17,6 +17,18 @@ class Subscribe extends Model
 
 
 
+    ///==============================================
+    /// properties
+    /// ==============================================
+    public function sluggable(): array
+    {
+        return [
+            'slug' => [
+                'source' => 'title'
+            ]
+        ];
+    }
+
 
     ///==============================================
     /// functions

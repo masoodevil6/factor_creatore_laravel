@@ -28,6 +28,40 @@
     direction: ltr;
 }
 
+.text_decoration_price {
+    text-decoration: line-through;
+}
+
+.hidden-end-text {
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+}
+
+.cursor-pointer{
+    cursor: pointer;
+}
+
+.text-hover-white:hover{
+    color: white;
+}
+
+.max-height-100px{
+    max-height: 100px;
+}
+
+.max-height-200px{
+    max-height: 200px;
+}
+
+.max-height-300px{
+    max-height: 300px;
+}
+
+.breadcrumb-item+.breadcrumb-item::before{
+    color: white;
+}
+
 main{
     min-height : calc(100vh - 180px);
 }
@@ -142,10 +176,6 @@ main{
 
 
 
-
-
-
-
 .font-size-sm{
     font-size: 8pt;
 }
@@ -187,14 +217,6 @@ main{
 }
 
 
-.cursor-pointer{
-    cursor: pointer;
-}
-
-
-.text-hover-white:hover{
-    color: white;
-}
 
 
 /*===============================*/

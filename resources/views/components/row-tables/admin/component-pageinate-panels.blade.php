@@ -1,4 +1,4 @@
-<section class="border-top border-gray-500\/50 mx-2 py-1">
+<section class="border-top border-dark mx-2 py-1">
     <nav  class="">
         <ul class="pagination pagination-sm justify-content-center">
             @foreach($array As $page)

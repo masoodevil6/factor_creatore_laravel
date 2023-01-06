@@ -44,13 +44,17 @@
                 </section>
                 <section class="col-12 col-lg-4">
 
-                    <i onclick="dislikeCommentUser(this , {{$itemComment["parent"]["id"]}})"  class="fa  @if($itemComment["parent"]["like_or_dislike"] == -1) fa-thumbs-down text-warning @else fa-thumbs-o-down @endif icon_dislike_comment  float-left mt-lg-2  font-size-xxlg cursor-pointer"></i>
+                    <a @guest href="{{route("auth.customer.loginRegisterForm")}}" @endguest class="text-decoration-none  text-white">
+                        <i @auth onclick="dislikeCommentUser(this , {{$itemComment["parent"]["id"]}})" @endauth  class="fa  @if($itemComment["parent"]["like_or_dislike"] == -1) fa-thumbs-down text-warning @else fa-thumbs-o-down @endif icon_dislike_comment  float-left mt-lg-2  font-size-xxlg cursor-pointer"></i>
+                    </a>
 
                     <span class="text_count_like_comment float-left my-2 px-2 mx-3  line-height-30 direction-ltr">
                         {{$itemComment["parent"]["count_like"]}}
                     </span>
 
-                    <i onclick="likeCommentUser(this , {{$itemComment["parent"]["id"]}})"  class="fa @if($itemComment["parent"]["like_or_dislike"] == 1) fa-thumbs-up text-warning @else fa-thumbs-o-up @endif icon_like_comment float-left mt-lg-2 font-size-xxlg cursor-pointer"></i>
+                    <a @guest href="{{route("auth.customer.loginRegisterForm")}}" @endguest class="text-decoration-none text-white">
+                        <i @auth onclick="likeCommentUser(this , {{$itemComment["parent"]["id"]}})"  @endauth   class="fa @if($itemComment["parent"]["like_or_dislike"] == 1) fa-thumbs-up text-warning @else fa-thumbs-o-up @endif icon_like_comment float-left mt-lg-2 font-size-xxlg cursor-pointer"></i>
+                    </a>
 
                 </section>
             </section>

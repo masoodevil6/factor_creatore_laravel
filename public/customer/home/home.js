@@ -13,13 +13,11 @@ function likeOrDislikeCommentUser(element , commentId , val) {
         "like_or_dislike" : val ,
         "_token": $('meta[name="csrf-token"]').attr('content')
     };
-    console.log(data)
     $.ajax({
         url: $('meta[name="url-like-or-dislike-comment"]').attr('content'),
         type: "POST",
         data: data,
         success: function (result) {
-           console.log(result)
             refreshIconLikeOrDislikeComment(element , result["like_or_dislike"] , result["count"])
         },
         dataType: "json"
@@ -27,7 +25,7 @@ function likeOrDislikeCommentUser(element , commentId , val) {
 }
 
 function refreshIconLikeOrDislikeComment(element , resultVal , $resCount) {
-    var formLikeOrDislike = $(element).parent();
+    var formLikeOrDislike = $(element).parent().parent();
     var iconDislikeComment = formLikeOrDislike.find(".icon_dislike_comment");
     var iconLikeComment = formLikeOrDislike.find(".icon_like_comment");
     var textCountLikeComment = formLikeOrDislike.find(".text_count_like_comment");

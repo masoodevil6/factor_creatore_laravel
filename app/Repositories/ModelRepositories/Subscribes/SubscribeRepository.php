@@ -29,7 +29,7 @@ class SubscribeRepository extends BaseRepository implements ISubscribeRepository
     {
         $result = DB::table("subscribes")
             ->select([
-                "subscribes.id" ,"subscribes.title" ,"subscribes.real_price" ,"subscribes.off_price" ,"subscribes.duration" ,"subscribes.description" ,
+                "subscribes.id" ,"subscribes.title" ,"subscribes.real_price" ,"subscribes.off_price" ,"subscribes.duration" ,"subscribes.description" ,"subscribes.slug" ,
                 "Forms.id as form_id" , "Forms.name" , "Forms.image"
             ])
             ->from(function ($from) use ($limitSubscribe) {
@@ -42,6 +42,49 @@ class SubscribeRepository extends BaseRepository implements ISubscribeRepository
             ->get();
 
         return $this->readySubscribeAndForms($result , $limitForm);
+    }
+
+
+    function GetListSubscribes($numInPage = 15, int $limitForm = 6)
+    {
+        $result = $this->model
+            ->select([
+                "subscribes.id" ,"subscribes.title" ,"subscribes.real_price" ,"subscribes.off_price" ,"subscribes.duration" ,"subscribes.description" ,"subscribes.slug" ,
+                "Forms.id as form_id" , "Forms.name" , "Forms.image"
+            ])
+            ->join("Forms" , "forms.subscribe_id" , "=" , "subscribes.id")
+            ->where("subscribes.status" , 1)
+            ->where("subscribes.selected" , 1)
+            ->paginate($numInPage);
+
+        $result->list = $this->readySubscribeAndForms($result , $limitForm);
+        return $result;
+    }
+
+
+    function GetInfoSubscribe($slug, $numInPage = 8)
+    {
+        $result = $this->model
+            ->select([
+                "subscribes.id" ,"subscribes.title" ,"subscribes.real_price" ,"subscribes.off_price" ,"subscribes.duration" ,"subscribes.description" ,"subscribes.slug" ,
+                "Forms.id as form_id" , "Forms.name" , "Forms.image"
+            ])
+            ->join("Forms" , "forms.subscribe_id" , "=" , "subscribes.id")
+            ->where("subscribes.slug" , $slug)
+            ->where("subscribes.status" , 1)
+            ->where("subscribes.selected" , 1)
+            ->paginate($numInPage);
+
+
+        if (sizeof($result)>0){
+            $result->info =  $this->readyInfoItemSubscribeAndForm($result, $result[0] , 0);
+        }
+        else{
+            $result->info =  null;
+        }
+
+        return $result;
+
     }
 
 
@@ -59,21 +102,34 @@ class SubscribeRepository extends BaseRepository implements ISubscribeRepository
             }
 
             if (!$existSubscribe){
-                $resSubscribe = [
-                    "id" => $itemSubscribe->id,
-                    "title" => $itemSubscribe->title,
-                    "real_price" => $itemSubscribe->real_price,
-                    "off_price" => $itemSubscribe->off_price,
-                    "duration" => $itemSubscribe->duration,
-                    "description" => $itemSubscribe->description,
-                    "forms" => $this->readyListFormsInSubscribe($result , $itemSubscribe->id , $limitForm)
-                ];
+
+                $resSubscribe = $this->readyInfoItemSubscribeAndForm($result, $itemSubscribe , $limitForm);
 
                 array_push($resultExp , $resSubscribe);
             }
         }
 
         return $resultExp;
+    }
+
+    private function readyInfoItemSubscribeAndForm($result , $itemSubscribe , $limitForm){
+
+        $resSubscribe = [
+            "id" => $itemSubscribe->id,
+            "title" => $itemSubscribe->title,
+            "slug" => $itemSubscribe->slug,
+            "real_price" => $itemSubscribe->real_price,
+            "real_price_text" => persianPriceFormat($itemSubscribe->real_price),
+            "off_price" => $itemSubscribe->off_price,
+            "off_price_text" => persianPriceFormat($itemSubscribe->off_price),
+            "total_price" => $itemSubscribe->real_price - $itemSubscribe->off_price,
+            "total_price_text" => persianPriceFormat($itemSubscribe->real_price - $itemSubscribe->off_price),
+            "duration" => $itemSubscribe->duration,
+            "description" => $itemSubscribe->description,
+            "forms" => $this->readyListFormsInSubscribe($result , $itemSubscribe->id , $limitForm)
+        ];
+
+        return $resSubscribe;
     }
 
     private function readyListFormsInSubscribe($result , $subscribeId , $limitForm){
@@ -112,11 +168,23 @@ class SubscribeRepository extends BaseRepository implements ISubscribeRepository
     private function getLimitFromsInSubscribeThatActive($result , $limitForm){
         $resultExp = [];
         foreach ($result As $itemForm ){
-            if (sizeof($resultExp) < $limitForm && file_exists($itemForm["image"])){
-                array_push($resultExp , $itemForm);
+            if (($limitForm > 0 && sizeof($resultExp) < $limitForm) || $limitForm==0){
+
+                if (file_exists($itemForm["image"])){
+                    array_push($resultExp , $itemForm);
+                }
+                else if (!file_exists($itemForm["image"]) &&  $limitForm==0){
+                    $itemForm["image"] = "";
+                    array_push($resultExp , $itemForm);
+                }
+
+
             }
         }
+
         return $resultExp;
     }
+
+
 }
 
