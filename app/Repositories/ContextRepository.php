@@ -4,6 +4,8 @@ namespace App\Repositories;
 use App\Repositories\InterFaceRepositories\Banks\IBanckRepository;
 use App\Repositories\InterFaceRepositories\Factors\IFactorProductRepository;
 use App\Repositories\InterFaceRepositories\Factors\IFactorRepository;
+use App\Repositories\InterFaceRepositories\Factors\ITemplateFactorProductRepository;
+use App\Repositories\InterFaceRepositories\Factors\ITemplateFactorRepository;
 use App\Repositories\InterFaceRepositories\Forms\IFormCategoryRepository;
 use App\Repositories\InterFaceRepositories\Forms\IFormRepository;
 use App\Repositories\InterFaceRepositories\Panels\IAdminRepository;
@@ -26,6 +28,8 @@ use App\Repositories\InterFaceRepositories\Users\IUserStoreRepository;
 use App\Repositories\ModelRepositories\Banks\BankRepository;
 use App\Repositories\ModelRepositories\Factors\FactorProductRepository;
 use App\Repositories\ModelRepositories\Factors\FactorRepository;
+use App\Repositories\ModelRepositories\Factors\TemplateFactorProductRepository;
+use App\Repositories\ModelRepositories\Factors\TemplateFactorRepository;
 use App\Repositories\ModelRepositories\Forms\FormCategoryRepository;
 use App\Repositories\ModelRepositories\Forms\FormRepository;
 use App\Repositories\ModelRepositories\Panels\AdminRepository;
@@ -107,6 +111,8 @@ class ContextRepository{
 
     private static $factorProductRepository;
     private static $factorRepository;
+    private static $templateFactorRepository;
+    private static $templateFactorProductRepository;
 
 
     public static function FactorProductRepository() : IFactorProductRepository
@@ -126,6 +132,22 @@ class ContextRepository{
     }
 
 
+
+    public static function TemplateFactorRepository() : ITemplateFactorRepository
+    {
+        if (self::$templateFactorRepository == null){
+            self::$templateFactorRepository = new TemplateFactorRepository();
+        }
+        return self::$templateFactorRepository;
+    }
+
+    public static function TemplateFactorProductRepository() : ITemplateFactorProductRepository
+    {
+        if (self::$templateFactorProductRepository == null){
+            self::$templateFactorProductRepository = new TemplateFactorProductRepository();
+        }
+        return self::$templateFactorProductRepository;
+    }
 
 
 

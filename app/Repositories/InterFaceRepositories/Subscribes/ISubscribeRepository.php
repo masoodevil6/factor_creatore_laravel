@@ -15,4 +15,7 @@ interface ISubscribeRepository extends IBaseRepository {
 
     function GetInfoSubscribe($slug  , $numInPage=8);
 
+
+    function GetSlugSubscribeForm($subscribe_id);
+
 }

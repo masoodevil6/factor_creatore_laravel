@@ -20,4 +20,7 @@ class FormCategoryRepository extends BaseRepository implements IFormCategoryRepo
 
         return $this->model->paginate($numInPage);
     }
+
+
+
 }

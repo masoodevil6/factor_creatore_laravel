@@ -7,10 +7,9 @@ use App\Models\Users\User;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Factor extends Model
+class TemplateFactor extends Model
 {
     use HasFactory;
-
     protected $fillable = [
         "res_num" , "description" ,
         "store_name", "store_phone", "store_address",
@@ -40,6 +39,6 @@ class Factor extends Model
 
     //// hasMany
     public function products(){
-        return $this->hasMany(FactorProduct::class);
+        return $this->hasMany(TemplateFactorProduct::class);
     }
 }

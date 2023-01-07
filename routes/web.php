@@ -3,7 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Customer\CustomerHomeController;
 use App\Http\Controllers\Customer\CustomerAboutUsController;
-use App\Http\Controllers\Customer\CustomerCreateFactorController;
+use App\Http\Controllers\Customer\FactorCreatorController;
 use App\Http\Controllers\Customer\CustomerSubscribesController;
 
 /*
@@ -30,11 +30,6 @@ Route::prefix("/about-us")->controller(CustomerAboutUsController::class)->group(
 
 });
 
-Route::prefix("/create-factor")->controller(CustomerCreateFactorController::class)->group(function (){
-
-    Route::get("/" , "index")->name("customer.create-factor.index");
-
-});
 
 Route::prefix("/subscribe")->controller(CustomerSubscribesController::class)->group(function (){
 
@@ -43,4 +38,8 @@ Route::prefix("/subscribe")->controller(CustomerSubscribesController::class)->gr
     Route::get("/info/{subscribe_slug}" , "info")->name("customer.subscribes.info");
 
 });
+
+
+
+
 

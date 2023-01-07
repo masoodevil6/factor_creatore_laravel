@@ -2,6 +2,7 @@
 namespace App\Repositories\ModelRepositories\Subscribes;
 
 use App\Models\Subscribes\Subscribe;
+use App\Repositories\ContextRepository;
 use App\Repositories\InterFaceRepositories\Subscribes\ISubscribeRepository;
 use App\Repositories\ModelRepositories\BaseRepository;
 use Illuminate\Support\Facades\DB;
@@ -86,6 +87,19 @@ class SubscribeRepository extends BaseRepository implements ISubscribeRepository
         return $result;
 
     }
+
+
+    function GetSlugSubscribeForm($subscribe_id)
+    {
+        $subscribe = ContextRepository::SubscribeRepository()->getResult($subscribe_id , true);
+        $slug = "";
+        if (!empty($subscribe)){
+            $slug =  $subscribe->slug;
+        }
+        return $slug;
+    }
+
+
 
 
 

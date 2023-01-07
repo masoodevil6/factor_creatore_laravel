@@ -11,6 +11,7 @@ use App\Http\Controllers\PanelCustomer\FactorsPanelCustomerController;
 use App\Http\Controllers\PanelCustomer\CommentPanelCustomerController;
 use App\Http\Controllers\PanelCustomer\IamgesPanelCustomerController;
 
+
 /*
 |--------------------------------------------------------------------------
 | admin routes
@@ -107,7 +108,6 @@ Route::prefix("comments")->controller(CommentPanelCustomerController::class)->gr
     Route::delete("/delete-user-comment/{comment}" , "deleteUserComment")->name("customer-panel.comments.delete-user-comment");
 
 });
-
 
 
 

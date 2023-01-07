@@ -34,6 +34,14 @@
                         </a>
 
 
+                        <a href="{{route("customer.create-factor.index")}}" title="فاکتور جدید" class="btn btn-nav btn-warning position-relative mx-2 text-hover-white my-2 shadow border-none rounded text-decoration-none  profile-button float-lg-left  ">
+                            <i class="nav-icon fa fa-file-text float-right border-left border-secondary"></i>
+                            <span class="pr-3   font-size-md font-weight-bold">
+                                فاکتور جدید
+                            </span>
+                        </a>
+
+
                         @guest
                             <a href="{{route("auth.customer.loginRegisterForm")}}" title="ورود/ثبت نام" class="btn mx-2 my-2 text-hover-white btn-nav btn-warning shadow border-none rounded text-decoration-none profile-button float-lg-left  ">
                                 <i class="nav-icon fa fa-user-lock   float-right border-left border-secondary"></i>
@@ -43,13 +51,6 @@
                             </a>
                         @endguest
                         @auth
-
-                            <a href="{{route("customer.create-factor.index")}}" title="فاکتور جدید" class="btn btn-nav btn-warning position-relative mx-2 text-hover-white my-2 shadow border-none rounded text-decoration-none  profile-button float-lg-left  ">
-                                <i class="nav-icon fa fa-file-text float-right border-left border-secondary"></i>
-                                <span class="pr-3   font-size-md font-weight-bold">
-                                    فاکتور جدید
-                                </span>
-                            </a>
 
                             <section class="btn-group d-inline px-lg-2 my-lg-2 ">
                                 <button id="btn-header-client-panel" class="btn btn-warning btn-nav shadow mx-2 text-hover-white mx-lg-0 border-none rounde dropdown-toggle text-decoration-none  profile-button " type="button" data-toggle="dropdown" aria-haspopup="true"  aria-expanded="true">

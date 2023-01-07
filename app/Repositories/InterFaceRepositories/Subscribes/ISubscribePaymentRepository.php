@@ -17,4 +17,9 @@ interface ISubscribePaymentRepository extends IBaseRepository {
     function GetInfoSubscribeAuthUser($subscribeId);
 
     function DeleteSubscribeAuthUser($subscribeId);
+
+
+
+
+    function GetSubscribeActiveNow();
 }

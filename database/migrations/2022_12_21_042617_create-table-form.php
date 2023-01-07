@@ -18,7 +18,7 @@ return new class extends Migration
             $table->string("name");
             $table->string("class");
             $table->text("image")->nullable();
-            $table->foreignId("form_category_id")->constrained("form_categories")->onUpdate("cascade")->onDelete("cascade");
+            $table->foreignId("form_category_id")->nullable()->constrained("form_categories")->onUpdate("cascade")->onDelete("cascade");
             $table->timestamps();
         });
     }

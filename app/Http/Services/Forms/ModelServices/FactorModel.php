@@ -7,6 +7,7 @@ class FactorModel{
 
     private $id = 0;
     private $resNum;
+    private $description;
 
     protected $createdAt;
     protected $updatedAt;
@@ -21,6 +22,7 @@ class FactorModel{
 
     private $fileName;
     private $logoName;
+    private $mohrName;
 
     private $formId;
     private $formName;
@@ -51,6 +53,16 @@ class FactorModel{
     public function setResNum($resNum): void
     {
         $this->resNum = $resNum;
+    }
+
+
+    public function getDescription()
+    {
+        return $this->description;
+    }
+    public function setDescription($description): void
+    {
+        $this->description = $description;
     }
 
 
@@ -172,6 +184,17 @@ class FactorModel{
     public function setLogoName($logoName): void
     {
         $this->logoName = $logoName;
+    }
+
+
+
+    public function getMohrName()
+    {
+        return $this->mohrName;
+    }
+    public function setMohrName($mohrName): void
+    {
+        $this->mohrName = $mohrName;
     }
 
 

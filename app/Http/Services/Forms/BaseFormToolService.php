@@ -34,6 +34,7 @@ class BaseFormToolService{
 
         $this->factorModel->setId($this->factor->id );
         $this->factorModel->setResNum($this->factor->res_num);
+        $this->factorModel->setDescription($this->factor->description);
         $this->factorRes = $this->factor->res_num;
 
         $this->factorModel->setCreatedAt($this->factor->created_at);
@@ -49,6 +50,7 @@ class BaseFormToolService{
 
         $this->factorModel->setFileName($this->factor->file_name);
         $this->factorModel->setLogoName($this->factor->logo_name);
+        $this->factorModel->setMohrName($this->factor->mohr_name);
 
         $form = $this->factor->form;
 

@@ -13,9 +13,9 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::table('users', function (Blueprint $table) {
-            $table->text("logo")->nullable();
-            $table->text("mohr")->nullable();
+        Schema::table('factors', function (Blueprint $table) {
+            $table->text("description")->nullable();
+            $table->text("mohr_name")->nullable();
         });
     }
 
@@ -26,9 +26,9 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::table('users', function (Blueprint $table) {
-            $table->removeColumn("logo");
-            $table->removeColumn("mohr");
+        Schema::table('factors', function (Blueprint $table) {
+            $table->removeColumn("description");
+            $table->removeColumn("mohr_name");
         });
     }
 };

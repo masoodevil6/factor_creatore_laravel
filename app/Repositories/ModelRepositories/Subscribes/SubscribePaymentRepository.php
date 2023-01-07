@@ -115,7 +115,6 @@ class SubscribePaymentRepository extends BaseRepository implements ISubscribePay
     }
 
 
-
     function DeleteSubscribeAuthUser($subscribeId)
     {
         $subscribe = $this->model
@@ -132,6 +131,16 @@ class SubscribePaymentRepository extends BaseRepository implements ISubscribePay
 
 
 
+
+
+    function GetSubscribeActiveNow()
+    {
+        return $this->model
+            ->select(["subscribe_payments.*" , "subscribes.*" , DB::raw("ADDDATE(subscribe_payments.time_set, INTERVAL subscribes.duration MONTH) as time_end")])
+            ->join('subscribes', 'subscribe_payments.subscribe_id', "=", 'subscribes.id')
+            ->where(DB::raw("CURRENT_TIMESTAMP") , "<=" , DB::raw("ADDDATE(subscribe_payments.time_set, INTERVAL subscribes.duration MONTH)"))
+            ->get();
+    }
 
 
 

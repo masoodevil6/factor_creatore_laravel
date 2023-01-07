@@ -30,6 +30,7 @@ class RouteServiceProvider extends ServiceProvider
     protected $namespaceAuth = 'App\\Http\\Controllers\\Auth';
     protected $namespaceCustomer = 'App\\Http\\Controllers\\Customer';
     protected $namespacePanelCustomer= 'App\\Http\\Controllers\\PanelCustomer';
+    protected $namespaceFactorCreator= 'App\\Http\\Controllers\\FactorCreator';
 
 
 
@@ -72,6 +73,13 @@ class RouteServiceProvider extends ServiceProvider
                     ->prefix("panel")
                     ->namespace($this->namespacePanelCustomer)
                     ->group(base_path('routes/customerPanel.php'));
+
+
+                /// panel factor creator pages
+                Route::middleware('auth')
+                    ->prefix("factor")
+                    ->namespace($this->namespaceFactorCreator)
+                    ->group(base_path('routes/factorCreator.php'));
 
 
 

@@ -7,4 +7,6 @@ interface IFormCategoryRepository extends IBaseRepository {
 
     function SearchFormCategory(string $categoryTitle="" ,$numInPage = 15);
 
+
+
 }

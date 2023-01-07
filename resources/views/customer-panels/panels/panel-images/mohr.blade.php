@@ -9,7 +9,7 @@
         <section class="col-12 col-lg-6">
 
             @if(!empty(Auth::user()->mohr))
-                <img src="{{route("customer-panel.logo.show-image-mohr")}}" alt="تصویر مهر">
+                <img src="{{route("customer-panel.logo.show-image-mohr")}}" alt="تصویر مهر" style="max-width: 100%">
                 <form method="post" action="{{route("customer-panel.logo.delete-image-mohr")}}" class="mt-1 d-block">
                     @csrf
                     <button onclick="goToConfirmDeleteForm(this)" type="button"  class="btn btn-danger  btn-sm font-size-12">

@@ -4,6 +4,7 @@ namespace App\Models\Users;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 use App\Models\Factors\Factor;
+use App\Models\Factors\TemplateFactor;
 use App\Models\Panel\Admin;
 use App\Models\Panel\AdminUser;
 use App\Models\Users\UserStore;
@@ -77,6 +78,10 @@ class User extends Authenticatable
 
 
     //// hasMany
+    public function templateFactors(){
+        return $this->hasMany(TemplateFactor::class);
+    }
+
     public function factors(){
         return $this->hasMany(Factor::class);
     }

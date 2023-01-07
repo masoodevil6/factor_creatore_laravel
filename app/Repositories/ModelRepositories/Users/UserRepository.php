@@ -15,6 +15,7 @@ use Illuminate\Support\Facades\Storage;
 class UserRepository extends BaseRepository implements IUserRepository {
 
     protected $pathUser="";
+    protected $directoryUserFactors="";
     protected $directoryUserLogo="";
     protected $directoryUserMohr="";
 
@@ -24,6 +25,7 @@ class UserRepository extends BaseRepository implements IUserRepository {
         if (Auth::check()){
 
             $this->pathUser = "users/".$this->GetUserAuthId();
+            $this->directoryUserFactors = "/factors/";
             $this->directoryUserLogo = "/logos/";
             $this->directoryUserMohr = "/mohr/";
         }
@@ -166,6 +168,9 @@ class UserRepository extends BaseRepository implements IUserRepository {
 
 
 
+
+
+
     function GetImageUserLogo()
     {
         return Storage::download($this->GetUserAuthInfo()->logo);
@@ -193,6 +198,9 @@ class UserRepository extends BaseRepository implements IUserRepository {
             Storage::delete($locationLogo);
         }
     }
+
+
+
 
 
 
@@ -231,6 +239,11 @@ class UserRepository extends BaseRepository implements IUserRepository {
 
 
 
+
+
+
+
+
     /////--------------------------------------------------
     protected function uploadUserImageServer($fileImage , $type=""){
 
@@ -251,6 +264,7 @@ class UserRepository extends BaseRepository implements IUserRepository {
         $imageService = new ImageService();
         $imageService->deleteDirectoryAndFiles(public_path("users"));
     }
+
 
 }
 
