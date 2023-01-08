@@ -13,12 +13,16 @@ class ComponentInputInsert extends Component
     public $titleFa;
     public $type;
     public $value;
-    public function __construct($titleEn="errorFieldInput" , $titleFa="errorFieldInput"  , $value="errorFieldInput" ,  $type = "text")
+    public $full;
+    public $methodOnChange;
+    public function __construct($titleEn="errorFieldInput" , $titleFa="errorFieldInput" , $value="errorFieldInput" ,  $type = "text", $full=false , $methodOnChange=false)
     {
         $this -> titleEn = $titleEn;
         $this -> titleFa = $titleFa;
         $this -> value = $value;
         $this -> type = $type;
+        $this -> full = $full;
+        $this -> methodOnChange = $methodOnChange;
     }
 
     /**

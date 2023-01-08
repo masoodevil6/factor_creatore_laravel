@@ -10,8 +10,10 @@ function selectUserFactorInfo(userFactorResNum) {
         url: $('meta[name="url-get-info-user-factor"]').attr('content'),
         type: "POST",
         data: data,
-        success: function (result) {
+        beforeSend: function () {
             loading.start();
+        },
+        success: function (result) {
             goToFormShowFactorClient();
             $("#form-show-user-factor").html(result)
         },

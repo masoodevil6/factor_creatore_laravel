@@ -11,8 +11,10 @@ function selectUserStoreInfo(userStoreId=null) {
         url: $('meta[name="url-get-info-user-store"]').attr('content'),
         type: "POST",
         data: data,
-        success: function (result) {
+        beforeSend: function () {
             loading.start();
+        },
+        success: function (result) {
             goToFormSubmitNewStoreClient();
             $("#form-add-or-edit-user-store").html(result)
         },

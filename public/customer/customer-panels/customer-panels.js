@@ -44,8 +44,10 @@ function getViewItemCustomerPanel(panelName , setHistoryUrl=true) {
         url: $('meta[name="url-get-view-panel"]').attr('content'),
         type: "POST",
         data: data,
-        success: function (result) {
+        beforeSend: function () {
             loading.start();
+        },
+        success: function (result) {
             setTrueIntoPanel();
             $("#panel_view").html(result["view"]);
             selectedItemCustomerPanel(result["titleEn"]);

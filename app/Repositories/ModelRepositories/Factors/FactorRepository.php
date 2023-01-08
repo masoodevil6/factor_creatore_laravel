@@ -10,10 +10,22 @@ use function JmesPath\search;
 
 class FactorRepository extends BaseRepository implements IFactorRepository {
 
+    private $passPrice = " ریـال";
+
     public function __construct()
     {
         parent::__construct(new Factor());
     }
+
+
+
+    public function GetStandardPassPrice()
+    {
+        return $this->passPrice;
+    }
+
+
+
 
     function GetUserFactors(int $userId)
     {
@@ -71,4 +83,22 @@ class FactorRepository extends BaseRepository implements IFactorRepository {
             $this->deleteResult($factor);
         }
     }
+
+
+
+
+
+    function GenerateUniqueResNumFactor()
+    {
+        $resNum = randomNumFromBetweenNumber();
+
+        $factors = $this->model->where("res_num" , $resNum)->get();
+        if (sizeof($factors) > 0){
+            return $this->GenerateUniqueResNumFactor();
+        }
+
+        return $resNum;
+    }
+
+
 }

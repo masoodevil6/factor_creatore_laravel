@@ -11,13 +11,15 @@ class ComponentSkEditor extends Component
     public $titleFa;
     public $value;
     public $ckEditor;
+    public $row;
 
-    public function __construct($titleEn="errorFieldInput" , $titleFa="errorFieldInput" , $value="errorFieldInput" , $ckEditor=1)
+    public function __construct($titleEn="errorFieldInput" , $titleFa="errorFieldInput" , $value="errorFieldInput" , $ckEditor=1 , $row=10)
     {
         $this -> titleEn = $titleEn;
         $this -> titleFa = $titleFa;
         $this -> value = $value;
         $this -> ckEditor = $ckEditor;
+        $this -> row = $row;
     }
 
     /**

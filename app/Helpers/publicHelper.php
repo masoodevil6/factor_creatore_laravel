@@ -38,6 +38,12 @@ function persianPriceFormat($price){
     return $price;
 }
 
+///======================================================
+
+function randomNumFromBetweenNumber($minNum=10 , $maxNum=10000){
+    return rand($minNum,$maxNum);
+}
+
 
 ///======================================================
 function convertPersianToEnglish($number){

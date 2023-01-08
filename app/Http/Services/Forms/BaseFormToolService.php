@@ -3,10 +3,11 @@ namespace App\Http\Services\Forms;
 
 use App\Http\Services\Forms\ModelServices\FactorModel;
 use App\Http\Services\Forms\ModelServices\ProductModel;
+use App\Repositories\ContextRepository;
 
 class BaseFormToolService{
 
-    private $passPrice = " ریـال";
+    private $passPrice;
 
     private $factor;
     private $factorModel;
@@ -21,6 +22,9 @@ class BaseFormToolService{
         $this->factor = $factor;
         if (!empty($passPrice)){
             $this->passPrice = $passPrice;
+        }
+        else{
+            $this->passPrice = ContextRepository::FactorRepository()->GetStandardPassPrice();
         }
 
         $this->readyFactorModel();

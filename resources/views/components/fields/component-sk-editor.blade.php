@@ -1,11 +1,11 @@
 
-<section class="d-block w-100 mt-4 mx-2">
+<section class="d-block  mt-4 mx-2">
 
     <label for="label-for-{{$titleEn}}" class="d-block text-right font-size-12">
         {{$titleFa}}
     </label>
 
-    <textarea name="{{$titleEn}}" id="label-for-{{$titleEn}}"class="form-control form-control-sm" rows="10">@if(old("$titleEn")) {{old("$titleEn")}}  @else {{$value}} @endif</textarea>
+    <textarea name="{{$titleEn}}" id="label-for-{{$titleEn}}"class="form-control form-control-sm" rows="{{$row}}">@if(old("$titleEn")) {{old("$titleEn")}}  @else {{$value}} @endif</textarea>
 
     <x-input-errors field="{{$titleEn}}"/>
 

@@ -5,6 +5,10 @@ use App\Repositories\InterFaceRepositories\IBaseRepository;
 
 interface ITemplateFactorProductRepository extends IBaseRepository {
 
+    function GetInfoFactorProduct($templateFactorProductId=null);
 
+    function DeleteFactorProduct($templateFactorProductId);
+
+    function AddFactorProduct($dataProduct);
 
 }

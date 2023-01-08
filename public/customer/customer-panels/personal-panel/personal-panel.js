@@ -23,8 +23,10 @@ function submitEmailOrPhoneForVerify(element) {
         url: $('meta[name="url-send-email-or-phone-client"]').attr('content'),
         type: "POST",
         data: data,
-        success: function (result) {
+        beforeSend: function () {
             loading.start();
+        },
+        success: function (result) {
             if (result != ""){
                 token = result;
                 formCheckCodePanelPersonalCustomer.removeClass("d-none");

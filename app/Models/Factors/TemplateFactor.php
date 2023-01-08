@@ -11,10 +11,10 @@ class TemplateFactor extends Model
 {
     use HasFactory;
     protected $fillable = [
-        "res_num" , "description" ,
+        "description" ,
         "store_name", "store_phone", "store_address",
         "customer_name" , "customer_phone", "customer_address",
-        "file_name", "logo_name", "mohr_name",
+        "logo_name", "mohr_name",
         "form_id", "user_id",
         "status"];
 

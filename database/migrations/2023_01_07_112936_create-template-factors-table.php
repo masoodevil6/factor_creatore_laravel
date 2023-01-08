@@ -16,7 +16,6 @@ return new class extends Migration
         Schema::create('template_factors', function (Blueprint $table) {
             $table->id();
 
-            $table->string("res_num");
             $table->text("description")->nullable();
 
             $table->string("store_name")->default("");
@@ -27,7 +26,6 @@ return new class extends Migration
             $table->string("customer_phone")->default("");
             $table->string("customer_address")->default("");
 
-            $table->string("file_name")->default("");
             $table->string("logo_name")->default("");
             $table->string("mohr_name")->nullable();
 

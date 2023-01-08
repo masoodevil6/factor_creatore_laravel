@@ -14,8 +14,10 @@ function selectTicketInfo(ticketId) {
         url: $('meta[name="url-get-list-info-ticket"]').attr('content'),
         type: "POST",
         data: data,
-        success: function (result) {
+        beforeSend: function () {
             loading.start();
+        },
+        success: function (result) {
             goToInfoPanelTickets();
             $("#list_info_tickets").html(result)
         },
@@ -58,8 +60,10 @@ function submitNewTicketClient() {
             url: $('meta[name="url-submit-new-ticket"]').attr('content'),
             type: "POST",
             data: data,
-            success: function (result) {
+            beforeSend: function () {
                 loading.start();
+            },
+            success: function (result) {
                 if (result == 1){
                     messageActionSuccess();
                     goToThisFirstFormPanel();

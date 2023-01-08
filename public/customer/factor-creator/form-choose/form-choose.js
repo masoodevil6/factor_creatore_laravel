@@ -11,8 +11,10 @@ function changeFormCategory(element) {
         url: $('meta[name="url-get-forms-in-form-category"]').attr('content'),
         type: "POST",
         data: data,
-        success: function (result) {
+        beforeSend: function () {
             loading.start();
+        },
+        success: function (result) {
             sectionSelectForm.html(result["forms"]);
             sectionInfoForm.html(result["form_selected"])
         },
@@ -35,8 +37,10 @@ function selectForm(element) {
         url: $('meta[name="url-get-info-form"]').attr('content'),
         type: "POST",
         data: data,
-        success: function (result) {
+        beforeSend: function () {
             loading.start();
+        },
+        success: function (result) {
             selectColorItemForm(formId);
             sectionInfoForm.html(result)
         },

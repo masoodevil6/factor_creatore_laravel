@@ -11,7 +11,6 @@
 
     @include("factor-creator.navigation-factor-creator")
 
-    @include("factor-creator.info.info-factor")
 
 @endsection
 

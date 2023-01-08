@@ -7,7 +7,7 @@ use App\Repositories\ContextRepository;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
-class FactorCreatorController extends BaseFactorController
+class FactorFormsController extends BaseFactorController
 {
 
     public function index(){
@@ -18,7 +18,7 @@ class FactorCreatorController extends BaseFactorController
                 "title" => "فاکتور جدید"
             ]
         ];
-        $stepFactor = 1;
+        $stepFactor = 4;
         ///----------------------------------------------------------------
         $formSelected = null;
         if (isset($_GET["form"])){
@@ -34,7 +34,7 @@ class FactorCreatorController extends BaseFactorController
         $form = $info["form"];
         $formCategoryId = $info["formCategoryId"];
 
-        return view("factor-creator.home.index" ,
+        return view("factor-creator.forms.index" ,
             compact("nav" , "stepFactor" , "subscribeActives" , "formCategories" , "forms" , "form" , "formCategoryId")
         );
     }
@@ -50,7 +50,7 @@ class FactorCreatorController extends BaseFactorController
         }
 
         return [
-            "forms" => view("factor-creator.home.forms" , compact( "subscribeActives","forms" , "form"))->render(),
+            "forms" => view("factor-creator.forms.forms" , compact( "subscribeActives","forms" , "form"))->render(),
             "form_selected" => $this->returnViewInfoForm($form , $subscribeActives)
         ];
     }
@@ -70,7 +70,7 @@ class FactorCreatorController extends BaseFactorController
             $info = $this->returnInfoForm($_GET["form"]);
             $form = $info["form"];
             if ($form->active){
-                return redirect()->route("customer.info-factor.index" , $_GET["form"]);
+                return redirect()->route("customer.forms-factor.index" , $_GET["form"]);
             }
             else{
                 $slug = ContextRepository::SubscribeRepository()->GetSlugSubscribeForm($form->subscribe_id);

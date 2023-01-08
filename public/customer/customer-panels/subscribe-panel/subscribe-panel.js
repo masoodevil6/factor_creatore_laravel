@@ -11,8 +11,10 @@ function selectUserSubscribeInfo(userStoreId=null) {
         url: $('meta[name="url-get-info-user-subscribe"]').attr('content'),
         type: "POST",
         data: data,
-        success: function (result) {
+        beforeSend: function () {
             loading.start();
+        },
+        success: function (result) {
             goToFormShowUserSubscribe();
             $("#form-show-user-subscribe").html(result)
         },
