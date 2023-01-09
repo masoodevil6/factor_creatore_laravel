@@ -2,6 +2,7 @@
 namespace App\Repositories\ModelRepositories\Forms;
 
 use App\Models\Forms\Form;
+use App\Repositories\ContextRepository;
 use App\Repositories\InterFaceRepositories\Forms\IFormRepository;
 use App\Repositories\ModelRepositories\BaseRepository;
 
@@ -62,5 +63,22 @@ class FormRepository extends BaseRepository implements IFormRepository {
             }
         }
         return $active;
+    }
+
+
+    function SetStateActiveFromFormId($formId)
+    {
+        $form = $this->getResult($formId);
+        if (!empty($form)){
+            $form = $this->SetStateActiveFromForm($form);
+        }
+        return $form;
+    }
+
+    function SetStateActiveFromForm($form)
+    {
+        $listSubscribeActive = ContextRepository::SubscribePaymentRepository()->GetSubscribeActiveNow();
+        $form->active = $this->SetStateActiveForm($listSubscribeActive , $form->subscribe_id);
+        return $form;
     }
 }

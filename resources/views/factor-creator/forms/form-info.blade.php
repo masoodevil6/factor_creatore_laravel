@@ -12,7 +12,9 @@
 
 @else
 
-    <form action="{{route("customer.create-factor.end-process-select-form")}}" method="get" class="border border-dark bg-white rounded mt-2 mt-lg-0">
+    <form action="{{route("customer.forms-factor.end-process-select-form")}}" method="post" class="border border-dark bg-white rounded mt-2 mt-lg-0">
+        @csrf
+
         <p class="bg-dark text-white text-center font-size-lg">
             وضعیت:
             <span class="mr-2 font-weight-bold">

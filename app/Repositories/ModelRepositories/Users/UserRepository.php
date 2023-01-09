@@ -170,8 +170,8 @@ class UserRepository extends BaseRepository implements IUserRepository {
 
 
     function CheckExistImageUserLogo(){
-        $userLogo = $this->GetUserAuthInfo()->logo;
-        if (!empty($userLogo) && Storage::exists($this->GetUserAuthInfo()->logo)){
+        $userLogo = $this->getFileNameLogo();
+        if (!empty($userLogo) && Storage::exists($userLogo)){
             return true;
         }
         return false;
@@ -180,7 +180,7 @@ class UserRepository extends BaseRepository implements IUserRepository {
     function GetImageUserLogo()
     {
         if ($this->CheckExistImageUserLogo()){
-            return Storage::download($this->GetUserAuthInfo()->logo);
+            return Storage::download($this->getFileNameLogo());
         }
         return null;
     }
@@ -199,7 +199,7 @@ class UserRepository extends BaseRepository implements IUserRepository {
 
     function DeleteImageUserLogo()
     {
-        $locationLogo = $this->GetUserAuthInfo()->logo;
+        $locationLogo = $this->getFileNameLogo();
         if (!empty($locationLogo)){
             $this->updateResult($this->GetUserAuthInfo() , [
                 "logo" => null
@@ -218,8 +218,8 @@ class UserRepository extends BaseRepository implements IUserRepository {
 
 
     function CheckExistImageUserMohr(){
-        $userMohr = $this->GetUserAuthInfo()->mohr;
-        if (!empty($userMohr) && Storage::exists($this->GetUserAuthInfo()->mohr)){
+        $userMohr = $this->getFileNameMohr();
+        if (!empty($userMohr) && Storage::exists($userMohr)){
             return true;
         }
         return false;
@@ -228,7 +228,7 @@ class UserRepository extends BaseRepository implements IUserRepository {
     function GetImageUserMohr()
     {
         if ($this->CheckExistImageUserMohr()){
-            return Storage::download($this->GetUserAuthInfo()->mohr);
+            return Storage::download($this->getFileNameMohr());
         }
         return null;
     }
@@ -247,7 +247,7 @@ class UserRepository extends BaseRepository implements IUserRepository {
 
     function DeleteImageUserMohr()
     {
-        $locationMohr = $this->GetUserAuthInfo()->mohr;
+        $locationMohr = $this->getFileNameMohr();
         if (!empty($locationMohr)){
             $this->updateResult($this->GetUserAuthInfo() , [
                 "mohr" => null
@@ -293,9 +293,6 @@ class UserRepository extends BaseRepository implements IUserRepository {
 
 
 
-
-
-    /////--------------------------------------------------
     public function uploadUserImageServer($fileImage , $type=""){
 
         $imageService = new ImageService();
@@ -315,6 +312,54 @@ class UserRepository extends BaseRepository implements IUserRepository {
         $imageService = new ImageService();
         $imageService->deleteDirectoryAndFiles(public_path($this->getPathUser()));
     }
+
+
+
+
+    function CopyFileLogoNameToDirectory()
+    {
+        $userImageLogo = $this->getFileNameLogo();
+        if (!empty($userImageLogo)){
+            $newFile = $this->getPathUser().$this->getDirectoryUserLogo().time().getMimeFile($userImageLogo);
+            Storage::copy($userImageLogo , $newFile);
+            return $newFile;
+        }
+        return null;
+    }
+
+    function CopyFileMohrNameToDirectory()
+    {
+        $userImageMohr = $this->getFileNameMohr();
+        if (!empty($userImageMohr)){
+            $newFile = $this->getPathUser().$this->getDirectoryUserMohr().time().getMimeFile($userImageMohr);
+            Storage::copy($userImageMohr , $newFile);
+            return $newFile;
+        }
+        return null;
+    }
+
+
+
+
+
+
+
+
+
+
+    //// --------------------------------------
+
+
+    private function getFileNameLogo(){
+        return $this->GetUserAuthInfo()->logo;
+    }
+
+    private function getFileNameMohr(){
+        return $this->GetUserAuthInfo()->mohr;
+    }
+
+
+
 
 
 }

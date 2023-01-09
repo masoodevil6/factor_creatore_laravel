@@ -44,6 +44,19 @@ function randomNumFromBetweenNumber($minNum=10 , $maxNum=10000){
     return rand($minNum,$maxNum);
 }
 
+function getMimeFile($file){
+    $mime = \Illuminate\Support\Facades\Storage::mimeType($file);
+
+    if ($mime == "image/png"){
+        return ".png";
+    }
+    else if ($mime == "image/jpeg"){
+        return ".jpeg";
+    }
+    else if ($mime == "image/jpg"){
+        return ".jpg";
+    }
+}
 
 ///======================================================
 function convertPersianToEnglish($number){

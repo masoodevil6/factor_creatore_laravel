@@ -12,7 +12,6 @@
 
     @include("factor-creator.navigation-factor-creator")
 
-    @include("factor-creator.forms.choose-form")
 
 @endsection
 

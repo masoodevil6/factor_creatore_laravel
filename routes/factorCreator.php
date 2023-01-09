@@ -6,6 +6,7 @@ use App\Http\Controllers\FactorCreator\FactorFormsController;
 use App\Http\Controllers\FactorCreator\FactorInfoController;
 use App\Http\Controllers\FactorCreator\FactorProductsController;
 use App\Http\Controllers\FactorCreator\FactorImageController;
+use App\Http\Controllers\FactorCreator\FactorCompleteController;
 
 
 
@@ -58,6 +59,14 @@ Route::prefix("/forms")->controller(FactorFormsController::class)->group(functio
 
     Route::post("/get-info-form" , "getInfoForm")->name("customer.forms-factor.get-info-form");
 
-    Route::get("/end-process-select-form" , "endProcessSelectForm")->name("customer.forms-factor.end-process-select-form");
+    Route::post("/end-process-select-form" , "endProcessSelectForm")->name("customer.forms-factor.end-process-select-form");
+
+});
+
+Route::prefix("/complete")->controller(FactorCompleteController::class)->group(function (){
+
+    Route::get("/" , "index")->name("customer.complete-factor.index");
+
+
 
 });

@@ -22,14 +22,14 @@
             </section>
 
             <section id="section-select-form" class="d-block">
-                @include("factor-creator.home.forms")
+                @include("factor-creator.forms.forms")
             </section>
 
 
         </section>
 
         <section id="section-info-form" class="col-12 col-lg-6">
-            @include("factor-creator.home.form-info")
+            @include("factor-creator.forms.form-info")
         </section>
 
     </section>

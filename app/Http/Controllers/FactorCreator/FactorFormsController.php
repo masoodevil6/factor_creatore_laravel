@@ -17,12 +17,9 @@ class FactorFormsController extends BaseFactorController
         $stepFactor = $infoPage["stepFactor"];
         ///----------------------------------------------------------------
 
-        $formSelected = null;
-        if (isset($_GET["form"])){
-            $formSelected = $_GET["form"];
-        }
+        $factor = $this->getFactorTemplate();
 
-        $info = $this->getInfoPageForms($formSelected);
+        $info = $this->getInfoPageForms($factor->form_id);
 
         $subscribeActives = $info["subscribeActives"];
         $formCategories = $info["formCategories"];
@@ -61,13 +58,16 @@ class FactorFormsController extends BaseFactorController
         return $this->returnViewInfoForm($form , $subscribeActives);
     }
 
-    public function endProcessSelectForm(){
+    public function endProcessSelectForm(Request $request){
 
-        if (isset($_GET["form"])){
-            $info = $this->returnInfoForm($_GET["form"]);
+        $formId= $request->get("form");
+        if (isset($formId)){
+            $info = $this->returnInfoForm($formId);
             $form = $info["form"];
+
             if ($form->active){
-                return redirect()->route("customer.forms-factor.index" , $_GET["form"]);
+                ContextRepository::TemplateFactorRepository()->SetFormTemplateFactor($form->id);
+                return redirect()->route("customer.complete-factor.index");
             }
             else{
                 $slug = ContextRepository::SubscribeRepository()->GetSlugSubscribeForm($form->subscribe_id);
@@ -86,8 +86,8 @@ class FactorFormsController extends BaseFactorController
 
     ///// ===================================================
 
-    protected function returnViewInfoForm($form , $subscribeActives = null){
-        return view("factor-creator.home.form-info" , compact( "subscribeActives","form"))->render();
+    private function returnViewInfoForm($form , $subscribeActives = null){
+        return view("factor-creator.forms.form-info" , compact( "subscribeActives","form"))->render();
     }
 
     ///// ===================================================
@@ -98,7 +98,7 @@ class FactorFormsController extends BaseFactorController
         $form= null;
         $formCategoryId = null;
         if ($formSelected != null){
-            $form = ContextRepository::FormRepository()->getResult($_GET["form"]);
+            $form = ContextRepository::FormRepository()->getResult($formSelected);
             if (!empty($form)){
                 $form->active = $this->returnSateActiveForm($subscribeActives , $form->subscribe_id);
                 $formCategoryId = $form->form_category_id;
@@ -130,7 +130,25 @@ class FactorFormsController extends BaseFactorController
     }
 
 
+    protected function getListSubscribeActive(){
+        return ContextRepository::SubscribePaymentRepository()->GetSubscribeActiveNow();
+    }
 
+    protected function returnInfoForm($formId , $subscribeActives=null){
+        if ($subscribeActives == null){
+            $subscribeActives = $this->getListSubscribeActive();
+        }
+        $form = ContextRepository::FormRepository()->getResult($formId , true);
+        $form->active = $this->returnSateActiveForm($subscribeActives , $form->subscribe_id);
+        return [
+            "subscribeActives" => $subscribeActives ,
+            "form" => $form
+        ];
+    }
+
+    protected function returnSateActiveForm($subscribeActives , $subscribe_id){
+        return ContextRepository::FormRepository()->SetStateActiveForm($subscribeActives , $subscribe_id);
+    }
 
 
 }

@@ -33,6 +33,6 @@ interface ITemplateFactorRepository extends IBaseRepository {
 
 
 
-    function SetTypeLogoAndMohrImageInTemplateFactor($typeLogo , $typeMohr);
+    function SetTypeLogoAndMohrImageInTemplateFactor($typeImage , $typeMohr);
 
 }

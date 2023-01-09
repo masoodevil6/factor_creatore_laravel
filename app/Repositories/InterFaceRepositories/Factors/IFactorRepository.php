@@ -23,4 +23,8 @@ interface IFactorRepository extends IBaseRepository {
 
     function GenerateUniqueResNumFactor();
 
+
+
+    function GenerateFactorFromTemplateFactor();
+
 }

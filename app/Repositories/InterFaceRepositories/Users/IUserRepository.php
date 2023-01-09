@@ -81,10 +81,16 @@ interface IUserRepository extends IBaseRepository {
 
   function getDirectoryUserMohr(): string;
 
+
+
   function uploadUserImageServer($fileImage , $type="");
 
   function DeleteUserFolderInPublicDirectory();
 
 
+
+  function CopyFileLogoNameToDirectory();
+
+  function CopyFileMohrNameToDirectory();
 
 }

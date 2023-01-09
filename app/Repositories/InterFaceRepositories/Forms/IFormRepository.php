@@ -13,4 +13,7 @@ interface IFormRepository extends IBaseRepository {
     function GetListForms($formCategoryId=null);
 
     function SetStateActiveForm($subscribeActives , $subscribe_id);
+
+    function SetStateActiveFromFormId($formId);
+    function SetStateActiveFromForm($form);
 }
