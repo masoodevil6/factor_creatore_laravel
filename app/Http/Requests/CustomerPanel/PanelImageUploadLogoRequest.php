@@ -3,6 +3,7 @@
 namespace App\Http\Requests\CustomerPanel;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Support\Facades\Auth;
 
 class PanelImageUploadLogoRequest extends FormRequest
 {
@@ -13,7 +14,7 @@ class PanelImageUploadLogoRequest extends FormRequest
      */
     public function authorize()
     {
-        return true;
+        return Auth::check();
     }
 
     /**

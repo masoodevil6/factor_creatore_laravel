@@ -12,14 +12,11 @@ class FactorFormsController extends BaseFactorController
 
     public function index(){
 
-        $nav = [
-            [
-                "route" => "customer.create-factor.index" ,
-                "title" => "فاکتور جدید"
-            ]
-        ];
-        $stepFactor = 4;
+        $infoPage = $this->getNavProcessFactorCreator(4);
+        $nav = $infoPage["nav"];
+        $stepFactor = $infoPage["stepFactor"];
         ///----------------------------------------------------------------
+
         $formSelected = null;
         if (isset($_GET["form"])){
             $formSelected = $_GET["form"];

@@ -1,11 +1,11 @@
 <?php
 
-namespace App\Http\Requests\CustomerPanel;
+namespace App\Http\Requests\FactorCreator;
 
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\Auth;
 
-class PanelImageUploadMohrRequest extends FormRequest
+class InfoImageFactorRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -25,13 +25,15 @@ class PanelImageUploadMohrRequest extends FormRequest
     public function rules()
     {
         return [
-            "mohr" => "image|mimes:png,jpg,jpeg" ,
+            "type_logo_name" => "required|numeric|in:-1,0,1" ,
+            "type_mohr_name" => "required|numeric|in:-1,0,1" ,
         ];
     }
 
     public function attributes(){
         return [
-            "mohr" => "تصویر مهر"
+            "type_logo_name" => "نوع ذخیره لوگو",
+            "type_mohr_name" => "نوع ذخیره مهر"
         ];
     }
 }

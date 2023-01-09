@@ -38,13 +38,17 @@ Route::prefix("/images")->controller(FactorImageController::class)->group(functi
 
     Route::get("/" , "index")->name("customer.images-factor.index");
 
+    Route::get("/get-template-logo-image" , "getTemplateLogoImage")->name("customer.images-factor.get-template-logo-image");
+    Route::post("/delete-template-logo-image" , "deleteTemplateLogoImage")->name("customer.images-factor.delete-template-logo-image");
+    Route::post("/upload-template-logo-image" , "uploadTemplateLogoImage")->name("customer.images-factor.upload-template-logo-image");
+
+    Route::get("/get-template-mohr-image" , "getTemplateMohrImage")->name("customer.images-factor.get-template-mohr-image");
+    Route::post("/delete-template-mohr-image" , "deleteTemplateMohrImage")->name("customer.images-factor.delete-template-mohr-image");
+    Route::post("/upload-template-mohr-image" , "uploadTemplateMohrImage")->name("customer.images-factor.upload-template-mohr-image");
+
+    Route::post("/go-to-next-step-process" , "goToNextStepProcess")->name("customer.images-factor.go-to-next-step-process");
+
 });
-
-
-
-
-
-
 
 Route::prefix("/forms")->controller(FactorFormsController::class)->group(function (){
 

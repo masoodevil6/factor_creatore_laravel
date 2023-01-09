@@ -13,14 +13,11 @@ class FactorProductsController extends BaseFactorController
 
     public function index(){
 
-        $nav = [
-            [
-                "route" => "customer.create-factor.index" ,
-                "title" => "فاکتور جدید"
-            ]
-        ];
-        $stepFactor = 2;
+        $infoPage = $this->getNavProcessFactorCreator(2);
+        $nav = $infoPage["nav"];
+        $stepFactor = $infoPage["stepFactor"];
         ///----------------------------------------------------------------
+
         $factorInfo = $this->getTotalInfoProduct();
         $factor = $factorInfo["factor"];
         $products = $factorInfo["products"];

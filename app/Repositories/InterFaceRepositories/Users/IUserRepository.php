@@ -48,6 +48,8 @@ interface IUserRepository extends IBaseRepository {
 
 
 
+  function CheckExistImageUserLogo();
+
   function GetImageUserLogo();
 
   function UploadImageUserLogo($logoFile);
@@ -56,6 +58,7 @@ interface IUserRepository extends IBaseRepository {
 
 
 
+  function CheckExistImageUserMohr();
 
   function GetImageUserMohr();
 
@@ -64,6 +67,23 @@ interface IUserRepository extends IBaseRepository {
   function DeleteImageUserMohr();
 
 
+
+
+
+
+
+
+  function getPathUser(): string;
+
+  function getDirectoryUserFactors(): string;
+
+  function getDirectoryUserLogo(): string;
+
+  function getDirectoryUserMohr(): string;
+
+  function uploadUserImageServer($fileImage , $type="");
+
+  function DeleteUserFolderInPublicDirectory();
 
 
 

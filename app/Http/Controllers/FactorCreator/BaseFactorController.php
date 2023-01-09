@@ -9,6 +9,24 @@ use App\Repositories\ContextRepository;
 class BaseFactorController extends CustomerMainController
 {
 
+    protected function getNavProcessFactorCreator($step){
+
+        return [
+            "nav" =>
+                [
+                    [
+                    "route" => "customer.create-factor.index" ,
+                    "title" => "فاکتور جدید"
+                    ]
+                ],
+            "stepFactor" => $step ,
+        ];
+    }
+
+
+
+
+
     protected function getFactorTemplate(){
         return  ContextRepository::TemplateFactorRepository()->GetInfoTemplateFactor();
     }

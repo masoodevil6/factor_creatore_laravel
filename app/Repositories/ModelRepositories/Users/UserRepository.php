@@ -169,11 +169,20 @@ class UserRepository extends BaseRepository implements IUserRepository {
 
 
 
-
+    function CheckExistImageUserLogo(){
+        $userLogo = $this->GetUserAuthInfo()->logo;
+        if (!empty($userLogo) && Storage::exists($this->GetUserAuthInfo()->logo)){
+            return true;
+        }
+        return false;
+    }
 
     function GetImageUserLogo()
     {
-        return Storage::download($this->GetUserAuthInfo()->logo);
+        if ($this->CheckExistImageUserLogo()){
+            return Storage::download($this->GetUserAuthInfo()->logo);
+        }
+        return null;
     }
 
     function UploadImageUserLogo($logoFile)
@@ -191,11 +200,14 @@ class UserRepository extends BaseRepository implements IUserRepository {
     function DeleteImageUserLogo()
     {
         $locationLogo = $this->GetUserAuthInfo()->logo;
-        if (!empty($locationLogo) && Storage::exists($locationLogo)){
+        if (!empty($locationLogo)){
             $this->updateResult($this->GetUserAuthInfo() , [
                 "logo" => null
             ]);
-            Storage::delete($locationLogo);
+
+            if (Storage::exists($locationLogo)){
+                Storage::delete($locationLogo);
+            }
         }
     }
 
@@ -205,11 +217,20 @@ class UserRepository extends BaseRepository implements IUserRepository {
 
 
 
-
+    function CheckExistImageUserMohr(){
+        $userMohr = $this->GetUserAuthInfo()->mohr;
+        if (!empty($userMohr) && Storage::exists($this->GetUserAuthInfo()->mohr)){
+            return true;
+        }
+        return false;
+    }
 
     function GetImageUserMohr()
     {
-        return Storage::download($this->GetUserAuthInfo()->mohr);
+        if ($this->CheckExistImageUserMohr()){
+            return Storage::download($this->GetUserAuthInfo()->mohr);
+        }
+        return null;
     }
 
     function UploadImageUserMohr($mohrFile)
@@ -227,13 +248,43 @@ class UserRepository extends BaseRepository implements IUserRepository {
     function DeleteImageUserMohr()
     {
         $locationMohr = $this->GetUserAuthInfo()->mohr;
-        if (!empty($locationMohr) && Storage::exists($locationMohr)){
+        if (!empty($locationMohr)){
             $this->updateResult($this->GetUserAuthInfo() , [
                 "mohr" => null
             ]);
-            Storage::delete($locationMohr);
+
+            if (Storage::exists($locationMohr)){
+                Storage::delete($locationMohr);
+            }
         }
     }
+
+
+
+
+
+
+    public function getPathUser(): string
+    {
+        return $this->pathUser;
+    }
+
+    public function getDirectoryUserFactors(): string
+    {
+        return $this->directoryUserFactors;
+    }
+
+    public function getDirectoryUserLogo(): string
+    {
+        return $this->directoryUserLogo;
+    }
+
+    public function getDirectoryUserMohr(): string
+    {
+        return $this->directoryUserMohr;
+    }
+
+
 
 
 
@@ -245,24 +296,24 @@ class UserRepository extends BaseRepository implements IUserRepository {
 
 
     /////--------------------------------------------------
-    protected function uploadUserImageServer($fileImage , $type=""){
+    public function uploadUserImageServer($fileImage , $type=""){
 
         $imageService = new ImageService();
 
-        $imageService->setExclusiveDirectory($this->pathUser);
+        $imageService->setExclusiveDirectory($this->getPathUser());
         if ($type == "logo"){
-            $imageService->setImageDirectory($this->directoryUserLogo);
+            $imageService->setImageDirectory($this->getDirectoryUserLogo());
         }
         else if ($type == "mohr"){
-            $imageService->setImageDirectory($this->directoryUserMohr);
+            $imageService->setImageDirectory($this->getDirectoryUserMohr());
         }
 
         return $imageService -> save($fileImage , false , "storage");
     }
 
-    protected function DeleteUserFolderInPublicDirectory(){
+    public function DeleteUserFolderInPublicDirectory(){
         $imageService = new ImageService();
-        $imageService->deleteDirectoryAndFiles(public_path("users"));
+        $imageService->deleteDirectoryAndFiles(public_path($this->getPathUser()));
     }
 
 

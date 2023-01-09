@@ -11,14 +11,12 @@ class FactorInfoController extends BaseFactorController
 {
     public function index(){
 
-        $nav = [
-            [
-                "route" => "customer.create-factor.index" ,
-                "title" => "فاکتور جدید"
-            ]
-        ];
-        $stepFactor = 1;
+        $infoPage = $this->getNavProcessFactorCreator(1);
+        $nav = $infoPage["nav"];
+        $stepFactor = $infoPage["stepFactor"];
         ///----------------------------------------------------------------
+
+        $this->setFormIdInTemplateFactor();
 
         $factor = $this->getFactorTemplate();
         $userStores = ContextRepository::UserStoreRepository()->GetStoresAuthUser();
@@ -51,6 +49,16 @@ class FactorInfoController extends BaseFactorController
         return redirect()->route("customer.products-factor.index");
     }
 
+
+
+
+
+    //////===============================================
+    private function setFormIdInTemplateFactor(){
+        if (isset($_GET["form"])){
+            ContextRepository::TemplateFactorRepository()->SetFormTemplateFactor($_GET["form"]);
+        }
+    }
 
 
 

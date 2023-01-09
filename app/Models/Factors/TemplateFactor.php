@@ -16,10 +16,16 @@ class TemplateFactor extends Model
         "customer_name" , "customer_phone", "customer_address",
         "logo_name", "mohr_name",
         "form_id", "user_id",
+        "type_logo", "type_mohr",
         "status"];
 
     protected $with=["products"];
 
+
+    ///type_logo and type_mohr
+    /// -1 => empty
+    /// 0 => in panel client
+    /// 1 => uploaded in template factor
 
 
     ///==============================================
