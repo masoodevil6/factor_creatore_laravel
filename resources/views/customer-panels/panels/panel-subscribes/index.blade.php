@@ -2,10 +2,13 @@
 
     <link rel="stylesheet" href="{{asset("public/sweetalert/sweetalert2.css")}}">
     <meta name="url-get-info-user-subscribe" content="{{ route("customer-panel.subscribes.get-info-user-subscribe") }}" />
+    <script src="{{asset("plugins/canvas/canvasjs.min.js")}}"></script>
 
     @include("customer-panels.panels.top-title-panel")
 
     <section id="form-list-user-store">
+        @include("customer-panels.panels.panel-subscribes.subscribe-actives")
+
         @include("customer-panels.panels.panel-subscribes.list-subscribes")
     </section>
 

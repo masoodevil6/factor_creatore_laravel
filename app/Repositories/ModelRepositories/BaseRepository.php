@@ -9,16 +9,25 @@ use mysqli_sql_exception;
 
 class BaseRepository  implements IBaseRepository {
 
+    private $baseModel;
     protected $model;
     public function __construct(Model $model)
     {
-        $this->model = $model;
+        $this->baseModel = $model;
+        $this->resetClassModel();
     }
+
+    function resetClassModel()
+    {
+        $this->model = $this->baseModel;
+    }
+
 
 
 
     function getAllResult($ifStatus=false)
     {
+        $this->resetClassModel();
         $res = $this->model;
         if ($ifStatus){
             $res =$res->where("status" , 1);
@@ -28,6 +37,7 @@ class BaseRepository  implements IBaseRepository {
 
     function getPaginateResult($ifStatus=false ,$numInPage = 15 )
     {
+        $this->resetClassModel();
         $res = $this->model;
         if ($ifStatus){
             $res =$res->where("status" , 1);
@@ -38,6 +48,7 @@ class BaseRepository  implements IBaseRepository {
 
     function getResult($resultId , $ifStatus=false)
     {
+        $this->resetClassModel();
         $res = $this->model;
         if ($ifStatus){
             $res =$res->where("status" , 1);
@@ -48,6 +59,7 @@ class BaseRepository  implements IBaseRepository {
 
     function addResult($result)
     {
+        $this->resetClassModel();
         try{
             return $this->model->create($result);
         }
@@ -59,6 +71,7 @@ class BaseRepository  implements IBaseRepository {
 
     function changeStatusResult(Model $result, $field = "status" , $defaultValue=null)
     {
+        $this->resetClassModel();
         $resultExp=[
             "status" => true ,
             "exp" => null
@@ -95,6 +108,7 @@ class BaseRepository  implements IBaseRepository {
 
     function updateResult(Model $result , $data) : bool
     {
+        $this->resetClassModel();
         try{
             $result->update($data);
             return true;
@@ -107,6 +121,7 @@ class BaseRepository  implements IBaseRepository {
 
     function deleteResult(Model $result) : bool
     {
+        $this->resetClassModel();
         try{
             if (get_class($result) == get_class($this->model)){
                 $result->delete();
@@ -121,6 +136,7 @@ class BaseRepository  implements IBaseRepository {
 
     function deleteResultById($resultId): bool
     {
+        $this->resetClassModel();
         return $this->deleteResult($this->getResult($resultId));
     }
 

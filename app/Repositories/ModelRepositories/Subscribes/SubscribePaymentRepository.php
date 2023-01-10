@@ -6,6 +6,7 @@ use App\Repositories\ContextRepository;
 use App\Repositories\InterFaceRepositories\Subscribes\ISubscribePaymentRepository;
 use App\Repositories\ModelRepositories\BaseRepository;
 use Carbon\Carbon;
+use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\DB;
 
 class SubscribePaymentRepository extends BaseRepository implements ISubscribePaymentRepository {
@@ -135,14 +136,36 @@ class SubscribePaymentRepository extends BaseRepository implements ISubscribePay
 
     function GetSubscribeActiveNow()
     {
+        $this->resetClassModel();
         return $this->model
-            ->select(["subscribe_payments.*" , "subscribes.*" , DB::raw("ADDDATE(subscribe_payments.time_set, INTERVAL subscribes.duration MONTH) as time_end")])
+            ->select(
+                [
+                    "subscribe_payments.*" ,
+                    "subscribes.*" ,
+                    DB::raw("ADDDATE(subscribe_payments.time_set, INTERVAL subscribes.duration MONTH) as time_end")
+                ]
+            )
             ->join('subscribes', 'subscribe_payments.subscribe_id', "=", 'subscribes.id')
             ->where(DB::raw("CURRENT_TIMESTAMP") , "<=" , DB::raw("ADDDATE(subscribe_payments.time_set, INTERVAL subscribes.duration MONTH)"))
             ->get();
     }
 
 
+
+    function GetSubscribeActiveNowWithTimeStamp()
+    {
+        $SubscribesActive = $this->GetSubscribeActiveNow();
+        foreach ($SubscribesActive as $key => $itemSubscribe){
+            $now = Carbon::now();
+            $timerStart = Carbon::parse($itemSubscribe->time_set);
+            $timerEnd = Carbon::parse($itemSubscribe->time_set)->addMonth($itemSubscribe->duration);
+
+            $SubscribesActive[$key]-> start_to_now = $timerStart->diffInDays($now->toDateTimeString());
+            $SubscribesActive[$key]-> now_to_end   = $now->diffInDays($timerEnd->toDateTimeString());
+            $SubscribesActive[$key]-> start_to_end = $timerStart->diffInDays($timerEnd->toDateTimeString());
+        }
+        return $SubscribesActive;
+    }
 
 
 
@@ -211,6 +234,9 @@ class SubscribePaymentRepository extends BaseRepository implements ISubscribePay
         }
         return false;
     }
+
+
+
 
 
 }

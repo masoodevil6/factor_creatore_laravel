@@ -19,7 +19,8 @@ class PanelSubscribeCustomer extends BasePanelCustomer implements IPanelSubscrib
         $titleFa = $this->getTitleFa();
         $titleEn = $this->getTitleEn();
         $userSubscribes = ContextRepository::SubscribePaymentRepository()->GetAllSubscribeAuthUser();
-        return view("customer-panels.panels.panel-subscribes.index" , compact("titleFa" , "titleEn" ,  "userSubscribes"))->render();
+        $subscribeActive = ContextRepository::SubscribePaymentRepository()->GetSubscribeActiveNowWithTimeStamp();
+        return view("customer-panels.panels.panel-subscribes.index" , compact("titleFa" , "titleEn" ,  "userSubscribes" , "subscribeActive"))->render();
     }
 
     public function getInfoUserSubscribe($userSubscribeId){

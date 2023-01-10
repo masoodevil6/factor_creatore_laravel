@@ -1,5 +1,5 @@
 @if(sizeof($userSubscribes) > 0)
-    <section class="border border-dark shadow bg-white mt-2 mt-lg-0 ">
+    <section class="border border-dark shadow bg-white mt-2 ">
 
         <section class="border-bottom border-dark color-family-1 text-center text-white">
             اشتراک ها
@@ -104,10 +104,10 @@
 
     </section>
 @else
-    <x-component-not-exist-item
-            title="اشتراکی"/>
-@endif
 
-<a href="#"  class="float-left font-size-md btn btn-success rounded  text-white text-center mt-2 py-1 shadow">
-    خرید اشتراک
-</a>
+    <section class="mt-2">
+        <x-component-not-exist-item
+                title="اشتراکی"/>
+    </section>
+
+@endif

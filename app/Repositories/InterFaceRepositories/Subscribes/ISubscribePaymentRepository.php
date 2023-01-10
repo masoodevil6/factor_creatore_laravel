@@ -22,4 +22,5 @@ interface ISubscribePaymentRepository extends IBaseRepository {
 
 
     function GetSubscribeActiveNow();
+    function GetSubscribeActiveNowWithTimeStamp();
 }

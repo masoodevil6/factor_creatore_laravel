@@ -56,34 +56,37 @@
 
 
 .btn-one{
-    left: -30px;
-    top: -30px;
+    left: -10px;
+    top: -10px;
 }
 .btn-one:hover {
-    left: -35px;
-    top: -35px;
+    left: -15px;
+    top: -15px;
 }
 
 
 
 .btn-two{
-    left: -30px;
-    top: 5px;
+    left: 30px;
+    top: -10px;
 }
 .btn-two:hover{
-    left: -35px;
-    top: 0;
+    left: 25px;
+    top: -15px;
 }
 
 
 .btn-three{
-    left: -30px;
-    top: 40px;
+    left: 70px;
+    top: -10px;
 }
 .btn-three:hover{
-    left: -35px;
-    top: 35px;
+    left: 65px;
+    top: -15px;
 }
 
 
 
+.chart-doughnut div{
+    direction: ltr;
+}

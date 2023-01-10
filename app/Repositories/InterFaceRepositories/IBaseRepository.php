@@ -10,6 +10,8 @@ use Illuminate\Database\Eloquent\Model;
 
 interface IBaseRepository
 {
+    function resetClassModel();
+
     function getAllResult($ifStatus=false);
 
     function getPaginateResult( $ifStatus=false , $numInPage=15);

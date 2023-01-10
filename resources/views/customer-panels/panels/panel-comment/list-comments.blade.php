@@ -21,7 +21,7 @@
                         </section>
 
                         <section class="col-md-4 col-12">
-                            <section class="@if($itemComment["comment"]->approved == 1) text-success @else text-danger @endif text-left gray-200 rounded mx-2 my-1 float-left px-2 py-1">
+                            <section class="@if($itemComment["comment"]->approved == 1) text-success @else text-danger @endif text-left gray-200 rounded ml-5 mr-2 my-1 float-left px-2 py-1">
                                 @if($itemComment["comment"]->approved == 1)
                                     تایید شده
                                 @else

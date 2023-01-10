@@ -1,5 +1,5 @@
 @foreach($subscribes as $itemSubscribe)
-    <a href="{{route("customer.subscribes.info" , $itemSubscribe["slug"])}}" class="text-decoration-none d-block text-dark m-0 p-0 border border-dark my-2 w-100 m-0 shadow bg-white font-size-md cursor-pointer pb-1">
+    <a href="{{route("customer.subscribes.info" , $itemSubscribe["slug"])}}" class="text-decoration-none d-block text-dark m-0 p-0 border border-dark my-3 w-100 m-0 shadow bg-white font-size-md cursor-pointer pb-1">
         <p  class="font-size-lg border-bottom border-dark col-12 color-family-1 text-white px-2 p-1 m-0 ">
             نام اشتراک:
             <span class="font-weight-bold mr-2 ">
@@ -12,6 +12,13 @@
             <div class="m-1 max-height-100px hidden-end-text text-justify">
                 {!! $itemSubscribe["description"] !!}
             </div>
+
+            @if(isset($itemSubscribe["active"]) && $itemSubscribe["active"])
+                <p class="bg-success text-white rounded mb-1 font-size-lg my-2 d-inline-block px-2">
+                    <i class="fa fa-check font-size-xlg mx-2"></i>
+                    در حال حاضر، اشتراک فوق برای شما فعال می باشد
+                </p>
+            @endif
 
             <section class="col-12 row  justify-content-lg-between">
                 <section class="col-12 col-lg-6 p-0">
@@ -70,23 +77,23 @@
                             فعال سازی
                             <i class="fa fa-check mr-1"></i>
                         </p>
-                    @elseif($itemSubscribe["active"])
-                        <p class="bg-success text-white rounded mb-1 font-size-lg my-2 my-lg-0">
-                            <i class="fa fa-check font-size-xlg mx-2"></i>
-                            در حال حاضر، اشتراک فوق برای شما فعال می باشد
+                    @elseif(isset($itemSubscribe["active"]) && $itemSubscribe["active"])
 
-                            <span class="p-1 m-0    text-center btn btn-info font-size-md  border border-dark text-hover-white  px-2 m-2">
-                                مشاهده اطلاعات
-                                <i class="fa fa-eye mr-1"></i>
-                            </span>
-                        </p>
+                        <span class="p-1 m-0  my-2 my-lg-0  text-center btn btn-info font-size-md  border border-dark text-hover-white  float-left px-2">
+                            مشاهده اطلاعات
+                            <i class="fa fa-eye mr-1"></i>
+                        </span>
 
                     @endif
 
                 </section>
 
             </section>
+
+
         </section>
+
+
 
         <p class="col-12 text-white mx-0 mt-1 mb-0 blue-gray-200">
             چند نمونه:

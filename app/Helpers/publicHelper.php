@@ -31,6 +31,23 @@ function getArrayJaliliDate($date){
     ];
 }
 
+function getYearFromTimeStamp($timeStamp){
+    return ceil($timeStamp/(60*60*24*30*12));
+}
+function getMouthFromTimeStamp($timeStamp){
+    return ceil($timeStamp/(60*60*24*30));
+}
+function getDayFromTimeStamp($timeStamp){
+    return ceil($timeStamp/(60*60*24));
+}
+function getHourFromTimeStamp($timeStamp){
+    return ceil($timeStamp/(60*60));
+}
+function getMinuteFromTimeStamp($timeStamp){
+    return ceil($timeStamp/(60));
+}
+
+
 
 function persianPriceFormat($price){
     $price = number_format($price , 0 , "/" , ",");
