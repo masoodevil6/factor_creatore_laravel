@@ -73,7 +73,7 @@
     color: white;
 }
 
-main{
+.body-container{
     min-height : calc(100vh - 180px);
 }
 

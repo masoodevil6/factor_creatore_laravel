@@ -16,6 +16,14 @@ class TemplateFactorRepository extends BaseRepository implements ITemplateFactor
     }
 
 
+    function CheckExistTemplateFactor()
+    {
+        return $this->model
+            ->where("user_id" , ContextRepository::UserRepository()->GetUserAuthId())
+            ->exists();
+    }
+
+
     function GetInfoTemplateFactor()
     {
         $templateFactor =
@@ -218,6 +226,7 @@ class TemplateFactorRepository extends BaseRepository implements ITemplateFactor
             }
         }
     }
+
 
 
 }

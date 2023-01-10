@@ -34,21 +34,38 @@ class Subscribe extends Model
     /// functions
     /// ==============================================
 
-    public static function totalPrice() :Attribute{
+
+    public static function realPriceText() :Attribute{
 
         return Attribute::make(
-            get: fn($attr , $value) => self::getTotalPrice($value["real_price"] ,$value["off_price"])
+            get: fn($attr , $value) =>  (isset($value["real_price"])) ? persianPriceFormat($value["real_price"]) : 0
         );
     }
 
-    public static function getTotalPrice($realPrice , $offPrice){
-        $resultExp = 0;
-        if ($realPrice != null){
-            $offPrice = (int) $offPrice;
-            $resultExp = $realPrice - $offPrice;
-        }
-        return $resultExp;
+    public static function offPriceText() :Attribute{
+
+        return Attribute::make(
+            get: fn($attr , $value) =>  (isset($value["off_price"])) ? persianPriceFormat($value["off_price"]) : 0
+        );
     }
+
+
+    public static function totalPrice() :Attribute{
+
+        return Attribute::make(
+            get: fn($attr , $value) =>  (isset($value["real_price"]) && $value["off_price"]) ? ($value["real_price"] - $value["off_price"]) : 0
+        );
+    }
+
+    public static function totalPriceText() :Attribute{
+
+        return Attribute::make(
+            get: fn($attr , $value) =>  (isset($value["real_price"]) && $value["off_price"]) ? persianPriceFormat($value["real_price"] - $value["off_price"]) : 0
+        );
+    }
+
+
+
 
 
 

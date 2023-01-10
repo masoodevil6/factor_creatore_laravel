@@ -16,6 +16,10 @@
 
     @include("factor-creator.navigation-factor-creator")
 
+    @include("factor-creator.error-message")
+
+
+
     <section class="border border-dark shadow mt-2 p-0 rounded bg-white">
 
         @include("factor-creator.images.logo.image-logo")
@@ -26,9 +30,9 @@
         <form id="form-go-to-next-step-process"  action="{{route("customer.images-factor.go-to-next-step-process")}}" method="post" class="">
             @csrf
 
-            <input type="hidden" name="type_logo_name" value="{{$factor->type_logo}}">
+            <input type="hidden" name="type_logo_name" value="{{$defaultTypeLogo}}">
             <x-input-errors field="type_logo_name"/>
-            <input type="hidden" name="type_mohr_name" value="{{$factor->type_mohr}}">
+            <input type="hidden" name="type_mohr_name" value="{{$defaultTypeMohr}}">
             <x-input-errors field="type_mohr_name"/>
 
             <section class="row mt-2 mx-2">

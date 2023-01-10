@@ -22,15 +22,6 @@
 
                         <section class="d-lg-flex d-block border-bottom border gray-300 ">
                             <section class="col-12 col-lg-4 border-lg-left  border-white gray-100 font-weight-bold">
-                                شماره
-                            </section>
-                            <section class="col-12 col-lg-8 ">
-                                {{$key+1}}
-                            </section>
-                        </section>
-
-                        <section class="d-lg-flex d-block border-bottom border blue-gray-300 text-white border-white">
-                            <section class="col-12 col-lg-4 border-lg-left blue-gray-200 font-weight-bold">
                                 شماره فاکتور
                             </section>
                             <section class="col-12 col-lg-8 ">
@@ -38,8 +29,8 @@
                             </section>
                         </section>
 
-                        <section class="d-lg-flex d-block border-bottom border gray-300 ">
-                            <section class="col-12 col-lg-4 border-lg-left  border-white gray-100 font-weight-bold">
+                        <section class="d-lg-flex d-block border-bottom border blue-gray-300 text-white border-white">
+                            <section class="col-12 col-lg-4 border-lg-left blue-gray-200 font-weight-bold">
                                 فروشگاه
                             </section>
                             <section class="col-12 col-lg-8 ">
@@ -47,8 +38,8 @@
                             </section>
                         </section>
 
-                        <section class="d-lg-flex d-block border-bottom border blue-gray-300 text-white border-white">
-                            <section class="col-12 col-lg-4 border-lg-left blue-gray-200 font-weight-bold">
+                        <section class="d-lg-flex d-block border-bottom border gray-300 ">
+                            <section class="col-12 col-lg-4 border-lg-left  border-white gray-100 font-weight-bold">
                                 خریدار
                             </section>
                             <section class="col-12 col-lg-8 ">
@@ -56,10 +47,8 @@
                             </section>
                         </section>
 
-
-
-                        <section class="d-lg-flex d-block border-bottom border gray-300 ">
-                            <section class="col-12 col-lg-4 border-lg-left  border-white gray-100 font-weight-bold">
+                        <section class="d-lg-flex d-block border-bottom border blue-gray-300 text-white border-white">
+                            <section class="col-12 col-lg-4 border-lg-left blue-gray-200 font-weight-bold">
                                 مبلغ کل
                             </section>
                             <section class="col-12 col-lg-8 ">

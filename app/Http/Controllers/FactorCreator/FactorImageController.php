@@ -23,9 +23,15 @@ class FactorImageController extends BaseFactorController
         $userLogo = ContextRepository::UserRepository()->CheckExistImageUserLogo();
         $userMohr = ContextRepository::UserRepository()->CheckExistImageUserMohr();
 
+        $defaultTypeLogo = $this->setDefaultTypeLogoName($factor);
+        $defaultTypeMohr = $this->setDefaultTypeMohrName($factor);
+
         return view("factor-creator.images.index" ,
             compact(
-                "nav" , "stepFactor" , "factor" , "userLogo" , "userMohr" )
+                "nav" , "stepFactor" ,
+                "factor" , "userLogo" , "userMohr" ,
+                "defaultTypeLogo" , "defaultTypeMohr"
+            )
         );
     }
 
@@ -74,6 +80,21 @@ class FactorImageController extends BaseFactorController
     }
 
     //// =========================================
+
+
+    private function setDefaultTypeLogoName($factor){
+        if (!empty($factor->logo_name)){
+            return 1;
+        }
+        return $factor->type_logo;
+    }
+
+    private function setDefaultTypeMohrName($factor){
+        if (!empty($factor->mohr_name)){
+            return 1;
+        }
+        return $factor->type_mohr;
+    }
 
 
 }

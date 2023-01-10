@@ -11,6 +11,39 @@
 @section('main')
 
     @include("factor-creator.navigation-factor-creator")
+    @include("factor-creator.error-message")
+
+
+    <section class=" border border-dark shadow bg-white mt-2 py-1 bg-white row px-2 m-0 d-block">
+
+        <x-component-total-info-factor
+                :factor-info='$factor->getFactorModel()'
+                :products="$factor -> getProducts()"
+                :total-price="$factor -> getTotalPrice()"/>
+
+        <section class="row m-0">
+
+            <section class="col-6">
+                <a href="{{route("customer-panel.factors.download-user-factor" , $factor->getFactorModel()->getResNum())}}" type="submit" class="float-right font-size-md btn btn-success rounded  text-white text-center mt-2 py-1 shadow mr-2">
+                    <i class="fa fa-download text-white"></i>
+                    دانلود
+                </a>
+            </section>
+
+            <section class="col-6">
+                <a href="{{route("customer-panel.home" , "factors")}}" type="submit" class="float-left font-size-md btn btn-success rounded  text-white text-center mt-2 py-1 shadow mr-2">
+                    <i class="fa fa-list text-white"></i>
+                    مشاهده همه فاکتورها
+                </a>
+            </section>
+
+
+
+
+        </section>
+
+    </section>
+
 
 
 @endsection

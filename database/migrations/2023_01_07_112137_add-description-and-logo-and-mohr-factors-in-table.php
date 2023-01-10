@@ -14,8 +14,8 @@ return new class extends Migration
     public function up()
     {
         Schema::table('factors', function (Blueprint $table) {
-            $table->text("description")->nullable();
-            $table->text("mohr_name")->nullable();
+            $table->text("description")->nullable()->after("res_num");
+            $table->text("mohr_name")->nullable()->after("logo_name");
         });
     }
 

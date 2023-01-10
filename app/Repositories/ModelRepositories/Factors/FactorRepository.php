@@ -65,6 +65,7 @@ class FactorRepository extends BaseRepository implements IFactorRepository {
 
         return $this->model
             ->where("user_id" , ContextRepository::UserRepository()->GetUserAuthId())
+            ->orderby("id" , "desc")
             ->paginate($numInPage);
     }
 
@@ -151,8 +152,8 @@ class FactorRepository extends BaseRepository implements IFactorRepository {
 
                 $factor = $this->addResult($dataFactor);
 
-                foreach ($templateFactor->products as $itemProduct){
 
+                foreach ($templateFactor->products as $itemProduct){
                     ContextRepository::FactorProductRepository()->addResult([
                         "name" => $itemProduct-> name ,
                         "num" => $itemProduct-> num ,
@@ -165,8 +166,7 @@ class FactorRepository extends BaseRepository implements IFactorRepository {
 
                 ContextRepository::TemplateFactorRepository()->deleteResultById($templateFactor->id);
 
-
-                return $resNum;
+                return $factor;
 
             }
 

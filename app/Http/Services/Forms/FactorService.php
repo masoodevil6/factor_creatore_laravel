@@ -3,6 +3,7 @@ namespace App\Http\Services\Forms;
 
 
 use App\Models\Factors\Factor;
+use App\Repositories\ContextRepository;
 use Illuminate\Support\Facades\Storage;
 
 class FactorService{
@@ -23,7 +24,11 @@ class FactorService{
 
 
     public function downloadFactor(Factor $factor){
-        $location = "users/".$factor->user_id."/factors/".$factor->res_num.".pdf";
+        $pathFile = ContextRepository::UserRepository()->getPathUser();
+        $directoryFactor = ContextRepository::UserRepository()->getDirectoryUserFactors();
+        $fileName = $factor->res_num.".pdf";
+        $location = $pathFile.$directoryFactor.$fileName;
+
         if (Storage::exists($location)){
             return Storage::download($location);
         }

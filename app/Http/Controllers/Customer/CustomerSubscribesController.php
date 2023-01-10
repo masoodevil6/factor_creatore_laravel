@@ -27,7 +27,7 @@ class CustomerSubscribesController extends CustomerMainController
 
     public function info($slug){
         $subscribe = ContextRepository::SubscribeRepository()->GetInfoSubscribe($slug);
-        if (sizeof($subscribe)>0){
+        if (!empty($subscribe)){
             $nav = [
                 [
                     "route" => "customer.subscribes.list" ,
@@ -35,15 +35,18 @@ class CustomerSubscribesController extends CustomerMainController
                 ] ,
                 [
                     "route" => "customer.subscribes.info" ,
-                    "valueRoute" => $subscribe->info["slug"] ,
-                    "title" => "اشتراک: ".$subscribe->info["title"]
+                    "valueRoute" => $subscribe->slug,
+                    "title" => "اشتراک: ".$subscribe->title
                 ]
             ];
-            return view("customer.subscribes.subscribe-info.index" , compact("nav" , "subscribe"));
+
+            return view("customer.subscribes.subscribe-info.index" , compact("nav" , "subscribe" ));
         }
         else{
             return redirect()->route("customer.subscribes.list");
         }
     }
+
+
 
 }

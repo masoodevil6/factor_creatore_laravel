@@ -10,6 +10,8 @@
 @section('main')
 
     @include("factor-creator.navigation-factor-creator")
+    @include("factor-creator.error-message")
+
 
     @include("factor-creator.info.info-factor")
 

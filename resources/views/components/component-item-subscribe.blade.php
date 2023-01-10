@@ -64,10 +64,25 @@
 
 
                 <section class="col-12 col-lg-4">
-                    <p class="p-1 m-0  my-2 my-lg-0  text-center btn btn-info font-size-md  border border-dark text-hover-white  float-left px-2">
-                        فعال سازی
-                        <i class="fa fa-check mr-1"></i>
-                    </p>
+
+                    @if(!$itemSubscribe["active"] || !isset($itemSubscribe["active"]))
+                        <p class="p-1 m-0  my-2 my-lg-0  text-center btn btn-info font-size-md  border border-dark text-hover-white  float-left px-2">
+                            فعال سازی
+                            <i class="fa fa-check mr-1"></i>
+                        </p>
+                    @elseif($itemSubscribe["active"])
+                        <p class="bg-success text-white rounded mb-1 font-size-lg my-2 my-lg-0">
+                            <i class="fa fa-check font-size-xlg mx-2"></i>
+                            در حال حاضر، اشتراک فوق برای شما فعال می باشد
+
+                            <span class="p-1 m-0    text-center btn btn-info font-size-md  border border-dark text-hover-white  px-2 m-2">
+                                مشاهده اطلاعات
+                                <i class="fa fa-eye mr-1"></i>
+                            </span>
+                        </p>
+
+                    @endif
+
                 </section>
 
             </section>

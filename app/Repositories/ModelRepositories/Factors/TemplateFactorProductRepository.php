@@ -18,6 +18,17 @@ class TemplateFactorProductRepository extends BaseRepository implements ITemplat
 
 
 
+    function CheckExistProductInTemplateFactorAuth()
+    {
+        return $this->model
+            ->join("template_factors" , function ($join){
+                $join->on("template_factor_products.template_factor_id" , "=" , "template_factors.id")
+                    ->where("template_factors.user_id" , ContextRepository::UserRepository()->GetUserAuthId());
+            })
+            ->exists();
+    }
+
+
     function GetInfoFactorProduct($templateFactorProductId = null)
     {
         $factorProduct=null;
@@ -85,5 +96,6 @@ class TemplateFactorProductRepository extends BaseRepository implements ITemplat
     protected function getMainTemplateFactor(){
         return ContextRepository::TemplateFactorRepository()->GetInfoTemplateFactor();
     }
+
 
 }

@@ -1,4 +1,4 @@
-<section id="section-upload-image-logo-user" class="col-12  mt-2 mx-0 @if($factor->type_logo==1) d-block @else d-none @endif">
+<section id="section-upload-image-logo-user" class="col-12  mt-2 mx-0 @if($defaultTypeLogo==1) d-block @else d-none @endif">
 
     <section class="row  mx-0 border border-dark rounded py-2 ">
 

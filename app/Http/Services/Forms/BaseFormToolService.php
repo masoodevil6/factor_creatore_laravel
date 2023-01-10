@@ -106,7 +106,8 @@ class BaseFormToolService{
     public function getFactorFileInfo()
     {
         return [
-            "fileLocation" => "users/".$this->userId."/factors/" ,
+            /////"fileLocation" => "users/".$this->userId."/factors/" ,
+            "fileLocation" => ContextRepository::UserRepository()->getPathUser().ContextRepository::UserRepository()->getDirectoryUserFactors() ,
             "fileName" => $this->factorRes.".pdf" ,
         ];
     }

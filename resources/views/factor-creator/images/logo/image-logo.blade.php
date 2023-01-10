@@ -17,17 +17,17 @@
             <section class="col-8">
                 <select onchange="changeTypeLogoName(this)" id="select-option-type-logo" name="type_image_name" class="float-right form-control form-control-sm form-text font-size-12 my-0" aria-label="Default select example">
 
-                    <option value="-1" @if($factor->type_logo == -1) selected @endif>
+                    <option value="-1" @if($defaultTypeLogo == -1) selected @endif>
                         بدون تصویر لوگو
                     </option>
 
                     @if($userLogo)
-                        <option value="0" @if($factor->type_logo == 0) selected @endif>
+                        <option value="0" @if($defaultTypeLogo == 0) selected @endif>
                             تصویر لوگوی پیش فرض
                         </option>
                     @endif
 
-                    <option value="1" @if($factor->type_logo == 1) selected @endif>
+                    <option value="1" @if($defaultTypeLogo == 1) selected @endif>
                         آپلود لوگو جدید
                     </option>
 

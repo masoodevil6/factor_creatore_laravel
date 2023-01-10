@@ -19,17 +19,17 @@
             <section class="col-8">
                 <select onchange="changeTypeMohtName(this)" id="select-option-type-mohr" name="type_image_name" class="float-right form-control form-control-sm form-text font-size-12 my-0" aria-label="Default select example">
 
-                    <option value="-1" @if($factor->type_mohr == -1) selected @endif>
+                    <option value="-1" @if($defaultTypeMohr == -1) selected @endif>
                         بدون تصویر مهر
                     </option>
 
                     @if($userMohr)
-                        <option value="0" @if($factor->type_mohr == 0) selected @endif>
+                        <option value="0" @if($defaultTypeMohr == 0) selected @endif>
                             تصویر مهر پیش فرض
                         </option>
                     @endif
 
-                    <option value="1" @if($factor->type_mohr == 1) selected @endif>
+                    <option value="1" @if($defaultTypeMohr == 1) selected @endif>
                         آپلود مهر جدید
                     </option>
 

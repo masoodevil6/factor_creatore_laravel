@@ -5,7 +5,7 @@
     </p>
 
     <x-component-item-subscribe
-            :subscribes="$subscribes->list"/>
+            :subscribes="$subscribes"/>
 
     <x-row-tables.admin.component-pageinate-panels
             :list="$subscribes"/>

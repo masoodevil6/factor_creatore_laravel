@@ -18,16 +18,15 @@ return new class extends Migration
 
             $table->string("res_num");
 
-            $table->string("store_name")->default("");
-            $table->string("store_phone")->default("");
-            $table->string("store_address")->default("");
+            $table->string("store_name")->nullable();
+            $table->string("store_phone")->nullable();
+            $table->string("store_address")->nullable();
 
-            $table->string("customer_name")->default("");
-            $table->string("customer_phone")->default("");
-            $table->string("customer_address")->default("");
+            $table->string("customer_name")->nullable();
+            $table->string("customer_phone")->nullable();
+            $table->string("customer_address")->nullable();
 
-            $table->string("file_name")->default("");
-            $table->string("logo_name")->default("");
+            $table->string("logo_name")->nullable();
 
             $table->foreignId("form_id")->nullable()->constrained("forms");
             $table->foreignId("user_id")->nullable()->constrained("users")->onUpdate("cascade")->onDelete("cascade");

@@ -16,10 +16,10 @@ return new class extends Migration
         Schema::create('factor_products', function (Blueprint $table) {
             $table->id();
 
-            $table->string("name")->default("");
+            $table->string("name")->nullable();
             $table->float("num")->default(1.0);
-            $table->string("unit")->default("");
-            $table->bigInteger("price")->default(0);
+            $table->string("unit")->nullable();
+            $table->bigInteger("price")->nullable();
 
             $table->foreignId("factor_id")->constrained("factors")->onUpdate("cascade")->onDelete("cascade");
 

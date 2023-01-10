@@ -13,7 +13,7 @@ use App\Http\Controllers\FactorCreator\FactorCompleteController;
 
 Route::prefix("/info")->controller(FactorInfoController::class)->group(function (){
 
-    Route::get("/{resNum?}" , "index")->name("customer.create-factor.index");
+    Route::get("/" , "index")->name("customer.create-factor.index");
 
     Route::post("/get-info-user-store" , "getInfoUserStore")->name("customer.create-factor.get-info-user-store");
 
@@ -21,52 +21,74 @@ Route::prefix("/info")->controller(FactorInfoController::class)->group(function 
 
 });
 
+
+
 Route::prefix("/products")->controller(FactorProductsController::class)->group(function (){
 
-    Route::get("/" , "index")->name("customer.products-factor.index");
+    Route::middleware("templateFactor")->group(function (){
 
-    Route::Post("/get-info-factor-product" , "getInfoFactorProduct")->name("customer.products-factor.get-info-factor-product");
+        Route::get("/" , "index")->name("customer.products-factor.index");
 
-    Route::Post("/delete-factor-product/{templateFactorProductId}" , "deleteFactorProduct")->name("customer.products-factor.delete-factor-product");
+        Route::Post("/get-info-factor-product" , "getInfoFactorProduct")->name("customer.products-factor.get-info-factor-product");
 
-    Route::Post("/add-factor-product" , "addFactorProduct")->name("customer.products-factor.add-factor-product");
+        Route::Post("/delete-factor-product/{templateFactorProductId}" , "deleteFactorProduct")->name("customer.products-factor.delete-factor-product");
 
-    Route::get("/go-to-next-step-process" , "goToNextStepProcess")->name("customer.products-factor.go-to-next-step-process");
+        Route::Post("/add-factor-product" , "addFactorProduct")->name("customer.products-factor.add-factor-product");
 
+        Route::get("/go-to-next-step-process" , "goToNextStepProcess")->name("customer.products-factor.go-to-next-step-process");
+
+    });
 });
+
+
+
 
 Route::prefix("/images")->controller(FactorImageController::class)->group(function (){
 
-    Route::get("/" , "index")->name("customer.images-factor.index");
+    Route::middleware("templateFactor")->group(function (){
 
-    Route::get("/get-template-logo-image" , "getTemplateLogoImage")->name("customer.images-factor.get-template-logo-image");
-    Route::post("/delete-template-logo-image" , "deleteTemplateLogoImage")->name("customer.images-factor.delete-template-logo-image");
-    Route::post("/upload-template-logo-image" , "uploadTemplateLogoImage")->name("customer.images-factor.upload-template-logo-image");
+        Route::get("/" , "index")->name("customer.images-factor.index");
 
-    Route::get("/get-template-mohr-image" , "getTemplateMohrImage")->name("customer.images-factor.get-template-mohr-image");
-    Route::post("/delete-template-mohr-image" , "deleteTemplateMohrImage")->name("customer.images-factor.delete-template-mohr-image");
-    Route::post("/upload-template-mohr-image" , "uploadTemplateMohrImage")->name("customer.images-factor.upload-template-mohr-image");
+        Route::get("/get-template-logo-image" , "getTemplateLogoImage")->name("customer.images-factor.get-template-logo-image");
+        Route::post("/delete-template-logo-image" , "deleteTemplateLogoImage")->name("customer.images-factor.delete-template-logo-image");
+        Route::post("/upload-template-logo-image" , "uploadTemplateLogoImage")->name("customer.images-factor.upload-template-logo-image");
 
-    Route::post("/go-to-next-step-process" , "goToNextStepProcess")->name("customer.images-factor.go-to-next-step-process");
+        Route::get("/get-template-mohr-image" , "getTemplateMohrImage")->name("customer.images-factor.get-template-mohr-image");
+        Route::post("/delete-template-mohr-image" , "deleteTemplateMohrImage")->name("customer.images-factor.delete-template-mohr-image");
+        Route::post("/upload-template-mohr-image" , "uploadTemplateMohrImage")->name("customer.images-factor.upload-template-mohr-image");
 
+        Route::post("/go-to-next-step-process" , "goToNextStepProcess")->name("customer.images-factor.go-to-next-step-process");
+
+    });
 });
+
+
+
 
 Route::prefix("/forms")->controller(FactorFormsController::class)->group(function (){
 
-    Route::get("/" , "index")->name("customer.forms-factor.index");
+    Route::middleware("templateFactor")->group(function (){
 
-    Route::post("/get-forms-in-form-category" , "getFormsInFormCategory")->name("customer.forms-factor.get-forms-in-form-category");
+        Route::get("/" , "index")->name("customer.forms-factor.index");
 
-    Route::post("/get-info-form" , "getInfoForm")->name("customer.forms-factor.get-info-form");
+        Route::post("/get-forms-in-form-category" , "getFormsInFormCategory")->name("customer.forms-factor.get-forms-in-form-category");
 
-    Route::post("/end-process-select-form" , "endProcessSelectForm")->name("customer.forms-factor.end-process-select-form");
+        Route::post("/get-info-form" , "getInfoForm")->name("customer.forms-factor.get-info-form");
+
+        Route::post("/end-process-select-form" , "endProcessSelectForm")->name("customer.forms-factor.end-process-select-form");
+
+    });
 
 });
 
+
+
+
 Route::prefix("/complete")->controller(FactorCompleteController::class)->group(function (){
 
-    Route::get("/" , "index")->name("customer.complete-factor.index");
+    Route::middleware("templateFactor")->group(function (){
 
-
+        Route::get("/" , "index")->name("customer.complete-factor.index");
+    });
 
 });

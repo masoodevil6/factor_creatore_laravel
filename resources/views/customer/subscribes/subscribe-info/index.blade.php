@@ -1,5 +1,5 @@
 @extends('customer.layouts.master-one-col')
-@section("titlePage" , "اشتراک: ". $subscribe->info["title"])
+@section("titlePage" , "اشتراک: ". $subscribe->title)
 
 
 @section('head-tag')

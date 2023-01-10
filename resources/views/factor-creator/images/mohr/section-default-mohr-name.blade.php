@@ -1,4 +1,4 @@
-<section id="section-default-image-mohr-user" class="col-12  mt-2 mx-0 @if($factor->type_mohr == 0) d-block @else d-none @endif">
+<section id="section-default-image-mohr-user" class="col-12  mt-2 mx-0 @if($defaultTypeMohr == 0) d-block @else d-none @endif">
 
     <section class="row  mx-0 border border-dark rounded">
 

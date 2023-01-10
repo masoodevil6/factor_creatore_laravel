@@ -53,14 +53,8 @@ class BaseFormService extends BaseFormToolService {
             Storage::disk('local')->put($fileLocation.$fileName , $pdf->download($fileName));
         }
 
-        return $fileName;
+        return $this;
     }
-
-
-
-
-
-
 
 
 }

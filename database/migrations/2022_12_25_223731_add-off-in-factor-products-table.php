@@ -14,7 +14,7 @@ return new class extends Migration
     public function up()
     {
         Schema::table('factor_products', function (Blueprint $table) {
-            $table->bigInteger("off")->default(0);
+            $table->bigInteger("off")->nullable();
         });
     }
 

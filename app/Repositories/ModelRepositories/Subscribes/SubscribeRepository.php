@@ -28,21 +28,26 @@ class SubscribeRepository extends BaseRepository implements ISubscribeRepository
 
     function GetLimitRandomSelectedSubscribe(int $limitSubscribe=10 , int $limitForm=6)
     {
-        $result = DB::table("subscribes")
-            ->select([
-                "subscribes.id" ,"subscribes.title" ,"subscribes.real_price" ,"subscribes.off_price" ,"subscribes.duration" ,"subscribes.description" ,"subscribes.slug" ,
-                "Forms.id as form_id" , "Forms.name" , "Forms.image"
-            ])
-            ->from(function ($from) use ($limitSubscribe) {
-                $from->from("subscribes")
-                    ->where("subscribes.status" , 1)
-                    ->where("subscribes.selected" , 1)
-                    ->limit($limitSubscribe)->inRandomOrder();
-            } , "subscribes")
-            ->join("Forms" , "forms.subscribe_id" , "=" , "subscribes.id")
+        $listSubscribesActives = $this->getListSubscribeActive();
+        $subscribesActives = [];
+        foreach ($listSubscribesActives as $itemSubscribe){
+            array_push($subscribesActives , $itemSubscribe->subscribe_id);
+        }
+
+        $result = $this->model
+            ->with("forms")
+            ->where("subscribes.status" , 1)
+            ->where("subscribes.selected" , 1)
+            ->limit($limitSubscribe)
+            ->whereNotIn('id', $subscribesActives)
+            ->inRandomOrder()
             ->get();
 
-        return $this->readySubscribeAndForms($result , $limitForm);
+        foreach ($result as $key => $itemSubscribe){
+            $result[$key]->forms = $this->getLimitFromsInSubscribeThatActive($itemSubscribe->forms  , $limitForm);
+        }
+
+        return $result;
     }
 
 
@@ -51,41 +56,38 @@ class SubscribeRepository extends BaseRepository implements ISubscribeRepository
         $result = $this->model
             ->select([
                 "subscribes.id" ,"subscribes.title" ,"subscribes.real_price" ,"subscribes.off_price" ,"subscribes.duration" ,"subscribes.description" ,"subscribes.slug" ,
-                "Forms.id as form_id" , "Forms.name" , "Forms.image"
             ])
-            ->join("Forms" , "forms.subscribe_id" , "=" , "subscribes.id")
+            ->with("forms")
             ->where("subscribes.status" , 1)
             ->where("subscribes.selected" , 1)
             ->paginate($numInPage);
 
-        $result->list = $this->readySubscribeAndForms($result , $limitForm);
+
+        foreach ($result as $key => $itemSubscribe){
+            $result[$key]->forms = $this->getLimitFromsInSubscribeThatActive($itemSubscribe->forms  , $numInPage);
+        }
+        $result = $this->setStateActiveListSubscribe($result);
+
         return $result;
     }
 
 
     function GetInfoSubscribe($slug, $numInPage = 8)
     {
-        $result = $this->model
-            ->select([
-                "subscribes.id" ,"subscribes.title" ,"subscribes.real_price" ,"subscribes.off_price" ,"subscribes.duration" ,"subscribes.description" ,"subscribes.slug" ,
-                "Forms.id as form_id" , "Forms.name" , "Forms.image"
-            ])
-            ->join("Forms" , "forms.subscribe_id" , "=" , "subscribes.id")
-            ->where("subscribes.slug" , $slug)
-            ->where("subscribes.status" , 1)
-            ->where("subscribes.selected" , 1)
-            ->paginate($numInPage);
+        $result =
+            $this->model
+                ->where("slug" , $slug)
+                ->where("status" , 1)
+                ->where("selected" , 1)
+                ->first();
 
-
-        if (sizeof($result)>0){
-            $result->info =  $this->readyInfoItemSubscribeAndForm($result, $result[0] , 0);
-        }
-        else{
-            $result->info =  null;
+        if (!empty($result)){
+            $result->active = $this->setStateActiveSubscribe($this->getListSubscribeActive() , $result->id);
+            $result->info_forms = $result->forms()->paginate($numInPage);
+            $result->forms = $this->getLimitFromsInSubscribeThatActive($result->info_forms  , $numInPage);
         }
 
         return $result;
-
     }
 
 
@@ -104,99 +106,60 @@ class SubscribeRepository extends BaseRepository implements ISubscribeRepository
 
 
     //// ==================================
-    private function readySubscribeAndForms($result , $limitForm){
-        $resultExp = [];
-        foreach ($result as $itemSubscribe){
-            $existSubscribe = false;
-            foreach ($resultExp as $item){
-                if ($itemSubscribe->id == $item["id"]){
-                    $existSubscribe = true;
-                    break;
-                }
-            }
-
-            if (!$existSubscribe){
-
-                $resSubscribe = $this->readyInfoItemSubscribeAndForm($result, $itemSubscribe , $limitForm);
-
-                array_push($resultExp , $resSubscribe);
-            }
-        }
-
-        return $resultExp;
-    }
-
-    private function readyInfoItemSubscribeAndForm($result , $itemSubscribe , $limitForm){
-
-        $resSubscribe = [
-            "id" => $itemSubscribe->id,
-            "title" => $itemSubscribe->title,
-            "slug" => $itemSubscribe->slug,
-            "real_price" => $itemSubscribe->real_price,
-            "real_price_text" => persianPriceFormat($itemSubscribe->real_price),
-            "off_price" => $itemSubscribe->off_price,
-            "off_price_text" => persianPriceFormat($itemSubscribe->off_price),
-            "total_price" => $itemSubscribe->real_price - $itemSubscribe->off_price,
-            "total_price_text" => persianPriceFormat($itemSubscribe->real_price - $itemSubscribe->off_price),
-            "duration" => $itemSubscribe->duration,
-            "description" => $itemSubscribe->description,
-            "forms" => $this->readyListFormsInSubscribe($result , $itemSubscribe->id , $limitForm)
-        ];
-
-        return $resSubscribe;
-    }
-
-    private function readyListFormsInSubscribe($result , $subscribeId , $limitForm){
-        $resultExp = [];
-        foreach ($result as $itemForm){
-            if ($subscribeId == $itemForm->id ){
-                $existForm = false;
-                foreach ($resultExp as $item){
-                    if ($itemForm->form_id == $item["id"]){
-                        $existForm = true;
-                        break;
-                    }
-                }
-                if (!$existForm) {
-                    $resForm = [
-                        "id" => $itemForm->form_id,
-                        "name" => $itemForm->name,
-                        "image" => $this->readyImageForm($itemForm->image )
-                    ];
-                    array_push($resultExp , $resForm);
-                }
-            }
-        }
-        return $this->getLimitFromsInSubscribeThatActive($resultExp  , $limitForm);
-    }
-
     private function readyImageForm($formImage){
-        $imageArray = json_decode($formImage , true);
         $imageForm = "";
-        if (!empty($imageArray)){
-            $imageForm = $imageArray["indexArray"][$imageArray["currentImage"]];
+        if (!empty($formImage)){
+            $imageForm = $formImage["indexArray"][$formImage["currentImage"]];
         }
         return $imageForm;
     }
 
     private function getLimitFromsInSubscribeThatActive($result , $limitForm){
         $resultExp = [];
-        foreach ($result As $itemForm ){
+        foreach ($result As $key=>$itemForm ){
             if (($limitForm > 0 && sizeof($resultExp) < $limitForm) || $limitForm==0){
+                $result[$key]-> image = $this->readyImageForm($itemForm["image"]);
 
-                if (file_exists($itemForm["image"])){
-                    array_push($resultExp , $itemForm);
+                if (file_exists($result[$key]["image"])){
+                    array_push($resultExp , $result[$key]);
                 }
-                else if (!file_exists($itemForm["image"]) &&  $limitForm==0){
-                    $itemForm["image"] = "";
-                    array_push($resultExp , $itemForm);
+                else{
+                    if ($limitForm==0){
+                        $result[$key]-> image = "";
+                        array_push($resultExp , $result[$key]);
+                    }
                 }
-
 
             }
         }
-
         return $resultExp;
+    }
+
+
+    ////// --------------------------
+
+    private function getListSubscribeActive(){
+        return ContextRepository::SubscribePaymentRepository()->GetSubscribeActiveNow();
+    }
+
+    private function setStateActiveListSubscribe($subscribes){
+        $subscribesActive = $this->getListSubscribeActive();
+        foreach ($subscribes as $key => $itemSubscribe){
+            $subscribes[$key]["active"] = $this->setStateActiveSubscribe($subscribesActive , $itemSubscribe["id"]);
+        }
+        return $subscribes;
+    }
+
+
+    private function setStateActiveSubscribe($listSubscribeActive , $subscribe_id){
+        $active = false;
+        foreach ($listSubscribeActive As $item){
+            if ($item->subscribe_id == $subscribe_id){
+                $active = true;
+                break;
+            }
+        }
+        return $active;
     }
 
 

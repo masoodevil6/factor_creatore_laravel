@@ -5,6 +5,8 @@ use App\Repositories\InterFaceRepositories\IBaseRepository;
 
 interface ITemplateFactorRepository extends IBaseRepository {
 
+    function CheckExistTemplateFactor();
+
     function GetInfoTemplateFactor();
 
     function SetFormTemplateFactor($formId);
