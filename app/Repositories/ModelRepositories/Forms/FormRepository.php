@@ -81,4 +81,14 @@ class FormRepository extends BaseRepository implements IFormRepository {
         $form->active = $this->SetStateActiveForm($listSubscribeActive , $form->subscribe_id);
         return $form;
     }
+
+
+
+
+    function SearchFromFromClassName(string $className)
+    {
+        return $this->model
+            ->where("class" , $className)
+            ->first();
+    }
 }

@@ -9,7 +9,7 @@ class NormalForm extends BaseFormService{
     public function __construct($factor)
     {
         parent::__construct($factor);
-
+        $this->num = 8;
     }
 
 

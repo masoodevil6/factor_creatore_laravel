@@ -11,6 +11,7 @@ class BaseFormService extends BaseFormToolService {
 
     protected $view = "";
     protected $data = [];
+    protected $num = 8;
 
     public function __construct($factor)
     {
@@ -33,6 +34,11 @@ class BaseFormService extends BaseFormToolService {
         return $this->data;
     }
 
+    protected function getNum(): int
+    {
+        return $this->num;
+    }
+
 
 
     public function ToPdf(){
@@ -41,10 +47,11 @@ class BaseFormService extends BaseFormToolService {
         $products = $this->getProducts();
         $view = $this->getView();
         $data = $this->getData();
+        $num = $this->getNum();
 
         $fileName = null;
         if (view()->exists($view)) {
-            $pdf = Pdf::loadView($view , compact('factor' , "products"  , "data"));
+            $pdf = Pdf::loadView($view , compact('factor' , "products"  , "data" , "num"));
 
             $fileInfo =$this->getFactorFileInfo();
             $fileLocation =  $fileInfo["fileLocation"];

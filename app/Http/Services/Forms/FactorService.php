@@ -24,15 +24,30 @@ class FactorService{
 
 
     public function downloadFactor(Factor $factor){
-        $pathFile = ContextRepository::UserRepository()->getPathUser();
-        $directoryFactor = ContextRepository::UserRepository()->getDirectoryUserFactors();
-        $fileName = $factor->res_num.".pdf";
-        $location = $pathFile.$directoryFactor.$fileName;
+        $location = $this->getFactorFileName($factor);
 
         if (Storage::exists($location)){
             return Storage::download($location);
         }
         return abort(404);
+    }
+
+
+    public function deleteFactor(Factor $factor){
+        $location = $this->getFactorFileName($factor);
+
+        if (Storage::exists($location)){
+            Storage::delete($location);
+        }
+    }
+
+
+    ///// ==============================
+    private function getFactorFileName($factor){
+        $pathFile = ContextRepository::UserRepository()->getPathUser();
+        $directoryFactor = ContextRepository::UserRepository()->getDirectoryUserFactors();
+        $fileName = $factor->res_num.".pdf";
+        return $pathFile.$directoryFactor.$fileName;
     }
 
 }

@@ -52,7 +52,6 @@ class BaseFormToolService{
         $this->factorModel->setCustomerPhone($this->factor->customer_phone);
         $this->factorModel->setCustomerAddress($this->factor->customer_address);
 
-        $this->factorModel->setFileName($this->factor->file_name);
         $this->factorModel->setLogoName($this->factor->logo_name);
         $this->factorModel->setMohrName($this->factor->mohr_name);
 

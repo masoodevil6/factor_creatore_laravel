@@ -1,6 +1,8 @@
 <?php
 namespace App\Http\Services\Forms\ModelServices;
 
+use Illuminate\Support\Facades\Storage;
+
 class FactorModel{
 
 
@@ -20,7 +22,6 @@ class FactorModel{
     private $customerPhone;
     private $customerAddress;
 
-    private $fileName;
     private $logoName;
     private $mohrName;
 
@@ -166,20 +167,13 @@ class FactorModel{
 
 
 
-    public function getFileName()
-    {
-        return $this->fileName;
-    }
-    public function setFileName($fileName): void
-    {
-        $this->fileName = $fileName;
-    }
-
-
 
     public function getLogoName()
     {
-        return $this->logoName;
+        if (!empty($this->logoNam)&& Storage::exists($this->logoNam)){
+            return Storage::download($this->logoName);
+        }
+        return null;
     }
     public function setLogoName($logoName): void
     {
@@ -190,7 +184,10 @@ class FactorModel{
 
     public function getMohrName()
     {
-        return $this->mohrName;
+        if (!empty($this->mohrName)&& Storage::exists($this->mohrName)){
+            return Storage::download($this->mohrName);
+        }
+        return null;
     }
     public function setMohrName($mohrName): void
     {
