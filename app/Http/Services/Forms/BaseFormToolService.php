@@ -17,9 +17,13 @@ class BaseFormToolService{
     private $factorRes = 0;
     private $userId = 0;
 
-    public function __construct($factor , $passPrice = null)
+    protected $isTestFile = false;
+
+    public function __construct($factor , $passPrice = null , $isTestFile)
     {
         $this->factor = $factor;
+        $this->isTestFile = $isTestFile;
+
         if (!empty($passPrice)){
             $this->passPrice = $passPrice;
         }
@@ -104,10 +108,19 @@ class BaseFormToolService{
 
     public function getFactorFileInfo()
     {
-        return [
-            /////"fileLocation" => "users/".$this->userId."/factors/" ,
-            "fileLocation" => ContextRepository::UserRepository()->getPathUser().ContextRepository::UserRepository()->getDirectoryUserFactors() ,
-            "fileName" => $this->factorRes.".pdf" ,
+        $resultExp = [
+            "fileLocation" => "",
+            "fileName" => $this->factorRes.".pdf",
         ];
+
+        if ($this->isTestFile){
+            $resultExp["fileLocation"] = ContextRepository::UserRepository()->getDirectoryTestFile();
+        }
+        else{
+            $resultExp["fileLocation"] = ContextRepository::UserRepository()->getPathUser().ContextRepository::UserRepository()->getDirectoryUserFactors();
+        }
+
+
+        return $resultExp;
     }
 }

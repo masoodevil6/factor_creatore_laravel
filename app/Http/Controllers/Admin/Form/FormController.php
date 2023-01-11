@@ -4,9 +4,14 @@ namespace App\Http\Controllers\Admin\Form;
 
 use App\Http\Controllers\Admin\MainAdminController;
 use App\Http\Requests\Admin\Forms\FormFactorRequest;
+use App\Http\Requests\Admin\Forms\TestFileFormFactorRequest;
+use App\Http\Services\Forms\FactorService;
+use App\Http\Services\Forms\TestFile\FileFormTestService;
 use App\Models\Forms\Form;
 use App\Repositories\ContextRepository;
 use Illuminate\Support\Facades\Config;
+use Illuminate\Support\Facades\Http;
+use Symfony\Component\HttpFoundation\Request;
 
 
 class FormController extends MainAdminController
@@ -140,6 +145,45 @@ class FormController extends MainAdminController
 
         return $this ->redirectIndex("کلاس فرم موجود نمی باشد" , true);
     }
+
+
+
+
+
+
+    public function testFile(Form $form){
+        /// navigation page
+        $nav = [
+            "part"=> "بخش مدیریت فرم ها",
+            "navigation" =>[
+                [
+                    "route" => "admin.forms.form.index" ,
+                    "current" => 0,
+                    "title" => "لیست فرم ها"
+                ],
+                [
+                    "route" => "" ,
+                    "current" => 1,
+                    "title" => "دانلود تست فایل فاکتور فرم"
+                ]
+            ]
+        ];
+
+        $classes = $this->getListFormClass();
+        return view("admin.forms.forms.test-file" , compact("nav" , "form" , "classes"));
+    }
+
+    public function submitTestFile(TestFileFormFactorRequest $request){
+        $fileFormTestService = new FileFormTestService($this->getNameSpaceClass($request->get("class_name")) , $request->get("product_num"));
+        $resNum = $fileFormTestService->generateAndAddressDownloadFileFactor();
+        return redirect()->route("admin.forms.form.download-test-file" , ["time" => time() , "resNum"=>$resNum]);
+    }
+
+    public function downloadTestFile($resNum , $time , FactorService $factorService){
+        return $factorService->downloadFactorTest($resNum);
+    }
+
+
 
 
 

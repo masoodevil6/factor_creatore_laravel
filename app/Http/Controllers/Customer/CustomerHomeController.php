@@ -2,10 +2,8 @@
 
 namespace App\Http\Controllers\Customer;
 
-use App\Http\Controllers\Controller;
-use App\Http\Requests\Customer\commandAuthRequest;
+
 use App\Repositories\ContextRepository;
-use Illuminate\Http\Request;
 
 class CustomerHomeController extends CustomerMainController
 {

@@ -191,6 +191,10 @@ Route::namespace("Form")->group(function (){
         Route::get("/edit/{form}" , "edit")->name("admin.forms.form.edit");
         Route::put("/update/{form}" , "update")->name("admin.forms.form.update");
 
+        Route::get("/test-file/{form?}" , "testFile")->name("admin.forms.form.test-file");
+        Route::post("/submit-test-file" , "submitTestFile")->name("admin.forms.form.submit-test-file");
+        Route::get("/download-test-file/{resNum}/{time}" , "downloadTestFile")->name("admin.forms.form.download-test-file");
+
         Route::delete("/destroy/{form}" ,  "destroy")->name("admin.forms.form.destroy");
 
         Route::post("/status/{form}" , "status")->name("admin.forms.form.status");

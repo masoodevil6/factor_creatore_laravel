@@ -17,7 +17,6 @@ use App\Http\Controllers\Customer\CustomerSubscribesController;
 |
 */
 
-
 Route::prefix("/")->controller(CustomerHomeController::class)->group(function (){
 
     Route::get("/" , "home")->name("customer.home");

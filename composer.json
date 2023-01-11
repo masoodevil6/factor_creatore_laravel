@@ -6,12 +6,15 @@
     "license": "MIT",
     "require": {
         "php": "^8.0.2",
+        "anam/phantomjs-linux-x86-binary": "^2.1",
+        "aws/aws-sdk-php": "^3.256",
         "barryvdh/laravel-dompdf": "^2.0",
         "guzzlehttp/guzzle": "^7.2",
         "intervention/image": "^2.7",
         "laravel/framework": "^9.19",
         "laravel/sanctum": "^3.0",
         "laravel/tinker": "^2.7",
+        "league/flysystem": "^3.12",
         "morilog/jalali": "^3.4"
     },
     "require-dev": {

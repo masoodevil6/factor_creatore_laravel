@@ -41,5 +41,11 @@
                 btn-type='edit'
                 :url='route("admin.forms.form.edit" , $formId)'/>
 
+        <x-fields.component-button
+                btn-type='custom'
+                btn-icon="fa fa-download"
+                title="فایل تست"
+                :url='route("admin.forms.form.test-file" , $formId)'/>
+
     </td>
 </tr>

@@ -13,9 +13,9 @@ class BaseFormService extends BaseFormToolService {
     protected $data = [];
     protected $num = 8;
 
-    public function __construct($factor)
+    public function __construct($factor , $isTestFile)
     {
-        parent::__construct($factor , $this->passPrice);
+        parent::__construct($factor , $this->passPrice , $isTestFile);
 
         if (method_exists($this , "setView")){
             $this->setView();

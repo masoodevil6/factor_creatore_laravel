@@ -19,9 +19,16 @@
 
             <section class="body-content d-flex justify-content-between pb-2 border-bottom">
 
-                <a href="{{route("admin.forms.form.create")}}" class="btn btn-info btn-sm max-height-30">
-                    دسته بندی فرم جدید
-                </a>
+                <div>
+                    <a href="{{route("admin.forms.form.create")}}" class="btn btn-info btn-sm max-height-30">
+                        فرم جدید
+                    </a>
+                    <a href="{{route("admin.forms.form.test-file")}}" class="btn btn-success btn-sm max-height-30">
+                        <i class="fa fa-download mx-2"></i>
+                        ایجاد فایل تستی
+                    </a>
+                </div>
+
 
                 <div class="mx-2 ">
                     <p class="text-center text-white font-size-12  bg-grey m-0 rounded">
@@ -67,7 +74,7 @@
                     <thead>
                     <tr>
                         <th scope="col">#</th>
-                        <th scope="col" class="w-15  font-size-12">عنوان فرم</th>
+                        <th scope="col" class="w-10  font-size-12">عنوان فرم</th>
                         <th scope="col" class="w-10  font-size-12">تصویر فرم</th>
                         <th scope="col" class="w-10  font-size-12">دسته</th>
                         <th scope="col" class="w-10  font-size-12">اشتراک</th>

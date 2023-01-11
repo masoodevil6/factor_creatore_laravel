@@ -19,6 +19,14 @@ class UserRepository extends BaseRepository implements IUserRepository {
     protected $directoryUserLogo="";
     protected $directoryUserMohr="";
 
+
+    protected $pathTest;
+    protected $directoryTestFile;
+    protected $directoryTestLogo;
+    protected $directoryTestMohr;
+    protected $fileTestLogo;
+    protected $fileTestMohr;
+
     public function __construct()
     {
         parent::__construct(new User());
@@ -28,6 +36,15 @@ class UserRepository extends BaseRepository implements IUserRepository {
             $this->directoryUserFactors = "/factors/";
             $this->directoryUserLogo = "/logos/";
             $this->directoryUserMohr = "/mohr/";
+
+
+            $this->pathTest = "test";
+            $this->directoryTestFile = $this->pathTest.$this->directoryUserFactors;
+            $this->directoryTestLogo = $this->pathTest.$this->directoryUserLogo;
+            $this->directoryTestMohr = $this->pathTest.$this->directoryUserMohr;
+            $this->fileTestLogo = $this->directoryTestLogo."test.png";
+            $this->fileTestMohr = $this->directoryTestMohr."test.png";
+
         }
     }
 
@@ -268,20 +285,45 @@ class UserRepository extends BaseRepository implements IUserRepository {
     {
         return $this->pathUser;
     }
-
     public function getDirectoryUserFactors(): string
     {
         return $this->directoryUserFactors;
     }
-
     public function getDirectoryUserLogo(): string
     {
         return $this->directoryUserLogo;
     }
-
     public function getDirectoryUserMohr(): string
     {
         return $this->directoryUserMohr;
+    }
+
+
+
+
+    public function getPathTest(): string
+    {
+        return $this->pathTest;
+    }
+    public function getDirectoryTestFile(): string
+    {
+        return $this->directoryTestFile;
+    }
+    public function getDirectoryTestLogo(): string
+    {
+        return $this->directoryTestLogo;
+    }
+    public function getDirectoryTestMohr(): string
+    {
+        return $this->directoryTestMohr;
+    }
+    public function getFileTestLogo(): string
+    {
+        return $this->fileTestLogo;
+    }
+    public function getFileTestMohr(): string
+    {
+        return $this->fileTestMohr;
     }
 
 
@@ -363,5 +405,3 @@ class UserRepository extends BaseRepository implements IUserRepository {
 
 
 }
-
-//"users\/1\/logos\\2023\\01\\06\\1673032375.png"

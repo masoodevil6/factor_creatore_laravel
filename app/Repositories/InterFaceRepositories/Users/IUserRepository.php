@@ -74,12 +74,17 @@ interface IUserRepository extends IBaseRepository {
 
 
   function getPathUser(): string;
-
   function getDirectoryUserFactors(): string;
-
   function getDirectoryUserLogo(): string;
-
   function getDirectoryUserMohr(): string;
+
+
+  function getPathTest();
+  function getDirectoryTestFile();
+  function getDirectoryTestLogo();
+  function getDirectoryTestMohr();
+  function getFileTestLogo();
+  function getFileTestMohr();
 
 
 
