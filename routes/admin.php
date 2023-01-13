@@ -195,6 +195,8 @@ Route::namespace("Form")->group(function (){
         Route::post("/submit-test-file" , "submitTestFile")->name("admin.forms.form.submit-test-file");
         Route::get("/download-test-file/{resNum}/{time}" , "downloadTestFile")->name("admin.forms.form.download-test-file");
 
+        Route::get("/show-test-view/{form}" , "showTestView")->name("admin.forms.form.show-test-view");
+
         Route::delete("/destroy/{form}" ,  "destroy")->name("admin.forms.form.destroy");
 
         Route::post("/status/{form}" , "status")->name("admin.forms.form.status");

@@ -104,8 +104,6 @@ class RouteServiceProvider extends ServiceProvider
 
         });
 
-
-
     }
 
     /**

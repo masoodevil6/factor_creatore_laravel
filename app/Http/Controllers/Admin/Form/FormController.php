@@ -7,6 +7,7 @@ use App\Http\Requests\Admin\Forms\FormFactorRequest;
 use App\Http\Requests\Admin\Forms\TestFileFormFactorRequest;
 use App\Http\Services\Forms\FactorService;
 use App\Http\Services\Forms\TestFile\FileFormTestService;
+use App\Http\Services\Forms\TestFile\TestView;
 use App\Models\Forms\Form;
 use App\Repositories\ContextRepository;
 use Illuminate\Support\Facades\Config;
@@ -151,7 +152,7 @@ class FormController extends MainAdminController
 
 
 
-    public function testFile(Form $form){
+    public function testFile(Form $form ){
         /// navigation page
         $nav = [
             "part"=> "بخش مدیریت فرم ها",
@@ -182,6 +183,21 @@ class FormController extends MainAdminController
     public function downloadTestFile($resNum , $time , FactorService $factorService){
         return $factorService->downloadFactorTest($resNum);
     }
+
+
+
+
+
+
+    public function showTestView(Form $form , TestView $testView){
+        $view = $testView->testModel($form);
+
+        return view("admin.forms.forms.show-test-view" , compact("form" , "view"));
+    }
+
+
+
+
 
 
 

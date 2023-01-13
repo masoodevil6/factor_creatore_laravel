@@ -19,11 +19,20 @@
                 </a>
 
                 @if(isset($form["id"]) && $form["id"] > 0)
-                    <x-fields.component-button
-                            btn-type='custom'
-                            btn-icon="fa fa-download"
-                            title="فایل تست"
-                            :url='route("admin.forms.form.test-file" , $form["id"])'/>
+
+                    <div>
+                        <x-fields.component-button
+                                btn-type='custom'
+                                btn-icon="fa fa-download"
+                                title="فایل تست"
+                                :url='route("admin.forms.form.test-file" , $form["id"])'/>
+
+                        <x-fields.component-button
+                                btn-type='custom'
+                                btn-icon="fa fa-eye"
+                                title="نمایش تست"
+                                :url='route("admin.forms.form.show-test-view" , $form["id"])'/>
+                    </div>
                 @endif
 
 
@@ -138,3 +147,5 @@
 @section("footer-tag")
 
 @endsection
+
+

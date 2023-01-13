@@ -2,6 +2,7 @@
 namespace App\Http\Services\Forms\ModelServices;
 
 use Illuminate\Support\Facades\Storage;
+use function PHPUnit\Framework\fileExists;
 
 class FactorModel{
 
@@ -170,8 +171,13 @@ class FactorModel{
 
     public function getLogoName()
     {
-        if (!empty($this->logoNam)&& Storage::exists($this->logoNam)){
-            return Storage::download($this->logoName);
+        if (!empty($this->logoName)){
+            if (Storage::exists($this->logoName)){
+                return $this->getBase64ImageFile(Storage::download($this->logoName));
+            }
+            else if (fileExists($this->logoName)){
+                return $this->getBase64ImageFile($this->logoName);
+            }
         }
         return null;
     }
@@ -184,10 +190,16 @@ class FactorModel{
 
     public function getMohrName()
     {
-        if (!empty($this->mohrName)&& Storage::exists($this->mohrName)){
-            return Storage::download($this->mohrName);
+        if (!empty($this->mohrName)){
+            if (Storage::exists($this->mohrName)){
+                return $this->getBase64ImageFile(Storage::download($this->mohrName));
+            }
+            else if (fileExists($this->mohrName)){
+                return $this->getBase64ImageFile($this->mohrName);
+            }
         }
         return null;
+
     }
     public function setMohrName($mohrName): void
     {
@@ -245,6 +257,23 @@ class FactorModel{
 
 
 
+
+
+
+    ////// ======================================
+    private function getBase64ImageFile($filePath){
+
+        $arrContextOptions=array(
+            "ssl"=>array(
+                "verify_peer"=>false,
+                "verify_peer_name"=>false,
+            ),
+        );
+
+        $type = pathinfo($filePath, PATHINFO_EXTENSION);
+        $response = file_get_contents($filePath, false, stream_context_create($arrContextOptions));
+        return 'data:image/' . $type . ';base64,' . base64_encode($response);
+    }
 
 
 }

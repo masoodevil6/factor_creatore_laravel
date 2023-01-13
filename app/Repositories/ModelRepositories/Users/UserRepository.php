@@ -9,6 +9,7 @@ use App\Repositories\InterFaceRepositories\Users\IUserRepository;
 use App\Repositories\ModelRepositories\BaseRepository;
 use CKSource\CKFinder\Filesystem\Path;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Storage;
 
@@ -45,6 +46,8 @@ class UserRepository extends BaseRepository implements IUserRepository {
             $this->fileTestLogo = $this->directoryTestLogo."test.png";
             $this->fileTestMohr = $this->directoryTestMohr."test.png";
 
+            $this->fileTestLogo = "https://".Config::get("app.ip")."/FactorSaz/test-logo.png";
+            $this->fileTestMohr = "https://".Config::get("app.ip")."/FactorSaz/test-mohr.png";
         }
     }
 

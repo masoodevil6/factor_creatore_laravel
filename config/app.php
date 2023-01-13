@@ -16,6 +16,7 @@ return [
     */
 
     "version" => "v1.0.0" ,
+    "ip" => "192.168.1.5" ,
 
     'name' => env('APP_NAME', 'Laravel'),
 
@@ -197,6 +198,9 @@ return [
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
 
+        Barryvdh\Snappy\ServiceProvider::class,
+
+        niklasravnsborg\LaravelPdf\PdfServiceProvider::class
     ],
 
     /*
@@ -212,6 +216,11 @@ return [
 
     'aliases' => Facade::defaultAliases()->merge([
         // 'ExampleClass' => App\Example\ExampleClass::class,
+
+        //'PDF' => Barryvdh\Snappy\Facades\SnappyPdf::class,
+        //'SnappyImage' => Barryvdh\Snappy\Facades\SnappyImage::class,
+
+        'PDF' => niklasravnsborg\LaravelPdf\Facades\Pdf::class,
 
         'Converter' => 'Anam\PhantomMagick\Facades\Converter'
     ])->toArray(),

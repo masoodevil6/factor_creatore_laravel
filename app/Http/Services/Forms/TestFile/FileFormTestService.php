@@ -7,17 +7,8 @@ use App\Http\Services\Forms\FactorService;
 use App\Repositories\ContextRepository;
 use Illuminate\Support\Facades\Auth;
 
-class FileFormTestService
+class FileFormTestService extends TestData
 {
-
-    private $product = [
-        "name" => "کالا",
-        "num" => 10,
-        "unit" => "عدد ",
-        "price" => 10000,
-        "off" => 5000,
-        "factor_id" => null,
-    ];
 
     private $factorService;
     private $ClassName;
@@ -26,6 +17,7 @@ class FileFormTestService
 
     public function __construct($className , $productNum)
     {
+        parent::__construct();
         $this->factorService = new FactorService();
         $this->setClassName($className);
         $this->setNumProduct($productNum);
@@ -43,29 +35,11 @@ class FileFormTestService
 
     ////////// ----------------------------
     private function readyInfoFactor(){
-        $factorInfo = [
-            "res_num" => ContextRepository::FactorRepository()-> GenerateUniqueResNumFactor() ,
-            "description" => "توضیحات تکمیلی" ,
-            "status" => 1 ,
+        $this->factorInfo["res_num"] = ContextRepository::FactorRepository()-> GenerateUniqueResNumFactor();
+        $this->factorInfo["user_id"] = $this->getUserId();
+        $this->factorInfo["form_id"] = $this->getFormId();
 
-            "store_name" => "عنوان فروشگاه" ,
-            "store_phone" => "09301110000" ,
-            "store_address" => "آدرس فروشگاه" ,
-
-            "customer_name" => "نام مشتری" ,
-            "customer_phone" => "09300001111" ,
-            "customer_address" => "آدرس مشتری" ,
-
-            "user_id" => $this->getUserId() ,
-            "form_id" => $this->getFormId() ,
-
-            "logo_name" => ContextRepository::UserRepository()->getFileTestLogo() ,
-            "mohr_name" => ContextRepository::UserRepository()->getFileTestMohr() ,
-        ];
-
-
-
-        $factor = ContextRepository::FactorRepository()->addResult($factorInfo);
+        $factor = ContextRepository::FactorRepository()->addResult($this->factorInfo);
 
         $this->readyProductsInFactor($factor);
 
@@ -73,11 +47,13 @@ class FileFormTestService
     }
 
     private function readyProductsInFactor($factor){
-        $product = $this->getProduct();
-        $product["factor_id"] = $factor->id;
+        $products = $this->readyListProductModel($this->getNumProduct());
 
-        for ($i=0; $i< $this->getNumProduct(); $i++){
-            ContextRepository::FactorProductRepository()->addResult($product);
+        foreach ($products as $itemProduct){
+            $itemProduct["factor_id"] = $factor->id;
+            $itemProduct = $itemProduct->toArray();
+
+            ContextRepository::FactorProductRepository()->addResult($itemProduct);
         }
     }
 
@@ -104,12 +80,6 @@ class FileFormTestService
     private function getUserId(): int
     {
         return Auth::id();
-    }
-
-
-    private function getProduct(): array
-    {
-        return $this->product;
     }
 
 

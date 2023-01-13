@@ -59,15 +59,21 @@ class BaseFormToolService{
         $this->factorModel->setLogoName($this->factor->logo_name);
         $this->factorModel->setMohrName($this->factor->mohr_name);
 
+
+
         $form = $this->factor->form;
 
         $this->factorModel->setFormId($form->id);
         $this->factorModel->setFormName($this->factor->form->name);
 
-        $user = $this->factor->user;
-        $this->userId = $user->id;
-        $this->factorModel->setUserId($user->id);
-        $this->factorModel->setUserName($user->fullName);
+
+        if ($this->isTestFile && !empty($this->factor->user)){
+            $user = $this->factor->user;
+            $this->userId = $user->id;
+            $this->factorModel->setUserId($user->id);
+            $this->factorModel->setUserName($user->fullName);
+        }
+
     }
 
     private function readyListFactorProductsModel()

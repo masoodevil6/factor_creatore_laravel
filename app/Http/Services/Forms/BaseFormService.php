@@ -2,8 +2,8 @@
 
 namespace App\Http\Services\Forms;
 
-use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Support\Facades\Storage;
+use niklasravnsborg\LaravelPdf\Facades\Pdf;
 
 class BaseFormService extends BaseFormToolService {
 
@@ -39,25 +39,46 @@ class BaseFormService extends BaseFormToolService {
         return $this->num;
     }
 
-
-
-    public function ToPdf(){
-
+    private function getTotalInfo(){
         $factor = $this->getFactorModel();
         $products = $this->getProducts();
         $view = $this->getView();
         $data = $this->getData();
         $num = $this->getNum();
 
+        return [
+            "view" => $view,
+            "data" => compact('factor' , "products"  , "data" , "num")
+        ];
+    }
+
+    public function getViewRender(){
+        $info = $this->getTotalInfo();
+        $view = $info["view"];
+        $data = $info["data"];
+        return view($view , $data)->render();
+    }
+
+
+
+
+
+    public function ToPdf(){
+
+        $info = $this->getTotalInfo();
+        $view = $info["view"];
+        $data = $info["data"];
+
         $fileName = null;
         if (view()->exists($view)) {
-            $pdf = Pdf::loadView($view , compact('factor' , "products"  , "data" , "num"));
 
             $fileInfo =$this->getFactorFileInfo();
             $fileLocation =  $fileInfo["fileLocation"];
             $fileName = $fileInfo["fileName"];
 
-            Storage::disk('local')->put($fileLocation.$fileName , $pdf->download($fileName));
+            $pdf = Pdf::loadView($view , $data);
+
+            Storage::disk('local')->put($fileLocation.$fileName , $pdf->output());
         }
 
         return $this;

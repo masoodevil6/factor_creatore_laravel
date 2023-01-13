@@ -47,5 +47,11 @@
                 title="فایل تست"
                 :url='route("admin.forms.form.test-file" , $formId)'/>
 
+        <x-fields.component-button
+                btn-type='custom'
+                btn-icon="fa fa-eye"
+                title="نمایش"
+                :url='route("admin.forms.form.show-test-view" , $formId)'/>
+
     </td>
 </tr>
