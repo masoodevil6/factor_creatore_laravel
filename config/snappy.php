@@ -35,9 +35,13 @@ return [
 
     'pdf' => [
         'enabled' => true,
-        'binary'  => base_path('vendor\wemersonjanuario\wkhtmltopdf-windows\bin\64bit\wkhtmltopdf'),
-        'timeout' => false,
-        'options' => [],
+        //'binary'  => base_path('vendor\wemersonjanuario\wkhtmltopdf-windows\bin\64bit\wkhtmltopdf'),
+        'binary'  => '"C:\Program Files\wkhtmltopdf\bin\wkhtmltopdf.exe"',
+        'timeout' => true,
+        'options' => [
+            //"timeout" => 120 ,
+            "enable-local-file-access" => true ,
+        ],
         'env'     => [],
     ],
 

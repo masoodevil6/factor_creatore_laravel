@@ -7,17 +7,23 @@ use App\Repositories\ContextRepository;
 
 class BaseFormToolService{
 
-    private $passPrice;
-
     private $factor;
     private $factorModel;
     private $products = [];
+    private $productsInPage = [];
     private $totalPrice = 0;
 
     private $factorRes = 0;
     private $userId = 0;
 
+
     protected $isTestFile = false;
+    private $passPrice;
+
+    protected $view = "";
+    protected $data = [];
+    protected $num = 8;
+
 
     public function __construct($factor , $passPrice = null , $isTestFile)
     {
@@ -90,6 +96,30 @@ class BaseFormToolService{
 
             $this->totalPrice += $productModel->getProductTotalPrice();
         }
+
+
+    }
+
+
+    protected function readyListProductsInPages(){
+        $resultInPage = [
+            "page" => 1,
+            "products" => []
+        ];
+        foreach ($this->products as $key => $itemPoroduct){
+            $itemPoroduct->key_page = $key+1;
+            array_push($resultInPage["products"] , $itemPoroduct);
+
+            if (($key+1) % $this->getNum() == 0){
+                array_push($this->productsInPage , $resultInPage);
+                $resultInPage["products"] = [];
+                $resultInPage["page"] ++;
+            }
+
+            if ($key == sizeof($this->products) - 1 && sizeof($resultInPage["products"]) > 0){
+                array_push($this->productsInPage , $resultInPage);
+            }
+        }
     }
 
 
@@ -107,10 +137,33 @@ class BaseFormToolService{
         return $this->products;
     }
 
+    public function getProductsInPage(): array
+    {
+        return $this->productsInPage;
+    }
+
     public function getTotalPrice()
     {
         return persianPriceFormat($this->totalPrice).$this->passPrice;
     }
+
+    protected function getView()
+    {
+        return $this->view;
+    }
+
+    protected function getData(): array
+    {
+        return $this->data;
+    }
+
+    protected function getNum(): int
+    {
+        return $this->num;
+    }
+
+
+
 
     public function getFactorFileInfo()
     {

@@ -9,13 +9,13 @@ class NormalForm extends BaseFormService{
     public function __construct($factor , $isTestFile = false)
     {
         parent::__construct($factor , $isTestFile);
-        $this->num = 8;
+        $this->num = 10;
     }
 
 
     protected function setView(): void
     {
-        $this->view = "forms.normal-form";
+        $this->view = "forms.free.normal-form.index";
     }
 
 

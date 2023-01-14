@@ -9,7 +9,7 @@ class FactorProduct extends Model
 {
     use HasFactory;
 
-    protected $fillable = [ "name" , "num", "unit", "price","factor_id" ];
+    protected $fillable = [ "name" , "num", "unit", "price", "off","factor_id" ];
 
 
     ///==============================================
