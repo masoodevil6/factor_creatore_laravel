@@ -75,6 +75,7 @@ class BaseFormService extends BaseFormToolService {
         $size = $info["size"];
         $orientation = $info["orientation"];
 
+
         if (view()->exists($view)) {
             return [
                 "view" => view($view , $data)->render() ,
@@ -103,7 +104,7 @@ class BaseFormService extends BaseFormToolService {
             $pdf = Pdf::loadHtml(
                 $viewInfo["view"]
                 , [
-                    "format" => $viewInfo["size"] ,
+                    "format" => $viewInfo["size"]["name"] ,
                     "orientation" => $viewInfo["orientation"]
                 ]
             );

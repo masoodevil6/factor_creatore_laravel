@@ -21,7 +21,7 @@
             }
 
             #app-name{
-                line-height: 1000px;
+                line-height: {{\Illuminate\Support\Facades\Config::get("forms.center_A4_height")}};
             }
 
         </style>
@@ -40,7 +40,7 @@
             }
 
             #app-name{
-                line-height: 500px;
+                line-height: {{\Illuminate\Support\Facades\Config::get("forms.center_A5_width")}};
             }
         </style>
 

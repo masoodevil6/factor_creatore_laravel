@@ -17,27 +17,23 @@
         <style>
             @page {
                 odd-header-name: odd-header;
-                odd-footer-name: odd-footer;
+                even-header-name: even-header;
             }
         </style>
 
-
         <htmlpageheader name="odd-header">
-            <div id="app-name">  {{$appName}} </div>
+            <div id="app-name">
+                {{$appName}}
+                [{PAGENO} / {nb}]
+            </div>
         </htmlpageheader>
 
+        <htmlpageheader name="even-header">
+            <div id="app-name">  {{$appName}} </div>
+            [{PAGENO} / {nb}]
+        </htmlpageheader>
 
-        <htmlpagefooter name="odd-footer">
-
-            <div style="float:right; width: 50%;">
-                {{$appName}}
-            </div>
-
-            <div style="float:left; width: 40%; text-align: right;">Page {PAGENO} of {nb}</div>
-        </htmlpagefooter>
     </div>
-
-
 
 
     @yield("content")

@@ -34,7 +34,7 @@ class NormalForm extends BaseFormService{
     protected function setDescription(){
         return '
 <p class=""> 
-یک فرم ساده و رایگان برای تحویل سریع به مشتریان
+یک فرم فاکتور ساده و رایگان برای تحویل سریع به مشتریان
 </p>
 ';
     }

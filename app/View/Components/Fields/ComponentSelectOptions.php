@@ -11,12 +11,14 @@ class ComponentSelectOptions extends Component
     public $titleEn;
     public $titleFa;
     public $disabled;
+    public $method;
 
-    public function __construct($titleEn="errorFieldInput" , $titleFa="errorFieldInput" , $disabled=0)
+    public function __construct($titleEn="errorFieldInput" , $titleFa="errorFieldInput" , $disabled=0 , $method=false)
     {
         $this -> titleEn = $titleEn;
         $this -> titleFa = $titleFa;
         $this -> disabled = $disabled;
+        $this -> method = $method;
     }
 
     /**

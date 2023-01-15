@@ -1405,7 +1405,7 @@
 
 
     #app-name{
-        font-size: 60pt;
+        font-size: 45pt;
         color: rgb(226, 226, 226);
         text-align: center;
         line-height: 1000px;

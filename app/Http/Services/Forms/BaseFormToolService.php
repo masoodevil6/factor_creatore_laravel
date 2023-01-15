@@ -186,9 +186,9 @@ class BaseFormToolService{
 
 
     private function setPageSelected($pageSize){
-
+       ;
         foreach ($this->infoPages As $itemInfo){
-            if (isset($itemInfo["size"]) && Str::lower($itemInfo["size"]) ==  Str::lower($pageSize)){
+            if (isset($itemInfo["size"]["name"]) && $itemInfo["size"]["name"] == $pageSize){
                 $this->setInfoPageForm($itemInfo);
                 break;
             }

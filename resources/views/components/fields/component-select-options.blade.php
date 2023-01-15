@@ -4,7 +4,7 @@
         {{$titleFa}}
     </label>
 
-    <select id="select-option-{{$titleEn}}" @if($disabled == 1) disabled="disabled" @endif  name="{{$titleEn}}" class=" form-control form-control-sm form-text font-size-12" aria-label="Default select example">
+    <select @if($method) onchange="changeValue{{$titleEn}}(this)" @endif  id="select-option-{{$titleEn}}" @if($disabled == 1) disabled="disabled" @endif  name="{{$titleEn}}" class=" form-control form-control-sm form-text font-size-12" aria-label="Default select example">
         {{$slot}}
     </select>
 

@@ -153,26 +153,32 @@ class FormController extends MainAdminController
 
 
     public function testFile(Form $form ,  FactorService $factorService){
-        /// navigation page
-        $nav = [
-            "part"=> "بخش مدیریت فرم ها",
-            "navigation" =>[
-                [
-                    "route" => "admin.forms.form.index" ,
-                    "current" => 0,
-                    "title" => "لیست فرم ها"
-                ],
-                [
-                    "route" => "" ,
-                    "current" => 1,
-                    "title" => "دانلود تست فایل فاکتور فرم"
+        if (!empty($form) && $form != null && isset($form["id"])){
+            /// navigation page
+            $nav = [
+                "part"=> "بخش مدیریت فرم ها",
+                "navigation" =>[
+                    [
+                        "route" => "admin.forms.form.index" ,
+                        "current" => 0,
+                        "title" => "لیست فرم ها"
+                    ],
+                    [
+                        "route" => "" ,
+                        "current" => 1,
+                        "title" => "دانلود تست فایل فاکتور فرم"
+                    ]
                 ]
-            ]
-        ];
+            ];
 
-        $formInfo= $factorService->getInfoFactor($form);
-        $classes = $this->getListFormClass();
-        return view("admin.forms.forms.test-file" , compact("nav" , "form" , "classes" , "formInfo"));
+            $forms = $this-> setFormNameFromClass();
+
+            $formInfo= $factorService->getInfoFactor($form);
+            $classes = $this->getListFormClass();
+            return view("admin.forms.forms.test-file" , compact("nav" , "form" , "classes" , "formInfo" , "forms"));
+        }
+
+        return $this ->redirectIndex("کلاس فرم موجود نمی باشد" , true);
     }
 
     public function submitTestFile(TestFileFormFactorRequest $request){
@@ -195,7 +201,9 @@ class FormController extends MainAdminController
 
         if ($viewInfo != null){
             $view = $viewInfo["view"];
-            return view("admin.forms.forms.show-test-view" , compact("form" , "view"));
+            $size = $viewInfo["size"];
+            $orientation = $viewInfo["orientation"];
+            return view("admin.forms.forms.show-test-view" , compact("form" , "view" , "size" , "orientation"));
         }
         else{
             return $this ->redirectIndex("مشکلی در پردازش فرم تست رخ داده است" , true);
@@ -262,6 +270,26 @@ class FormController extends MainAdminController
         return null;
     }
 
+    private function getNameEnAndFaClass($classNamespace){
+        $resultExp=[
+            "name" => "",
+            "name_fa" => "",
+        ];
+        $forms = $this->getListFormClass();
+
+        foreach ($forms as $form){
+            if ($form["namespace"] == $classNamespace){
+                $resultExp = [
+                    "name" => $form["name"],
+                    "name_fa" => $form["name_fa"],
+                ];
+                break;
+            }
+        }
+
+        return $resultExp;
+    }
+
     private function getListFormClass(){
         return Config::get("forms.form_class");
     }
@@ -277,6 +305,19 @@ class FormController extends MainAdminController
         );
 
         return $resultUploadImage;
+    }
+
+
+    private function setFormNameFromClass(){
+        $forms = ContextRepository::FormRepository()->getAllResult();
+
+        foreach ($forms as $key => $itemForm){
+            $data = $this->getNameEnAndFaClass($itemForm->class);
+            $forms[$key]->form_name = $data["name"];
+            $forms[$key]->form_name_fa = $data["name_fa"];
+        }
+
+        return $forms;
     }
 
 }

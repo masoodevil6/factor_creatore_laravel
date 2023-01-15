@@ -28,7 +28,7 @@ return new class extends Migration
 
             $table->string("logo_name")->nullable();
 
-            $table->foreignId("form_id")->nullable()->constrained("forms");
+            $table->foreignId("form_id")->nullable()->constrained("forms")->onUpdate("cascade")->onDelete("cascade");
             $table->foreignId("user_id")->nullable()->constrained("users")->onUpdate("cascade")->onDelete("cascade");
 
             $table->timestamps();

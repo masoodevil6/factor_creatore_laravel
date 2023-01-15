@@ -1,9 +1,24 @@
 <section>
 
     <style>
+        #formPdf{
+            @if($orientation == "p")
+                width: {{$size["width"]}}!important;
+                height: {{$size["height"]}}!important;
+            @else
+                width: {{$size["height"]}}!important;
+                height: {{$size["width"]}}!important;
+            @endif
+            display: table;
+            margin: auto;
+        }
 
         .page{
-            height:  285mm!important;
+            @if($orientation == "p")
+                 height: {{$size["height"]}}!important;
+            @else
+                 height: {{$size["width"]}}!important;
+            @endif
             border: solid 1px black;
             padding: 10px;
             margin-top: 10px;
@@ -25,7 +40,7 @@
 
     </section>
 
-    <section style="width: calc(210mm)!important; height:  297mm!important;display: table;   margin: auto">
+    <section id="formPdf">
         {!! $view !!}
     </section>
 

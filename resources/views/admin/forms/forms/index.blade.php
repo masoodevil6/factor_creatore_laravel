@@ -23,10 +23,6 @@
                     <a href="{{route("admin.forms.form.create")}}" class="btn btn-info btn-sm max-height-30">
                         فرم جدید
                     </a>
-                    <a href="{{route("admin.forms.form.test-file")}}" class="btn btn-success btn-sm max-height-30">
-                        <i class="fa fa-download mx-2"></i>
-                        ایجاد فایل تستی
-                    </a>
                 </div>
 
 
