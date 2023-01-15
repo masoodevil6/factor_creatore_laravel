@@ -10,6 +10,10 @@
             border-radius: 5px;
         }
 
+        #info-pager{
+            display: none;
+        }
+
     </style>
 
 

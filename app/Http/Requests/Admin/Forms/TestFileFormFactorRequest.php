@@ -3,6 +3,7 @@
 namespace App\Http\Requests\Admin\Forms;
 
 use App\Rules\FormExist;
+use App\Rules\FormSize;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\Auth;
 
@@ -27,6 +28,7 @@ class TestFileFormFactorRequest extends FormRequest
     {
         return [
             "class_name" => ["required" , new FormExist()] ,
+            "size" => ["required" , new FormSize()] ,
             "product_num" => "required|numeric"
         ];
     }
@@ -34,6 +36,7 @@ class TestFileFormFactorRequest extends FormRequest
     public function attributes(){
         return [
             "class_name" => "فرم",
+            "size" => "سایز صفحه",
             "product_num" => "تعداد کالاها"
         ];
     }

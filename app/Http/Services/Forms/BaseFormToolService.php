@@ -4,10 +4,12 @@ namespace App\Http\Services\Forms;
 use App\Http\Services\Forms\ModelServices\FactorModel;
 use App\Http\Services\Forms\ModelServices\ProductModel;
 use App\Repositories\ContextRepository;
+use Illuminate\Support\Facades\Config;
+use Illuminate\Support\Str;
 
 class BaseFormToolService{
 
-    private $factor;
+    protected $factor;
     private $factorModel;
     private $products = [];
     private $productsInPage = [];
@@ -16,18 +18,25 @@ class BaseFormToolService{
     private $factorRes = 0;
     private $userId = 0;
 
+    private $isTestFile = false;
+    private $data = [];
+    private $view = "";
+    private $description;
 
-    protected $isTestFile = false;
-    private $passPrice;
+    private $infoPages =[
+        [
+            "orientation" => "" ,
+            "size" => "A4" ,
+            "num" => 8
+        ]
+    ];
+    private $infoPage=[];
 
-    protected $view = "";
-    protected $data = [];
-    protected $num = 8;
 
 
-    public function __construct($factor , $passPrice = null , $isTestFile)
+
+    public function __construct($passPrice , $isTestFile , $pageSize="")
     {
-        $this->factor = $factor;
         $this->isTestFile = $isTestFile;
 
         if (!empty($passPrice)){
@@ -37,8 +46,165 @@ class BaseFormToolService{
             $this->passPrice = ContextRepository::FactorRepository()->GetStandardPassPrice();
         }
 
+        $this->setPageSelected($pageSize);
+    }
+
+
+
+
+
+    protected function setFactor($factor){
+        $this->factor = $factor;
+
+
+    }
+    public function getFactorModel()
+    {
+        return $this->factorModel;
+    }
+
+
+
+    private function getInfoPageForm()
+    {
+        return $this->infoPage;
+    }
+    private function setInfoPageForm($infoPageForm)
+    {
+        $this->infoPage = $infoPageForm;
+    }
+    protected function getValidValuePageForm(){
+        $infoPage = $this->getInfoPageForm();
+
+        $size = "A4";
+        if (isset($infoPage["size"])){
+            $size = $infoPage["size"];
+        }
+
+        $orientation = Config::get("forms.vertical");
+        if (isset($infoPage["orientation"])){
+            $orientation = $infoPage["orientation"];
+        }
+
+        return [
+            "size" => $size,
+            "orientation" => $orientation,
+        ];
+
+    }
+
+
+
+
+
+
+    protected function setInfoPagesForm($infoPages){
+        $this->infoPages = $infoPages;
+    }
+    protected function getInfoPagesForm(){
+        return $this->infoPages;
+    }
+
+
+
+    protected function setViewForm($view)
+    {
+        $this->view = $view;
+    }
+    protected function getViewForm()
+    {
+        return $this->view;
+    }
+
+
+
+    protected function setDataForm($data)
+    {
+        $this->data = $data;
+    }
+    protected function getDataForm(): array
+    {
+        return $this->data;
+    }
+
+
+    protected function setDescriptionForm($description)
+    {
+        $this->description = $description;
+    }
+    protected function getDescriptionForm()
+    {
+        return $this->description;
+    }
+
+
+
+    public function getProducts(): array
+    {
+        return $this->products;
+    }
+
+    public function getProductsInPage(): array
+    {
+        return $this->productsInPage;
+    }
+
+    public function getTotalPrice()
+    {
+        return persianPriceFormat($this->totalPrice).$this->passPrice;
+    }
+
+
+    public function getInfoPages(): array
+    {
+        return $this->infoPages;
+    }
+
+
+
+
+
+
+
+
+    public function getFactorFileInfo()
+    {
+        $resultExp = [
+            "fileLocation" => "",
+            "fileName" => $this->factorRes.".pdf",
+        ];
+
+        if ($this->isTestFile){
+            $resultExp["fileLocation"] = ContextRepository::UserRepository()->getDirectoryTestFile();
+        }
+        else{
+            $resultExp["fileLocation"] = ContextRepository::UserRepository()->getPathUser().ContextRepository::UserRepository()->getDirectoryUserFactors();
+        }
+
+        return $resultExp;
+    }
+
+
+    private function setPageSelected($pageSize){
+
+        foreach ($this->infoPages As $itemInfo){
+            if (isset($itemInfo["size"]) && Str::lower($itemInfo["size"]) ==  Str::lower($pageSize)){
+                $this->setInfoPageForm($itemInfo);
+                break;
+            }
+        }
+
+        if ( (empty($this->infoPage) || $this->infoPage == null) && sizeof($this->infoPages)){
+            $this->setInfoPageForm($this->infoPages["0"]);
+        }
+    }
+
+
+
+    protected function readyDataModels(){
         $this->readyFactorModel();
         $this->readyListFactorProductsModel();
+        $this->readyListProductsInPages();
     }
 
     private function readyFactorModel()
@@ -97,11 +263,12 @@ class BaseFormToolService{
             $this->totalPrice += $productModel->getProductTotalPrice();
         }
 
-
     }
 
+    private function readyListProductsInPages(){
+        $infoPage = $this->getInfoPageForm();
+        $num = $infoPage["num"];
 
-    protected function readyListProductsInPages(){
         $resultInPage = [
             "page" => 1,
             "products" => []
@@ -110,7 +277,7 @@ class BaseFormToolService{
             $itemPoroduct->key_page = $key+1;
             array_push($resultInPage["products"] , $itemPoroduct);
 
-            if (($key+1) % $this->getNum() == 0){
+            if (($key+1) % $num == 0){
                 array_push($this->productsInPage , $resultInPage);
                 $resultInPage["products"] = [];
                 $resultInPage["page"] ++;
@@ -127,59 +294,14 @@ class BaseFormToolService{
 
 
 
-    public function getFactorModel()
-    {
-        return $this->factorModel;
-    }
-
-    public function getProducts(): array
-    {
-        return $this->products;
-    }
-
-    public function getProductsInPage(): array
-    {
-        return $this->productsInPage;
-    }
-
-    public function getTotalPrice()
-    {
-        return persianPriceFormat($this->totalPrice).$this->passPrice;
-    }
-
-    protected function getView()
-    {
-        return $this->view;
-    }
-
-    protected function getData(): array
-    {
-        return $this->data;
-    }
-
-    protected function getNum(): int
-    {
-        return $this->num;
-    }
-
-
-
-
-    public function getFactorFileInfo()
-    {
-        $resultExp = [
-            "fileLocation" => "",
-            "fileName" => $this->factorRes.".pdf",
+    public function getTotalDataForm(){
+        return [
+            "page"=>$this->getInfoPages() ,
+            "description" => $this->getDescriptionForm(),
         ];
-
-        if ($this->isTestFile){
-            $resultExp["fileLocation"] = ContextRepository::UserRepository()->getDirectoryTestFile();
-        }
-        else{
-            $resultExp["fileLocation"] = ContextRepository::UserRepository()->getPathUser().ContextRepository::UserRepository()->getDirectoryUserFactors();
-        }
-
-
-        return $resultExp;
     }
+
+
+
+
 }

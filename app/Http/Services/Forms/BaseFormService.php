@@ -2,49 +2,69 @@
 
 namespace App\Http\Services\Forms;
 
-/*use Barryvdh\DomPDF\Facade\Pdf;*/
-
-/*use Dompdf\Dompdf;
-/*use Dompdf\Options;
-use Illuminate\Support\Facades\App;*/
+use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\Storage;
-
-/*use Knp\Snappy\Pdf;*/
 
 use niklasravnsborg\LaravelPdf\Facades\Pdf;
 
 class BaseFormService extends BaseFormToolService {
 
+    /*
+     *  setInfoPages()
+     *  setView()
+     *  setData()
+    */
     private $passPrice = " ریـال";
 
-
-    public function __construct($factor , $isTestFile)
+    public function __construct($factor=null , $isTestFile=false , $pageSize="")
     {
-        parent::__construct($factor , $this->passPrice , $isTestFile);
+        if ($factor != null){
+            $this->setFactor($factor);
+        }
 
+        $this->readyDataConstructForm();
+
+        parent::__construct($this->passPrice , $isTestFile , $pageSize);
+    }
+
+    private function readyDataConstructForm(){
+        if (method_exists($this , "setInfoPages")){
+            $this->setInfoPagesForm($this->setInfoPages());
+        }
         if (method_exists($this , "setView")){
-            $this->setView();
+            $this->setViewForm($this->setView());
+        }
+        if (method_exists($this , "setData")){
+            $this->setDataForm($this->setData());
+        }
+        if (method_exists($this , "setDescription")){
+            $this->setDescriptionForm($this->setDescription());
         }
     }
 
 
-
-
-
     private function getTotalInfo(){
-        $this->readyListProductsInPages();
+        $this->readyDataModels();
 
         $factor = $this->getFactorModel();
         $products = $this->getProducts();
         $productsInPage = $this->getProductsInPage();
         $totalPrice = $this->getTotalPrice();
-        $view = $this->getView();
-        $data = $this->getData();
-        $num = $this->getNum();
+
+        $data = $this->getDataForm();
+        $view = $this->getViewForm();
+
+        $infoPage = $this->getValidValuePageForm();
+        $size = $infoPage["size"];
+        $orientation = $infoPage["orientation"];
+
+        $appName = Config::get('app.name');
 
         return [
+            "size" => $size,
+            "orientation" => $orientation,
             "view" => $view,
-            "data" => compact('factor' , "products" , "productsInPage" , "totalPrice" , "data" , "num")
+            "data" => compact('factor' , "products" , "productsInPage" , "totalPrice" , "data" , "size" , "appName" )
         ];
     }
 
@@ -52,9 +72,15 @@ class BaseFormService extends BaseFormToolService {
         $info = $this->getTotalInfo();
         $view = $info["view"];
         $data = $info["data"];
+        $size = $info["size"];
+        $orientation = $info["orientation"];
 
         if (view()->exists($view)) {
-            return view($view , $data)->render();
+            return [
+                "view" => view($view , $data)->render() ,
+                "size" => $size ,
+                "orientation" => $orientation ,
+            ];
         }
         return null;
     }
@@ -65,19 +91,24 @@ class BaseFormService extends BaseFormToolService {
 
     public function ToPdf(){
 
-        $view  = $this->getViewRender();
+        $viewInfo  = $this->getViewRender();
         $fileName = null;
 
-        if ($view != null) {
+        if ($viewInfo != null) {
 
             $fileInfo =$this->getFactorFileInfo();
             $fileLocation =  $fileInfo["fileLocation"];
             $fileName = $fileInfo["fileName"];
 
-            $pdf = Pdf::loadHtml($view);
+            $pdf = Pdf::loadHtml(
+                $viewInfo["view"]
+                , [
+                    "format" => $viewInfo["size"] ,
+                    "orientation" => $viewInfo["orientation"]
+                ]
+            );
 
             Storage::disk('local')->put($fileLocation.$fileName , $pdf->output());
-
         }
 
         return $this;

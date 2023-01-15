@@ -152,7 +152,7 @@ class FormController extends MainAdminController
 
 
 
-    public function testFile(Form $form ){
+    public function testFile(Form $form ,  FactorService $factorService){
         /// navigation page
         $nav = [
             "part"=> "بخش مدیریت فرم ها",
@@ -170,12 +170,13 @@ class FormController extends MainAdminController
             ]
         ];
 
+        $formInfo= $factorService->getInfoFactor($form);
         $classes = $this->getListFormClass();
-        return view("admin.forms.forms.test-file" , compact("nav" , "form" , "classes"));
+        return view("admin.forms.forms.test-file" , compact("nav" , "form" , "classes" , "formInfo"));
     }
 
     public function submitTestFile(TestFileFormFactorRequest $request){
-        $fileFormTestService = new FileFormTestService($this->getNameSpaceClass($request->get("class_name")) , $request->get("product_num"));
+        $fileFormTestService = new FileFormTestService($this->getNameSpaceClass($request->get("class_name")) , $request->get("product_num"), $request->get("size"));
         $resNum = $fileFormTestService->generateAndAddressDownloadFileFactor();
         return redirect()->route("admin.forms.form.download-test-file" , ["time" => time() , "resNum"=>$resNum]);
     }
@@ -190,9 +191,16 @@ class FormController extends MainAdminController
 
 
     public function showTestView(Form $form , TestView $testView){
-        $view = $testView->testModel($form);
+        $viewInfo = $testView->testModel($form);
 
-        return view("admin.forms.forms.show-test-view" , compact("form" , "view"));
+        if ($viewInfo != null){
+            $view = $viewInfo["view"];
+            return view("admin.forms.forms.show-test-view" , compact("form" , "view"));
+        }
+        else{
+            return $this ->redirectIndex("مشکلی در پردازش فرم تست رخ داده است" , true);
+        }
+
     }
 
 

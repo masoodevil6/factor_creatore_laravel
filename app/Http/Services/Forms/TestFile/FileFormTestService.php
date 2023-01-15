@@ -13,14 +13,16 @@ class FileFormTestService extends TestData
     private $factorService;
     private $ClassName;
     private $numProduct = 8;
+    private $pageSize = "";
 
 
-    public function __construct($className , $productNum)
+    public function __construct($className , $productNum=8 , $pageSize="")
     {
         parent::__construct();
         $this->factorService = new FactorService();
         $this->setClassName($className);
         $this->setNumProduct($productNum);
+        $this->setPageSize($pageSize);
     }
 
     public function generateAndAddressDownloadFileFactor(){
@@ -58,7 +60,7 @@ class FileFormTestService extends TestData
     }
 
     private function addressDownloadFileFactor($factor){
-        $this->factorService->generateFactor($factor , true);
+        $this->factorService->generateFactor($factor , true , $this->getPageSize());
         return $factor->res_num;
     }
 
@@ -83,6 +85,7 @@ class FileFormTestService extends TestData
     }
 
 
+
     private function getClassName()
     {
         return $this->ClassName;
@@ -93,6 +96,7 @@ class FileFormTestService extends TestData
     }
 
 
+
     private function getNumProduct(): int
     {
         return $this->numProduct;
@@ -100,6 +104,18 @@ class FileFormTestService extends TestData
     private function setNumProduct(int $numProduct): void
     {
         $this->numProduct = $numProduct;
+    }
+
+
+
+
+    private function getPageSize()
+    {
+        return $this->pageSize;
+    }
+    private function setPageSize($pageSize): void
+    {
+        $this->pageSize = $pageSize;
     }
 
 

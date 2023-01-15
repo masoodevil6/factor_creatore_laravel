@@ -46,8 +46,8 @@ class UserRepository extends BaseRepository implements IUserRepository {
             $this->fileTestLogo = $this->directoryTestLogo."test.png";
             $this->fileTestMohr = $this->directoryTestMohr."test.png";
 
-            $this->fileTestLogo = "https://".Config::get("app.ip")."/FactorSaz/test-logo.png";
-            $this->fileTestMohr = "https://".Config::get("app.ip")."/FactorSaz/test-mohr.png";
+            $this->fileTestLogo = "https://".Config::get("app.ip")."/factorSaz/storage/app/test/logo/test.png";
+            $this->fileTestMohr = "https://".Config::get("app.ip")."/factorSaz/storage/app/test/mohr/test.png";
         }
     }
 

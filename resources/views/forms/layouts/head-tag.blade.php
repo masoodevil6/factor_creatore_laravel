@@ -1374,6 +1374,22 @@
     }
 
 
+
+
+
+
+    .text_decoration_line_through{
+        text-decoration: line-through;
+    }
+
+    .hide_text_full{
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        overflow: hidden;
+    }
+
+
+
 </style>
 
 <style>
@@ -1386,6 +1402,15 @@
         text-align: right;
         font-family:  Vazir;
     }
+
+
+    #app-name{
+        font-size: 60pt;
+        color: rgb(226, 226, 226);
+        text-align: center;
+        line-height: 1000px;
+    }
+
 
 
 
@@ -1419,19 +1444,24 @@
 
 
     .line_height_1{
-        line-height: 10px;
+        line-height: 10px !important;
+        min-height: 10px !important;
     }
     .line_height_2{
-        line-height: 20px;
+        line-height: 20px !important;
+        min-height: 20px !important;
     }
     .line_height_3{
-        line-height: 30px;
+        line-height: 30px !important;
+        min-height: 30px !important;
     }
     .line_height_4{
-        line-height: 40px;
+        line-height: 40px !important;
+        min-height: 40px !important;
     }
     .line_height_5{
-        line-height: 50px;
+        line-height: 50px !important;
+        min-height: 50px !important;
     }
 
 
@@ -2150,16 +2180,6 @@
 
 
 
-
-    .text_decoration_line_through{
-        text-decoration: line-through;
-    }
-
-    .hide_text_full{
-        text-overflow: ellipsis;
-        white-space: nowrap;
-        overflow: hidden;
-    }
 
 
 

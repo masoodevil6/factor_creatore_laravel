@@ -1,6 +1,8 @@
 <?php
 namespace App\Http\Services\Forms\ModelServices;
 
+use Illuminate\Support\Str;
+
 class ProductModel{
 
     private $passPrice;
@@ -35,7 +37,7 @@ class ProductModel{
 
     public function getProductName()
     {
-        return $this->productName;
+        return Str::limit($this->productName, 25);
     }
     public function setProductName($productName): void
     {
@@ -68,7 +70,7 @@ class ProductModel{
 
     public function getProductNumUnitText()
     {
-        return $this->getProductNum()." ".$this->getProductUnit();
+        return Str::limit($this->getProductNum()." ".$this->getProductUnit(), 8);
     }
 
 
@@ -80,7 +82,7 @@ class ProductModel{
     }
     public function getProductPriceText()
     {
-        return persianPriceFormat($this->getProductPrice()).$this->passPrice;
+        return Str::limit(persianPriceFormat($this->getProductPrice()).$this->passPrice, 25);
     }
     public function setProductPrice($productPrice): void
     {
@@ -97,7 +99,7 @@ class ProductModel{
     }
     public function getProductOffText()
     {
-        return persianPriceFormat($this->getProductOff()).$this->passPrice;
+        return Str::limit(persianPriceFormat($this->getProductOff()).$this->passPrice, 25);
     }
     public function setProductOff($productOff): void
     {
@@ -118,7 +120,7 @@ class ProductModel{
 
     public function getProductTotalPriceText()
     {
-        return persianPriceFormat($this->getProductTotalPrice()).$this->passPrice;
+        return Str::limit(persianPriceFormat($this->getProductTotalPrice()).$this->passPrice, 25);
     }
 
 

@@ -11,7 +11,34 @@
 </head>
 <body>
 
-<main class="container direction_rtl p-2 position-relative" >
+<main class="container direction_rtl p-2 " >
+
+    <div id="info-pager">
+        <style>
+            @page {
+                odd-header-name: odd-header;
+                odd-footer-name: odd-footer;
+            }
+        </style>
+
+
+        <htmlpageheader name="odd-header">
+            <div id="app-name">  {{$appName}} </div>
+        </htmlpageheader>
+
+
+        <htmlpagefooter name="odd-footer">
+
+            <div style="float:right; width: 50%;">
+                {{$appName}}
+            </div>
+
+            <div style="float:left; width: 40%; text-align: right;">Page {PAGENO} of {nb}</div>
+        </htmlpagefooter>
+    </div>
+
+
+
 
     @yield("content")
 

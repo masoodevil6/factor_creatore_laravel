@@ -36,12 +36,15 @@
 
                         @foreach($classes as $itemClass)
                             <option value="{{$itemClass["name"]}}" @if(isset($forms["class"]) && $itemClass["namespace"]==$forms["class"]) selected @endif>
+                                {{$itemClass["name_fa"]}}
+                                -
+                                [
                                 {{$itemClass["name"]}}
+                                ]
                             </option>
                         @endforeach
 
                     </x-fields.component-select-options>
-
 
                     <x-fields.component-input-insert
                             title-en="product_num"
@@ -49,8 +52,74 @@
                             type="number"
                             value="8" />
 
+                    <x-fields.component-select-options
+                            title-en="size"
+                            title-fa="سایز صفحه">
+
+                        @foreach($formInfo["page"] As $key => $itemInfo)
+                            <option value="{{$itemInfo["size"]}}">
+                                {{\Illuminate\Support\Str::upper($itemInfo["size"])}}
+                                - [
+                                {{$itemInfo["num"]}}
+                                عدد
+                                ]
+                            </option>
+                        @endforeach
+
+                    </x-fields.component-select-options>
+
 
                 </x-fields.component-from-data>
+
+            </section>
+
+
+            <section class="row mt-3 border-bottom">
+
+                <section class="col-12 body-content d-flex justify-content-between pb-2">
+
+                    <h5>
+                        اطلاعات فرم
+                    </h5>
+
+                </section>
+
+
+                <section class="col-12 col-lg-6">
+                    {!! $formInfo["description"] !!}
+                </section>
+
+                <section class="col-12 col-lg-6">
+                    <table class="table table-striped">
+
+                        <thead>
+                        <tr>
+                            <th scope="col">#</th>
+                            <th scope="col" class="w-25  font-size-12 text-center">سایز</th>
+                            <th scope="col" class=" font-size-12 text-center">تعداد کالاها در هر صفحه</th>
+                        </tr>
+                        </thead>
+
+                        <tbody>
+                        @foreach($formInfo["page"] As $key => $itemInfo)
+                            <tr>
+                                <td class="font-size-12">
+                                    {{$key}}
+                                </td>
+                                <td class="font-size-12 text-center">
+                                    {{\Illuminate\Support\Str::upper($itemInfo["size"])}}
+                                </td>
+                                <td class="font-size-12 text-center">
+                                    {{$itemInfo["num"]}}
+                                    عدد
+                                </td>
+                            </tr>
+                        @endforeach
+                        </tbody>
+
+                    </table>
+                </section>
+
 
             </section>
 

@@ -2,6 +2,7 @@
 namespace App\Http\Services\Forms\ModelServices;
 
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Str;
 use function PHPUnit\Framework\fileExists;
 
 class FactorModel{
@@ -50,7 +51,7 @@ class FactorModel{
 
     public function getResNum()
     {
-        return $this->resNum;
+        return Str::limit($this->resNum, 25);
     }
     public function setResNum($resNum): void
     {
@@ -60,7 +61,7 @@ class FactorModel{
 
     public function getDescription()
     {
-        return $this->description;
+        return Str::limit($this->description, 160);
     }
     public function setDescription($description): void
     {
@@ -106,7 +107,7 @@ class FactorModel{
 
     public function getStoreName()
     {
-        return $this->storeName;
+        return Str::limit($this->storeName, 30);
     }
     public function setStoreName($storeName): void
     {
@@ -117,7 +118,7 @@ class FactorModel{
 
     public function getStorePhone()
     {
-        return $this->storePhone;
+        return Str::limit($this->storePhone, 30);
     }
     public function setStorePhone($storePhone): void
     {
@@ -127,7 +128,7 @@ class FactorModel{
 
     public function getStoreAddress()
     {
-        return $this->storeAddress;
+        return Str::limit($this->storeAddress, 30);
     }
     public function setStoreAddress($storeAddress): void
     {
@@ -137,7 +138,7 @@ class FactorModel{
 
     public function getCustomerName()
     {
-        return $this->customerName;
+        return Str::limit($this->customerName, 30);
     }
     public function setCustomerName($customerName): void
     {
@@ -148,7 +149,7 @@ class FactorModel{
 
     public function getCustomerPhone()
     {
-        return $this->customerPhone;
+        return Str::limit($this->customerPhone, 30);
     }
     public function setCustomerPhone($customerPhone): void
     {
@@ -159,7 +160,7 @@ class FactorModel{
 
     public function getCustomerAddress()
     {
-        return $this->customerAddress;
+        return Str::limit($this->customerAddress, 30);
     }
     public function setCustomerAddress($customerAddress): void
     {

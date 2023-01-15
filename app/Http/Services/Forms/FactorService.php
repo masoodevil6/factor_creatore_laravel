@@ -3,6 +3,7 @@ namespace App\Http\Services\Forms;
 
 
 use App\Models\Factors\Factor;
+use App\Models\Forms\Form;
 use App\Repositories\ContextRepository;
 use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Storage;
@@ -10,20 +11,23 @@ use Illuminate\Support\Facades\Storage;
 class FactorService{
 
 
-    public function generateFactor(Factor $factor , $isTest=false){
+    public function generateFactor(Factor $factor , $isTest=false , $size=""){
 
-        $nameSpaceClass = $factor->form->class;
-
-        try{
-            $instance = (new \ReflectionClass($nameSpaceClass))->newInstance($factor , $isTest);
+        $instance = $this->getInstaceClassForm($factor->form , $factor , $isTest , $size);
+        if ($instance != null){
             return $instance->ToPdf();
         }
-        catch (Exception $e){
-            return null;
-        }
+        return null;
     }
 
 
+    public function getInfoFactor(Form $form){
+        $instance = $this->getInstaceClassForm($form);
+        if ($instance != null){
+            return $instance->getTotalDataForm();
+        }
+        return null;
+    }
 
 
 
@@ -75,7 +79,18 @@ class FactorService{
     }
 
     private function getFactorTestFileName(){
-        return $directoryFactor = ContextRepository::UserRepository()->getDirectoryTestFile();;
+        return $directoryFactor = ContextRepository::UserRepository()->getDirectoryTestFile();
+    }
+
+    private function getInstaceClassForm(Form $form , Factor $factor=null , $isTest=false , $size=""){
+        $nameSpaceClass = $form->class;
+
+        try{
+            return (new \ReflectionClass($nameSpaceClass))->newInstance($factor , $isTest , $size);
+        }
+        catch (Exception $e){
+            return null;
+        }
     }
 
 }
