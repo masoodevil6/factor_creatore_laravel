@@ -18,13 +18,9 @@ class BaseFormService extends BaseFormToolService {
 
     public function __construct($factor=null , $isTestFile=false , $pageSize="")
     {
-        if ($factor != null){
-            $this->setFactor($factor);
-        }
-
         $this->readyDataConstructForm();
 
-        parent::__construct($this->passPrice , $isTestFile , $pageSize);
+        parent::__construct($factor , $this->passPrice , $isTestFile , $pageSize);
     }
 
     private function readyDataConstructForm(){
@@ -85,7 +81,6 @@ class BaseFormService extends BaseFormToolService {
         }
         return null;
     }
-
 
 
 

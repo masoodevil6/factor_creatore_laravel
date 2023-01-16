@@ -2,10 +2,8 @@
 
 namespace App\Http\Services\Forms\TestFile;
 
-
 use App\Http\Services\Forms\FactorService;
 use App\Repositories\ContextRepository;
-use Illuminate\Support\Facades\Auth;
 
 class FileFormTestService extends TestData
 {
@@ -25,50 +23,26 @@ class FileFormTestService extends TestData
         $this->setPageSize($pageSize);
     }
 
+
     public function generateAndAddressDownloadFileFactor(){
         $factor = $this->readyInfoFactor();
-        $this->factorService->deleteFactorsTest();
-
-        ContextRepository::FactorRepository()->deleteResult($factor);
-
         return $this->addressDownloadFileFactor($factor);
     }
 
-
     ////////// ----------------------------
     private function readyInfoFactor(){
-        $this->factorInfo["res_num"] = ContextRepository::FactorRepository()-> GenerateUniqueResNumFactor();
-        $this->factorInfo["user_id"] = $this->getUserId();
-        $this->factorInfo["form_id"] = $this->getFormId();
-
-        $factor = ContextRepository::FactorRepository()->addResult($this->factorInfo);
-
-        $this->readyProductsInFactor($factor);
-
-        return ContextRepository::FactorRepository()->getResult($factor->id);
+        $this->factorInfo["res_num"] = randomNumFromBetweenNumber();
+        $this->factorInfo["id"] = $this->getFormId();
+        return $this->readyFactorModel($this->factorInfo , $this->getNumProduct());
     }
 
-    private function readyProductsInFactor($factor){
-        $products = $this->readyListProductModel($this->getNumProduct());
-
-        foreach ($products as $itemProduct){
-            $itemProduct["factor_id"] = $factor->id;
-            $itemProduct = $itemProduct->toArray();
-
-            ContextRepository::FactorProductRepository()->addResult($itemProduct);
-        }
-    }
 
     private function addressDownloadFileFactor($factor){
         $this->factorService->generateFactor($factor , true , $this->getPageSize());
         return $factor->res_num;
     }
 
-
-
-
     ///// ---------------------------------------------------
-
     private function getFormId()
     {
         $form = ContextRepository::FormRepository()->SearchFromFromClassName($this->getClassName()) ;
@@ -77,13 +51,6 @@ class FileFormTestService extends TestData
         }
         return null;
     }
-
-
-    private function getUserId(): int
-    {
-        return Auth::id();
-    }
-
 
 
     private function getClassName()
@@ -96,7 +63,6 @@ class FileFormTestService extends TestData
     }
 
 
-
     private function getNumProduct(): int
     {
         return $this->numProduct;
@@ -105,8 +71,6 @@ class FileFormTestService extends TestData
     {
         $this->numProduct = $numProduct;
     }
-
-
 
 
     private function getPageSize()

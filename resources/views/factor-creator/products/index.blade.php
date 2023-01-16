@@ -1,4 +1,5 @@
 @extends('customer.layouts.master-one-col')
+@section("titlePage" , "ساخت فاکتور- کالاها")
 
 @section('head-tag')
     <link rel="stylesheet" href="{{asset("public/sweetalert/sweetalert2.css")}}">

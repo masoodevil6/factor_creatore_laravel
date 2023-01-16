@@ -11,11 +11,16 @@ return [
     'margin_right' => 0 ,
     'margin_left' => 0,
 
-    'default_font' => 'Vazir',
-    'custom_font_dir'  => public_path('public/fonts/Vazir'),
-    'custom_font_data' => [
-        'Vazir' => [
-            'R'  => 'Vazir-Regular.ttf'
+    'default_font' => 'vazir',
+    'font_path'  => public_path('public/fonts'),
+    'font_data' => [
+        'vazir' => [
+            'R'  => 'Vazir-Regular.ttf',
+            'useOTL' => 0xFF,
+            'useKashida' => 75,
+            'unAGlyphs' => true,
         ]
     ]
 ];
+
+

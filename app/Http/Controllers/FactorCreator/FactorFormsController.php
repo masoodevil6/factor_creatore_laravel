@@ -3,9 +3,10 @@
 namespace App\Http\Controllers\FactorCreator;
 
 
+use App\Http\Services\Forms\FactorService;
 use App\Repositories\ContextRepository;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
+use function Symfony\Component\Finder\size;
 
 class FactorFormsController extends BaseFactorController
 {
@@ -27,9 +28,14 @@ class FactorFormsController extends BaseFactorController
         ///--------------
         $form = $info["form"];
         $formCategoryId = $info["formCategoryId"];
+        ///---------------
+        $infoForm = null;
+        if (!empty($form) && $form !=null){
+            $infoForm = $this->getInfoFactor($form);
+        }
 
         return view("factor-creator.forms.index" ,
-            compact("nav" , "stepFactor" , "subscribeActives" , "formCategories" , "forms" , "form" , "formCategoryId")
+            compact("nav" , "stepFactor" , "subscribeActives" , "formCategories" , "forms" , "form" , "formCategoryId" , "infoForm")
         );
     }
 
@@ -39,13 +45,16 @@ class FactorFormsController extends BaseFactorController
         $forms = $this->getListForms($request->get("form_category_id") , $subscribeActives);
 
         $form = null;
+        $infoForm = null;
         if (sizeof($forms)>0){
             $form = $forms[0];
+            $infoForm = $this->getInfoFactor($form);
         }
+
 
         return [
             "forms" => view("factor-creator.forms.forms" , compact( "subscribeActives","forms" , "form"))->render(),
-            "form_selected" => $this->returnViewInfoForm($form , $subscribeActives)
+            "form_selected" => $this->returnViewInfoForm($form , $subscribeActives , $infoForm)
         ];
     }
 
@@ -55,7 +64,9 @@ class FactorFormsController extends BaseFactorController
         $subscribeActives = $info["subscribeActives"];
         $form = $info["form"];
 
-        return $this->returnViewInfoForm($form , $subscribeActives);
+        $infoForm = $this->getInfoFactor($form);
+
+        return $this->returnViewInfoForm($form , $subscribeActives , $infoForm);
     }
 
     public function endProcessSelectForm(Request $request){
@@ -65,8 +76,10 @@ class FactorFormsController extends BaseFactorController
             $info = $this->returnInfoForm($formId);
             $form = $info["form"];
 
+            $size = $request->get("size");
+
             if ($form->active){
-                ContextRepository::TemplateFactorRepository()->SetFormTemplateFactor($form->id);
+                ContextRepository::TemplateFactorRepository()->SetFormTemplateFactor($form->id , $size);
                 return redirect()->route("customer.complete-factor.index");
             }
             else{
@@ -86,8 +99,8 @@ class FactorFormsController extends BaseFactorController
 
     ///// ===================================================
 
-    private function returnViewInfoForm($form , $subscribeActives = null){
-        return view("factor-creator.forms.form-info" , compact( "subscribeActives","form"))->render();
+    private function returnViewInfoForm($form , $subscribeActives = null , $infoForm=null){
+        return view("factor-creator.forms.form-info" , compact( "subscribeActives","form" , "infoForm"))->render();
     }
 
     ///// ===================================================
@@ -105,10 +118,14 @@ class FactorFormsController extends BaseFactorController
             }
         }
 
+
         $formCategories = ContextRepository::FormCategoryRepository()->getAllResult(true);
+        if ($formCategoryId == null && sizeof($formCategories) > 0){
+            $formCategoryId = $formCategories[0]->id;
+        }
+
 
         $forms = $this->getListForms($formCategoryId , $subscribeActives);
-
 
         return [
             "subscribeActives" => $subscribeActives,
@@ -148,6 +165,12 @@ class FactorFormsController extends BaseFactorController
 
     protected function returnSateActiveForm($subscribeActives , $subscribe_id){
         return ContextRepository::FormRepository()->SetStateActiveForm($subscribeActives , $subscribe_id);
+    }
+
+
+    private function getInfoFactor($form){
+        $factorService = new FactorService();
+        return $factorService->getInfoFactor($form);
     }
 
 

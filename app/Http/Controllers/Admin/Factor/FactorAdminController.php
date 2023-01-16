@@ -66,6 +66,7 @@ class FactorAdminController extends MainAdminController
             ]
         ];
 
+
         $dataFactor = $this->getModelInfoFactor($factor);
         $factorInfo = $dataFactor["factorInfo"];
         $products = $dataFactor["products"];
@@ -118,6 +119,7 @@ class FactorAdminController extends MainAdminController
     ////// =======================================
     private function getModelInfoFactor(Factor $factor){
         $dataFactor = new BaseFormToolService($factor);
+
         return[
             "factorInfo" => $dataFactor->getFactorModel(),
             "products" => $dataFactor->getProducts(),

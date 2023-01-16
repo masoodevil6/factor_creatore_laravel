@@ -9,9 +9,7 @@ class CustomerHomeController extends CustomerMainController
 {
 
     public function home(){
-        $nav = [
-
-        ];
+        $nav = [];
 
         $formsSelected = ContextRepository::FormRepository()->GetLimitRandomSelectedForm();
         $subscribeSelected = ContextRepository::SubscribeRepository()->GetLimitRandomSelectedSubscribe();

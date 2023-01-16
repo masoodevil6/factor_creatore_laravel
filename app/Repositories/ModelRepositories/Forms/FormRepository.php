@@ -28,7 +28,7 @@ class FormRepository extends BaseRepository implements IFormRepository {
 
     function GetLimitRandomSelectedForm(int $limit=10)
     {
-        return $this->model
+        $forms = $this->model
             ->select(
                 [
                     "forms.id" , "forms.image" , "forms.name" , "forms.form_category_id" , "forms.subscribe_id" ,
@@ -39,6 +39,8 @@ class FormRepository extends BaseRepository implements IFormRepository {
             ->where("forms.status" , 1)
             ->where("forms.selected" , 1)
             ->limit($limit)->inRandomOrder()->get();
+
+        return $this->checkExistPicForm($forms);
     }
 
 
@@ -90,5 +92,21 @@ class FormRepository extends BaseRepository implements IFormRepository {
         return $this->model
             ->where("class" , $className)
             ->first();
+    }
+
+
+
+
+
+
+    //// ==========================================================
+    private function checkExistPicForm($forms){
+        $resultExp = [];
+        foreach ($forms as $itemform){
+            if(isset($itemform["image"]) && $itemform["image"] != "" && file_exists($itemform["image"]["indexArray"][$itemform["image"]["currentImage"]])){
+                array_push($resultExp , $itemform);
+            }
+        }
+        return $resultExp;
     }
 }

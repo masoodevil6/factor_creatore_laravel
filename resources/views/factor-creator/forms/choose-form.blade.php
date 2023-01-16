@@ -11,9 +11,6 @@
                 </label>
 
                 <select onchange="changeFormCategory(this)" id="select-option-form-categories" class=" form-control form-control-sm form-text font-size-12" aria-label="Default select example">
-
-                    <option value="" @if($formCategoryId == null) selected @endif > [عمومی] </option>
-
                     @foreach($formCategories as $itemFormCategory)
                         <option value="{{$itemFormCategory->id}}" @if($formCategoryId != null && $formCategoryId == $itemFormCategory->id) selected @endif > {{$itemFormCategory->title}} </option>
                     @endforeach

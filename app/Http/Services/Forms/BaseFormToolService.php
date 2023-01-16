@@ -33,10 +33,17 @@ class BaseFormToolService{
     private $infoPage=[];
 
 
+    private $passPrice = " ریـال";
 
 
-    public function __construct($passPrice , $isTestFile , $pageSize="")
+    public function __construct($factor , $passPrice="" , $isTestFile=false , $pageSize="")
     {
+        if ($factor != null){
+            $this->setFactor($factor);
+            $this->readyFactorModel();
+            $this->readyListFactorProductsModel();
+        }
+
         $this->isTestFile = $isTestFile;
 
         if (!empty($passPrice)){
@@ -186,7 +193,6 @@ class BaseFormToolService{
 
 
     private function setPageSelected($pageSize){
-       ;
         foreach ($this->infoPages As $itemInfo){
             if (isset($itemInfo["size"]["name"]) && $itemInfo["size"]["name"] == $pageSize){
                 $this->setInfoPageForm($itemInfo);
@@ -202,8 +208,7 @@ class BaseFormToolService{
 
 
     protected function readyDataModels(){
-        $this->readyFactorModel();
-        $this->readyListFactorProductsModel();
+
         $this->readyListProductsInPages();
     }
 

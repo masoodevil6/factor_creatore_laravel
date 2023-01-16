@@ -51,7 +51,7 @@ class FactorModel{
 
     public function getResNum()
     {
-        return Str::limit($this->resNum, 25);
+        return convertEnglishToPersian(Str::limit($this->resNum, 25));
     }
     public function setResNum($resNum): void
     {
@@ -174,7 +174,7 @@ class FactorModel{
     {
         if (!empty($this->logoName)){
             if (Storage::exists($this->logoName)){
-                return $this->getBase64ImageFile(Storage::download($this->logoName));
+                return $this->getBase64ImageFile(Storage::path($this->logoName));
             }
             else if (fileExists($this->logoName)){
                 return $this->getBase64ImageFile($this->logoName);
@@ -193,7 +193,7 @@ class FactorModel{
     {
         if (!empty($this->mohrName)){
             if (Storage::exists($this->mohrName)){
-                return $this->getBase64ImageFile(Storage::download($this->mohrName));
+                return $this->getBase64ImageFile(Storage::path($this->mohrName));
             }
             else if (fileExists($this->mohrName)){
                 return $this->getBase64ImageFile($this->mohrName);

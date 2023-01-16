@@ -40,17 +40,18 @@ class TemplateFactorRepository extends BaseRepository implements ITemplateFactor
 
 
 
-    function SetFormTemplateFactor($formId)
+    function SetFormTemplateFactor($formId , $size)
     {
         $templateFactor= $this->GetInfoTemplateFactor();
 
         if (isset($templateFactor->id)){
-            $this->updateResult($templateFactor , ["form_id" => $formId]);
+            $this->updateResult($templateFactor , ["form_id" => $formId , "size" => $size]);
         }
         else{
             $this->addResult([
                 "user_id" => ContextRepository::UserRepository()->GetUserAuthId() ,
                 "form_id" => $formId,
+                "size" => $size
             ]);
         }
     }

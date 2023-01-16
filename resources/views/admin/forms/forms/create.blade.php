@@ -88,6 +88,7 @@
                         </x-fields.component-select-options>
 
 
+
                         <x-fields.component-select-options
                                 title-en="class_name"
                                 title-fa="کلاس فرم">
@@ -95,7 +96,7 @@
                             <option disabled> کلاس فرم مورد نظر را انتخاب نمایید </option>
 
                             @foreach($classes as $itemClass)
-                                <option value="{{$itemClass["name"]}}" @if(isset($forms["class"]) && $itemClass["namespace"]==$forms["class"]) selected @endif>
+                                <option value="{{$itemClass["name"]}}" @if(isset($form["class"]) && $itemClass["namespace"]==$form["class"]) selected @endif>
                                     {{$itemClass["name"]}}
                                 </option>
                             @endforeach

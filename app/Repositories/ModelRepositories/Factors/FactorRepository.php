@@ -119,6 +119,7 @@ class FactorRepository extends BaseRepository implements IFactorRepository {
                 $dataFactor = [
                     "res_num" => $resNum,
                     "description" => $templateFactor->description,
+                    "size" => $templateFactor->size,
 
                     "store_name" => $templateFactor->store_name,
                     "store_phone" => $templateFactor->store_phone,

@@ -11,7 +11,7 @@ class TemplateFactor extends Model
 {
     use HasFactory;
     protected $fillable = [
-        "description" ,
+        "description" , "size",
         "store_name", "store_phone", "store_address",
         "customer_name" , "customer_phone", "customer_address",
         "logo_name", "mohr_name",

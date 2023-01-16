@@ -1,5 +1,5 @@
 @extends('customer.layouts.master-one-col')
-
+@section("titlePage" , "ساخت فاکتور- تصاویر")
 
 
 @section('head-tag')

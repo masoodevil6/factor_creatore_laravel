@@ -12,7 +12,7 @@ class Factor extends Model
     use HasFactory;
 
     protected $fillable = [
-        "res_num" , "description" ,
+        "res_num" , "description" ,  "size",
         "store_name", "store_phone", "store_address",
         "customer_name" , "customer_phone", "customer_address",
         "file_name", "logo_name", "mohr_name",

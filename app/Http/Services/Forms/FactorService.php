@@ -23,6 +23,7 @@ class FactorService{
 
     public function getInfoFactor(Form $form){
         $instance = $this->getInstaceClassForm($form);
+
         if ($instance != null){
             return $instance->getTotalDataForm();
         }

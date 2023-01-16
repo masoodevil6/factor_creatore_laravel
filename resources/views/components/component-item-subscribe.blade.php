@@ -94,29 +94,32 @@
         </section>
 
 
+        @if(sizeof($itemSubscribe["forms"]) > 0)
 
-        <p class="col-12 text-white mx-0 mt-1 mb-0 blue-gray-200">
-            چند نمونه:
-        </p>
+            <p class="col-12 text-white mx-0 mt-1 mb-0 blue-gray-200">
+                چند نمونه:
+            </p>
 
-        <section class="col-12  border-top  row m-0">
+            <section class="col-12  border-top  row m-0">
 
 
-            @foreach($itemSubscribe["forms"] As $itemForm)
-                <section class="col-6 col-md-4 col-lg-2 p-1 ">
+                @foreach($itemSubscribe["forms"] As $itemForm)
+                    <section class="col-6 col-md-4 col-lg-2 p-1 ">
 
-                    <section class="p-1 border border-dark d-block rounded m-auto p-1 shadow ">
-                        <p class="m-0 text-center bg-warning rounded mb-1">
-                            {{$itemForm["name"]}}
-                        </p>
-                        <img class="m-auto d-block " height="100" src="{{asset($itemForm["image"])}}" alt="">
+                        <section class="p-1 border border-dark d-block rounded m-auto p-1 shadow ">
+                            <p class="m-0 text-center bg-warning rounded mb-1">
+                                {{$itemForm["name"]}}
+                            </p>
+                            <img class="m-auto d-block " height="100" src="{{asset($itemForm["image"])}}" alt="">
+                        </section>
+
                     </section>
-
-                </section>
-            @endforeach
+                @endforeach
 
 
-        </section>
+            </section>
+        @endif
+
 
     </a>
 @endforeach

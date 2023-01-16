@@ -710,6 +710,16 @@
 
 
 
+
+    .border-dash-bottom-dark{
+        border-bottom: 1px dashed #b6babe !important;
+    }
+    .border-dash-bottom-dark{
+        border-bottom: 1px dashed #b6babe !important;
+    }
+
+
+
     .border {
         border: 1px solid #b6babe !important;
     }
@@ -731,20 +741,24 @@
     }
 
     .border-0 {
-        border: 0 !important;
+        border-style: solid;
+        border-width: 0 !important;
     }
     .border-1 {
-        border: 1px !important;
+        border-style: solid;
+        border-width: 1px !important;
     }
     .border-2 {
         border-style: solid;
         border-width: 2px !important;
     }
     .border-3 {
-        border: 3px !important;
+        border-style: solid;
+        border-width: 3px !important;
     }
     .border-4 {
-        border: 4px !important;
+        border-style: solid;
+        border-width: 4px !important;
     }
 
 
@@ -1318,6 +1332,18 @@
     .w-5 {
         width: 5% !important;
     }
+    .w-6 {
+        width: 6% !important;
+    }
+    .w-7 {
+        width: 7% !important;
+    }
+    .w-8 {
+        width: 8% !important;
+    }
+    .w-9 {
+        width: 9% !important;
+    }
     .w-10 {
         width: 10% !important;
     }
@@ -1338,6 +1364,9 @@
     }
     .w-40 {
         width: 40% !important;
+    }
+    .w-45 {
+        width: 45% !important;
     }
     .w-50 {
         width: 50% !important;
@@ -1393,15 +1422,18 @@
 </style>
 
 <style>
+
     @font-face{
         font-family: Vazir;
-        src: url("/public/fonts/Vazir/Vazir-Regular.ttf") format("truetype");
+        src: url("/public/fonts/Vazir-Regular.ttf") format("truetype");
     }
     *{
         direction: rtl;
         text-align: right;
-        font-family:  Vazir;
+        font-family:  Vazir , Sans-serif;
     }
+
+
 
 
     #app-name{
@@ -1409,6 +1441,7 @@
         color: rgb(226, 226, 226);
         text-align: center;
         line-height: 1000px;
+        transform: rotate(45deg);
     }
 
 

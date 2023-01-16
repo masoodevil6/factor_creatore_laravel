@@ -27,10 +27,6 @@
             line-height: {{\Illuminate\Support\Facades\Config::get("forms.center_A6_width")}};
         }
 
-        .item-page{
-            width: 100%;
-            height: 100%;
-        }
     </style>
 
 

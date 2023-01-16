@@ -1,4 +1,5 @@
 @extends('customer.layouts.master-one-col')
+@section("titlePage" , "ساخت فاکتور- تکمیل فرایند")
 
 @section('head-tag')
     <link rel="stylesheet" href="{{asset("customer/factor-creator/navigation-factor-creator.css")}}">
