@@ -4,27 +4,16 @@ namespace App\Http\Controllers\Auth\Customer;
 
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\Auth\Customer\LoginRegisterRequest;
-use App\Http\Services\Messages\Email\Emails;
-use App\Http\Services\Messages\SMS\SMSs;
+use App\Http\Requests\Auth\Customer\LoginInputRegisterRequest;
+use App\Http\Requests\Auth\Customer\LoginOtpCodeRegisterRequest;
+use App\Http\Services\Login\ConfirmLoginService;
+use App\Http\Services\Login\LoginService;
 use App\Http\Services\RedirectRoute\RedirectRouteService;
 use App\Repositories\ContextRepository;
-use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Hash;
 
 class LoginClientPanelCustomerController extends Controller
 {
-
-    private $otpRepository;
-    private $userRepository;
-
-    public function __construct()
-    {
-        $this->otpRepository = ContextRepository::OtpRepository();
-        $this->userRepository = ContextRepository::UserRepository();
-    }
-
 
     public function loginRegisterForm()
     {
@@ -32,147 +21,94 @@ class LoginClientPanelCustomerController extends Controller
     }
 
 
-
-
-    public function loginRegister(LoginRegisterRequest $request){
+    public function loginRegister(LoginInputRegisterRequest $request , LoginService $LoginService){
 
         $inputs = $request->all();
+        $result = $LoginService->RegisterClientWithEmail($inputs["inputLogin"]);
 
-
-        /// if input is email
-        if (filter_var($inputs["inputLogin"],FILTER_VALIDATE_EMAIL)){
-            $type = $this->otpRepository->getTypeOtp("email");
-            $user = $this->userRepository->GetUserWithEmail($inputs["inputLogin"]);
-            if (empty($user)){
-                $newUser["email"] = $inputs["inputLogin"];
-            }
-        }
-        /// if input is phone
-        else if(preg_match("/^(\+98|98|0)9\d{9}$/" , $inputs["inputLogin"])){
-            $type = $this->otpRepository->getTypeOtp("mobile");
-            $inputs["inputLogin"] = filterPhoneNumber($inputs["inputLogin"]);
-
-            $user = $this->userRepository->GetUserWithPhone($inputs["inputLogin"]);
-            if (empty($user)){
-                $newUser["mobile"] = $inputs["inputLogin"];
-            }
-        }
-        else{
-            return RedirectRouteService::setMsgResultText("شناسه ورودی شما، نه شماره موبایل می باشد و نه ایمیل")
+        if (!$result["isValid"] && $result["title"]== "inValidInputRequest"){
+            return RedirectRouteService::setMsgResultText($result["msg"])
                 ->doRedirectRouteErrorResult()
                 ->setRouteRedirect(route("auth.customer.loginRegisterForm"))
                 ->doRedirect();
         }
 
-        if (empty($user)){
-            $newUser["password"] = Hash::make("1234567890");
-            $newUser["activation"] = 1;
-            $user = $this->userRepository->addResult($newUser);
-        }
-
-
-        $token = $this->sendOtpTokenClient($user , $inputs["inputLogin"] , $type);
-
-
-        if ($token != null){
-            return redirect()->route("auth.customer.loginConfirmForm" , $token);
-        }
-        else{
-            return RedirectRouteService::setMsgResultText("مشکل در ارسال پیامک/ایمیل رخ داده است، لطفا دوباره تلاش نمایید")
+        if ($result["token"] == null && $result["title"]== "errorSendEmailOrSMS"){
+            return RedirectRouteService::setMsgResultText($result["msg"])
                 ->doRedirectRouteErrorResult()
                 ->setRouteRedirect(route("auth.customer.loginRegisterForm"))
                 ->doRedirect();
         }
 
+        return redirect()->route("auth.customer.loginConfirmForm" , $result["token"]);
+    }
+
+
+    public function loginConfirmForm($token , ConfirmLoginService $loginService){
+
+        $result = $loginService->ReadyFormSendOtp($token);
+        if ($result["isValid"]){
+            $timerDown = $result["timerDown"];
+            $otpType = $result["otpType"];
+            $otpInputLogin = $result["otpInputLogin"];
+
+            return view("customer.login.confirmClientLogin" , compact("token" , "otpType" , "otpInputLogin" , "timerDown"));
+        }
+        else{
+            return RedirectRouteService::setMsgResultText($result["msg"])
+                ->doRedirectRouteErrorResult()
+                ->setRouteRedirect(route("auth.customer.loginRegisterForm"))
+                ->doRedirect();
+        }
     }
 
 
 
 
 
+    public function loginConfirm($token , LoginOtpCodeRegisterRequest $request , ConfirmLoginService $confirmLoginService){
+        $result = $confirmLoginService->ConfirmLoginClient($token , $request->otp_code);
 
-
-
-
-
-
-
-
-
-    public function loginConfirmForm($token){
-
-        $checkOtp = $this->checkOtpRequest($token);
-        $otp = $checkOtp["otp"];
-        $redirect = $checkOtp["redirect"];
-
-        if ($redirect != null){
-            return $redirect;
-        }
-        else if ($redirect == null && $otp != null){
-
-            $maxTime = (new \Carbon\Carbon($otp->created_at))->addMinutes($this->otpRepository->getMaxTimeRequest())->timestamp;
-
-            $now = Carbon::now()->timestamp;
-
-            $timerDown = ($maxTime - $now)*1000;
-
-            return view("customer.login.confirmClientLogin" , compact("token" , "otp" , "timerDown"));
-        }
-
-    }
-
-    public function loginConfirm($token , LoginRegisterRequest $request){
-
-        $checkOtp = $this->checkOtpRequest($token , $request->otp_code);
-        $otp = $checkOtp["otp"];
-        $redirect = $checkOtp["redirect"];
-
-        if ($redirect != null){
-            return $redirect;
-        }
-        else if ($redirect == null && $otp != null){
-
-            $user = $otp->user;
-
-            if ($otp->type == 0 && empty($user->mobile_verified_at)){
-                $user -> mobile_verified_at = Carbon::now();
-                $this->userRepository->save($user);
-            }
-            else if ($otp->type == 1 && empty($user->email_verified_at)){
-                $user -> email_verified_at = Carbon::now();
-                $this->userRepository->save($user);
-            }
-
-            Auth::login($user);
-
+        if ($result["isValid"] && $result["status"]){
+            Auth::login($result["user"]);
             return redirect()->route("customer.home");
-
         }
+        else{
+            $title = $result["title"];
+            $msg = $result["msg"];
 
+            if ($title == "inValidLoginRequest"){
+                return RedirectRouteService::setMsgResultText($msg)
+                    ->doRedirectRouteErrorResult()
+                    ->setRouteRedirect(route("auth.customer.loginRegisterForm"))
+                    ->doRedirect();
+            }
+            else if ($title == "inValidTokenRequest"){
+                return RedirectRouteService::setMsgResultText($msg)
+                    ->doRedirectRouteErrorResult()
+                    ->setRouteRedirect(route("auth.customer.loginConfirmForm" , $token))
+                    ->doRedirect();
+            }
+        }
     }
 
 
 
 
-    public function resendToken($token){
+    public function resendToken($token , LoginService $loginService){
 
-        $otp = $this->otpRepository->existOtpRequest($token);
+        $result = $loginService->ResendTokenToClient($token);
 
-        $newToken = null;
-        if (!empty($otp)){
-            $newToken = $this->sendOtpTokenClient($otp->user , $otp->input_login , $otp->type);
-        }
+        $newToken = $result["newToken"];
 
-        if ($newToken != null){
-            return redirect()->route("auth.customer.loginConfirmForm" , $newToken);
-        }
-        else{
-            return RedirectRouteService::setMsgResultText("آدرس وارد شده نا معتبر است ...")
+        if ($newToken == null && $result["title"] == "inValidResendTokenRequest"){
+            return RedirectRouteService::setMsgResultText($result["msg"])
                 ->doRedirectRouteErrorResult()
                 ->setRouteRedirect(route("auth.customer.loginRegisterForm"))
                 ->doRedirect();
         }
 
+        return redirect()->route("auth.customer.loginConfirmForm" , $newToken);
     }
 
 
@@ -186,84 +122,5 @@ class LoginClientPanelCustomerController extends Controller
 
 
 
-
-
-
-
-
-
-    ///// =========================================================
-
-    protected function sendOtpTokenClient($user , $inputLogin , $type ){
-
-        $token = null;
-
-        /// create token OTP
-        $result = $this->otpRepository->createTokenOTP($user->id , $inputLogin , $type);
-
-        /// send sms for user
-        if ($type==0){
-            $resultSendSms = (new SMSs())->sendTokenSmsForClientLogin($result["code"] , $inputLogin);
-            if ($resultSendSms){
-                $token = $result["token"];
-            }
-        }
-        /// send email for user
-        else if ($type == 1){
-            $resultSendEmail = (new Emails())->sendTokenEmailForClientLogin($result["code"] , $inputLogin);
-            if ($resultSendEmail){
-                $token = $result["token"];
-            }
-        }
-
-        return $token;
-    }
-
-
-
-    ///// ==============================================
-
-    protected function checkOtpRequest($token , $otpCode=""){
-
-        $otp = $this->otpRepository->existOtpRequest($token);
-
-        if ($otp != null ){
-
-            if ($otpCode != ""){
-                if ($otp->otp_code == $otpCode){
-                    $otp->used = 1;
-                    $this->otpRepository->save($otp);
-                    return [
-                        "otp" => $otp ,
-                        "redirect" => null
-                    ];
-                }
-                else{
-                    return [
-                        "otp" => null ,
-                        "redirect" => RedirectRouteService::setMsgResultText("کد نامعتبر می باشد")
-                            ->doRedirectRouteErrorResult()
-                            ->setRouteRedirect(route("auth.customer.loginConfirmForm" , $token))
-                            ->doRedirect()
-                    ];
-
-                }
-            }
-            return [
-                "otp" => $otp ,
-                "redirect" => null
-            ];
-        }
-        else{
-            return [
-                "otp" => null ,
-                "redirect" => RedirectRouteService::setMsgResultText("درخواست نا معتبر می باشد")
-                    ->doRedirectRouteErrorResult()
-                    ->setRouteRedirect(route("auth.customer.loginRegisterForm"))
-                    ->doRedirect()
-            ];
-        }
-
-    }
 
 }

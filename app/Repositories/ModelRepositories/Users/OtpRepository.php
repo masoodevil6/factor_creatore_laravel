@@ -11,6 +11,7 @@ use Illuminate\Support\Str;
 class OtpRepository extends BaseRepository implements IOtpRepository {
 
     private $maxTimeRequest= 5;
+    private $expireLoginWithTokenApi= 7;
 
     public function __construct()
     {
@@ -30,6 +31,7 @@ class OtpRepository extends BaseRepository implements IOtpRepository {
             "input_login" => $inputLogin ,
             "type" => $type ,
         ];
+
 
         if ($checkStatus){
             $lastRequest =
@@ -57,19 +59,43 @@ class OtpRepository extends BaseRepository implements IOtpRepository {
     }
 
 
-    function UpdateUsedTokenOtp(Otp $otp) :bool
+
+
+    function checkLastLogin($token, $inputLogin)
     {
-        return $this->updateResult($otp , ["used" => 1]);
+        return $this->model
+            ->where("used" , 1)
+            ->where("status" , 1)
+            ->where("token" , $token)
+            ->where("input_login" , $inputLogin)
+            ->where("created_at" , ">=" , Carbon::now()->subYears($this->expireLoginWithTokenApi)->toDateTimeString())
+            ->first();
     }
 
 
 
-    public function existOtpRequest($token, $userId = 0)
+
+    function UpdateUsedTokenOtp(Otp $otp) :bool
+    {
+        return $this->updateResult($otp ,
+            [
+                "used" => 1 ,
+                "status"=> 1
+            ]
+        );
+    }
+
+
+
+    public function existOtpRequest($token, $userId = 0 , $checkTime=true)
     {
         $otp = $this->model
             ->where("token" , $token)
-            ->where("used" , 0)
-            ->where("created_at" , ">=" , Carbon::now()->subMinutes($this->maxTimeRequest)->toDateTimeString());
+            ->where("used" , 0);
+
+        if ($checkTime){
+            $otp =$otp->where("created_at" , ">=" , Carbon::now()->subMinutes($this->maxTimeRequest)->toDateTimeString());
+        }
         if ($userId > 0){
             $otp =$otp->where("user_id" , $userId);
         }

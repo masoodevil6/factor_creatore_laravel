@@ -9,6 +9,11 @@
 <body dir="rtl">
 
 <main id="main-body-one-col" class="main-body" >
+
+    @include("public.alerts.alert_section.success")
+    @include("public.alerts.alert_section.error")
+    @include("public.alerts.alert_section.warning")
+
     @if(isset($nav))
         @include("customer.public.navigation")
     @endif

@@ -27,13 +27,13 @@
                         کد تایید را وارد نمایید
                     </section>
 
-                    @if($otp->type == 0)
+                    @if($otpType == 0)
                         <section class="login-info  text-white">
-                            کد تایید برای شماره موبایل {{ $otp->input_login }} ارسال گردید
+                            کد تایید برای شماره موبایل {{ $otpInputLogin }} ارسال گردید
                         </section>
                     @else
                         <section class="login-info  text-white">
-                            کد تایید برای ایمیل {{ $otp->input_login }} ارسال گردید
+                            کد تایید برای ایمیل {{ $otpInputLogin }} ارسال گردید
                         </section>
                     @endif
 

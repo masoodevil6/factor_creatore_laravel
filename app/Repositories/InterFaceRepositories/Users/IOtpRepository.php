@@ -9,7 +9,9 @@ interface IOtpRepository extends IBaseRepository {
 
     function createTokenOTP($userId , $inputLogin , $type , $checkStatus=false);
 
-    function existOtpRequest($token , $userId=0);
+    function checkLastLogin($token , $inputLogin);
+
+    function existOtpRequest($token , $userId=0 , $checkTime=true);
 
     function getTypeOtp($typeTitle);
 
