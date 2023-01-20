@@ -6,6 +6,7 @@ class CheckLogin extends BaseLoginService{
 
     public function checkLastLogin($token , $inputLogin){
         $resultExp = [
+            "inputLogin" => null ,
             "isValid" => false ,
             "status" => false ,
             "title" => "" ,
@@ -23,6 +24,7 @@ class CheckLogin extends BaseLoginService{
             $opt = $this->otpRepository->checkLastLogin($token , $inputLogin);
             if (!empty($opt)){
                 $resultExp["status"] = true;
+                $resultExp["inputLogin"] = $inputLogin;
             }
         }
         else{

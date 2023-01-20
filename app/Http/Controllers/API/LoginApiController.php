@@ -13,21 +13,25 @@ use Illuminate\Http\Request;
 class LoginApiController extends Controller
 {
 
+
+
     /*
      * ====================================
      *  url=> /login/check-last-login
      *====================================
      * header-bearer => token
-     * string => inputLogin
+     * header => string => inputLogin
      * ====================================
+     * "inputLogin" => null
      * "isValid" => false
      * "status" => false
      * "title" => ""
      * "msg" => ""
      */
-    public function checkTokenAndEmail(LoginInputRegisterRequest $request , CheckLogin $checkLogin){
+    public function checkTokenAndEmail(Request $request , CheckLogin $checkLogin){
         $token = $request->bearerToken();
-        return $checkLogin->checkLastLogin($token , $request->inputLogin);
+        $inputLogin = $request->header("inputLogin");
+        return $checkLogin->checkLastLogin($token , $inputLogin);
     }
 
 
@@ -38,57 +42,49 @@ class LoginApiController extends Controller
      * ====================================
      *  url=> /login/register
      *====================================
-     * string => inputLogin
+     * post => inputLogin
      * ====================================
      * "isValid" => false
+     * "inputLogin" => null
      * "token" => null
      * "title" => ""
      * "msg" => ""
-     */
-    public function registerEmailOrPhoneClient(LoginInputRegisterRequest $request, LoginService $LoginService){
-        return $LoginService->RegisterClientWithEmail($request->inputLogin);
-    }
-
-
-
-
-    /*
-     * ====================================
-     *  url=> /login/confirm-login
-     * ====================================
-     * header-bearer => token
-     * int => otp_code
-     * ====================================
-     * "isValid" => false
-     * "status" => false
-     * "user" => null
-     * "title" => ""
-     * "msg" => ""
-     */
-    public function ConfirmLoginClient(LoginOtpCodeRegisterRequest $request ,ConfirmLoginService $confirmLoginService){
-        $token = $request->bearerToken();
-        return  $confirmLoginService->ConfirmLoginClient($token , $request->otp_code);
-    }
-
-
-
-
-    /*
-     * ====================================
-     *  url=> /login/ready-and-validator-token
-     * ====================================
-     * header-bearer => token
-     * ====================================
-     * "isValid" => false
      * "timerDown" => 0
      * "otpType" => null
-     * "otpInputLogin" => null
-     * "msg" => ""
-     * "title" => ""
      */
-    public function ReadyAndValidatorRequestToken(Request $request,ConfirmLoginService $confirmLoginService){
-        $token = $request->bearerToken();
-        return $confirmLoginService->ReadyFormSendOtp($token);
+    public function registerEmailOrPhoneClient(Request $request, LoginService $LoginService){
+
+        $resultExp = [
+            "isValid" => false ,
+
+            "token" => null ,
+            "inputLogin" => null ,
+
+            "title" => "",
+            "msg" => "",
+
+            "timerDown" => 0,
+            "otpType" => 0 ,
+        ];
+
+        $resultStep = $LoginService->RegisterClientWithEmail($request->inputLogin);
+        $resultExp["token"] = $resultStep["token"];
+        $resultExp["title"] = $resultStep["title"];
+        $resultExp["msg"] = $resultStep["msg"];
+
+        if($resultStep["isValid"] && !empty($resultStep["token"])){
+            $infoRequest = $this->ReadyAndValidatorRequestToken($resultExp["token"]);
+            if ($infoRequest["isValid"]){
+                $resultExp["isValid"] = $infoRequest["isValid"];
+                $resultExp["inputLogin"] = $infoRequest["inputLogin"];
+                $resultExp["otpType"] = $infoRequest["otpType"];
+                $resultExp["timerDown"] = $infoRequest["timerDown"];
+                $resultExp["title"] = $infoRequest["title"];
+                $resultExp["msg"] = $infoRequest["msg"];
+            }
+        }
+
+        return $resultExp;
     }
 
 
@@ -99,13 +95,91 @@ class LoginApiController extends Controller
      * ====================================
      * header-bearer => token
      * ====================================
+     * "isValid" => false
+     * "inputLogin" => null
+     * "token" => null
      * "title" => ""
      * "msg" => ""
-     * "newToken" => ""
+     * "timerDown" => 0
+     * "otpType" => null
      */
     public function ResendMessageTokenClient(Request $request , LoginService $loginService){
+
+        $resultExp = [
+            "isValid" => false ,
+
+            "token" => null ,
+            "inputLogin" => null ,
+
+            "title" => "",
+            "msg" => "",
+
+            "timerDown" => 0,
+            "otpType" => null ,
+        ];
+
+
         $token = $request->bearerToken();
-        return $loginService->ResendTokenToClient($token);
+        $resultStep = $loginService->ResendTokenToClient($token);
+        $resultExp["token"] = $resultStep["newToken"];
+        $resultExp["title"] = $resultStep["title"];
+        $resultExp["msg"] = $resultStep["msg"];
+
+        if($resultExp["token"] != null){
+            $infoRequest = $this->ReadyAndValidatorRequestToken($resultExp["token"]);
+            if ($infoRequest["isValid"]){
+                $resultExp["isValid"] = $infoRequest["isValid"];
+                $resultExp["inputLogin"] = $infoRequest["inputLogin"];
+                $resultExp["otpType"] = $infoRequest["otpType"];
+                $resultExp["timerDown"] = $infoRequest["timerDown"];
+                $resultExp["title"] = $infoRequest["title"];
+                $resultExp["msg"] = $infoRequest["msg"];
+            }
+        }
+
+        return $resultExp;
     }
+
+
+
+    /*
+     * ====================================
+     *  url=> /login/confirm-login
+     * ====================================
+     * header-bearer => token
+     * int => otp_code
+     * ====================================
+     * "inputLogin" => null
+     * "isValid" => false
+     * "status" => false
+     * "user" => null
+     * "title" => ""
+     * "msg" => ""
+     */
+    public function ConfirmLoginClient(Request $request ,ConfirmLoginService $confirmLoginService){
+        $token = $request->bearerToken();
+        return  $confirmLoginService->ConfirmLoginClient($token , $request->otp_code);
+    }
+
+
+
+
+
+
+    /////==============================================================
+
+    /*
+     * "isValid" => false,
+     * "timerDown" => 0,
+     * "otpType" => null ,
+     * "inputLogin" => null ,
+     * "title" => "" ,
+     * "msg" => "" ,*/
+    private function ReadyAndValidatorRequestToken($token){
+        $confirmLoginService = new ConfirmLoginService();
+        return $confirmLoginService->ReadyFormSendOtp($token);
+    }
+
+
 
 }

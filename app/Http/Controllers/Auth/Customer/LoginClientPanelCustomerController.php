@@ -50,7 +50,7 @@ class LoginClientPanelCustomerController extends Controller
         if ($result["isValid"]){
             $timerDown = $result["timerDown"];
             $otpType = $result["otpType"];
-            $otpInputLogin = $result["otpInputLogin"];
+            $otpInputLogin = $result["inputLogin"];
 
             return view("customer.login.confirmClientLogin" , compact("token" , "otpType" , "otpInputLogin" , "timerDown"));
         }

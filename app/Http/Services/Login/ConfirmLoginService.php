@@ -9,10 +9,10 @@ class ConfirmLoginService extends BaseLoginService{
     public function ReadyFormSendOtp($token){
 
         $resultExp= [
+            "inputLogin" => null ,
             "isValid" => false,
             "timerDown" => 0,
             "otpType" => null ,
-            "otpInputLogin" => null ,
             "title" => "" ,
             "msg" => "" ,
         ];
@@ -22,7 +22,7 @@ class ConfirmLoginService extends BaseLoginService{
         if ($resultCheckOtp["isValid"]){
             $resultExp["isValid"] = $resultCheckOtp["isValid"];
             $resultExp["otpType"] = $resultCheckOtp["otpType"];
-            $resultExp["otpInputLogin"] = $resultCheckOtp["otpInputLogin"];
+            $resultExp["inputLogin"] = $resultCheckOtp["otpInputLogin"];
             $resultExp["title"] = "";
             $resultExp["msg"] = "";
 
@@ -41,6 +41,7 @@ class ConfirmLoginService extends BaseLoginService{
         $resultCheckOtp = $this->checkOtpRequest($token , $otpCode);
 
         $resultExp= [
+            "inputLogin" => null ,
             "isValid" => $resultCheckOtp["isValid"],
             "status" => false,
             "user" => null ,
@@ -49,9 +50,9 @@ class ConfirmLoginService extends BaseLoginService{
         ];
 
         if ($resultCheckOtp["isValid"] && $resultCheckOtp["status"] && !empty($resultCheckOtp["user"])){
+            $resultExp["inputLogin"] = $resultCheckOtp["otpInputLogin"];
             $resultExp["status"] = $resultCheckOtp["status"];
             $resultExp["user"] = $resultCheckOtp["user"];
-
 
             $user = $resultCheckOtp["user"];
             $otpType = $resultCheckOtp["otpType"];
@@ -94,7 +95,7 @@ class ConfirmLoginService extends BaseLoginService{
         $resultExp["msg"] = $error["msg"];
 
         if (!empty($token)){
-            $otp = $this->otpRepository->existOtpRequest($token);
+            $otp = $this->otpRepository->existOtpRequest($token );
 
             if ($otp != null ){
                 $resultExp["isValid"] = true;

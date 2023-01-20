@@ -119,6 +119,10 @@ class RouteServiceProvider extends ServiceProvider
 
 
 
+        RateLimiter::for('check-last-login-client', function (Request $request) {
+            return Limit::perMinute(5)->by(url()->current().$request->ip());
+        });
+
         RateLimiter::for('customer-login-register-limiter', function (Request $request) {
             return Limit::perMinute(5)->by($request->ip());
         });
