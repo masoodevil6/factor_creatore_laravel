@@ -6,6 +6,7 @@ use App\Models\Factors\Factor;
 use App\Models\Forms\Form;
 use App\Repositories\ContextRepository;
 use Illuminate\Support\Facades\Artisan;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 
 class FactorService{
@@ -74,7 +75,8 @@ class FactorService{
 
     ///// ==============================
     private function getFactorFileName($factor ){
-        $directoryFactor = ContextRepository::UserRepository()->getPathUser().ContextRepository::UserRepository()->getDirectoryUserFactors();
+        $directoryFactor = ContextRepository::UserRepository()->getPathUser()
+            .ContextRepository::UserRepository()->getDirectoryUserFactors();
         $fileName = $factor->res_num.".pdf";
         return $directoryFactor.$fileName;
     }

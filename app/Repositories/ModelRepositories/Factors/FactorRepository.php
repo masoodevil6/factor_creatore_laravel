@@ -33,6 +33,9 @@ class FactorRepository extends BaseRepository implements IFactorRepository {
     }
 
 
+
+
+
     function SearchFactors(string $userName="" , $resNum="" , $numInPage=15)
     {
 
@@ -57,17 +60,29 @@ class FactorRepository extends BaseRepository implements IFactorRepository {
 
 
 
+
+
     function GetFactorAuthAuthUser($numInPage = 8)
     {
         if (isset($_GET["search"])){
             $this->model = $this->addSearcher("res_num" , $_GET["search"]);
         }
 
-        return $this->model
-            ->where("user_id" , ContextRepository::UserRepository()->GetUserAuthId())
-            ->orderby("id" , "desc")
-            ->paginate($numInPage);
+        $this->model = $this->model->where("user_id" , ContextRepository::UserRepository()->GetUserAuthId());
+
+        $this->model = $this->model->orderby("id" , "desc");
+
+        if ($numInPage > 0){
+            return $this->model->paginate($numInPage);
+        }
+        else{
+            return $this->model->get();
+        }
     }
+
+
+
+
 
     function GetInfoSelectedFactorAuthUser($resNum)
     {
@@ -76,6 +91,8 @@ class FactorRepository extends BaseRepository implements IFactorRepository {
             ->where("res_num" , $resNum)
             ->first();
     }
+
+
 
     function DeleteSelectedFactorAuthUser($resNum)
     {
@@ -100,6 +117,8 @@ class FactorRepository extends BaseRepository implements IFactorRepository {
 
         return $resNum;
     }
+
+
 
 
 

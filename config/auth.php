@@ -44,6 +44,13 @@ return [
             'driver' => 'session',
             'provider' => 'admins',
         ],
+
+        'api' => [
+            'driver' => 'token',
+            'provider' => 'opt',
+            'input_key' => 'token',   // The input name to pass through
+            'storage_key' => 'token', // The column name to store in database
+        ],
     ],
 
     /*
@@ -72,6 +79,13 @@ return [
         'admins' => [
             'driver' => 'eloquent',
             'model' => \App\Models\Panel\AdminUser::class,
+        ],
+
+
+
+        'opt' => [
+            'driver' => 'eloquent',
+            'model' => \App\Models\Users\Otp::class,
         ],
 
         // 'users' => [

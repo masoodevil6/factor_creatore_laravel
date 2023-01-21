@@ -31,13 +31,13 @@ class UserRepository extends BaseRepository implements IUserRepository {
     public function __construct()
     {
         parent::__construct(new User());
-        if (Auth::check()){
+        if (Auth::check() || Auth::guard("api")->check()){
 
             $this->pathUser = "users/".$this->GetUserAuthId();
+
             $this->directoryUserFactors = "/factors/";
             $this->directoryUserLogo = "/logos/";
             $this->directoryUserMohr = "/mohr/";
-
 
             $this->pathTest = "test";
             $this->directoryTestFile = $this->pathTest.$this->directoryUserFactors;
@@ -152,18 +152,31 @@ class UserRepository extends BaseRepository implements IUserRepository {
 
     function GetUserAuthInfo()
     {
-        return Auth::user();
+        if (Auth::check()){
+            return Auth::user();
+        }
+        else if (Auth::guard("api")->check()){
+            return Auth::guard("api")->user()->user;
+        }
+        return null;
     }
 
     function GetUserAuthId()
     {
-        return Auth::id();
+        $user = $this->GetUserAuthInfo();
+        if (!empty($user) && $user != null){
+            return $user->id;
+        }
+        return null;
     }
 
     function LogoutAuthUser()
     {
         if (Auth::check()){
             Auth::logout();
+        }
+        else if (Auth::guard("api")->check()){
+            Auth::guard("api")->logout();
         }
     }
 

@@ -2,6 +2,7 @@
 
 namespace App\Http;
 
+use App\Http\Middleware\CheckLoginClientMiddleware;
 use App\Http\Middleware\TemplateFactorMiddleware;
 use Illuminate\Foundation\Http\Kernel as HttpKernel;
 
@@ -67,7 +68,10 @@ class Kernel extends HttpKernel
         'verified' => \Illuminate\Auth\Middleware\EnsureEmailIsVerified::class,
         'form.login.admin' => \App\Http\Middleware\CheckClientForLoginAdmin::class,
 
-        'templateFactor' => TemplateFactorMiddleware::class
+        'templateFactor' => TemplateFactorMiddleware::class ,
+
+
+        "api.login" => CheckLoginClientMiddleware::class ,
 
     ];
 }

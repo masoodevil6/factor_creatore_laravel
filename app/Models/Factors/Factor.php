@@ -4,6 +4,7 @@ namespace App\Models\Factors;
 
 use App\Models\Forms\Form;
 use App\Models\Users\User;
+use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -21,6 +22,18 @@ class Factor extends Model
 
     protected $with=["products"];
 
+    protected $appends = ["created_at_jalili"];
+
+///==============================================
+    /// functions
+    /// ==============================================
+
+    public static function createdAtJalili() :Attribute{
+
+        return Attribute::make(
+            get: fn($attr , $value) => jalaliDate($value["created_at"])
+        );
+    }
 
 
     ///==============================================

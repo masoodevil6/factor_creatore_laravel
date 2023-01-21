@@ -4,7 +4,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
 use App\Http\Controllers\API\LoginApiController;
-
+use App\Http\Controllers\API\UserFactorsApiController;
 
 
 Route::prefix("login")->controller(LoginApiController::class)->group(function (){
@@ -26,13 +26,24 @@ Route::prefix("login")->controller(LoginApiController::class)->group(function ()
 
 
 
+Route::prefix("user")->middleware("api.login")->group(function (){
 
+    Route::prefix("factors")->controller(UserFactorsApiController::class)->group(function (){
 
+        Route::post("/search" , "searchUserFactors");
 
+        Route::post("/delete" , "deleteUserFactors");
 
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
+        Route::post("/download/" , "downloadUserFactors");
+
+    });
+
 });
+
+
+
+
+
 
 
 
