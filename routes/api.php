@@ -5,6 +5,18 @@ use Illuminate\Support\Facades\Route;
 
 use App\Http\Controllers\API\LoginApiController;
 use App\Http\Controllers\API\UserFactorsApiController;
+use App\Http\Controllers\API\PublicApiController;
+
+
+
+
+
+Route::controller(PublicApiController::class)->group(function (){
+
+    Route::get("/about-us" , "aboutUs");
+
+});
+
 
 
 Route::prefix("login")->controller(LoginApiController::class)->group(function (){

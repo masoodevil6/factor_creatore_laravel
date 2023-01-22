@@ -31,13 +31,18 @@ class SettingRepository extends BaseRepository implements ISettingRepository {
 
 
 
-    function SetSettingInfoPage()
+    function SetSettingInfoPage($convertAboutUsToHtml=false)
     {
         $settings = $this->getAllResult();
         $siteName = $this->getSiteName($settings);
         $socials = $this->getLocationSocialSite($settings);
         $aboutUs = $this->getAboutUsSite($settings);
         $infoSite = $this->getInfoSite($settings);
+
+        if ($convertAboutUsToHtml){
+            $aboutUs = $this->ConvertAboutUsToHtml($aboutUs);
+        }
+
 
         View::composer("customer.layouts.header" , function ($view) use($socials){
             $view->with("socials" , $socials);
@@ -93,24 +98,28 @@ class SettingRepository extends BaseRepository implements ISettingRepository {
                 $res["url"] = $itemSetting["value"];
                 $res["title"] = "آدرس تلگرام";
                 $res["icon"] = "fa fa-telegram";
+                $res["Social"] = "Telegram";
                 array_push($resultExp , $res);
             }
             else if ($itemSetting["titleEn"] == "instagram" && $itemSetting["value"] != ""){
                 $res["url"] = $itemSetting["value"];
                 $res["title"] = "آدرس ایستاگرام";
                 $res["icon"] = "fa fa-instagram";
+                $res["Social"] = "Instagram";
                 array_push($resultExp , $res);
             }
             else if ($itemSetting["titleEn"] == "facebook" && $itemSetting["value"] != ""){
                 $res["url"] = $itemSetting["value"];
                 $res["title"] = "آدرس فیسبوک";
                 $res["icon"] = "fa fa-facebook-square";
+                $res["Social"] = "Facebook";
                 array_push($resultExp , $res);
             }
             else if ($itemSetting["titleEn"] == "twitter" && $itemSetting["value"] != ""){
                 $res["url"] = $itemSetting["value"];
                 $res["title"] = "آدرس تویتر";
                 $res["icon"] = "fa  fa-twitter-square";
+                $res["Social"] = "Twitter";
                 array_push($resultExp , $res);
             }
 
@@ -142,5 +151,23 @@ class SettingRepository extends BaseRepository implements ISettingRepository {
         }
 
         return $info;
+    }
+
+
+    protected function ConvertAboutUsToHtml($aboutUs){
+        return
+        '<!doctype html>
+        <html lang="en">
+        <head>
+            <meta http-equiv="Content-Type" content="text/html;charset=UTF-8" />
+            <meta charset="UTF-8">
+            <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+            <meta http-equiv="X-UA-Compatible" content="ie=edge">
+        </head>
+        <body oncontextmenu="return false;" style="direction: rtl">
+        '.$aboutUs.'
+        </body>
+        </html>
+        ';
     }
 }
