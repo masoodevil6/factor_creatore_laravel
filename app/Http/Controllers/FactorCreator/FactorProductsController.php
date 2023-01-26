@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\FactorCreator\InfoFactorProductRequest;
 use App\Repositories\ContextRepository;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Config;
 
 class FactorProductsController extends BaseFactorController
 {
@@ -27,6 +28,7 @@ class FactorProductsController extends BaseFactorController
         $units = $this->getListUnit();
 
         $passPrice = $this->getStandardPassPrice();
+
 
         return view("factor-creator.products.index" ,
             compact("nav" , "stepFactor" , "factor" , "products" , "totalPrice" , "totalPriceText" , "units" , "passPrice")
@@ -75,7 +77,7 @@ class FactorProductsController extends BaseFactorController
     }
 
     protected function getStandardPassPrice(){
-        return ContextRepository::FactorRepository()->GetStandardPassPrice();
+        return  Config::get("app.passPrice");
     }
 
 }

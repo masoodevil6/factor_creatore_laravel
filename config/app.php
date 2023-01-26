@@ -17,6 +17,8 @@ return [
 
     "version" => "v1.0.0" ,
     "ip" => "192.168.1.5" ,
+    "passPrice" => " تـومـان " ,
+    "passDuration" => " ماه " ,
 
     'name' => env('APP_NAME', 'Laravel'),
 

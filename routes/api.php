@@ -16,7 +16,9 @@ Route::controller(PublicApiController::class)->group(function (){
 
     Route::get("/about-us" , "aboutUs");
 
-    Route::get("/forms" , "forms");
+    Route::get("/forms/{subscribeSlug?}" , "forms");
+
+    Route::get("/subscribes" , "subscribes");
 
 });
 

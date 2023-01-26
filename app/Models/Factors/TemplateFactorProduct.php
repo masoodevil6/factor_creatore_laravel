@@ -20,28 +20,28 @@ class TemplateFactorProduct extends Model
     public static function priceText() :Attribute{
 
         return Attribute::make(
-            get: fn($attr , $value) => (isset($value["price"])) ? persianPriceFormat($value["price"]) : 0
+            get: fn($attr , $value) =>  persianPriceFormat((isset($value["price"])) ?$value["price"]: 0)
         );
     }
 
     public static function offText() :Attribute{
 
         return Attribute::make(
-            get: fn($attr , $value) => (isset($value["off"])) ? persianPriceFormat($value["off"]) : 0
+            get: fn($attr , $value) => persianPriceFormat((isset($value["off"])) ?  $value["off"]: 0)
         );
     }
 
     public static function totalOne() :Attribute{
 
         return Attribute::make(
-            get: fn($attr , $value) => (isset($value["price"]) && isset($value["off"]) && isset($value["num"])) ? ($value["price"] - $value["off"]) : 0
+            get: fn($attr , $value) => (isset($value["price"]) && isset($value["off"])) ? ($value["price"] - $value["off"]) : 0
         );
     }
 
     public static function totalOneText() :Attribute{
 
         return Attribute::make(
-            get: fn($attr , $value) => (isset($value["price"]) && isset($value["off"]) && isset($value["num"])) ? persianPriceFormat(($value["price"] - $value["off"])) : 0
+            get: fn($attr , $value) =>persianPriceFormat( (isset($value["price"]) && isset($value["off"])) ? ($value["price"] - $value["off"])  : 0 )
         );
     }
 
@@ -56,7 +56,7 @@ class TemplateFactorProduct extends Model
     public static function totalText() :Attribute{
 
         return Attribute::make(
-            get: fn($attr , $value) => (isset($value["price"]) && isset($value["off"]) && isset($value["num"])) ? persianPriceFormat(($value["price"] - $value["off"])*$value["num"]) : 0
+            get: fn($attr , $value) => persianPriceFormat((isset($value["price"]) && isset($value["off"]) && isset($value["num"])) ? ($value["price"] - $value["off"])*$value["num"] : 0 )
         );
     }
 

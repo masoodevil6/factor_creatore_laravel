@@ -10,12 +10,15 @@ interface ISubscribeRepository extends IBaseRepository {
 
     function GetLimitRandomSelectedSubscribe(int $limitSubscribe=10 , int $limitForm=6);
 
-    function GetListSubscribes($numInPage=8 , int $limitForm=6);
+    function GetListSubscribes($numInPage=8 , int $limitForm=6 );
 
 
     function GetInfoSubscribe($slug  , $numInPage=8);
 
 
     function GetSlugSubscribeForm($subscribe_id);
+
+
+    function getSqlSubscribeWithSlug($slug);
 
 }

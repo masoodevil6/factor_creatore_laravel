@@ -14,13 +14,11 @@ class BaseFormService extends BaseFormToolService {
      *  setView()
      *  setData()
     */
-    private $passPrice = " ریـال";
-
     public function __construct($factor=null , $isTestFile=false , $pageSize="")
     {
         $this->readyDataConstructForm();
 
-        parent::__construct($factor , $this->passPrice , $isTestFile , $pageSize);
+        parent::__construct($factor , Config::get("app.passPrice") , $isTestFile , $pageSize);
     }
 
     private function readyDataConstructForm(){
@@ -95,6 +93,8 @@ class BaseFormService extends BaseFormToolService {
             $fileInfo =$this->getFactorFileInfo();
             $fileLocation =  $fileInfo["fileLocation"];
             $fileName = $fileInfo["fileName"];
+
+
 
             $pdf = Pdf::loadHtml(
                 $viewInfo["view"]

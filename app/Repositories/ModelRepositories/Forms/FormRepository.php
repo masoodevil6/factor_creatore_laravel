@@ -5,6 +5,7 @@ use App\Models\Forms\Form;
 use App\Repositories\ContextRepository;
 use App\Repositories\InterFaceRepositories\Forms\IFormRepository;
 use App\Repositories\ModelRepositories\BaseRepository;
+use Illuminate\Support\Facades\DB;
 
 class FormRepository extends BaseRepository implements IFormRepository {
 
@@ -23,7 +24,7 @@ class FormRepository extends BaseRepository implements IFormRepository {
             $this->model = $this->addSearcher("name" , $formName);
         }
 
-        return $this->model->paginate($numInPage);
+        return $this->model->where("status" , 1)->paginate($numInPage);
     }
 
     function GetLimitRandomSelectedForm(int $limit=10)
@@ -96,6 +97,18 @@ class FormRepository extends BaseRepository implements IFormRepository {
 
 
 
+    function GetListFormsInSubscribe($subscribeSlug = "", $numInPage = 15)
+    {
+        $result = $this->model;
+
+        if (!empty($subscribeSlug)){
+
+            $result = $result->whereRaw("subscribe_id = (select id from subscribes WHERE slug = '".$subscribeSlug."' and status = 1 )");
+        }
+
+        return  $result->where("status" , 1)->paginate($numInPage);
+    }
+
 
 
 
@@ -109,4 +122,6 @@ class FormRepository extends BaseRepository implements IFormRepository {
         }
         return $resultExp;
     }
+
+
 }

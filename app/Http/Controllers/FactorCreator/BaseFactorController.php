@@ -4,6 +4,7 @@ namespace App\Http\Controllers\FactorCreator;
 
 use App\Http\Controllers\Customer\CustomerMainController;
 use App\Repositories\ContextRepository;
+use Illuminate\Support\Facades\Config;
 
 
 class BaseFactorController extends CustomerMainController
@@ -34,7 +35,7 @@ class BaseFactorController extends CustomerMainController
 
 
     protected function getTotalInfoProduct(){
-        $passPrice = ContextRepository::FactorRepository()->GetStandardPassPrice();
+        $passPrice =  Config::get("app.passPrice");
         $resultExp["factor"] = $this->getFactorTemplate();
         $resultExp["products"] = $resultExp["factor"]->products;
         $resultExp["total_price"] = 0;

@@ -25,8 +25,7 @@
 
                     <section class="row border bg-danger rounded mx-1 font-size-lg text-white  shadow">
                         <section class="col-3 text-center border-left border-white font-weight-bold line-height-30 font-size-md p-0">
-                            {{$itemSubscribe["duration"]}}
-                            ماه
+                            {{$itemSubscribe["duration_text"]}}
                         </section>
                         <section class="col-9 row p-0 m-0 ">
                             <section class="col-2 border-left border-right border-white  bg-dark  m-0 p-0">
@@ -37,19 +36,16 @@
                                 @if($itemSubscribe["off_price"] > 0)
                                     <section class="col-4 text-center bg-dark text-white border-left border-right border-white text_decoration_price line-height-30">
                                         {{$itemSubscribe["real_price_text"]}}
-                                        تومان
                                     </section>
                                     <section class="col-6 text-center bg-success rounded-left border-right border-white">
                                         <span class="line-height-30 font-weight-bold">
                                             {{$itemSubscribe["total_price_text"]}}
-                                            تومان
                                         </span>
                                     </section>
                                 @else
                                     <section class="col-10 text-center bg-success rounded-left border-right border-white">
                                         <span class="line-height-30 font-weight-bold ">
                                             {{$itemSubscribe["total_price_text"]}}
-                                            تومان
                                         </span>
                                     </section>
                                 @endif

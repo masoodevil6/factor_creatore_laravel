@@ -32,12 +32,17 @@ class BaseFormToolService{
     ];
     private $infoPage=[];
 
-
     private $passPrice = " ریـال";
-
 
     public function __construct($factor , $passPrice="" , $isTestFile=false , $pageSize="")
     {
+        if (!empty($passPrice)){
+            $this->passPrice = $passPrice;
+        }
+        else{
+            $this->passPrice = Config::get("app.passPrice");
+        }
+
         if ($factor != null){
             $this->setFactor($factor);
             $this->readyFactorModel();
@@ -45,13 +50,6 @@ class BaseFormToolService{
         }
 
         $this->isTestFile = $isTestFile;
-
-        if (!empty($passPrice)){
-            $this->passPrice = $passPrice;
-        }
-        else{
-            $this->passPrice = ContextRepository::FactorRepository()->GetStandardPassPrice();
-        }
 
         $this->setPageSelected($pageSize);
     }

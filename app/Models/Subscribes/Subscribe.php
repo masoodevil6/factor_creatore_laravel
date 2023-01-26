@@ -6,6 +6,7 @@ use App\Models\Forms\Form;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Config;
 
 class Subscribe extends Model
 {
@@ -15,6 +16,7 @@ class Subscribe extends Model
         'title' , "real_price" , "off_price" , "duration" , "status" , "description" , "selected"
     ];
 
+    protected $appends = ["description_html" , "duration_text" , "real_price_text" , "off_price_text" , "total_price" , "total_price_text"];
 
 
     ///==============================================
@@ -34,18 +36,32 @@ class Subscribe extends Model
     /// functions
     /// ==============================================
 
+    public static function descriptionHtml() :Attribute{
+
+        return Attribute::make(
+            get: fn($attr , $value) =>  ((isset($value["description"])) ? ConvertToHtmlForWPF($value["description"]) : 0)
+        );
+    }
+
+
+    public static function durationText() :Attribute{
+
+        return Attribute::make(
+            get: fn($attr , $value) =>  ((isset($value["duration"])) ? convertEnglishToPersian($value["duration"]) : 0) ." ". Config::get("app.passDuration")
+        );
+    }
 
     public static function realPriceText() :Attribute{
 
         return Attribute::make(
-            get: fn($attr , $value) =>  (isset($value["real_price"])) ? persianPriceFormat($value["real_price"]) : 0
+            get: fn($attr , $value) =>  persianPriceFormat ((isset($value["real_price"])) ? $value["real_price"] : 0)." ". Config::get("app.passPrice")
         );
     }
 
     public static function offPriceText() :Attribute{
 
         return Attribute::make(
-            get: fn($attr , $value) =>  (isset($value["off_price"])) ? persianPriceFormat($value["off_price"]) : 0
+            get: fn($attr , $value) =>   persianPriceFormat((isset($value["off_price"])) ? $value["off_price"] : 0) ." ". Config::get("app.passPrice")
         );
     }
 
@@ -53,14 +69,14 @@ class Subscribe extends Model
     public static function totalPrice() :Attribute{
 
         return Attribute::make(
-            get: fn($attr , $value) =>  (isset($value["real_price"]) && $value["off_price"]) ? ($value["real_price"] - $value["off_price"]) : 0
+            get: fn($attr , $value) =>  ((isset($value["real_price"]) && $value["off_price"]) ? ($value["real_price"] - $value["off_price"]) : 0)
         );
     }
 
     public static function totalPriceText() :Attribute{
 
         return Attribute::make(
-            get: fn($attr , $value) =>  (isset($value["real_price"]) && $value["off_price"]) ? persianPriceFormat($value["real_price"] - $value["off_price"]) : 0
+            get: fn($attr , $value) =>  (isset($value["real_price"]) && isset($value["off_price"]) && $value["real_price"]>0 ) ? persianPriceFormat ($value["real_price"] - $value["off_price"])." ". Config::get("app.passPrice") : ((isset($value["real_price"])  && $value["real_price"]==0) ? "رایگان" : "")
         );
     }
 

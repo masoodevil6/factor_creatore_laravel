@@ -18,6 +18,8 @@ interface IFormRepository extends IBaseRepository {
 
     function SetStateActiveFromForm($form);
 
-
     function SearchFromFromClassName(string $className);
+
+
+    function GetListFormsInSubscribe($subscribeSlug="" , $numInPage = 15);
 }

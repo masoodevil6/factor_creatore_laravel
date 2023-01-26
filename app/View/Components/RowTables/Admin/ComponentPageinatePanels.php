@@ -9,13 +9,19 @@ class ComponentPageinatePanels extends Component
 {
 
     public $array = [];
-    public function __construct($list  , Request $request, $extraUrl="")
+    public function __construct($list  , Request $request, $extraUrl="" , $url="")
     {
         $max = floor($list->total() / $list->perPage()) + 1;
         if ($list->total() % $list->perPage() == 0){
             $max = floor($list->total() / $list->perPage());
         }
-        $this->ReadyPageInate($list->currentPage() , $max  , $request->getUri() , $list->path() ,$extraUrl);
+
+        $realUrl = $list->path();
+        if (!empty($url)){
+            $realUrl = $url;
+        }
+
+        $this->ReadyPageInate($list->currentPage() , $max  , $request->getUri() , $realUrl ,$extraUrl);
     }
 
     /**
@@ -47,6 +53,8 @@ class ComponentPageinatePanels extends Component
             $min = $currentPage - 2;
             $max = $currentPage + 2;
         }
+
+;
         for($i = $min ; $i <= $max; $i++){
             array_push($this->array , $this->GetInfoPage($i , $currentPage , $path , $realPath , $extraUrl));
         }

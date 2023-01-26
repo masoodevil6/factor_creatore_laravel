@@ -57,16 +57,18 @@ class SubscribeRepository extends BaseRepository implements ISubscribeRepository
             ->select([
                 "subscribes.id" ,"subscribes.title" ,"subscribes.real_price" ,"subscribes.off_price" ,"subscribes.duration" ,"subscribes.description" ,"subscribes.slug" ,
             ])
-            ->with("forms")
-            ->where("subscribes.status" , 1)
-            ->where("subscribes.selected" , 1)
-            ->paginate($numInPage);
-
-
-        foreach ($result as $key => $itemSubscribe){
-            $result[$key]->forms = $this->getLimitFromsInSubscribeThatActive($itemSubscribe->forms  , $numInPage);
+            ->where("subscribes.status" , 1);
+        if ($limitForm > 0){
+            $result =$result->with("forms");
         }
-        $result = $this->setStateActiveListSubscribe($result);
+        $result = $result->paginate($numInPage);
+
+        if ($limitForm > 0){
+            foreach ($result as $key => $itemSubscribe){
+                $result[$key]->forms = $this->getLimitFromsInSubscribeThatActive($itemSubscribe->forms  , $numInPage);
+            }
+            $result = $this->setStateActiveListSubscribe($result);
+        }
 
         return $result;
     }
@@ -78,7 +80,6 @@ class SubscribeRepository extends BaseRepository implements ISubscribeRepository
             $this->model
                 ->where("slug" , $slug)
                 ->where("status" , 1)
-                ->where("selected" , 1)
                 ->first();
 
         if (!empty($result)){
@@ -99,6 +100,16 @@ class SubscribeRepository extends BaseRepository implements ISubscribeRepository
             $slug =  $subscribe->slug;
         }
         return $slug;
+    }
+
+
+    function getSqlSubscribeWithSlug($slug)
+    {
+        return  $this->model
+            ->select("id")
+            ->where("slug" , $slug)
+            ->where("status" , 1)
+            ->toSql();
     }
 
 
@@ -136,6 +147,8 @@ class SubscribeRepository extends BaseRepository implements ISubscribeRepository
     }
 
 
+
+
     ////// --------------------------
 
     private function getListSubscribeActive(){
@@ -161,6 +174,7 @@ class SubscribeRepository extends BaseRepository implements ISubscribeRepository
         }
         return $active;
     }
+
 
 
 }

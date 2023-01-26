@@ -83,6 +83,7 @@
         </section>
 
         <x-row-tables.admin.component-pageinate-panels
+                :url="route('customer-panel.home' , 'factors')"
                 :list="$realFactor"/>
 
     </section>
