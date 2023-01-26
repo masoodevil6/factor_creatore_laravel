@@ -22,11 +22,11 @@ class FactorService{
     }
 
 
-    public function getInfoFactor(Form $form){
+    public function getInfoFactor(Form $form , $convertDescriptionToHtml = false){
         $instance = $this->getInstaceClassForm($form);
 
         if ($instance != null){
-            return $instance->getTotalDataForm();
+            return $instance->getTotalDataForm($convertDescriptionToHtml);
         }
         return null;
     }

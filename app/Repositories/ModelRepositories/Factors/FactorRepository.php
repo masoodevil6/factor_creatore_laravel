@@ -1,6 +1,7 @@
 <?php
 namespace App\Repositories\ModelRepositories\Factors;
 
+use App\Http\Services\Forms\FactorService;
 use App\Models\Factors\Factor;
 use App\Repositories\ContextRepository;
 use App\Repositories\InterFaceRepositories\Factors\IFactorRepository;
@@ -97,6 +98,9 @@ class FactorRepository extends BaseRepository implements IFactorRepository {
     function DeleteSelectedFactorAuthUser($resNum)
     {
         $factor = $this->GetInfoSelectedFactorAuthUser($resNum);
+        $factorService = new FactorService();
+        $factorService->deleteFactor($factor);
+
         if (!empty($factor)){
             $this->deleteResult($factor);
         }
@@ -122,74 +126,56 @@ class FactorRepository extends BaseRepository implements IFactorRepository {
 
 
 
+    function GenerateFactorFromApiFactor($factorTemplate , $imageLogo , $imageMohr)
+    {
+
+        $logoName = "";
+        if ($imageLogo != null){
+            $logoName = ContextRepository::UserRepository()->uploadUserImageServer($imageLogo , "logo" , true);
+        }
+
+        $MohrName = "";
+        if ($imageMohr != null){
+            $MohrName = ContextRepository::UserRepository()->uploadUserImageServer($imageMohr , "mohr" , true);
+        }
+
+
+        $dataImages = [
+            "logo_name" => $logoName ,
+            "mohr_name" => $MohrName ,
+        ];
+
+        return $this->GenerateFactorFromData(
+            $factorTemplate ,
+            $factorTemplate["products"] ,
+            $dataImages
+            );
+    }
+
 
     function GenerateFactorFromTemplateFactor()
     {
         $templateFactor = ContextRepository::TemplateFactorRepository()->GetInfoTemplateFactor();
-
-        if (isset($templateFactor->id) && $templateFactor->form_id>0){
-
-            $form = ContextRepository::FormRepository()->SetStateActiveFromFormId($templateFactor->form_id);
-
-            if ($form -> active){
-
-                $resNum =  $this->GenerateUniqueResNumFactor();
-
-                $dataFactor = [
-                    "res_num" => $resNum,
-                    "description" => $templateFactor->description,
-                    "size" => $templateFactor->size,
-
-                    "store_name" => $templateFactor->store_name,
-                    "store_phone" => $templateFactor->store_phone,
-                    "store_address" => $templateFactor->store_address,
-
-                    "customer_name" => $templateFactor->customer_name,
-                    "customer_phone" => $templateFactor->customer_phone,
-                    "customer_address" => $templateFactor->customer_address,
-
-                    "form_id" => $templateFactor->form_id,
-                    "user_id" => $templateFactor->user_id,
-                    "status" => 1,
-                ];
-
-
-                if ($templateFactor->type_logo ==0){
-                    $dataFactor["logo_name"] = ContextRepository::UserRepository()->CopyFileLogoNameToDirectory();
-                }
-                else if($templateFactor->type_logo ==1){
-                    $dataFactor["logo_name"] = $templateFactor->logo_name;
-                }
-
-
-                if ($templateFactor->type_mohr ==0){
-                    $dataFactor["mohr_name"] = ContextRepository::UserRepository()->CopyFileMohrNameToDirectory();
-                }
-                else if($templateFactor->type_mohr ==1){
-                    $dataFactor["mohr_name"] = $templateFactor->mohr_name;
-                }
-
-
-                $factor = $this->addResult($dataFactor);
-
-
-                foreach ($templateFactor->products as $itemProduct){
-                    ContextRepository::FactorProductRepository()->addResult([
-                        "name" => $itemProduct-> name ,
-                        "num" => $itemProduct-> num ,
-                        "unit" => $itemProduct-> unit ,
-                        "price" => $itemProduct-> price ,
-                        "off" => $itemProduct-> off ,
-                        "factor_id" => $factor->id ,
-                    ]);
-                }
-
-                ContextRepository::TemplateFactorRepository()->deleteResultById($templateFactor->id);
-
-                return $factor;
-
+        if (isset($templateFactor->id)){
+            $dataImages = [
+                "logo_name" => "" ,
+                "mohr_name" => "" ,
+            ];
+            if ($templateFactor->type_logo ==0){
+                $dataImages["logo_name"] = ContextRepository::UserRepository()->CopyFileLogoNameToDirectory();
+            }
+            else if($templateFactor->type_logo ==1){
+                $dataImages["logo_name"] = $templateFactor->logo_name;
             }
 
+            if ($templateFactor->type_mohr ==0){
+                $dataImages["mohr_name"] = ContextRepository::UserRepository()->CopyFileMohrNameToDirectory();
+            }
+            else if($templateFactor->type_mohr ==1){
+                $dataImages["mohr_name"] = $templateFactor->mohr_name;
+            }
+
+            return $this->GenerateFactorFromData($templateFactor , $templateFactor->products , $dataImages , $templateFactor->user_id);
         }
 
         return null;
@@ -200,7 +186,60 @@ class FactorRepository extends BaseRepository implements IFactorRepository {
 
     //// =====================
 
+    private function GenerateFactorFromData($dataFactor , $products , $images , $userId=0){
 
+        if (!empty($dataFactor) && $dataFactor["form_id"]>0){
+
+            if ($userId == 0){
+                $userId = ContextRepository::UserRepository()->GetUserAuthId();
+            }
+
+            $form = ContextRepository::FormRepository()->SetStateActiveFromFormId($dataFactor["form_id"]);
+
+            if ($form -> active){
+
+                $resNum =  $this->GenerateUniqueResNumFactor();
+
+                $dataFactor = [
+                    "res_num" => $resNum,
+                    "description" => $dataFactor["description"],
+                    "size" => $dataFactor["size"],
+
+                    "store_name" => $dataFactor["store_name"],
+                    "store_phone" => $dataFactor["store_phone"],
+                    "store_address" => $dataFactor["store_address"],
+
+                    "customer_name" => $dataFactor["customer_name"],
+                    "customer_phone" => $dataFactor["customer_phone"],
+                    "customer_address" => $dataFactor["customer_address"],
+
+                    "logo_name" => $images["logo_name"],
+                    "mohr_name" => $images["mohr_name"],
+
+                    "form_id" => $dataFactor["form_id"],
+                    "user_id" => $userId,
+                    "status" => 1,
+                ];
+
+                $factor = $this->addResult($dataFactor);
+
+
+                foreach ($products as $itemProduct){
+                    ContextRepository::FactorProductRepository()->addResult([
+                        "name" => $itemProduct["name"] ,
+                        "num" => $itemProduct["num"] ,
+                        "unit" => $itemProduct["unit"] ,
+                        "price" => $itemProduct["price"] ,
+                        "off" => $itemProduct["off"] ,
+                        "factor_id" => $factor["id"] ,
+                    ]);
+                }
+
+                return $factor;
+            }
+        }
+        return null;
+    }
 
 
 

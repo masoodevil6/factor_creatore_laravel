@@ -25,6 +25,8 @@ interface IFactorRepository extends IBaseRepository {
 
 
 
+    function GenerateFactorFromApiFactor($factorTemplate , $imageLogo , $imageMohr);
+
     function GenerateFactorFromTemplateFactor();
 
 }

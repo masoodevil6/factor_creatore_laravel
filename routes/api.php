@@ -6,6 +6,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\API\LoginApiController;
 use App\Http\Controllers\API\UserFactorsApiController;
 use App\Http\Controllers\API\PublicApiController;
+use App\Http\Controllers\API\UserFormsApiController;
 
 
 
@@ -14,6 +15,8 @@ use App\Http\Controllers\API\PublicApiController;
 Route::controller(PublicApiController::class)->group(function (){
 
     Route::get("/about-us" , "aboutUs");
+
+    Route::get("/forms" , "forms");
 
 });
 
@@ -48,8 +51,22 @@ Route::prefix("user")->middleware("api.login")->group(function (){
 
         Route::post("/download/" , "downloadUserFactors");
 
+        Route::post("/request-create-factor" , "RequestCreateFactor");
+
     });
 
+
+    Route::prefix("forms")->controller(UserFormsApiController::class)->group(function (){
+
+        Route::post("/list-category-and-forms" , "ListCategoryAndForms");
+
+        Route::post("/list-forms-in-category" , "ListFormsInCategory");
+
+        Route::post("/info-form-selected" , "InfoFormSelected");
+
+        Route::post("/check-form-for-create-factor" , "CheckFormForCreateFactor");
+
+    });
 });
 
 

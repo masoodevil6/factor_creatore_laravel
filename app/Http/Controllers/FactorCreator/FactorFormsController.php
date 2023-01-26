@@ -4,6 +4,7 @@ namespace App\Http\Controllers\FactorCreator;
 
 
 use App\Http\Services\Forms\FactorService;
+use App\Http\Services\Forms\SubscribeFormService;
 use App\Repositories\ContextRepository;
 use Illuminate\Http\Request;
 use function Symfony\Component\Finder\size;
@@ -11,17 +12,16 @@ use function Symfony\Component\Finder\size;
 class FactorFormsController extends BaseFactorController
 {
 
-    public function index(){
+    public function index(SubscribeFormService $subscribeFormService){
 
         $infoPage = $this->getNavProcessFactorCreator(4);
         $nav = $infoPage["nav"];
         $stepFactor = $infoPage["stepFactor"];
         ///----------------------------------------------------------------
-
         $factor = $this->getFactorTemplate();
 
-        $info = $this->getInfoPageForms($factor->form_id);
 
+        $info = $subscribeFormService->getListCategoryAndFormSelected($factor->form_id);
         $subscribeActives = $info["subscribeActives"];
         $formCategories = $info["formCategories"];
         $forms = $info["forms"];
@@ -29,10 +29,8 @@ class FactorFormsController extends BaseFactorController
         $form = $info["form"];
         $formCategoryId = $info["formCategoryId"];
         ///---------------
-        $infoForm = null;
-        if (!empty($form) && $form !=null){
-            $infoForm = $this->getInfoFactor($form);
-        }
+        $infoForm = $info["infoForm"];
+
 
         return view("factor-creator.forms.index" ,
             compact("nav" , "stepFactor" , "subscribeActives" , "formCategories" , "forms" , "form" , "formCategoryId" , "infoForm")
@@ -40,16 +38,14 @@ class FactorFormsController extends BaseFactorController
     }
 
 
-    public function getFormsInFormCategory(Request $request){
-        $subscribeActives = $this->getListSubscribeActive();
-        $forms = $this->getListForms($request->get("form_category_id") , $subscribeActives);
 
-        $form = null;
-        $infoForm = null;
-        if (sizeof($forms)>0){
-            $form = $forms[0];
-            $infoForm = $this->getInfoFactor($form);
-        }
+    public function getFormsInFormCategory(Request $request , SubscribeFormService $subscribeFormService){
+
+        $info = $subscribeFormService->getFormsInFormCategory($request->get("form_category_id"));
+        $subscribeActives = $info["subscribeActives"];
+        $forms = $info["forms"];
+        $form = $info["form"];
+        $infoForm = $info["infoForm"];
 
 
         return [
@@ -59,35 +55,33 @@ class FactorFormsController extends BaseFactorController
     }
 
 
-    public function getInfoForm(Request $request){
-        $info = $this->returnInfoForm($request->get("form_id"));
+    public function getInfoForm(Request $request , SubscribeFormService $subscribeFormService){
+
+        $info = $subscribeFormService->getInfoForm($request->get("form_id"));
         $subscribeActives = $info["subscribeActives"];
         $form = $info["form"];
-
-        $infoForm = $this->getInfoFactor($form);
+        $infoForm = $info["infoForm"];
 
         return $this->returnViewInfoForm($form , $subscribeActives , $infoForm);
     }
 
-    public function endProcessSelectForm(Request $request){
+    public function endProcessSelectForm(Request $request , SubscribeFormService $subscribeFormService){
 
         $formId= $request->get("form");
         if (isset($formId)){
-            $info = $this->returnInfoForm($formId);
+
+            $info = $subscribeFormService->endProcessSelectForm($request->get("form"));
             $form = $info["form"];
+            $route = $info["route"];
 
             $size = $request->get("size");
 
-            if ($form->active){
+            if (empty($route)){
                 ContextRepository::TemplateFactorRepository()->SetFormTemplateFactor($form->id , $size);
                 return redirect()->route("customer.complete-factor.index");
             }
-            else{
-                $slug = ContextRepository::SubscribeRepository()->GetSlugSubscribeForm($form->subscribe_id);
-                if ($slug != null){
-                    return redirect()->route("customer.subscribes.info" , $slug);
-                }
-            }
+
+            return redirect($route);
         }
         else{
             return redirect()->route("customer.create-factor.index");
@@ -105,7 +99,7 @@ class FactorFormsController extends BaseFactorController
 
     ///// ===================================================
 
-    private function getInfoPageForms($formSelected=null){
+    /*private function getInfoPageForms($formSelected=null){
         $subscribeActives = $this->getListSubscribeActive();
 
         $form= null;
@@ -171,7 +165,7 @@ class FactorFormsController extends BaseFactorController
     private function getInfoFactor($form){
         $factorService = new FactorService();
         return $factorService->getInfoFactor($form);
-    }
+    }*/
 
 
 }

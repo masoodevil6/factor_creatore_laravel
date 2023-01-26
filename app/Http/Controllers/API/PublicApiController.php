@@ -6,15 +6,14 @@ use App\Http\Controllers\Controller;
 use App\Repositories\ContextRepository;
 use Illuminate\Http\Request;
 
-class PublicApiController extends Controller
+class PublicApiController extends BaseApiController
 {
 
     /*
      * ====================================
      *  url=> /about-us
      *====================================
-     * header-bearer => token
-     * header => string => inputLogin
+     *
      * ====================================
      * "siteName" => [ "site_name_fa" , "site_name_en" ]
      * "aboutUs" => ""
@@ -24,4 +23,20 @@ class PublicApiController extends Controller
     public function aboutUs(){
         return ContextRepository::SettingRepository()->SetSettingInfoPage(true);
     }
+
+
+
+    /*
+   * ====================================
+   *  url=> /forms?page=
+   *====================================
+   *
+   * ====================================
+   * "siteName" => [ "site_name_fa" , "site_name_en" ]
+   */
+    public function forms(){
+       return $this->CheckExistNextPag(ContextRepository::FormRepository()->SearchForm());
+    }
+
+
 }

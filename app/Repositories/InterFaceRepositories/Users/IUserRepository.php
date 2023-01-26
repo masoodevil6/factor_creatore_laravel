@@ -88,7 +88,7 @@ interface IUserRepository extends IBaseRepository {
 
 
 
-  function uploadUserImageServer($fileImage , $type="");
+  function uploadUserImageServer($fileImage , $type="" , $base64=false);
 
   function DeleteUserFolderInPublicDirectory();
 

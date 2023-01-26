@@ -21,8 +21,14 @@ use function unlink;
 
 class ImageService extends ImageToolsService {
 
-    public function save($image ,  $singleFileInDirectory=false , $type="public"){
+    public function saveFromBase64($image , $extention ,  $singleFileInDirectory=false , $type="public"){
+        $this->setImage($image);
 
+        return $this->uploadImageComplete($image ,0 , 0 , $singleFileInDirectory , $type , $extention  , true);
+    }
+
+
+    public function save($image ,  $singleFileInDirectory=false , $type="public"){
         //set image
         $this->setImage($image);
 
@@ -100,15 +106,32 @@ class ImageService extends ImageToolsService {
     }
 
 
-    protected function uploadImageComplete($image , $width=0 , $height=0 ,  $singleFileInDirectory=false , $type="public"){
+
+
+
+
+    protected function uploadImageComplete($image , $width=0 , $height=0 ,  $singleFileInDirectory=false , $type="public"  , $extension="" , $base64=false){
 
         /// execute provider
-        $this->provider($singleFileInDirectory);
+        $this->provider($singleFileInDirectory , $extension);
 
         //save in public
         // in php => $_Files["image"]["tmp_mane"] === in laravel $image->getRealPath()
 
-        $result = Image::make($image->getRealPath());
+        if ($base64){
+            $result = Image::make($image)->encode('data-url');
+        }
+        else{
+            $result = Image::make($image->getRealPath());
+        }
+
+
+        return  $this->doUpload($result , $width ,$height , $type);
+    }
+
+
+    private function doUpload($result , $width=0 , $height=0  , $type="public"){
+
         if ($width > 0 && $height>0){
             $result->fit($width , $height);
         }
@@ -121,10 +144,8 @@ class ImageService extends ImageToolsService {
             unlink($fileAddress);
         }
 
-        return $result ? $this->getImageAddress() : false;
+        return  $result ? $this->getImageAddress() : false;
     }
-
-
 
 
 

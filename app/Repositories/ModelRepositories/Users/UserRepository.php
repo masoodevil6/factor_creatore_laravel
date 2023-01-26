@@ -351,11 +351,12 @@ class UserRepository extends BaseRepository implements IUserRepository {
 
 
 
-    public function uploadUserImageServer($fileImage , $type=""){
+    public function uploadUserImageServer($fileImage , $type="" , $base64=false){
 
         $imageService = new ImageService();
 
         $imageService->setExclusiveDirectory($this->getPathUser());
+
         if ($type == "logo"){
             $imageService->setImageDirectory($this->getDirectoryUserLogo());
         }
@@ -363,6 +364,9 @@ class UserRepository extends BaseRepository implements IUserRepository {
             $imageService->setImageDirectory($this->getDirectoryUserMohr());
         }
 
+        if ($base64){
+            return $imageService -> saveFromBase64($fileImage , "png" , false , "storage");
+        }
         return $imageService -> save($fileImage , false , "storage");
     }
 

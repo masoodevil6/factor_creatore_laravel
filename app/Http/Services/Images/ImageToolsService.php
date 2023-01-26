@@ -143,7 +143,7 @@ class ImageToolsService{
         return $this->FinalImageDirectory.DIRECTORY_SEPARATOR.$this->FinalImageName;
     }
 
-    protected function provider($singleFileInDirectory=false){
+    protected function provider($singleFileInDirectory=false , $extention=""){
 
         //set properties
         if (empty($this->getImageDirectory()) && !$singleFileInDirectory){
@@ -154,8 +154,11 @@ class ImageToolsService{
             $this->setImageName(time());
         }
 
-        if (empty($this->getImageFormat())){
-            $this->setImageFormat($this->image->extension());
+        if (empty($extention)){
+            $this->setImageFormat( $this->image->extension());
+        }
+        else {
+            $this->setImageFormat($extention);
         }
 
 

@@ -299,11 +299,23 @@ class BaseFormToolService{
 
 
 
-    public function getTotalDataForm(){
+    public function getTotalDataForm($convertDescriptionToHtml = false){
         return [
             "page"=>$this->getInfoPages() ,
-            "description" => $this->getDescriptionForm(),
+            "description" => $this->ConvertDescriptionToHtml($convertDescriptionToHtml),
         ];
+    }
+
+
+
+    private function ConvertDescriptionToHtml($convertDescriptionToHtml=false){
+        $description =  $this->getDescriptionForm();
+
+        if ($convertDescriptionToHtml){
+            $description = ConvertToHtmlForWPF($description);
+        }
+
+        return $description;
     }
 
 
