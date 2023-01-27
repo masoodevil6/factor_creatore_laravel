@@ -131,9 +131,6 @@ class SubscribePaymentRepository extends BaseRepository implements ISubscribePay
 
 
 
-
-
-
     function GetSubscribeActiveNow()
     {
         $this->resetClassModel();
@@ -149,6 +146,10 @@ class SubscribePaymentRepository extends BaseRepository implements ISubscribePay
             ->where(DB::raw("CURRENT_TIMESTAMP") , "<=" , DB::raw("ADDDATE(subscribe_payments.time_set, INTERVAL subscribes.duration MONTH)"))
             ->get();
     }
+
+
+
+
 
 
 

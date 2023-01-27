@@ -12,9 +12,9 @@ class UserFormsApiController extends Controller
   * ====================================
   *  url=> /user/forms/list-category-and-forms
   *====================================
-  * post => formId
+  *
   * ====================================
-  * object factors
+  * object subscribes and payments
   */
     public function ListCategoryAndForms(Request $request , SubscribeFormService $subscribeFormService){
         $formId = null;

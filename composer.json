@@ -20,6 +20,7 @@
         "niklasravnsborg/laravel-pdf": "^4.1",
         "phenx/php-svg-lib": "^0.5.0",
         "psr/log": "^2.0",
+        "reedware/laravel-relation-joins": "^3.0",
         "spatie/browsershot": "^3.57",
         "wemersonjanuario/wkhtmltopdf-windows": "0.12.2.3"
     },

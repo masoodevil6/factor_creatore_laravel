@@ -7,6 +7,7 @@ use App\Http\Controllers\API\LoginApiController;
 use App\Http\Controllers\API\UserFactorsApiController;
 use App\Http\Controllers\API\PublicApiController;
 use App\Http\Controllers\API\UserFormsApiController;
+use App\Http\Controllers\API\UserSubscribeApiController;
 
 
 
@@ -69,6 +70,13 @@ Route::prefix("user")->middleware("api.login")->group(function (){
         Route::post("/check-form-for-create-factor" , "CheckFormForCreateFactor");
 
     });
+
+
+    Route::prefix("subscribes")->controller(UserSubscribeApiController::class)->group(function (){
+
+        Route::post("/actives" , "ListUserSubscribesActive");
+    });
+
 });
 
 
