@@ -70,7 +70,7 @@ class MainAdminController extends BaseController
             $imageService = new ImageService();
 
             $resultUploadImage =[];
-            if ($dataLastImage != null){
+            if ($dataLastImage != null && !empty($dataLastImage)){
                 if ($multiUpload == true){
                     if(isset($dataLastImage["directory"]))
                     {

@@ -17,7 +17,26 @@ class CustomerAboutUsController extends CustomerMainController
 
         $formsSelected = ContextRepository::FormRepository()->GetLimitRandomSelectedForm();
         $settings = $this->setting;
+        $linkApps = $this->linkApps;
 
-        return view("customer.about-us.index" , compact("nav" , "formsSelected" , "settings"));
+        return view("customer.about-us.info.index" , compact("nav" , "formsSelected" , "settings" , "linkApps"));
+    }
+
+
+
+
+    public function downloadApp(){
+
+        $nav = [
+            [
+                "route" => "customer.about-us-download" ,
+                "title" => "دانلود برنامه ها"
+            ]
+        ];
+
+        $linkApps = $this->linkApps;
+        $formsSelected = ContextRepository::FormRepository()->GetLimitRandomSelectedForm();
+
+        return view("customer.about-us.download.index" , compact("nav" , "linkApps" , "formsSelected" ));
     }
 }

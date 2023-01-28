@@ -7,6 +7,10 @@ use App\Repositories\ContextRepository;
 use Database\Seeders\PanelGroups\AdminGroup\CreatePanelGroupAdminSeeder;
 use Database\Seeders\PanelGroups\AdminGroup\CreatePanelPanelsInPanelGroupAdminSeeder;
 use Database\Seeders\PanelGroups\AdminGroup\CreatePanelUserAdminInPanelGroupAdminSeeder;
+use Database\Seeders\PanelGroups\AppGroup\CreatePanelAppCategoryInPanelGroupAppSeeder;
+use Database\Seeders\PanelGroups\AppGroup\CreatePanelAppFileInPanelGroupAppSeeder;
+use Database\Seeders\PanelGroups\AppGroup\CreatePanelAppFileLinkInPanelGroupAppSeeder;
+use Database\Seeders\PanelGroups\AppGroup\CreatePanelGroupAppSeeder;
 use Database\Seeders\PanelGroups\BankGroup\CreatePanelBankInPanelGroupBankSeeder;
 use Database\Seeders\PanelGroups\BankGroup\CreatePanelGroupBankSeeder;
 use Database\Seeders\PanelGroups\FactorGroup\CreatePanelFactorsInPanelGroupFactorSeeder;
@@ -77,6 +81,12 @@ class PanelsAdminSeeder extends Seeder
         $this->call(CreatePanelGroupSubscribeSeeder::class);
         $this->call(CreatePanelSubscribePanelGroupSubscribeSeeder::class);
         $this->call(CreatePanelSubscribePaymentsPanelGroupSubscribeSeeder::class);
+
+        /// app ToolsPanel
+        $this->call(CreatePanelGroupAppSeeder::class);
+        $this->call(CreatePanelAppCategoryInPanelGroupAppSeeder::class);
+        $this->call(CreatePanelAppFileInPanelGroupAppSeeder::class);
+        $this->call(CreatePanelAppFileLinkInPanelGroupAppSeeder::class);
 
 
         $this->call(InsertIntoSettingSite::class);

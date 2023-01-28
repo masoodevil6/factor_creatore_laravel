@@ -9,7 +9,7 @@ interface ITemplateFactorRepository extends IBaseRepository {
 
     function GetInfoTemplateFactor();
 
-    function SetFormTemplateFactor($formId , $size);
+    function SetFormTemplateFactor($formId , $size="");
 
     function SubmitInfoTemplateFactor($data);
 

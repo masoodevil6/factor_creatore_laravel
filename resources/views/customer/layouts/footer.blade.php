@@ -1,5 +1,7 @@
 <footer class="row mt-2 mx-0 p-0 ">
 
+
+
     @include("public.social-site")
 
     <section class="color-family-1 w-100 shadow">
@@ -7,12 +9,14 @@
         <section class="col-12 row justify-content-center  m-0">
 
             <section class="col-12 col-lg-10 row justify-content-between m-0">
-                <section  class="col-lg-8 font-size-md text-white text-center pt-2">
+                <section  class="col-12 col-lg-6 font-size-md text-white text-center pt-2">
                     {!! $aboutUs !!}
                 </section>
 
-                <section  class="col-lg-4">
-
+                <section  class="col-12 col-lg-6 my-2">
+                    <x-component-list-address-download-app
+                            color="white"
+                            :link-apps="$linkApps"/>
                 </section>
             </section>
 

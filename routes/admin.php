@@ -19,6 +19,9 @@ use App\Http\Controllers\Admin\Banks\BackAdminController;
 use App\Http\Controllers\Admin\Subscribes\SubscribesAdminController;
 use App\Http\Controllers\Admin\Subscribes\SubscribePaymentsAdminController;
 use App\Http\Controllers\Admin\Users\UserController;
+use App\Http\Controllers\Admin\Apps\AppCategoryAdminController;
+use App\Http\Controllers\Admin\Apps\AppFileAdminController;
+use App\Http\Controllers\Admin\Apps\AppFileLinkAdminController;
 
 
 
@@ -270,7 +273,7 @@ Route::namespace("Users")->group(function (){
 
 
 /// =================================================
-/// user panel
+/// Tickets panel
 /// =================================================
 
 Route::namespace("Tickets")->group(function (){
@@ -335,7 +338,7 @@ Route::namespace("Banks")->group(function (){
 
 
 /// =================================================
-/// User Page Admin
+/// Subscribes panel
 /// =================================================
 
 Route::namespace("Subscribes")->group(function (){
@@ -372,6 +375,64 @@ Route::namespace("Subscribes")->group(function (){
 
         Route::delete("/destroy/{subscribePayment}" ,  "destroy")->name("admin.subscribes.subscribe-payment.destroy");
 
+    });
+
+});
+
+
+
+
+
+
+
+
+/// =================================================
+/// User Page Admin
+/// =================================================
+
+Route::namespace("Apps")->group(function (){
+
+    Route::prefix("app-category")->controller(AppCategoryAdminController::class)->group(function (){
+
+        Route::get("/" , "index")->name("admin.apps.category.index");
+
+        Route::get("/create" , "create")->name("admin.apps.category.create");
+        Route::post("/store" , "store")->name("admin.apps.category.store");
+
+        Route::get("/edit/{appCategory}" , "edit")->name("admin.apps.category.edit");
+        Route::put("/update/{appCategory}" , "update")->name("admin.apps.category.update");
+
+        Route::delete("/destroy/{appCategory}" ,  "destroy")->name("admin.apps.category.destroy");
+    });
+
+    Route::prefix("app-file")->controller(AppFileAdminController::class)->group(function (){
+
+        Route::get("/" , "index")->name("admin.apps.file.index");
+
+        Route::get("/create" , "create")->name("admin.apps.file.create");
+        Route::post("/store" , "store")->name("admin.apps.file.store");
+
+        Route::get("/edit/{appFile}" , "edit")->name("admin.apps.file.edit");
+        Route::put("/update/{appFile}" , "update")->name("admin.apps.file.update");
+
+        Route::delete("/destroy/{appFile}" ,  "destroy")->name("admin.apps.file.destroy");
+    });
+
+    Route::prefix("app-link")->controller(AppFileLinkAdminController::class)->group(function (){
+
+        Route::get("/" , "index")->name("admin.apps.link.index");
+
+        Route::get("/create" , "create")->name("admin.apps.link.create");
+        Route::post("/store" , "store")->name("admin.apps.link.store");
+
+        Route::get("/edit/{appFileLink}" , "edit")->name("admin.apps.link.edit");
+        Route::put("/update/{appFileLink}" , "update")->name("admin.apps.link.update");
+
+        Route::delete("/destroy/{appFileLink}" ,  "destroy")->name("admin.apps.link.destroy");
+
+        Route::post("/status/{appFileLink}" , "status")->name("admin.apps.link.status");
+
+        Route::get("/delete-image/{appFileLink}" , "deleteImage")->name("admin.apps.link.delete-image");
     });
 
 });

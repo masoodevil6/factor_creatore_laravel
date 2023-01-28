@@ -7,7 +7,10 @@
 
 @section('main')
 
-    @include("customer.about-us.about-us")
+
+    <x-component-list-address-download-app
+            :link-apps="$linkApps"/>
+
 
     <x-component-slider-selected-forms
             :forms-selected="$formsSelected"/>

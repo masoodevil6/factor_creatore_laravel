@@ -23,9 +23,11 @@ Route::prefix("/")->controller(CustomerHomeController::class)->group(function ()
 
 });
 
-Route::prefix("/about-us")->controller(CustomerAboutUsController::class)->group(function (){
+Route::prefix("/")->controller(CustomerAboutUsController::class)->group(function (){
 
-    Route::get("/" , "aboutUs")->name("customer.about-us");
+    Route::get("/about-us" , "aboutUs")->name("customer.about-us");
+
+    Route::get("/download-apps" , "downloadApp")->name("customer.about-us-download");
 
 });
 

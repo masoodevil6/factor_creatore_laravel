@@ -1,6 +1,9 @@
 <?php
 namespace App\Repositories;
 
+use App\Repositories\InterFaceRepositories\Apps\IAppCategoryRepository;
+use App\Repositories\InterFaceRepositories\Apps\IAppFileLinkRepository;
+use App\Repositories\InterFaceRepositories\Apps\IAppFileRepository;
 use App\Repositories\InterFaceRepositories\Banks\IBanckRepository;
 use App\Repositories\InterFaceRepositories\Factors\IFactorProductRepository;
 use App\Repositories\InterFaceRepositories\Factors\IFactorRepository;
@@ -25,6 +28,9 @@ use App\Repositories\InterFaceRepositories\Users\ICommentRepository;
 use App\Repositories\InterFaceRepositories\Users\IOtpRepository;
 use App\Repositories\InterFaceRepositories\Users\IUserRepository;
 use App\Repositories\InterFaceRepositories\Users\IUserStoreRepository;
+use App\Repositories\ModelRepositories\Apps\AppCategoryRepository;
+use App\Repositories\ModelRepositories\Apps\AppFileLinkRepository;
+use App\Repositories\ModelRepositories\Apps\AppFileRepository;
 use App\Repositories\ModelRepositories\Banks\BankRepository;
 use App\Repositories\ModelRepositories\Factors\FactorProductRepository;
 use App\Repositories\ModelRepositories\Factors\FactorRepository;
@@ -332,4 +338,46 @@ class ContextRepository{
         }
         return self::$subscribePaymentRepository;
     }
+
+
+
+
+
+
+    //// =============================================
+    //// Apps
+    //// =============================================
+    private static $appCategoryRepository;
+    private static $appFileRepository;
+    private static $appFileLinkRepository;
+
+
+    public static function AppCategoryRepository() : IAppCategoryRepository
+    {
+        if (self::$appCategoryRepository == null){
+            self::$appCategoryRepository = new AppCategoryRepository();
+        }
+        return self::$appCategoryRepository;
+    }
+
+
+    public static function AppFileRepository() : IAppFileRepository
+    {
+        if (self::$appFileRepository == null){
+            self::$appFileRepository = new AppFileRepository();
+        }
+        return self::$appFileRepository;
+    }
+
+
+    public static function AppFileLinkRepository() : IAppFileLinkRepository
+    {
+        if (self::$appFileLinkRepository == null){
+            self::$appFileLinkRepository = new AppFileLinkRepository();
+        }
+        return self::$appFileLinkRepository;
+    }
+
+
+
 }

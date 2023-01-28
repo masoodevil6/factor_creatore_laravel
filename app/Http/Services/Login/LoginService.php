@@ -41,9 +41,32 @@ class LoginService extends BaseLoginService{
             $resultExp["msg"] = $error["msg"];
         }
 
+        return $resultExp;
+    }
+
+
+
+
+    public function SendOtpTokenUserExist($inputLogin){
+
+        $resultExp = [
+            "isValid" => false ,
+            "token" => null
+        ];
+
+        /// if input is email
+        if ($resultExp["token"] == null){
+            $resultExp = $this->checkInputIsEmail($inputLogin , false);
+        }
+        /// if input is phone
+        if ($resultExp["token"] == null){
+            $resultExp = $this->checkInputIsPhone($inputLogin , false);
+        }
 
         return $resultExp;
     }
+
+
 
     public function ResendTokenToClient($token){
 
@@ -72,7 +95,7 @@ class LoginService extends BaseLoginService{
 
     ///// =============================================
 
-    private function checkInputIsEmail($inputLogin){
+    private function checkInputIsEmail($inputLogin , $createUser=true){
         $resultExp = [
             "isValid" => false ,
             "token" => null ,
@@ -81,7 +104,7 @@ class LoginService extends BaseLoginService{
             $resultExp["isValid"] = true;
             $type = $this->otpRepository->getTypeOtp("email");
             $user = $this->userRepository->GetUserWithEmail($inputLogin);
-            if (empty($user)){
+            if (empty($user) && $createUser){
                 $user = $this->createNewUser($inputLogin);
             }
             if ($user != null){
@@ -91,7 +114,7 @@ class LoginService extends BaseLoginService{
         return $resultExp;
     }
 
-    private function checkInputIsPhone($inputLogin){
+    private function checkInputIsPhone($inputLogin, $createUser=true){
         $resultExp = [
             "isValid" => false ,
             "token" => null ,
@@ -101,7 +124,7 @@ class LoginService extends BaseLoginService{
             $type = $this->otpRepository->getTypeOtp("mobile");
             $inputLogin = filterPhoneNumber($inputLogin);
             $user = $this->userRepository->GetUserWithPhone($inputLogin);
-            if (empty($user)){
+            if (empty($user) && $createUser){
                 $user = $this->createNewUser("" , $inputLogin);
             }
             if ($user != null){

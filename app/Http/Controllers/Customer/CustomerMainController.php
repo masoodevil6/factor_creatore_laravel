@@ -21,9 +21,11 @@ class CustomerMainController extends BaseController
     use AuthorizesRequests, DispatchesJobs, ValidatesRequests;
 
     public  $setting;
+    public  $linkApps;
     function __construct()
     {
-        $this->setting = ContextRepository::SettingRepository()->SetSettingInfoPage();
+        $this-> setting = ContextRepository::SettingRepository()->SetSettingInfoPage();
+        $this-> linkApps = ContextRepository::AppFileLinkRepository()->GetListAppFileLink();
     }
 
 }

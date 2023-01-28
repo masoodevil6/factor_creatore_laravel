@@ -12,7 +12,9 @@
     }
 }
 
-
+.d-flow-root{
+    display: flow-root!important;
+}
 
 .position-center{
     top: 50%;

@@ -4,8 +4,17 @@
         {{$title}}
     </p>
 
-    <p class="d-block text-center font-size-12">
-        {{$value}}
-    </p>
+    @if(!empty($href))
+        <a href="{{$href}}" class="d-block text-center font-size-12">
+            {{$value}}
+        </a>
+    @else
+        <p class="d-block text-center font-size-12">
+            {{$value}}
+        </p>
+    @endif
+
+
+
 
 </section>

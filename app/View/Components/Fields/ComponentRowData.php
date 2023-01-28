@@ -9,11 +9,13 @@ class ComponentRowData extends Component
     public $col;
     public $title;
     public $value;
-    public function __construct($title , $value , $col="col-6")
+    public $href;
+    public function __construct($title , $value , $col="col-6" , $href="")
     {
         $this-> title = $title;
         $this-> value = $value;
         $this-> col = $col;
+        $this-> href = $href;
     }
 
     /**

@@ -19,33 +19,33 @@
                             </a>
                         </section>
 
-                        <a href="{{route("customer.home")}}" title="خانه" class="btn-nav mx-2 my-2 text-hover-white  btn btn-warning shadow border-none rounded text-decoration-none profile-button float-lg-left  ">
+                        <a href="{{route("customer.home")}}" title="خانه" class="btn-nav mx-1 my-2 text-hover-white  btn btn-warning shadow border-none rounded text-decoration-none profile-button float-lg-left  ">
                             <i  class="nav-icon fa fa-home   float-right border-left border-secondary"></i>
-                            <span class="pr-3    font-size-md font-weight-bold">
+                            <span class="pr-2    font-size-md font-weight-bold">
                                 خانه
                             </span>
                         </a>
 
-                        <a href="{{route("customer.subscribes.list")}}" title="خرید اشتراک" class="btn-nav mx-2 my-2 text-hover-white  btn btn-warning shadow border-none rounded text-decoration-none profile-button float-lg-left  ">
+                        <a href="{{route("customer.subscribes.list")}}" title="خرید اشتراک" class="btn-nav mx-1 my-2 text-hover-white  btn btn-warning shadow border-none rounded text-decoration-none profile-button float-lg-left  ">
                             <i  class="nav-icon fa fa-basket-shopping float-right border-left border-secondary"></i>
-                            <span class="pr-3    font-size-md font-weight-bold">
+                            <span class="pr-2    font-size-md font-weight-bold">
                                 خرید اشتراک
                             </span>
                         </a>
 
 
-                        <a href="{{route("customer.create-factor.index")}}" title="فاکتور جدید" class="btn btn-nav btn-warning position-relative mx-2 text-hover-white my-2 shadow border-none rounded text-decoration-none  profile-button float-lg-left  ">
+                        <a href="{{route("customer.create-factor.index")}}" title="فاکتور جدید" class="btn btn-nav btn-warning position-relative mx-1 text-hover-white my-2 shadow border-none rounded text-decoration-none  profile-button float-lg-left  ">
                             <i class="nav-icon fa fa-file-text float-right border-left border-secondary"></i>
-                            <span class="pr-3   font-size-md font-weight-bold">
+                            <span class="pr-2   font-size-md font-weight-bold">
                                 فاکتور جدید
                             </span>
                         </a>
 
 
                         @guest
-                            <a href="{{route("auth.customer.loginRegisterForm")}}" title="ورود/ثبت نام" class="btn mx-2 my-2 text-hover-white btn-nav btn-warning shadow border-none rounded text-decoration-none profile-button float-lg-left  ">
+                            <a href="{{route("auth.customer.loginRegisterForm")}}" title="ورود/ثبت نام" class="btn mx-1 my-2 text-hover-white btn-nav btn-warning shadow border-none rounded text-decoration-none profile-button float-lg-left  ">
                                 <i class="nav-icon fa fa-user-lock   float-right border-left border-secondary"></i>
-                                <span class="pr-3 text-hover-white  font-size-md font-weight-bold">
+                                <span class="pr-2 text-hover-white  font-size-md font-weight-bold">
                                     ورود/ثبت نام
                                 </span>
                             </a>
@@ -53,9 +53,9 @@
                         @auth
 
                             <section class="btn-group d-inline px-lg-2 my-lg-2 ">
-                                <button id="btn-header-client-panel" class="btn btn-warning btn-nav shadow mx-2 text-hover-white mx-lg-0 border-none rounde dropdown-toggle text-decoration-none  profile-button " type="button" data-toggle="dropdown" aria-haspopup="true"  aria-expanded="true">
+                                <button id="btn-header-client-panel" class="btn btn-warning btn-nav shadow mx-1 text-hover-white mx-lg-0 border-none rounde dropdown-toggle text-decoration-none  profile-button " type="button" data-toggle="dropdown" aria-haspopup="true"  aria-expanded="true">
                                     <i class="nav-icon fa fa-user  float-right border-left border-secondary"></i>
-                                    <span id="text-header-client-panel" class="pr-3  font-size-md font-weight-bold d-inline-block">
+                                    <span id="text-header-client-panel" class="pr-2  font-size-md font-weight-bold d-inline-block">
                                         {{Auth::user()->fullName}}
                                     </span>
                                 </button>
@@ -91,10 +91,17 @@
                         @endauth
 
 
-                        <a href="{{route("customer.about-us")}}" title="درباره ما" class="btn-nav mx-2 my-2 text-hover-white btn btn-warning shadow border-none rounded text-decoration-none profile-button float-lg-left  ">
+                        <a href="{{route("customer.about-us")}}" title="درباره ما" class="btn-nav mx-1 my-2 text-hover-white btn btn-warning shadow border-none rounded text-decoration-none profile-button float-lg-left  ">
                             <i class="nav-icon fa fa-store   float-right  border-left border-secondary "></i>
-                            <span class="pr-3 font-size-md font-weight-bold">
+                            <span class="pr-2 font-size-md font-weight-bold">
                                 درباره ما
+                            </span>
+                        </a>
+
+                        <a href="{{route("customer.about-us-download")}}" title="دانلود برنامه ها" class="btn-nav mx-1 my-2 text-hover-white btn btn-warning shadow border-none rounded text-decoration-none profile-button float-lg-left  ">
+                            <i class="nav-icon fa fa-download   float-right  border-left border-secondary "></i>
+                            <span class="pr-2 font-size-md font-weight-bold">
+                                دانلود
                             </span>
                         </a>
 

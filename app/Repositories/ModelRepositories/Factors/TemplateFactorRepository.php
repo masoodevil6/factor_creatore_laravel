@@ -40,7 +40,7 @@ class TemplateFactorRepository extends BaseRepository implements ITemplateFactor
 
 
 
-    function SetFormTemplateFactor($formId , $size)
+    function SetFormTemplateFactor($formId , $size="")
     {
         $templateFactor= $this->GetInfoTemplateFactor();
 
