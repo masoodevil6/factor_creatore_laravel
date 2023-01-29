@@ -9,7 +9,7 @@ class CreatePanelTicketInPanelGroupUser extends CreatePanelAdminService
 {
     public function __construct()
     {
-        $this->setPanelGroupName($this::class);
+        $this->setPanelGroupName();
         $this->setPanelIcon("fa fa-envelope-o");
         $this->setPanelName("تیکت ها");
         $this->setPanelLink("admin.tickets.ticket.index");

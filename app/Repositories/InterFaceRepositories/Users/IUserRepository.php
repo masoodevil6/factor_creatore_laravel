@@ -44,6 +44,7 @@ interface IUserRepository extends IBaseRepository {
   function GetUserPanelAuthAdminInfo($user);
 
   function GetUserPasswordAuthPanelAdmin($panel);
+  function GetUserMainAuthPanelAdmin($panel);
 
 
 

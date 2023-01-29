@@ -8,7 +8,7 @@ class CreatePanelUserPanelGroupUser extends CreatePanelAdminService
 {
     public function __construct()
     {
-        $this->setPanelGroupName($this::class);
+        $this->setPanelGroupName();
         $this->setPanelIcon("fa fa-user");
         $this->setPanelName("کاربران");
         $this->setPanelLink("admin.users.user.index");

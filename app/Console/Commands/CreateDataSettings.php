@@ -1,17 +1,32 @@
 <?php
-namespace Database\Seeders;
+
+namespace App\Console\Commands;
 
 use App\Repositories\ContextRepository;
-use Illuminate\Database\Seeder;
+use Illuminate\Console\Command;
 
-class InsertIntoSettingSite extends Seeder
+class CreateDataSettings extends Command
 {
     /**
-     * Run the database seeds.
+     * The name and signature of the console command.
      *
-     * @return void
+     * @var string
      */
-    public function run()
+    protected $signature = 'setting:data';
+
+    /**
+     * The console command description.
+     *
+     * @var string
+     */
+    protected $description = 'Create data settings';
+
+    /**
+     * Execute the console command.
+     *
+     * @return int
+     */
+    public function handle()
     {
         $settingRepository = ContextRepository::SettingRepository();
 
@@ -28,6 +43,8 @@ class InsertIntoSettingSite extends Seeder
         $settingRepository->createItemSettingIfNotExist("facebook" , "کانال فیسبوک" , "");
 
         $settingRepository->createItemSettingIfNotExist("about_us" , "درباره ما" , "");
-    }
 
+        $this->info("if data not existed; created in settings");
+        return Command::SUCCESS;
+    }
 }

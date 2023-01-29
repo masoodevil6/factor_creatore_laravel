@@ -8,7 +8,7 @@ class CreatePanelTicketCategoryInPanelGroupUser extends CreatePanelAdminService
 {
     public function __construct()
     {
-        $this->setPanelGroupName($this::class);
+        $this->setPanelGroupName();
         $this->setPanelIcon("fas fa-archive");
         $this->setPanelName("دسته بندی تیکت ها");
         $this->setPanelLink("admin.tickets.ticket-category.index");

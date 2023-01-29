@@ -8,7 +8,7 @@ class CreatePanelSubscribePanelGroupSubscribe extends CreatePanelAdminService
 {
     public function __construct()
     {
-        $this->setPanelGroupName($this::class);
+        $this->setPanelGroupName();
         $this->setPanelIcon("fa fa-credit-card");
         $this->setPanelName("اشتراک ها");
         $this->setPanelLink("admin.subscribes.subscribe.index");

@@ -8,7 +8,7 @@ class CreatePanelFormPanelGroupForm extends CreatePanelAdminService
 {
     public function __construct()
     {
-        $this->setPanelGroupName($this::class);
+        $this->setPanelGroupName();
         $this->setPanelIcon("fa fa-archive");
         $this->setPanelName("فرم ها");
         $this->setPanelLink("admin.forms.form.index");

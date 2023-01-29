@@ -9,7 +9,7 @@ class CreatePanelFactorsInPanelGroupFactor extends CreatePanelAdminService
 
     public function __construct()
     {
-        $this->setPanelGroupName($this::class);
+        $this->setPanelGroupName();
         $this->setPanelIcon("fa fa-book");
         $this->setPanelName("فاکتور ها");
         $this->setPanelLink("admin.factors.factor.index");

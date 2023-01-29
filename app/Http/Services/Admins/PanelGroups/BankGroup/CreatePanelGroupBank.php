@@ -8,7 +8,7 @@ class CreatePanelGroupBank extends CreatePanelGroupAdminService
 {
     public function __construct()
     {
-        $this->setPanelGroupTitleEn($this::class);
+        $this->setPanelGroupTitleEn();
         $this->setPanelGroupTitle("مدیریت بانک ها");
         $this->insertInTablePanelGroup();
     }

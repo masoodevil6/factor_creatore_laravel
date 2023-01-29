@@ -9,7 +9,7 @@ class CreatePanelBankInPanelGroupBank extends CreatePanelAdminService
 
     public function __construct()
     {
-        $this->setPanelGroupName($this::class);
+        $this->setPanelGroupName();
         $this->setPanelIcon("fa fa-bank");
         $this->setPanelName("بانک ها");
         $this->setPanelLink("admin.banks.bank.index");

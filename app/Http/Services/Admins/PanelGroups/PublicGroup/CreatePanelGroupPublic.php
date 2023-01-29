@@ -8,7 +8,7 @@ class CreatePanelGroupPublic extends CreatePanelGroupAdminService
 {
     public function __construct()
     {
-        $this->setPanelGroupTitleEn($this::class);
+        $this->setPanelGroupTitleEn();
         $this->setPanelGroupTitle("مدیریت عمومی");
         $this->insertInTablePanelGroup();
     }

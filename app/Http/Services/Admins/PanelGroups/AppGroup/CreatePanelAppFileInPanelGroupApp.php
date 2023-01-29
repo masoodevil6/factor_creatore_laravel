@@ -8,7 +8,7 @@ class CreatePanelAppFileInPanelGroupApp extends CreatePanelAdminService
 
     public function __construct()
     {
-        $this->setPanelGroupName($this::class);
+        $this->setPanelGroupName();
         $this->setPanelIcon("fa fa-file");
         $this->setPanelName("برنامه ها");
         $this->setPanelLink("admin.apps.file.index");

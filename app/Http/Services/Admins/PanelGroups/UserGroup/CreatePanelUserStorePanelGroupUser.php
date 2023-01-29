@@ -8,7 +8,7 @@ class CreatePanelUserStorePanelGroupUser extends CreatePanelAdminService
 {
     public function __construct()
     {
-        $this->setPanelGroupName($this::class);
+        $this->setPanelGroupName();
         $this->setPanelIcon("fa fa-address-card");
         $this->setPanelName("فروشگاه کاربران");
         $this->setPanelLink("admin.users.user-store.index");

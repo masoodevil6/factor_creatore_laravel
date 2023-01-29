@@ -18,7 +18,6 @@ class CreatePanelGroupAdminService extends BaseAdminPanelGroupService{
 
             ContextRepository::PanelGroupRepository()->addResult($data);
         }
-
     }
 
 }

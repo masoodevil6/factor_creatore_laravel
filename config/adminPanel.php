@@ -35,7 +35,7 @@ return[
         ],
         [
             "group_class" => App\Http\Services\Admins\PanelGroups\TicketGroup\CreatePanelGroupTicket::class ,
-            "group_name" => "ticker" ,
+            "group_name" => "ticket" ,
         ],
         [
             "group_class" => App\Http\Services\Admins\PanelGroups\UserGroup\CreatePanelGroupUser::class ,
@@ -53,12 +53,12 @@ return[
         ////=======================================================
         [
             "group_name" => "admin" ,
-            "panel_class" => App\Http\Services\Admins\AdminsPanelGroups\AdminGroup\CreatePanelPanelsInPanelGroupAdmin::class ,
+            "panel_class" => App\Http\Services\Admins\PanelGroups\AdminGroup\CreatePanelPanelsInPanelGroupAdmin::class ,
             "panel_name" => "panels"
         ],
         [
             "group_name" => "admin" ,
-            "panel_class" => App\Http\Services\Admins\AdminsPanelGroups\AdminGroup\CreatePanelUserAdminInPanelGroupAdmin::class ,
+            "panel_class" => App\Http\Services\Admins\PanelGroups\AdminGroup\CreatePanelUserAdminInPanelGroupAdmin::class ,
             "panel_name" => "users"
         ],
 

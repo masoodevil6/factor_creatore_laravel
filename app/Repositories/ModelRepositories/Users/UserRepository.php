@@ -196,6 +196,10 @@ class UserRepository extends BaseRepository implements IUserRepository {
     {
         return $panel->pivot->password;
     }
+    function GetUserMainAuthPanelAdmin($panel)
+    {
+        return $panel->pivot->main;
+    }
 
 
 

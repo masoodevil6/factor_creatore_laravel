@@ -20,10 +20,10 @@ class BaseAdminPanelService
         return $this->panelGroupName;
     }
 
-    protected function setPanelGroupName($panelGroupNamespace): void
+    protected function setPanelGroupName(): void
     {
         foreach (Config::get("adminPanel.panels") as $panel){
-            if ($panel["panel_class"] == $panelGroupNamespace){
+            if ($panel["panel_class"] == $this::class){
                 $this->panelGroupName = $panel["group_name"];
                 break;
             }

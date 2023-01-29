@@ -9,7 +9,7 @@ class CreatePanelSettingSitePanelGroupPublic extends CreatePanelAdminService
 
     public function __construct()
     {
-        $this->setPanelGroupName($this::class);
+        $this->setPanelGroupName();
         $this->setPanelIcon("fas fa-cog");
         $this->setPanelName("تنظیمات عمومی");
         $this->setPanelLink("admin.public.setting.index");

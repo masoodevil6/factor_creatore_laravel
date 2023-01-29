@@ -8,7 +8,7 @@ class CreatePanelCommentPanelGroupUser extends CreatePanelAdminService
 {
     public function __construct()
     {
-        $this->setPanelGroupName($this::class);
+        $this->setPanelGroupName();
         $this->setPanelIcon("fas fa-comments");
         $this->setPanelName("نظرات");
         $this->setPanelLink("admin.users.comment.index");

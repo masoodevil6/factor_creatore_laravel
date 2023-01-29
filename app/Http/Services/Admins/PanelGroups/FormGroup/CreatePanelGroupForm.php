@@ -8,7 +8,7 @@ class CreatePanelGroupForm extends CreatePanelGroupAdminService
 {
     public function __construct()
     {
-        $this->setPanelGroupTitleEn($this::class);
+        $this->setPanelGroupTitleEn();
         $this->setPanelGroupTitle("فرم های فاکتور");
         $this->insertInTablePanelGroup();
     }

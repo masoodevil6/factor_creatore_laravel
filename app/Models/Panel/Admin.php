@@ -15,7 +15,7 @@ class Admin extends Model
 
     private static $panelPass = 75297530;
 
-    protected $fillable = ["title" , "status"];
+    protected $fillable = ["title" , "status" , "main"];
 
 
 

@@ -9,7 +9,7 @@ class CreatePanelFormCategoryPanelGroupForm extends CreatePanelAdminService
 
     public function __construct()
     {
-        $this->setPanelGroupName($this::class);
+        $this->setPanelGroupName();
         $this->setPanelIcon("fa fa-th-list");
         $this->setPanelName("دسته بندی فرم ها");
         $this->setPanelLink("admin.forms.form-category.index");

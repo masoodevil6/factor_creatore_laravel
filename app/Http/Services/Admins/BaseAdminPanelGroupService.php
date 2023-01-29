@@ -28,14 +28,15 @@ class BaseAdminPanelGroupService
         return $this->panelGroupTitleEn;
     }
 
-    protected function setPanelGroupTitleEn($panelGroupNamespace): void
+    protected function setPanelGroupTitleEn(): void
     {
-        foreach (Config::get("adminPanel.panels") as $panel){
-            if ($panel["panel_class"] == $panelGroupNamespace){
-                $this->panelGroupName = $panel["group_name"];
+        foreach (Config::get("adminPanel.groups") as $group){
+            if ($group["group_class"] == $this::class){
+                $this->panelGroupTitleEn = $group["group_name"];
                 break;
             }
         }
+
     }
 
 

@@ -8,7 +8,7 @@ class CreatePanelSubscribePaymentsPanelGroupSubscribe extends CreatePanelAdminSe
 {
     public function __construct()
     {
-        $this->setPanelGroupName($this::class);
+        $this->setPanelGroupName();
         $this->setPanelIcon("fa fa-usd");
         $this->setPanelName("تراکنش های اشتراک");
         $this->setPanelLink("admin.subscribes.subscribe-payment.index");
