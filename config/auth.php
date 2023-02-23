@@ -46,7 +46,7 @@ return [
         ],
 
         'api' => [
-            'driver' => 'token',
+            'driver' => 'custom-token',
             'provider' => 'opt',
             'input_key' => 'token',   // The input name to pass through
             'storage_key' => 'token', // The column name to store in database
@@ -80,7 +80,6 @@ return [
             'driver' => 'eloquent',
             'model' => \App\Models\Panel\AdminUser::class,
         ],
-
 
 
         'opt' => [

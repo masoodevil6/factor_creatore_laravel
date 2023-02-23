@@ -29,9 +29,9 @@ class BasePanelCustomerPanel extends BaseController
             $view->with("listPanels" , $listPanels);
         });
 
-
-        /// get total setting pages
         ContextRepository::SettingRepository()->SetSettingInfoPage();
+
+        ContextRepository::AppFileLinkRepository()->GetListAppFileLink();
     }
 
 

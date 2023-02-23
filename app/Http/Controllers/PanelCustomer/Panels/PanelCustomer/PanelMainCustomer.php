@@ -2,6 +2,8 @@
 namespace App\Http\Controllers\PanelCustomer\Panels\PanelCustomer;
 
 use App\Http\Controllers\PanelCustomer\Panels\InterfacePanelCustomer\IPanelMainCustomer;
+use App\Http\Services\Login\LoginService;
+use App\Http\Services\Login\VerifyInput;
 use App\Http\Services\Messages\Email\Emails;
 use App\Http\Services\Messages\SMS\SMSs;
 use App\Http\Services\RedirectRoute\RedirectRouteService;
@@ -48,6 +50,10 @@ class PanelMainCustomer extends BasePanelCustomer implements IPanelMainCustomer 
 
 
 
+    //==============================
+    // send
+    //==============================
+
     public function sendVerifyCode($type , $input){
         $myInfo = "";
         if ($type == "phone"){
@@ -64,60 +70,21 @@ class PanelMainCustomer extends BasePanelCustomer implements IPanelMainCustomer 
     }
 
 
-
-
-
-
-
-
-    //// ==========================
-    public function verifyCodeGet($token , $code){
-        $otp = ContextRepository::OtpRepository()->existOtpRequest($token , ContextRepository::UserRepository()->GetUserAuthId());
-        if (!empty($otp)){
-            $originalCode = $otp->otp_code;
-            $used = $otp->used;
-            if ($originalCode == $code && $used == 0){
-                return ContextRepository::UserRepository()->UpdateUserEmailOrPhone($otp);
-            }
-        }
-        return false;
-    }
-
-
-
-
-
-
-
-
-
-    //==============================
-    // Model
-    //==============================
-
     protected function sendOtpTokenClient( $inputLogin , $type ){
-        $resultExp = "";
-
-        $result = ContextRepository::OtpRepository()->createTokenOTP(ContextRepository::UserRepository()->GetUserAuthId() , $inputLogin , $type , true);
-
-        if ($result["status"]){
-            $otpType = ContextRepository::OtpRepository()->getTypeValueOtp($type);
-            $resultSend = "";
-
-            if ($otpType=="phone"){
-                $resultSend = (new SMSs())-> sendVerifySmsForClientPhone($result["code"] , $inputLogin);
-            }
-            else if ($otpType == "email"){
-                $resultSend = (new Emails())-> sendVerifyEmailForClientEmail($result["code"] , $inputLogin);
-            }
-
-            if ($resultSend){
-                $resultExp = $result["token"];
-            }
-        }
-
-        return $resultExp;
+        $verify = new  VerifyInput();
+        return $verify->sendOtpTokenVerify($inputLogin , $type);
     }
+
+
+
+    //==============================
+    // verify
+    //==============================
+    public function verifyCodeGet($token , $code){
+        $verify = new  VerifyInput();
+        return $verify->verifyCodeGet($token , $code);
+    }
+
 
 
 

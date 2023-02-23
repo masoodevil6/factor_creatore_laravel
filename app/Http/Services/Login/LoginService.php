@@ -93,6 +93,8 @@ class LoginService extends BaseLoginService{
 
 
 
+
+
     ///// =============================================
 
     private function checkInputIsEmail($inputLogin , $createUser=true){
@@ -152,7 +154,7 @@ class LoginService extends BaseLoginService{
     }
 
 
-    private function sendOtpTokenClient($user , $inputLogin , $type ){
+    protected function sendOtpTokenClient($user , $inputLogin , $type ){
 
         $token = null;
 
@@ -175,6 +177,9 @@ class LoginService extends BaseLoginService{
         }
 
         return $token;
+
+
+        /**/
     }
 
 }

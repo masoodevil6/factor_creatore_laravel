@@ -20,9 +20,14 @@
 
             </section>
 
-            <x-row-tables.admin.component-info-user
-                    :user-id='$subscribePayment -> user->id'
-                    :user-full-name="$subscribePayment -> user -> fullName"/>
+
+            @if(isset($subscribePayment["id"]) && $subscribePayment["id"] > 0)
+                <x-row-tables.admin.component-info-user
+                        :user-id='$subscribePayment -> user->id'
+                        :user-full-name="$subscribePayment -> user -> fullName"/>
+            @endif
+
+
 
 
             <section class="mt-3 border-bottom">

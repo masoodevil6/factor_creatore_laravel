@@ -10,7 +10,7 @@ use Illuminate\Support\Str;
 
 class OtpRepository extends BaseRepository implements IOtpRepository {
 
-    private $maxTimeRequest= 5;
+    private $maxTimeRequest= 2;
     private $expireLoginWithTokenApi= 7;
 
     public function __construct()
@@ -32,17 +32,21 @@ class OtpRepository extends BaseRepository implements IOtpRepository {
             "type" => $type ,
         ];
 
-
+        $lastToken = "";
         if ($checkStatus){
             $lastRequest =
                 $this->model
                     ->where("user_id" , $userId)
                     ->where("created_at" , ">=" , Carbon::now()->subMinutes($this->maxTimeRequest)->toDateTimeString())
                     ->first();
+
+
+
             if (empty($lastRequest)){
                 $status = true;
             }
             else{
+                $lastToken = $lastRequest->token;
                 $status = false;
             }
         }
@@ -54,7 +58,8 @@ class OtpRepository extends BaseRepository implements IOtpRepository {
         return [
             "code" => $otpCode ,
             "token" => $token ,
-            "status" => $status
+            "status" => $status ,
+            "last_token" => $lastToken
         ];
     }
 

@@ -305,10 +305,11 @@ function ConvertToHtmlForWPF($content){
                         direction: rtl;
                         text-align: right;
                         font-family:  Vazir , Sans-serif;
+                        text-align: justify;
                    }
             </style>
         </head>
-        <body oncontextmenu="return false;"  >
+        <body oncontextmenu="return false; "  >
       
         '.$content.'
         </body>

@@ -80,9 +80,9 @@ class CommentRepository extends BaseRepository implements ICommentRepository {
             $this->model
                 ->where("user_id" , $userId)
                 ->where("status" , 1)
-                ->orwhere("parent_id" , $userId)
                 ->orderby("id" , "desc")
                 ->paginate($numInPage);
+
         $comments->listComment = $this->readyListPanelAndChildComments($comments);
 
         return $comments;

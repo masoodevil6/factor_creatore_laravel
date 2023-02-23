@@ -152,7 +152,7 @@ class UserRepository extends BaseRepository implements IUserRepository {
 
     function GetUserAuthInfo()
     {
-        if (Auth::check()){
+        if (Auth::guard("web")->check()){
             return Auth::user();
         }
         else if (Auth::guard("api")->check()){
@@ -167,6 +167,7 @@ class UserRepository extends BaseRepository implements IUserRepository {
         if (!empty($user) && $user != null){
             return $user->id;
         }
+
         return null;
     }
 

@@ -34,7 +34,6 @@ class CheckLogin extends BaseLoginService{
             $resultExp["title"] = $error["title"];
             $resultExp["msg"] = $error["msg"];
         }
-
         return $resultExp;
     }
 

@@ -67,8 +67,8 @@ class SubscribeRepository extends BaseRepository implements ISubscribeRepository
             foreach ($result as $key => $itemSubscribe){
                 $result[$key]->forms = $this->getLimitFromsInSubscribeThatActive($itemSubscribe->forms  , $numInPage);
             }
-            $result = $this->setStateActiveListSubscribe($result);
         }
+        $result = $this->setStateActiveListSubscribe($result);
 
         return $result;
     }
@@ -84,8 +84,10 @@ class SubscribeRepository extends BaseRepository implements ISubscribeRepository
 
         if (!empty($result)){
             $result->active = $this->setStateActiveSubscribe($this->getListSubscribeActive() , $result->id);
-            $result->info_forms = $result->forms()->paginate($numInPage);
-            $result->forms = $this->getLimitFromsInSubscribeThatActive($result->info_forms  , $numInPage);
+            if ($numInPage > 0){
+                $result->info_forms = $result->forms()->paginate($numInPage);
+                $result->forms = $this->getLimitFromsInSubscribeThatActive($result->info_forms  , $numInPage);
+            }
         }
 
         return $result;

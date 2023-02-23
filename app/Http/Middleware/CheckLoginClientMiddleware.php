@@ -28,6 +28,6 @@ class CheckLoginClientMiddleware
             $request->merge(["otp" => $resultLogin["otp"]]);
             return $next($request);
         }
-        return abort(401);
+        return response()->json(['error' => 'Unauthenticated.'], 401);
     }
 }

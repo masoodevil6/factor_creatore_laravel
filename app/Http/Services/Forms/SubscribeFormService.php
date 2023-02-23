@@ -56,6 +56,7 @@ class SubscribeFormService{
         $resultExp = [
             "form" => null ,
             "route" => "" ,
+            "slug" => "" ,
         ];
 
         $info = $this->returnInfoForm($formId);
@@ -67,6 +68,7 @@ class SubscribeFormService{
         else{
             $slug = ContextRepository::SubscribeRepository()->GetSlugSubscribeForm($form->subscribe_id);
             $resultExp["route"] = route("customer.subscribes.info" , $slug);
+            $resultExp["slug"] = $slug;
         }
 
         return $resultExp;

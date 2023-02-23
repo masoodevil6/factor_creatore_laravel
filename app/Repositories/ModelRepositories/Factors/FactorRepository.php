@@ -52,6 +52,7 @@ class FactorRepository extends BaseRepository implements IFactorRepository {
 
     function GetFactorAuthAuthUser($numInPage = 8)
     {
+
         if (isset($_GET["search"])){
             $this->model = $this->addSearcher("res_num" , $_GET["search"]);
         }

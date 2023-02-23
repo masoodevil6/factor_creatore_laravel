@@ -17,7 +17,7 @@ class Comment extends Model
         "body" , "parent_id" , "music_id" , "user_id" , "seen" , "approved" , "status" , "name" , "email"
     ];
 
-
+    protected $appends = ["approved_title"];
 
 
     ///==============================================
@@ -25,7 +25,6 @@ class Comment extends Model
     /// ==============================================
 
     public static function approvedTitle() :Attribute{
-
         return Attribute::make(
             get: fn($value , $attr) => $attr["approved"] == 1 ? 'تایید شده' : 'تایید نشده'
         );

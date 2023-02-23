@@ -41,6 +41,17 @@ class RouteServiceProvider extends ServiceProvider
      */
     public function boot()
     {
+        /*if (env("APP_ENV") === "Production"){
+            $url= \Illuminate\Support\Facades\Request::Url();
+            $check = strstr($url , "http://");
+            if ($check){
+                $newUrl = str_replace("http" , "https:" , $url);
+                header("location:" , $newUrl );
+            }
+        }
+
+        parent::boot();*/
+
         $this->configureRateLimiting();
 
 

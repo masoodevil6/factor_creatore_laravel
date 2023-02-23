@@ -3,6 +3,7 @@
 namespace App\Http;
 
 use App\Http\Middleware\CheckLoginClientMiddleware;
+
 use App\Http\Middleware\TemplateFactorMiddleware;
 use Illuminate\Foundation\Http\Kernel as HttpKernel;
 
@@ -71,7 +72,7 @@ class Kernel extends HttpKernel
         'templateFactor' => TemplateFactorMiddleware::class ,
 
 
-        "api.login" => CheckLoginClientMiddleware::class ,
+        /*"api.login" => CheckLoginClientMiddleware::class ,*/
 
     ];
 }

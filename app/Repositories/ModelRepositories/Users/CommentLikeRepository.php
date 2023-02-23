@@ -18,7 +18,6 @@ class CommentLikeRepository extends BaseRepository implements ICommentLikeReposi
 
     function LikeOrDislikeCommentWithAuthUser(int $commentId, int $likeOrDislike=1)
     {
-
         $lastCommentLike =
             $this->model
                 ->where("comment_id" , $commentId)
