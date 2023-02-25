@@ -28,7 +28,6 @@ class PanelTicketCustomer extends BasePanelCustomer implements IPanelTicketCusto
         return view("customer-panels.panels.panel-tickets.index" , compact("titleFa" ,"titleEn", "ticketFolders" , "ticketCategory"))->render();
     }
 
-
     public function getListTicketSelected($ticketFolderId){
         $tickets = ContextRepository::TicketFolderRepository()->GetSelectedTicketFolderAuthUser($ticketFolderId);
         return view("customer-panels.panels.panel-tickets.info-ticket" , compact("tickets"))->render();

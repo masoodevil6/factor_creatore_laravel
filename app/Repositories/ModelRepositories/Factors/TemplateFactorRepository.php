@@ -81,6 +81,11 @@ class TemplateFactorRepository extends BaseRepository implements ITemplateFactor
     }
 
 
+    function DeleteFactorTemplateClient()
+    {
+        return $this->model->where("user_id" , ContextRepository::UserRepository()->GetUserAuthId())->delete();
+    }
+
 
 
 
@@ -227,7 +232,6 @@ class TemplateFactorRepository extends BaseRepository implements ITemplateFactor
             }
         }
     }
-
 
 
 }

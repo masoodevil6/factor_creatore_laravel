@@ -7,7 +7,7 @@
 </tr>
 <tr style="display: block">
     <td style="display: block">
-        <h3 style="text-align: center; margin: 2px 0; font-family: Tahoma;">
+        <h3 style="text-align: center; margin: 2px 0;">
             {{$storeName}}
         </h3>
     </td>

@@ -223,6 +223,8 @@ class FactorRepository extends BaseRepository implements IFactorRepository {
                     ]);
                 }
 
+                ContextRepository::TemplateFactorRepository()->DeleteFactorTemplateClient();
+
                 return $factor;
             }
         }

@@ -10,6 +10,7 @@ use App\Http\Controllers\API\UserFactorsApiController;
 use App\Http\Controllers\API\PublicApiController;
 use App\Http\Controllers\API\UserFormsApiController;
 use App\Http\Controllers\API\UserSubscribeApiController;
+use App\Http\Controllers\API\UserTicketApiController;
 
 
 
@@ -108,6 +109,17 @@ Route::prefix("user")->middleware("auth:api")->group(function (){
         Route::post("/send" , "sendComment");
 
         Route::post("/like-or-dislike-comment" , "likeOrDislikeComment");
+    });
+
+    Route::prefix("tickets")->controller(UserTicketApiController::class)->group(function (){
+
+        Route::post("/send" , "sendTicket");
+
+        Route::post("/form-send" , "formSend");
+
+        Route::post("/list" , "listTickets");
+
+        Route::post("/info-ticket-selected" , "infoTicketSelected");
     });
 
 });

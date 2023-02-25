@@ -31,7 +31,12 @@
         <section class="p-2  mx-3 my-2">
 
             @if(!empty($form["image"]))
-                <img class="m-auto d-block " height="150" src="{{asset($form["image"]["indexArray"][$form["image"]["currentImage"]])}}" alt="">
+                <?php
+                    $srcImage = asset($form["image"]["indexArray"][$form["image"]["currentImage"]]);
+                ?>
+                <a href="{{$srcImage}}">
+                    <img class="m-auto d-block " height="150" src="{{$srcImage}}" alt="">
+                </a>
             @else
                 <i class="fa fa-spinner text-dark  text-center font-size-xxlg d-block py-5 line-height-40" style="height: 150px"></i>
             @endif

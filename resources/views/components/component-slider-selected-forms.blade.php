@@ -10,7 +10,7 @@
         <section id="form-scroll-selected-forms" class="col-12 col-lg-10 bg-white d-flex p-0">
             <section id="scroll-selected-forms" class="d-flex">
                 @foreach($formsSelected As $itemFormSelected)
-                    <a href="{{route("customer.create-factor.index" , ["form" => $itemFormSelected["id"]])}}" class="item-selected-form my-2 cursor-pointer text-decoration-none">
+                    <div class="item-selected-form my-2 cursor-pointer text-decoration-none">
 
                         <section class=" color-family-1 font-size-md">
                             <p class="text-white p-1 m-0 text-center">
@@ -19,21 +19,25 @@
                         </section>
 
                         <section class=" border border-dark ">
-                            <section  class="section-img-form position-relative" >
-                                <img class="position-absolute position-center" height="150" src="{{asset($itemFormSelected["image"]["indexArray"][$itemFormSelected["image"]["currentImage"]])}}" alt="">
-                            </section>
+                            <?php
+                            $srcImage = asset($itemFormSelected["image"]["indexArray"][$itemFormSelected["image"]["currentImage"]]);
+                            ?>
+
+                            <a href="{{$srcImage}}"  class="section-img-form position-relative d-block" >
+                                <img class="position-absolute position-center" height="150" src="{{$srcImage}}" alt="">
+                            </a>
                             <p class="p-1 m-0 text-center font-size-md text-dark">
                                 [
                                 {{$itemFormSelected -> form_category_id != null ? $itemFormSelected -> title : "-"}}
                                 ]
                             </p>
 
-                            <p class="p-1 m-0 text-center btn btn-info d-block m-1 font-size-md shadow border border-dark text-hover-white">
+                            <a href="{{route("customer.create-factor.index" , ["form" => $itemFormSelected["id"]])}}" class="p-1 m-0 text-center btn btn-info d-block m-1 font-size-md shadow border border-dark text-hover-white">
                                 فاکتور جدید
                                 <i class="fa fa-arrow-left mr-2"></i>
-                            </p>
+                            </a>
                         </section>
-                    </a>
+                    </div>
                 @endforeach
             </section>
         </section>

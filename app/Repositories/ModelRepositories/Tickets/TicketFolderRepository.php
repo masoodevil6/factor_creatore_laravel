@@ -85,16 +85,19 @@ class TicketFolderRepository extends BaseRepository implements ITicketFolderRepo
 
     function SubmitTicketAuthUser($ticketCategoryId , $ticketFolderId , $title , $text)
     {
+        if ($ticketCategoryId == 0){
+            $ticketCategoryId = null;
+        }
 
         $isTrue= false;
-        if ($ticketFolderId != null){
+        if ($ticketFolderId != null && $ticketFolderId > 0){
 
             $ticketFolder = $this->model
                 ->where("id" , $ticketFolderId)
                 ->where("user_id" ,  ContextRepository::UserRepository()->GetUserAuthId())
                 ->first();
 
-            if ($ticketFolder->status["id"] == 1){
+            if (!empty($ticketFolder) && $ticketFolder->status["id"] == 1){
 
                 ContextRepository::TicketRepository()->addResult([
                     "ticket_folder_id" => $ticketFolderId ,
@@ -103,6 +106,7 @@ class TicketFolderRepository extends BaseRepository implements ITicketFolderRepo
 
                 $isTrue = true;
             }
+
         }
         else{
 

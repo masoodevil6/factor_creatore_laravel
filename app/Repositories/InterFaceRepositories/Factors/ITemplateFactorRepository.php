@@ -13,6 +13,8 @@ interface ITemplateFactorRepository extends IBaseRepository {
 
     function SubmitInfoTemplateFactor($data);
 
+    function DeleteFactorTemplateClient();
+
 
 
     function CheckExistTemplateImageUserLogo();
