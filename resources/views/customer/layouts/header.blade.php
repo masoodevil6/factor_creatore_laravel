@@ -14,8 +14,8 @@
                     <section id="nav" class="col-lg-9 d-lg-flex color-family-1 shadow-lg">
 
                         <section class="d-lg-none d-flex justify-content-lg-center justify-content-center">
-                            <a class="text-decoration-none mr-2 pt-1" href="{{route("customer.home")}}">
-                                <img id="logo-site" src="{{getLocationLogoSite()}}" alt="logo">
+                            <a class="text-decoration-none mr-2" href="{{route("customer.home")}}">
+                                <img class="logo-site" src="{{getLocationLogoSite()}}" alt="logo">
                             </a>
                         </section>
 
@@ -113,8 +113,8 @@
 
                         <section class="col-8 col-lg-12">
                             <section class="d-flex justify-content-lg-center justify-content-start ml-5 ml-lg-0">
-                                <a class="text-decoration-none mr-2 pt-1" href="{{route("customer.home")}}">
-                                    <img id="logo-site" src="{{getLocationLogoSite()}}" alt="logo">
+                                <a class="text-decoration-none mr-2 " href="{{route("customer.home")}}">
+                                    <img class="logo-site" src="{{getLocationLogoSite()}}" alt="logo">
                                 </a>
                             </section>
                         </section>

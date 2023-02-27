@@ -13,7 +13,7 @@
             @csrf
             <section class="login-wrapper mb-5 color-family-1 rounded shadow">
                 <a href="{{route("customer.home")}}" class="login-logo">
-                    <img src="{{ getLocationLogoSite() }}">
+                    <img src="{{ getLocationLogoSite() }}" class="logo-site">
                 </a>
                 <section class="login-title text-white">ورود / ثبت نام</section>
 

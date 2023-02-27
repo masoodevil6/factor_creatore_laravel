@@ -1,0 +1,33 @@
+<?php
+
+use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
+
+return new class extends Migration
+{
+    /**
+     * Run the migrations.
+     *
+     * @return void
+     */
+    public function up()
+    {
+        Schema::create('seo_keyword', function (Blueprint $table) {
+            $table->id();
+            $table->string("title");
+            $table->foreignId("seo_meta_id")->constrained("seo_metas")->onUpdate("cascade")->onDelete("cascade");
+            $table->timestamps();
+        });
+    }
+
+    /**
+     * Reverse the migrations.
+     *
+     * @return void
+     */
+    public function down()
+    {
+        Schema::dropIfExists('seo_keyword');
+    }
+};

@@ -5,17 +5,17 @@
 <section class="row p-0 mx-2 my-1">
     @foreach($subscribe->forms As $itemForm)
 
-        <section class="col-6 col-md-4 col-lg-3">
+        <section class="col-6 col-md-3 col-lg-2">
 
-            <div class="d-block text-decoration-none text-dark border border-dark rounded shadow m-2 bg-white cursor-pointer">
+            <div class="d-block text-decoration-none text-dark border border-dark rounded shadow m-1 bg-white cursor-pointer">
                 <section class="color-family-1 text-white text-center">
                     {{$itemForm->name}}
                 </section>
 
-                <section class=" p-2 h-100 ">
+                <section class=" p-1 h-100 ">
                     @if(!empty($itemForm->image))
                         <a href="{{asset($itemForm->image)}}">
-                            <img class="m-auto d-block " height="100" src="{{asset($itemForm->image)}}" alt="">
+                            <img class="m-auto d-block " height="95" src="{{asset($itemForm->image)}}" alt="">
                         </a>
                     @else
                         <i class="fa fa-spinner text-dark  text-center font-size-xxlg d-block py-4 line-height-40 " style="height: 100px"></i>

@@ -18,6 +18,10 @@ use App\Repositories\InterFaceRepositories\Panels\IPanelRepository;
 use App\Repositories\InterFaceRepositories\Panels\IRequestChangePasswordRepository;
 use App\Repositories\InterFaceRepositories\Publics\ISettingRepository;
 use App\Repositories\InterFaceRepositories\Publics\IUnitRepository;
+use App\Repositories\InterFaceRepositories\Seo\ISeoKeywordRepository;
+use App\Repositories\InterFaceRepositories\Seo\ISeoMetaRepository;
+use App\Repositories\InterFaceRepositories\Seo\ISeoPageRepository;
+use App\Repositories\InterFaceRepositories\Seo\ISeoRobotRepository;
 use App\Repositories\InterFaceRepositories\Subscribes\ISubscribePaymentRepository;
 use App\Repositories\InterFaceRepositories\Subscribes\ISubscribeRepository;
 use App\Repositories\InterFaceRepositories\Tickets\ITicketCategoryRepository;
@@ -45,6 +49,10 @@ use App\Repositories\ModelRepositories\Panels\PanelRepository;
 use App\Repositories\ModelRepositories\Panels\RequestChangePasswordRepository;
 use App\Repositories\ModelRepositories\Publics\SettingRepository;
 use App\Repositories\ModelRepositories\Publics\UnitRepository;
+use App\Repositories\ModelRepositories\Seo\SeoKeywordRepository;
+use App\Repositories\ModelRepositories\Seo\SeoMetaRepository;
+use App\Repositories\ModelRepositories\Seo\SeoPageRepository;
+use App\Repositories\ModelRepositories\Seo\SeoRobotRepository;
 use App\Repositories\ModelRepositories\Subscribes\SubscribePaymentRepository;
 use App\Repositories\ModelRepositories\Subscribes\SubscribeRepository;
 use App\Repositories\ModelRepositories\Tickets\TicketCategoryRepository;
@@ -379,5 +387,46 @@ class ContextRepository{
     }
 
 
+
+    //// =============================================
+    //// Seo
+    //// =============================================
+    private static $seoKeywordRepository;
+    private static $seoMetaRepository;
+    private static $seoPageRepository;
+    private static $seoRobotRepository;
+
+
+    public static function SeoKeywordRepository() : ISeoKeywordRepository
+    {
+        if (self::$seoKeywordRepository == null){
+            self::$seoKeywordRepository = new SeoKeywordRepository();
+        }
+        return self::$seoKeywordRepository;
+    }
+
+    public static function SeoMetaRepository() : ISeoMetaRepository
+    {
+        if (self::$seoMetaRepository == null){
+            self::$seoMetaRepository = new SeoMetaRepository();
+        }
+        return self::$seoMetaRepository;
+    }
+
+    public static function SeoPageRepository() : ISeoPageRepository
+    {
+        if (self::$seoPageRepository == null){
+            self::$seoPageRepository = new SeoPageRepository();
+        }
+        return self::$seoPageRepository;
+    }
+
+    public static function SeoRobotRepository() : ISeoRobotRepository
+    {
+        if (self::$seoRobotRepository == null){
+            self::$seoRobotRepository = new SeoRobotRepository();
+        }
+        return self::$seoRobotRepository;
+    }
 
 }

@@ -15,7 +15,7 @@
             @csrf
             <section class=" mb-5">
                 <a href="{{route("customer.home")}}" class="login-logo">
-                    <img src="{{ getLocationLogoSite() }}">
+                    <img src="{{ getLocationLogoSite() }}" class="logo-site">
                 </a>
                 <section class="login-title text-white">
                     ورود به پنل ADMIN
