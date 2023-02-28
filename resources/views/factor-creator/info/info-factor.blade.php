@@ -1,6 +1,5 @@
 <section class=" border border-dark shadow mt-2 p-0 rounded bg-white">
 
-
     <form action="{{route("customer.create-factor.submit-info-factor")}}" method="post"  class="m-2 row">
         @csrf
 
@@ -9,7 +8,6 @@
                 <p class="bg-dark text-white text-center font-size-lg mb-0">
                     اطلاعات فروشگاه
                 </p>
-
 
                 <section class="col-12 py-2 bg-warning border-bottom border-dark">
 
@@ -29,12 +27,12 @@
 
                 </section>
 
-
                 <section id="info-store-user">
 
                     @include("factor-creator.info.info-store")
 
                 </section>
+
             </section>
 
         </section>
@@ -70,7 +68,7 @@
 
 
         <section class="col-12 mt-2">
-            <section class="  border border-dark pb-2">
+            <section class="  border border-dark pb-2 px-2">
 
                 <x-fields.component-sk-editor
                         title-en="description"
@@ -86,14 +84,9 @@
 
         <section class="w-100 row mt-2 mx-2">
 
-
-            <section class="col-12 col-lg-4">
-
-            </section>
-
-
             <section class="col-12 col-lg-4"></section>
 
+            <section class="col-12 col-lg-4"></section>
 
             <section class="col-12 col-lg-4">
 
@@ -104,13 +97,10 @@
 
             </section>
 
-
         </section>
 
 
 
-
     </form>
-
 
 </section>

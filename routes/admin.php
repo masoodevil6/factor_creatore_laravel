@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\Admin\Seo\Page\SeoPageSpicalAdminController;
+use App\Http\Controllers\Admin\Seo\SeoRobotAdminController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\Home\HomeAdminController;
 use App\Http\Controllers\Admin\Password\PasswordAdminController;
@@ -126,6 +128,48 @@ Route::namespace("Publics")->group(function (){
         Route::delete("/destroy/{unit}" ,  "destroy")->name("admin.public.unit.destroy");
 
     });
+
+});
+
+
+
+
+/// =================================================
+/// Seo
+/// =================================================
+
+Route::namespace("Seo")->group(function (){
+
+    Route::prefix("robots")->controller(SeoRobotAdminController::class)->group(function (){
+
+        Route::get("/" , "index")->name("admin.seo.robot.index");
+
+        Route::get("/create" , "create")->name("admin.seo.robot.create");
+        Route::post("/store" , "store")->name("admin.seo.robot.store");
+
+        Route::get("/edit/{seoRobot}" , "edit")->name("admin.seo.robot.edit");
+        Route::put("/update/{seoRobot}" , "update")->name("admin.seo.robot.update");
+
+        Route::delete("/destroy/{seoRobot}" ,  "destroy")->name("admin.seo.robot.destroy");
+
+    });
+
+
+
+    Route::namespace("Page")->prefix("pages")->group(function (){
+
+        Route::prefix("spical")->controller(SeoPageSpicalAdminController::class)->group(function (){
+
+            Route::get("/" , "index")->name("admin.seo.pages.spical.index");
+
+            Route::get("/info" , "info")->name("admin.seo.pages.spical.info");
+
+            Route::post("/store" , "store")->name("admin.seo.pages.spical.store");
+
+        });
+
+    });
+
 
 });
 

@@ -14,4 +14,18 @@ class SeoRobotRepository extends BaseRepository implements ISeoRobotRepository
     }
 
 
+    function createItemSeoRobotIfNotExist(string $title, string $description): void
+    {
+        if (empty($this->model->where("title" , $title)->first())){
+
+            $data = [
+                "title" => $title,
+                "description" => $description,
+            ];
+
+            $this->addResult($data);
+        }
+    }
+
+
 }

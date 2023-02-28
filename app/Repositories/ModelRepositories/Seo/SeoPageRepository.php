@@ -14,4 +14,21 @@ class SeoPageRepository extends BaseRepository implements ISeoPageRepository
     }
 
 
+    function createItemSeoPageIfNotExist(string $pageName, bool $spical): void
+    {
+        if (empty($this->model->where("title" , $pageName)->first())){
+
+            $isSpical = 0;
+            if ($spical){
+                $isSpical = 1;
+            }
+
+            $data = [
+                "title" => $pageName,
+                "spical" => $isSpical,
+            ];
+
+            $this->addResult($data);
+        }
+    }
 }

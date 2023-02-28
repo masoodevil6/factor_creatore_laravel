@@ -4,11 +4,11 @@
         <section class="sidebar-wrapper">
 
 
-            <section class="border border-bottom px-2 pt-1 mx-2 row bg-danger rounded">
-                <section class="col-4">
+            <section class="border px-2 pt-1 mx-2 row bg-danger rounded">
+                <section class="col-4 text-white">
                     پنل:
                 </section>
-                <section class="col-8">
+                <section class="col-8 text-white">
                     {{$panelName}}
                 </section>
             </section>

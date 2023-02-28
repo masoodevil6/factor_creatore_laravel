@@ -177,9 +177,10 @@
     font-size: 0.9rem;
     padding: 0.5rem 1rem;
     margin-top: 1rem;
-    color: #999999;
-    border-top: 1px solid rgba(255, 255, 255, 0.33);
-
+    color: white;
+    border-top: 2px solid white;
+    border-bottom: 2px solid white;
+    background: black;
 }
 .sidebar-group-link{
     font-size: 0.8rem;

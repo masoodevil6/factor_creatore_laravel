@@ -30,6 +30,10 @@ return[
             "group_name" => "public" ,
         ],
         [
+            "group_class" => App\Http\Services\Admins\PanelGroups\SeoGroup\CreatePanelGroupSeo::class ,
+            "group_name" => "Seo" ,
+        ],
+        [
             "group_class" => App\Http\Services\Admins\PanelGroups\SubscribeGroup\CreatePanelGroupSubscribe::class ,
             "group_name" => "subscribe" ,
         ],
@@ -124,7 +128,7 @@ return[
 
 
         ////=======================================================
-        /// form
+        /// public
         ////=======================================================
         [
             "group_name" => "public" ,
@@ -136,6 +140,25 @@ return[
             "panel_class" =>  App\Http\Services\Admins\PanelGroups\PublicGroup\CreatePanelUnitGroupPublic::class ,
             "panel_name" => "units"
         ],
+
+
+
+
+        ////=======================================================
+        /// public
+        ////=======================================================
+        [
+            "group_name" => "Seo" ,
+            "panel_class" =>  App\Http\Services\Admins\PanelGroups\SeoGroup\CreatePanelRobotsInPannGroupSeo::class ,
+            "panel_name" => "robots"
+        ],
+        [
+            "group_name" => "Seo" ,
+            "panel_class" =>  App\Http\Services\Admins\PanelGroups\SeoGroup\CreatePanelSpicalPagesInPannGroupSeo::class ,
+            "panel_name" => "spical-page"
+        ],
+
+
 
 
 

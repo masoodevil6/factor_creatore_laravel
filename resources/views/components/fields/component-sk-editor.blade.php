@@ -1,5 +1,5 @@
 
-<section class="d-block  mt-4 mx-2">
+<section class="{{$dissplay}}   mt-2">
 
     <label for="label-for-{{$titleEn}}" class="d-block text-right font-size-12">
         {{$titleFa}}

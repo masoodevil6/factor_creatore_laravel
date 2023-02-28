@@ -29,11 +29,14 @@
 
     </x-fields.component-select-options>
 
-    <x-fields.component-sk-editor
-            title-en="text"
-            title-fa="متن تیکت"
-            ck-editor="0"
-            value="" />
+    <div class="col-12">
+        <x-fields.component-sk-editor
+                title-en="text"
+                title-fa="متن تیکت"
+                ck-editor="0"
+                value="" />
+    </div>
+
 
     <section class="col-12 mt-2 pb-1 border-top border-dark gray-200">
         <button type="button" onclick="submitNewTicketClient()" class="btn-submit-data btn btn-primary btn-sm mt-1 mx-3 font-size-12" >
