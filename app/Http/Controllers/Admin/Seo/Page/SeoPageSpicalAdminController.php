@@ -45,7 +45,7 @@ class SeoPageSpicalAdminController extends MainAdminController
             "navigation" =>[
                 [
                     "route" => "admin.seo.pages.spical.index" ,
-                    "current" => 1,
+                    "current" => 0,
                     "title" => "لیست صفحات ثابت"
                 ],
                 [
