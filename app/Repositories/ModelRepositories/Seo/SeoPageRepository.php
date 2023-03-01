@@ -31,4 +31,10 @@ class SeoPageRepository extends BaseRepository implements ISeoPageRepository
             $this->addResult($data);
         }
     }
+
+
+    function getListSpicalPages()
+    {
+        return $this->model->where("spical" , 1)->get();
+    }
 }

@@ -162,9 +162,9 @@ Route::namespace("Seo")->group(function (){
 
             Route::get("/" , "index")->name("admin.seo.pages.spical.index");
 
-            Route::get("/info" , "info")->name("admin.seo.pages.spical.info");
+            Route::get("/info/{seoPage}" , "info")->name("admin.seo.pages.spical.info");
 
-            Route::post("/store" , "store")->name("admin.seo.pages.spical.store");
+            Route::post("/store/{seoPage}" , "store")->name("admin.seo.pages.spical.store");
 
         });
 

@@ -2,7 +2,7 @@
 
     @csrf
 
-    <section class="row">
+    <section class="row m-auto">
         {{$slot}}
     </section>
 

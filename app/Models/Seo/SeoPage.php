@@ -23,8 +23,8 @@ class SeoPage extends Model
     /// ==============================================
 
     //// hasMany
-    public function metas(){
-        return $this->hasMany(SeoMeta::class);
+    public function meta(){
+        return $this->hasOne(SeoMeta::class);
     }
 
 }
