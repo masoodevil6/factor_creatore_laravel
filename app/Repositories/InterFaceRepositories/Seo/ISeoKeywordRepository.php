@@ -7,4 +7,6 @@ use App\Repositories\InterFaceRepositories\IBaseRepository;
 interface ISeoKeywordRepository extends IBaseRepository {
 
 
+    function refreshDataSeoKeyword($metaId , $keywords);
+
 }

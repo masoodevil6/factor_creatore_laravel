@@ -8,4 +8,5 @@ interface ISeoRobotRepository extends IBaseRepository {
 
     function createItemSeoRobotIfNotExist(string  $title , string $description) : void;
 
+    function getIdRobotFromTitle($titleRobot);
 }

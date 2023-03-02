@@ -13,7 +13,7 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('seo_keyword', function (Blueprint $table) {
+        Schema::create('seo_keywords', function (Blueprint $table) {
             $table->id();
             $table->string("title");
             $table->foreignId("seo_meta_id")->constrained("seo_metas")->onUpdate("cascade")->onDelete("cascade");
@@ -28,6 +28,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('seo_keyword');
+        Schema::dropIfExists('seo_keywords');
     }
 };

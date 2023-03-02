@@ -37,4 +37,12 @@ class SeoPageRepository extends BaseRepository implements ISeoPageRepository
     {
         return $this->model->where("spical" , 1)->get();
     }
+
+
+    function setSeoPageMeta($pageId, $metaId, $title, $description, $keywords, $robots)
+    {
+
+
+
+    }
 }

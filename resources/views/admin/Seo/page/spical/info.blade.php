@@ -27,8 +27,8 @@
                         :action='route("admin.seo.pages.spical.store" , $seoPage->id )'>
 
                     <x-row-tables.component-seo-page
-                            :title=" $seoPage -> meta != null ? $itemPage -> meta -> title : ''"
-                            :description="$seoPage -> meta != null ? $itemPage -> meta -> description : ''"
+                            :title=" $seoPage -> meta != null ? $seoPage -> meta -> title : ''"
+                            :description="$seoPage -> meta != null ? $seoPage -> meta -> description : ''"
                             :list-keywords="$seoPage -> meta != null ? $seoPage -> meta -> keywords : null"
                             :robots="$robots"
                             :list-robots="$seoPage -> meta != null ? $seoPage -> meta -> robots : null"/>

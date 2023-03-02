@@ -28,4 +28,12 @@ class SeoRobotRepository extends BaseRepository implements ISeoRobotRepository
     }
 
 
+    function getIdRobotFromTitle($titleRobot)
+    {
+        $robot = $this->model->where("title" , $titleRobot)->first();
+        if (!empty($robot)&& $robot != null){
+            return $robot->id;
+        }
+        return 0;
+    }
 }

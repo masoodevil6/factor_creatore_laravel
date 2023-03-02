@@ -6,6 +6,7 @@ use App\Http\Controllers\Admin\MainAdminController;
 use App\Models\Seo\SeoPage;
 use App\Repositories\ContextRepository;
 use Illuminate\Http\Request;
+use function Ramsey\Uuid\Lazy\equals;
 
 class SeoPageSpicalAdminController extends MainAdminController
 {
@@ -64,8 +65,36 @@ class SeoPageSpicalAdminController extends MainAdminController
 
 
 
-    public function store(Request $request){
-        dd($request);
+    public function store(Request $request , SeoPage $seoPage){
+
+        $title="";
+        if ($request->has("title")){
+            $title = $request ->get("title");
+        }
+        $description="";
+        if ($request->has("description")){
+            $description = $request ->get("description");
+        }
+        $keywords=[];
+        if ($request->has("keywords")){
+            $keywords = $request ->get("keywords");
+        }
+        $robots=[];
+        if ($request->has("robots")){
+            foreach ($request->get("robots") As $itemRobot){
+                $robotId = ContextRepository::SeoRobotRepository()->getIdRobotFromTitle($itemRobot);
+                if ($robotId > 0 ){
+                    array_push($robots , $robotId );
+                }
+            }
+        }
+
+        if (!empty($seoPage)){
+            ContextRepository::SeoMetaRepository()->refreshDataSeoMeta($seoPage->id , $seoPage->meta , $title , $description , $keywords , $robots);
+            return $this ->redirectIndex("اطلاعات با موفقیت ثبت شد");
+        }
+
+        return $this->redirectIndex("صقحه موجود یافت نشد" , true );
     }
 
 

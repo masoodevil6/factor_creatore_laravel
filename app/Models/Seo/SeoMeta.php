@@ -28,7 +28,7 @@ class SeoMeta extends Model
 
     //// belongsToMany
     public function robots(){
-        return $this->belongsToMany(SeoRobot::class);
+        return $this->belongsToMany(SeoRobot::class );
     }
 
 

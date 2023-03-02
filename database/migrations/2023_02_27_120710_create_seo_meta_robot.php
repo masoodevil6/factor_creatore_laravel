@@ -13,7 +13,7 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('seo_meta_robot', function (Blueprint $table) {
+        Schema::create('seo_meta_seo_robot', function (Blueprint $table) {
             $table->id();
             $table->foreignId("seo_robot_id")->constrained("seo_robots")->onUpdate("cascade")->onDelete("cascade");
             $table->foreignId("seo_meta_id")->constrained("seo_metas")->onUpdate("cascade")->onDelete("cascade");
@@ -28,6 +28,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('seo_meta_robot');
+        Schema::dropIfExists('seo_meta_seo_robot');
     }
 };

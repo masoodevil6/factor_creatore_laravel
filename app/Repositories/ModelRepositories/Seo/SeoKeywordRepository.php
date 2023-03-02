@@ -14,4 +14,17 @@ class SeoKeywordRepository extends BaseRepository implements ISeoKeywordReposito
     }
 
 
+    function refreshDataSeoKeyword($metaId, $keywords)
+    {
+        $this->model->where("seo_meta_id" , $metaId)->delete();
+
+        foreach ($keywords As $keyword){
+            $data=[
+                "seo_meta_id" => $metaId ,
+                "title" => $keyword
+            ];
+            $this->addResult($data);
+        }
+
+    }
 }
