@@ -157,6 +157,11 @@ return[
             "panel_class" =>  App\Http\Services\Admins\PanelGroups\SeoGroup\CreatePanelSpicalPagesInPannGroupSeo::class ,
             "panel_name" => "spical-page"
         ],
+        [
+            "group_name" => "Seo" ,
+            "panel_class" =>  App\Http\Services\Admins\PanelGroups\SeoGroup\CreatePanelSeoSubscribesPagesInPannGroupSeo::class ,
+            "panel_name" => "subscribes-page"
+        ],
 
 
 

@@ -6,7 +6,6 @@ use App\Repositories\InterFaceRepositories\IBaseRepository;
 
 interface ISeoMetaRepository extends IBaseRepository {
 
-
-    function refreshDataSeoMeta($pageId , $meta , $title , $description , $keywords , $robots);
+    function refreshDataSeoMeta($pageId , $meta , $meta_id=0, $title , $description , $keywords , $robots);
 
 }

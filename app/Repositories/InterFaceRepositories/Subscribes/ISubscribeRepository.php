@@ -21,4 +21,8 @@ interface ISubscribeRepository extends IBaseRepository {
 
     function getSqlSubscribeWithSlug($slug);
 
+
+    function getListSeoPagesSubscirbe( $numInPage=15);
+
+
 }

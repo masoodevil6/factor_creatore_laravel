@@ -11,7 +11,7 @@ class SeoMeta extends Model
 
     protected $fillable = [
         "title" , "description" ,
-        "seo_page_id"
+        "seo_page_id" , "meta_id"
     ];
 
 

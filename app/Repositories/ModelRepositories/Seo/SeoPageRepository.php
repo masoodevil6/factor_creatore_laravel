@@ -8,6 +8,8 @@ use App\Repositories\ModelRepositories\BaseRepository;
 class SeoPageRepository extends BaseRepository implements ISeoPageRepository
 {
 
+    private $titleSubscribes = "subscribe";
+
     public function __construct()
     {
         parent::__construct(new SeoPage());
@@ -39,10 +41,23 @@ class SeoPageRepository extends BaseRepository implements ISeoPageRepository
     }
 
 
-    function setSeoPageMeta($pageId, $metaId, $title, $description, $keywords, $robots)
+
+    function getIdSubscribeSeo()
     {
-
-
-
+        $seoPage = $this->model
+            ->where("title" , $this->getTitleSubscribesSeo())
+            ->where("spical" , 0)
+            ->first();
+        if (!empty($seoPage)){
+            return $seoPage->id;
+        }
+        return null;
     }
+
+    function getTitleSubscribesSeo()
+    {
+        return $this->titleSubscribes;
+    }
+
+
 }

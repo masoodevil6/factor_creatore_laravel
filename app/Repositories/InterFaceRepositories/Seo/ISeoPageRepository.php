@@ -10,6 +10,9 @@ interface ISeoPageRepository extends IBaseRepository {
 
     function getListSpicalPages();
 
-    function setSeoPageMeta($pageId , $metaId, $title , $description , $keywords , $robots);
+
+    function getIdSubscribeSeo();
+
+    function getTitleSubscribesSeo();
 
 }

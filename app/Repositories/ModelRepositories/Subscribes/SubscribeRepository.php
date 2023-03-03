@@ -117,6 +117,16 @@ class SubscribeRepository extends BaseRepository implements ISubscribeRepository
 
 
 
+    function getListSeoPagesSubscirbe($numInPage = 15)
+    {
+        return $this->model
+            ->with("meta")
+            ->paginate($numInPage);
+    }
+
+
+
+
 
     //// ==================================
     private function readyImageForm($formImage){
@@ -147,7 +157,6 @@ class SubscribeRepository extends BaseRepository implements ISubscribeRepository
         }
         return $resultExp;
     }
-
 
 
 

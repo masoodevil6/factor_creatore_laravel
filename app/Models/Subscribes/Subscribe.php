@@ -3,6 +3,8 @@
 namespace App\Models\Subscribes;
 
 use App\Models\Forms\Form;
+use App\Models\Seo\SeoMeta;
+use App\Repositories\ContextRepository;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -91,6 +93,18 @@ class Subscribe extends Model
     /// ==============================================
 
     //// belongsTo
+    public function meta(){
+        return $this
+            ->hasOne(SeoMeta::class , "meta_id")
+            ->select("seo_metas.*")
+            ->join("seo_pages" , function ($join){
+                $join->on("seo_metas.seo_page_id" , "seo_pages.id")
+                    ->where("seo_pages.title" , ContextRepository::SeoPageRepository()->getTitleSubscribesSeo())
+                    ->where("seo_pages.spical" , 0);
+            });
+    }
+
+
 
 
     //// has many

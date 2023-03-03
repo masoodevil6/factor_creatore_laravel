@@ -90,7 +90,7 @@ class SeoPageSpicalAdminController extends MainAdminController
         }
 
         if (!empty($seoPage)){
-            ContextRepository::SeoMetaRepository()->refreshDataSeoMeta($seoPage->id , $seoPage->meta , $title , $description , $keywords , $robots);
+            ContextRepository::SeoMetaRepository()->refreshDataSeoMeta($seoPage->id ,  $seoPage->meta , 0 , $title , $description , $keywords , $robots);
             return $this ->redirectIndex("اطلاعات با موفقیت ثبت شد");
         }
 

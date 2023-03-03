@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Admin\Seo\Page\SeoPageSeoSubscribesAdminController;
 use App\Http\Controllers\Admin\Seo\Page\SeoPageSpicalAdminController;
 use App\Http\Controllers\Admin\Seo\SeoRobotAdminController;
 use Illuminate\Support\Facades\Route;
@@ -166,6 +167,16 @@ Route::namespace("Seo")->group(function (){
 
             Route::post("/store/{seoPage}" , "store")->name("admin.seo.pages.spical.store");
 
+        });
+
+
+        Route::prefix("subscribes")->controller(SeoPageSeoSubscribesAdminController::class)->group(function (){
+
+            Route::get("/" , "index")->name("admin.seo.pages.subscribes.index");
+
+            Route::get("/info/{slug}" , "info")->name("admin.seo.pages.subscribes.info");
+
+            Route::post("/store/{slug}" , "store")->name("admin.seo.pages.subscribes.store");
         });
 
     });

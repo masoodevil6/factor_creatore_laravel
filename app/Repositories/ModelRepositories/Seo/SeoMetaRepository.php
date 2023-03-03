@@ -15,7 +15,7 @@ class SeoMetaRepository extends BaseRepository implements ISeoMetaRepository
     }
 
 
-    function refreshDataSeoMeta($pageId , $meta , $title , $description , $keywords , $robots)
+    function refreshDataSeoMeta($pageId ,  $meta , $meta_id=0, $title , $description , $keywords , $robots)
     {
         if ($pageId > 0){
             $MetaSeo = null;
@@ -33,12 +33,12 @@ class SeoMetaRepository extends BaseRepository implements ISeoMetaRepository
             }
             else{
                 $data["seo_page_id"] = $pageId;
+                $data["meta_id"] = $meta_id;
                 $MetaSeo = $this->addResult($data);
             }
 
             ContextRepository::SeoKeywordRepository()->refreshDataSeoKeyword($MetaSeo->id , $keywords);
 
-            //dd($MetaSeo);
             $MetaSeo->robots()->sync($robots);
 
             return $MetaSeo;
@@ -46,4 +46,7 @@ class SeoMetaRepository extends BaseRepository implements ISeoMetaRepository
 
         return null;
     }
+
+
+
 }
