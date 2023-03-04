@@ -19,8 +19,9 @@ class CustomerSubscribesController extends CustomerMainController
         ];
 
         $subscribes = ContextRepository::SubscribeRepository()->GetListSubscribes();
-
-        return view("customer.subscribes.subscribe-list.index" , compact("nav" , "subscribes"));
+        $meta = ContextRepository::SeoPageRepository()->getMetaSeoSpicalListSubscribes();
+        $routeCanonical = route("customer.subscribes.list");
+        return view("customer.subscribes.subscribe-list.index" , compact("nav" , "subscribes" , "meta" , "routeCanonical"));
     }
 
 
@@ -39,8 +40,9 @@ class CustomerSubscribesController extends CustomerMainController
                     "title" => "اشتراک: ".$subscribe->title
                 ]
             ];
-
-            return view("customer.subscribes.subscribe-info.index" , compact("nav" , "subscribe" ));
+            $meta = ContextRepository::SeoMetaRepository()->getDataSeoMeta($subscribe->metaInfo);
+            $routeCanonical = route("customer.subscribes.info" , [$subscribe->slug]);
+            return view("customer.subscribes.subscribe-info.index" , compact("nav" , "subscribe" , "meta" , "routeCanonical" ));
         }
         else{
             return redirect()->route("customer.subscribes.list");

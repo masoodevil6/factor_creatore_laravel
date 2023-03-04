@@ -55,6 +55,10 @@ class SettingRepository extends BaseRepository implements ISettingRepository {
             $view->with("siteName" , $siteName["site_name_fa"]);
         });
 
+        View::composer("customer.layouts.seo-tag" , function ($view) use($siteName){
+            $view->with("siteName" , $siteName);
+        });
+
         return [
             "siteName" => $siteName ,
             "aboutUs" => $aboutUs ,

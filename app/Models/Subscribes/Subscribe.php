@@ -104,6 +104,10 @@ class Subscribe extends Model
             });
     }
 
+    public function metaInfo(){
+        return $this->meta()->with(["keywords" , "robots"]);
+    }
+
 
 
 

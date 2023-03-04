@@ -1,8 +1,7 @@
 <!doctype html>
 <html lang="en">
 <head>
-    <title>@yield("titlePage" , "خانه")</title>
-
+    @include("customer.layouts.seo-tag")
     @include("customer.layouts.head-tag")
     @yield("head-tag")
 </head>

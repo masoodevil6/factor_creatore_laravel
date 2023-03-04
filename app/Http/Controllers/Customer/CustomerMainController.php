@@ -20,8 +20,8 @@ class CustomerMainController extends BaseController
 {
     use AuthorizesRequests, DispatchesJobs, ValidatesRequests;
 
-    public  $setting;
-    public  $linkApps;
+    protected $setting;
+    protected $linkApps;
     function __construct()
     {
         $this-> setting = ContextRepository::SettingRepository()->SetSettingInfoPage();

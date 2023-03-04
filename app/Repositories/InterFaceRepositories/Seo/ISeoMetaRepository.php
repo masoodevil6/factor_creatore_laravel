@@ -8,4 +8,5 @@ interface ISeoMetaRepository extends IBaseRepository {
 
     function refreshDataSeoMeta($pageId , $meta , $meta_id=0, $title , $description , $keywords , $robots);
 
+    function getDataSeoMeta($meta);
 }

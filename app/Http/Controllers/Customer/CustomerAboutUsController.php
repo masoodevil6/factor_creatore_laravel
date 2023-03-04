@@ -18,8 +18,9 @@ class CustomerAboutUsController extends CustomerMainController
         $formsSelected = ContextRepository::FormRepository()->GetLimitRandomSelectedForm();
         $settings = $this->setting;
         $linkApps = $this->linkApps;
-
-        return view("customer.about-us.info.index" , compact("nav" , "formsSelected" , "settings" , "linkApps"));
+        $meta = ContextRepository::SeoPageRepository()->getMetaSeoSpicalAboutUs();
+        $routeCanonical = route("customer.about-us");
+        return view("customer.about-us.info.index" , compact("nav" , "formsSelected" , "settings" , "linkApps" , "meta" , "routeCanonical"));
     }
 
 
@@ -36,7 +37,8 @@ class CustomerAboutUsController extends CustomerMainController
 
         $linkApps = $this->linkApps;
         $formsSelected = ContextRepository::FormRepository()->GetLimitRandomSelectedForm();
-
-        return view("customer.about-us.download.index" , compact("nav" , "linkApps" , "formsSelected" ));
+        $meta = ContextRepository::SeoPageRepository()->getMetaSeoSpicalDownloadApps();
+        $routeCanonical = route("customer.about-us-download");
+        return view("customer.about-us.download.index" , compact("nav" , "linkApps" , "formsSelected" , "meta" , "routeCanonical" ));
     }
 }

@@ -14,8 +14,9 @@ class CustomerHomeController extends CustomerMainController
         $formsSelected = ContextRepository::FormRepository()->GetLimitRandomSelectedForm();
         $subscribeSelected = ContextRepository::SubscribeRepository()->GetLimitRandomSelectedSubscribe();
         $comments = ContextRepository::CommentRepository()->GetListComments();
-
-        return view("customer.home.index" , compact("nav" , "formsSelected" , "subscribeSelected" , "comments"));
+        $meta = ContextRepository::SeoPageRepository()->getMetaSeoSpicalHome();
+        $routeCanonical = route("customer.home");
+        return view("customer.home.index" , compact("nav" , "formsSelected" , "subscribeSelected" , "comments" , "meta" , "routeCanonical"));
     }
 
 

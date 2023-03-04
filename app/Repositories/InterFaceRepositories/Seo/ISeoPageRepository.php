@@ -15,4 +15,10 @@ interface ISeoPageRepository extends IBaseRepository {
 
     function getTitleSubscribesSeo();
 
+
+    function getMetaSeoSpicalHome();
+    function getMetaSeoSpicalAboutUs();
+    function getMetaSeoSpicalDownloadApps();
+    function getMetaSeoSpicalListSubscribes();
+
 }

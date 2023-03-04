@@ -48,5 +48,42 @@ class SeoMetaRepository extends BaseRepository implements ISeoMetaRepository
     }
 
 
+    function getDataSeoMeta($meta)
+    {
+        $dataSeo = [
+            "title" => "" ,
+            "description" => "" ,
+            "keywords" => "" ,
+            "robots" => ""
+        ];
 
+        if (!empty($meta)){
+            $dataSeo["title"] = $meta->title;
+            $dataSeo["description"] = $meta->description;
+        }
+
+        $metaKeywords = "";
+        if (isset($meta->keywords)){
+            foreach ($meta->keywords as $key => $itemKeyword){
+                $metaKeywords .= $itemKeyword->title;
+                if ($key < sizeof($meta->keywords)-1){
+                    $metaKeywords .= ",";
+                }
+            }
+        }
+        $dataSeo["keywords"] = $metaKeywords;
+
+        $metaRobots="";
+        if (isset($meta->robots)){
+            foreach ($meta->robots as $key => $itemRobot){
+                $metaRobots .= $itemRobot->title;
+                if ($key < sizeof($meta->robots)-1){
+                    $metaRobots .= ",";
+                }
+            }
+        }
+        $dataSeo["robots"] = $metaRobots;
+
+        return $dataSeo;
+    }
 }
