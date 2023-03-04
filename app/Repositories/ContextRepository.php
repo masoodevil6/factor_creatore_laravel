@@ -22,6 +22,8 @@ use App\Repositories\InterFaceRepositories\Seo\ISeoKeywordRepository;
 use App\Repositories\InterFaceRepositories\Seo\ISeoMetaRepository;
 use App\Repositories\InterFaceRepositories\Seo\ISeoPageRepository;
 use App\Repositories\InterFaceRepositories\Seo\ISeoRobotRepository;
+use App\Repositories\InterFaceRepositories\Sitemaps\ISitemapFileRepository;
+use App\Repositories\InterFaceRepositories\Sitemaps\ISitemapUrlRepository;
 use App\Repositories\InterFaceRepositories\Subscribes\ISubscribePaymentRepository;
 use App\Repositories\InterFaceRepositories\Subscribes\ISubscribeRepository;
 use App\Repositories\InterFaceRepositories\Tickets\ITicketCategoryRepository;
@@ -53,6 +55,8 @@ use App\Repositories\ModelRepositories\Seo\SeoKeywordRepository;
 use App\Repositories\ModelRepositories\Seo\SeoMetaRepository;
 use App\Repositories\ModelRepositories\Seo\SeoPageRepository;
 use App\Repositories\ModelRepositories\Seo\SeoRobotRepository;
+use App\Repositories\ModelRepositories\Sitemaps\SitemapFileRepository;
+use App\Repositories\ModelRepositories\Sitemaps\SitemapUrlRepository;
 use App\Repositories\ModelRepositories\Subscribes\SubscribePaymentRepository;
 use App\Repositories\ModelRepositories\Subscribes\SubscribeRepository;
 use App\Repositories\ModelRepositories\Tickets\TicketCategoryRepository;
@@ -428,5 +432,29 @@ class ContextRepository{
         }
         return self::$seoRobotRepository;
     }
+
+
+    //// =============================================
+    //// Sitemap
+    //// =============================================
+    private static $sitemapFileRepository;
+    private static $sitemapUrlRepository;
+
+    public static function SitemapFileRepository() : ISitemapFileRepository
+    {
+        if (self::$sitemapFileRepository == null){
+            self::$sitemapFileRepository = new SitemapFileRepository();
+        }
+        return self::$sitemapFileRepository;
+    }
+
+    public static function SitemapUrlRepository() : ISitemapUrlRepository
+    {
+        if (self::$sitemapUrlRepository == null){
+            self::$sitemapUrlRepository = new SitemapUrlRepository();
+        }
+        return self::$sitemapUrlRepository;
+    }
+
 
 }

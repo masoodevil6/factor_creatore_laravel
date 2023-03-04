@@ -34,6 +34,10 @@ return[
             "group_name" => "Seo" ,
         ],
         [
+            "group_class" => App\Http\Services\Admins\PanelGroups\SitemapGroup\CreatePanelGroupSitemap::class ,
+            "group_name" => "sitemap" ,
+        ],
+        [
             "group_class" => App\Http\Services\Admins\PanelGroups\SubscribeGroup\CreatePanelGroupSubscribe::class ,
             "group_name" => "subscribe" ,
         ],
@@ -161,6 +165,21 @@ return[
             "group_name" => "Seo" ,
             "panel_class" =>  App\Http\Services\Admins\PanelGroups\SeoGroup\CreatePanelSeoSubscribesPagesInPannGroupSeo::class ,
             "panel_name" => "subscribes-page"
+        ],
+
+
+        ////=======================================================
+        /// sitemap
+        ////=======================================================
+        [
+            "group_name" => "sitemap" ,
+            "panel_class" =>  App\Http\Services\Admins\PanelGroups\SitemapGroup\CreatePanelSitemapFilesInPannGroupSitemap::class ,
+            "panel_name" => "sitemap-files"
+        ],
+        [
+            "group_name" => "sitemap" ,
+            "panel_class" =>  App\Http\Services\Admins\PanelGroups\SitemapGroup\CreatePanelSitemapUrlsInPannGroupSitemap::class ,
+            "panel_name" => "sitemap-urls"
         ],
 
 

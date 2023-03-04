@@ -1,12 +1,8 @@
 <?php
 
-use App\Http\Controllers\Admin\Seo\Page\SeoPageSeoSubscribesAdminController;
-use App\Http\Controllers\Admin\Seo\Page\SeoPageSpicalAdminController;
-use App\Http\Controllers\Admin\Seo\SeoRobotAdminController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\Home\HomeAdminController;
 use App\Http\Controllers\Admin\Password\PasswordAdminController;
-
 use App\Http\Controllers\Admin\Panel\PanelAdminController;
 use App\Http\Controllers\Admin\Panel\UserAdminController;
 use App\Http\Controllers\Admin\Publics\PublicSettingAdminController;
@@ -25,6 +21,11 @@ use App\Http\Controllers\Admin\Users\UserController;
 use App\Http\Controllers\Admin\Apps\AppCategoryAdminController;
 use App\Http\Controllers\Admin\Apps\AppFileAdminController;
 use App\Http\Controllers\Admin\Apps\AppFileLinkAdminController;
+use App\Http\Controllers\Admin\Seo\Page\SeoPageSeoSubscribesAdminController;
+use App\Http\Controllers\Admin\Seo\Page\SeoPageSpicalAdminController;
+use App\Http\Controllers\Admin\Seo\SeoRobotAdminController;
+use App\Http\Controllers\Admin\Sitemap\SitemapFileAdminController;
+use App\Http\Controllers\Admin\Sitemap\SitemapUrlAdminController;
 
 
 
@@ -181,6 +182,39 @@ Route::namespace("Seo")->group(function (){
 
     });
 
+});
+
+
+
+Route::namespace("Sitemap")->prefix("sitemap")->group(function (){
+
+    Route::prefix("files")->controller(SitemapFileAdminController::class)->group(function (){
+
+        Route::get("/" , "index")->name("admin.sitemap.file.index");
+
+        Route::get("/create" , "create")->name("admin.sitemap.file.create");
+        Route::post("/store" , "store")->name("admin.sitemap.file.store");
+
+        Route::get("/edit/{sitemapFile}" , "edit")->name("admin.sitemap.file.edit");
+        Route::put("/update/{sitemapFile}" , "update")->name("admin.sitemap.file.update");
+
+        Route::delete("/destroy/{sitemapFile}" ,  "destroy")->name("admin.sitemap.file.destroy");
+
+    });
+
+    Route::prefix("urls")->controller(SitemapUrlAdminController::class)->group(function (){
+
+        Route::get("/" , "index")->name("admin.sitemap.url.index");
+
+        Route::get("/create" , "create")->name("admin.sitemap.url.create");
+        Route::post("/store" , "store")->name("admin.sitemap.url.store");
+
+        Route::get("/edit/{sitemapUrl}" , "edit")->name("admin.sitemap.url.edit");
+        Route::put("/update/{sitemapUrl}" , "update")->name("admin.sitemap.url.update");
+
+        Route::delete("/destroy/{sitemapUrl}" ,  "destroy")->name("admin.sitemap.url.destroy");
+
+    });
 
 });
 

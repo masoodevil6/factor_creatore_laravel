@@ -122,6 +122,13 @@ function convertEnglishToPersian($number){
 
     return $number;
 }
+
+
+function convertStandardTextUrl($text){
+    $text = join("_" , explode(' ' , $text) );
+    $text = join("_" , explode('-' , $text));
+    return $text;
+}
 ///=====================================================
 
 function filterPhoneNumber($phone){

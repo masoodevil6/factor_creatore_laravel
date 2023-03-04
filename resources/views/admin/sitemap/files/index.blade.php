@@ -1,5 +1,5 @@
 @extends("admin.layouts.master")
-@section("titlePage" , "ادمین- ربات ها")
+@section("titlePage" , "ادمین- فایل های نقشه سایت")
 
 @section("head-tag")
 
@@ -13,14 +13,14 @@
 
             <section class="main-body-container-header">
                 <h5>
-                    لیست ربات ها
+                    فایل های نقشه سایت
                 </h5>
             </section>
 
             <section class="body-content d-flex justify-content-between pb-2 border-bottom">
 
-                <a href="{{route("admin.seo.robot.create")}}" class="btn btn-info btn-sm max-height-30">
-                    ربات جدید
+                <a href="{{route("admin.sitemap.file.create")}}" class="btn btn-info btn-sm max-height-30">
+                    فایل جدید
                 </a>
 
 
@@ -34,8 +34,8 @@
                     <thead>
                     <tr>
                         <th scope="col">#</th>
-                        <th scope="col" class="w-25  font-size-12">عنوان ربات</th>
-                        <th scope="col" class="w-50  font-size-12">توصیف</th>
+                        <th scope="col" class="w-25  font-size-12">عنوان فارسی</th>
+                        <th scope="col" class="w-50  font-size-12">عنوان انگلیسی</th>
                         <th scope="col" class="text-center  font-size-12">
                             <i class="fa fa-cogs"></i>
                             <span>تنظیمات</span>
@@ -44,12 +44,12 @@
                     </thead>
 
                     <tbody>
-                    @foreach($robots As $key => $itemRobot)
-                            <x-row-tables.admin.component-item-seo-robot
-                                :robot-key=" $key+1"
-                                :robot-id="$itemRobot -> id"
-                                :robot-title="$itemRobot -> title"
-                                :robot-description="$itemRobot -> description"/>
+                    @foreach($sitemapFiles As $key => $sitemapFile)
+                        <x-row-tables.admin.component-item-sitemap-file
+                                :sitemap-key=" $key+1"
+                                :sitemap-id="$sitemapFile -> id"
+                                :sitemap-title-fa="$sitemapFile -> title_fa"
+                                :sitemap-title-en="$sitemapFile -> title_en"/>
                     @endforeach
                     </tbody>
 
