@@ -84,4 +84,5 @@ class SitemapUrlRepository extends BaseRepository implements ISitemapUrlReposito
             return $this->model->paginate($numInPage);
         }
     }
+
 }

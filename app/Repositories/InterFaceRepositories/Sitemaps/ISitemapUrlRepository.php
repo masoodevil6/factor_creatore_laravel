@@ -10,4 +10,5 @@ interface ISitemapUrlRepository extends IBaseRepository {
     function getListSiteMapPriority();
 
     function searchUrlsInSitmapFile($sitemapFileId=0 ,  $numInPage = 15);
+
 }

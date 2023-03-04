@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Customer\CustomerSitemapController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Customer\CustomerHomeController;
 use App\Http\Controllers\Customer\CustomerAboutUsController;
@@ -41,6 +42,13 @@ Route::prefix("/subscribe")->controller(CustomerSubscribesController::class)->gr
 });
 
 
+Route::prefix("/sitemap")->controller(CustomerSitemapController::class)->group(function (){
+
+    Route::get("/" , "index")->name("customer.subscribes.index");
+
+    Route::get("/urls/{fileName}" , "urls")->name("customer.subscribes.info");
+
+});
 
 
 

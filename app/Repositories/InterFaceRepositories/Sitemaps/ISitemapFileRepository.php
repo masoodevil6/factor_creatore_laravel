@@ -5,4 +5,6 @@ use App\Repositories\InterFaceRepositories\IBaseRepository;
 
 interface ISitemapFileRepository extends IBaseRepository {
 
+    function getSitemapUrlsInSitemapFile($sitemapFile);
+
 }

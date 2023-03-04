@@ -12,4 +12,8 @@ class SitemapFileRepository extends BaseRepository implements ISitemapFileReposi
         parent::__construct(new SitemapFile());
     }
 
+    function getSitemapUrlsInSitemapFile($sitemapFile)
+    {
+        return $this->model->where("title_en" , $sitemapFile)->with("sitmapUrls")->first();
+    }
 }
