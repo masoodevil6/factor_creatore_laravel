@@ -79,7 +79,6 @@
 
 
 
-
     <section class="col-12 mx-auto row border rounded my-2 p-2 bg-white" v-show="showTab==2">
 
         <p class="bg-secondary rounded col-12 text-white px-2 py-0 m-0">
@@ -108,8 +107,6 @@
         </section>
 
     </section>
-
-
 
 
 

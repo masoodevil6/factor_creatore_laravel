@@ -87,8 +87,6 @@
 
                         </x-fields.component-select-options>
 
-
-
                         <x-fields.component-select-options
                                 title-en="class_name"
                                 title-fa="کلاس فرم">
@@ -100,7 +98,6 @@
                                     {{$itemClass["name"]}}
                                 </option>
                             @endforeach
-
 
                         </x-fields.component-select-options>
 
@@ -132,6 +129,20 @@
 
                         </x-fields.component-upload-image>
 
+                        <div class="row col-12 border border-dark rounded p-2 mx-1 my-2">
+
+                            <x-fields.component-input-insert
+                                    title-en="image_title"
+                                    title-fa="عنوان تصویر [Title]"
+                                    :value="isset($form['image_title']) ? $form['image_title'] : ''" />
+
+
+                            <x-fields.component-input-insert
+                                    title-en="image_alt"
+                                    title-fa="توصیف تصویر [Alt]"
+                                    :value="isset($form['image_alt']) ? $form['image_alt'] : ''" />
+
+                        </div>
 
                 </x-fields.component-from-data>
 

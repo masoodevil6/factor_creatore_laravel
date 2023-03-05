@@ -14,7 +14,8 @@
     @include("factor-creator.navigation-factor-creator")
     @include("factor-creator.error-message")
 
-
+    <img src="" alt="">
+    
     @include("factor-creator.products.list-products")
 
     <section id="section-info-factor-product">
@@ -29,6 +30,7 @@
     </script>
     <script src="{{asset("public/sweetalert/sweetalert2.all.min.js")}}"></script>
     <script src="{{asset("public/js/delete-form.js")}}"></script>
+    <script src="{{asset("public/js/vue.js")}}" ></script>
     <script src="{{asset("customer/factor-creator/products-factor/products-factor.js")}}" ></script>
     <script src="{{asset("public/js/public.js")}}" ></script>
 @endsection

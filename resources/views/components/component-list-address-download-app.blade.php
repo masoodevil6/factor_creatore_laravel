@@ -12,7 +12,7 @@
 
                 <a href="{{asset($itemApp["address"])}}" class=" my-1  ml-2 float-right   rounded">
 
-                    <image src="{{asset($itemApp["image"])}}" height="40" class="float-right "/>
+                    <image src="{{asset($itemApp["image"])}}" height="40" class="float-right " alt="دانلود برنامه: {{$itemApp["app_name"]}}"/>
 
                 </a>
 

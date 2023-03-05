@@ -37,18 +37,16 @@
 
             <section class="row mt-2 mx-2">
 
-                <section class="col-12 col-lg-4">
+                <section class="col-5">
                     <a href="{{route("customer.products-factor.index")}}" class="btn btn-info text-white   p-1 m-0 m-2 shadow text-center font-size-md  border border-dark text-decoration-none text-hover-white  px-2 font-weight-bold font-size-md float-right">
-                        <i class="fa fa-arrow-right mr-1 border   border-white  rounded p-1"></i>
                         مرحله قبل
+                        <i class="fa fa-arrow-right mr-1 border   border-white  rounded p-1"></i>
                     </a>
                 </section>
 
+                <section class="col-2"></section>
 
-                <section class="col-12 col-lg-4"></section>
-
-
-                <section class="col-12 col-lg-4">
+                <section class="col-5">
 
                     <button onclick="setInfoAndSubmitForm(this)" type="button" class="btn btn-info text-white   p-1 m-0 m-2 shadow text-center font-size-md  border border-dark text-decoration-none text-hover-white  px-2 font-weight-bold font-size-md float-left">
                         مرحله بعد

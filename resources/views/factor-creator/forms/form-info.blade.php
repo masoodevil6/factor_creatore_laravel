@@ -35,7 +35,7 @@
                     $srcImage = asset($form["image"]["indexArray"][$form["image"]["currentImage"]]);
                 ?>
                 <a href="{{$srcImage}}">
-                    <img class="m-auto d-block " height="150" src="{{$srcImage}}" alt="">
+                    <img class="m-auto d-block " height="150" src="{{$srcImage}}" title="{{$form->image_title}}" alt="{{$form->image_alt}}"">
                 </a>
             @else
                 <i class="fa fa-spinner text-dark  text-center font-size-xxlg d-block py-5 line-height-40" style="height: 150px"></i>

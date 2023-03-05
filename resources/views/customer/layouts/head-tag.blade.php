@@ -8,7 +8,6 @@
 <link rel="stylesheet" href="{{asset("public/css/bootstrap/bootstrap.min.css")}}">
 <link rel="stylesheet" href="{{asset("public/fontawesome/css/all.min.css")}}">
 <link rel="stylesheet" href="{{asset("public/fontawesome/css/v4-shims.min.css")}}">
-<link rel="stylesheet" href="{{asset("public/css/public/animate.min.css")}}">
 <link rel="stylesheet" href="{{asset("customer/public/css/style.css")}}">
 <link rel="stylesheet" href="{{asset("public/plugins/alert_screen/alert_screen.css")}}">
 <link rel="stylesheet" href="{{asset("public/plugins/owlcarousel/assets/owl.carousel.css")}}">

@@ -15,7 +15,7 @@
 
                         <section class="d-lg-none d-flex justify-content-lg-center justify-content-center">
                             <a class="text-decoration-none mr-2" href="{{route("customer.home")}}">
-                                <img class="logo-site" src="{{getLocationLogoSite()}}" alt="logo">
+                                <img class="logo-site" src="{{getLocationLogoSite()}}" alt="لگو سایت {{$siteName}}">
                             </a>
                         </section>
 
@@ -114,7 +114,7 @@
                         <section class="col-8 col-lg-12">
                             <section class="d-flex justify-content-lg-center justify-content-start ml-5 ml-lg-0">
                                 <a class="text-decoration-none mr-2 " href="{{route("customer.home")}}">
-                                    <img class="logo-site" src="{{getLocationLogoSite()}}" alt="logo">
+                                    <img class="logo-site" src="{{getLocationLogoSite()}}" alt="لگو سایت {{$siteName}}">
                                 </a>
                             </section>
                         </section>

@@ -32,7 +32,7 @@ class FormRepository extends BaseRepository implements IFormRepository {
         $forms = $this->model
             ->select(
                 [
-                    "forms.id" , "forms.image" , "forms.name" , "forms.form_category_id" , "forms.subscribe_id" ,
+                    "forms.id" , "forms.image" , "forms.name" , "forms.image_title", "forms.image_alt" , "forms.form_category_id" , "forms.subscribe_id" ,
                     "form_categories.title"
                 ]
             )

@@ -24,7 +24,7 @@
                             ?>
 
                             <a href="{{$srcImage}}"  class="section-img-form position-relative d-block" >
-                                <img class="position-absolute position-center" height="150" src="{{$srcImage}}" alt="">
+                                <img class="position-absolute position-center" height="150" src="{{$srcImage}}" title="{{$itemFormSelected->image_title}}" alt="{{$itemFormSelected->image_alt}}">
                             </a>
                             <p class="p-1 m-0 text-center font-size-md text-dark">
                                 [

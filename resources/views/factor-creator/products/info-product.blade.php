@@ -4,7 +4,7 @@
         اطلاعات کالا
     </p>
 
-    <form action="{{route("customer.products-factor.add-factor-product")}}" method="post" class="m-2 row">
+    <form id="form-info-product" action="{{route("customer.products-factor.add-factor-product")}}" method="post" class="m-2 row">
         @csrf
 
         @if(isset($product->id))
@@ -16,21 +16,24 @@
             @if(isset($product->name))
                 <p class="mx-2 font-size-lg bg-warning p-2 rounded border border-dark shadow">
                     اصلاح کالای:
-                    <span class="font-weight-bold mr-2">
+                    <span class="font-weight-bold mr-2 text-white">
                         {{$product->name}}
                     </span>
                 </p>
             @endif
 
-            <section class="  border border-dark pb-2">
+            <section class=" border border-dark pb-2">
 
+                <section class="col-12 mt-2 ">
 
+                    <label for="label-for-name" class="d-block text-right font-size-12">
+                        نام کالا
+                    </label>
 
-                <x-fields.component-input-insert
-                        title-en="name"
-                        title-fa="نام کالا"
-                        :full="true"
-                        :value="(isset($product->name)) ? $product->name : '' " />
+                    <input v-model="name" id="label-for-name" name="name" type="text" placeholder="نام کالا"  class="form-control form-control-sm form-text font-size-12">
+
+                </section>
+
             </section>
 
         </section>
@@ -39,31 +42,26 @@
 
             <section class="  border border-dark pb-2">
 
-                <x-fields.component-input-insert
-                        title-en="num"
-                        type="number"
-                        title-fa="تعداد"
-                        :full="true"
-                        :method-on-change="true"
-                        :value="(isset($product->num)) ? $product->num : '0' " />
+                <section class="col-12 mt-2 ">
 
-            </section>
+                    <label for="label-for-num" class="d-block text-right font-size-12">
+                        تعداد
+                    </label>
 
+                    <input v-model="num" v-on:input="setNumAmdUnit"  id="label-for-num" name="num" type="number" step="0.01"  placeholder="تعداد" style="direction: ltr"  class="text-left form-control form-control-sm form-text font-size-12">
 
-            <section class="  border border-dark pb-2 mt-2">
+                </section>
 
-                <section class="col-12 py-2 bg-warning border-bottom border-dark">
+                <section class="col-12 py-2 bg-warning border-bottom border-top mt-2 border-dark">
 
                     <label for="select-option-unit" class="d-block text-right font-size-12">
                         جستجو واحد
                     </label>
 
 
-                    <select onchange="changeUnitProduct(this)" id="select-option-unit" class="form-control form-control-sm form-text font-size-12" aria-label="Default select example">
+                    <select  v-model="unit"   id="select-option-unit" class="form-control form-control-sm form-text font-size-12" aria-label="Default select example">
 
-                        <option value="">
-                            [شخصی]
-                        </option>
+                        <option value=""></option>
 
                         @foreach($units as $itemUnit)
                             <option value="{{$itemUnit->name}}">
@@ -75,11 +73,17 @@
 
                 </section>
 
-                <x-fields.component-input-insert
-                        title-en="unit"
-                        title-fa="واحد"
-                        :full="true"
-                        :value="(isset($product->unit)) ? $product->unit : '' " />
+                <section class="col-12 mt-2 ">
+
+                    <label for="label-for-unit" class="d-block text-right font-size-12">
+                        واحد
+                    </label>
+
+                    <input v-model="unit"  v-on:input="setNumAmdUnit"   id="label-for-unit" name="unit" type="text" placeholder="واحد"  class="form-control form-control-sm form-text font-size-12">
+
+                </section>
+
+                <p class="text-right text-danger font-size-lg p-2 py-1 mb-1" v-text="setNumAmdUnit"></p>
 
             </section>
 
@@ -87,75 +91,51 @@
 
         <section class="col-12 col-lg-6 mt-2">
 
+            <section class="  border border-dark pb-2 mt-2">
+
+                <section class="col-12 mt-2 ">
+
+                    <label for="label-for-price" class="d-block text-right font-size-12">
+                        قیمت واحد
+                    </label>
+
+                    <input v-model="price"  id="label-for-price" name="price" type="number" placeholder="قیمت واحد" style="direction: ltr" class="text-left form-control form-control-sm form-text font-size-12">
+
+                    <p class="text-right text-danger font-size-lg p-2 py-1 mb-1" v-text="getProductPrice + ' ' + passPrice"></p>
+
+                </section>
+
+                <section class="col-12 mt-2 ">
+
+                    <label for="label-for-off" class="d-block text-right font-size-12">
+                        تخفیف
+                    </label>
+
+                    <input v-model="off"  id="label-for-off" name="off" type="number" placeholder="تخفیف" style="direction: ltr" class="text-left form-control form-control-sm form-text font-size-12">
+
+                    <p class="text-right text-danger font-size-lg p-2 py-1 mb-1" v-text="getProductOff + ' ' + passPrice"></p>
+
+                </section>
+
+            </section>
+
+
             <section class=" border border-dark pb-2">
 
-                <x-fields.component-input-insert
-                        title-en="price"
-                        type="number"
-                        title-fa="قیمت واحد"
-                        :full="true"
-                        :method-on-change="true"
-                        :value="(isset($product->price)) ? $product->price : '0' " />
-
-                <p id="text-product-price" class="text-right text-danger font-size-lg p-2 py-1 mb-1">
-                    @if(isset($product->price))
-                        {{$product->price_text}}
-                    @else
-                        0
-                    @endif
-                    {{$passPrice}}
-                </p>
-
-
-                <x-fields.component-input-insert
-                        title-en="off"
-                        type="number"
-                        title-fa="تخفیف"
-                        :full="true"
-                        :method-on-change="true"
-                        :value="(isset($product->off)) ? $product->off : '0' " />
-
-                <p id="text-product-off" class="text-right text-danger font-size-lg p-2 py-1 mb-1">
-                    @if(isset($product->off_text))
-                        {{$product->off_text}}
-                    @else
-                        0
-                    @endif
-                    {{$passPrice}}
-                </p>
-
-
-
                 <p class="bg-dark text-white text-center font-size-lg mb-0">
-                    جمع کل واحد
+                    واحد
                 </p>
+                <p id="text-product-one" class="text-right text-danger font-size-lg p-2 py-1 mb-1" v-text="getOneProductPrice + ' ' + passPrice"></p>
 
-                <p id="text-product-total-one" class="text-right text-danger font-size-lg p-2 py-1 mb-1">
-                    @if(isset($product->total_one_text))
-                        {{$product->total_one_text}}
-                    @else
-                        0
-                    @endif
-                    {{$passPrice}}
-                </p>
 
                 <p class="bg-dark text-white text-center font-size-lg mb-0">
                     جمع کل
                 </p>
-
-                <p id="text-product-total" class="text-right text-danger font-size-lg p-2 py-1 mb-1">
-                    @if(isset($product->total_text))
-                        {{$product->total_text}}
-                    @else
-                        0
-                    @endif
-                    {{$passPrice}}
-                </p>
+                <p id="text-product-total" class="text-right text-danger font-size-lg p-2 py-1 mb-1" v-text="getProductOff + ' ' + passPrice"></p>
 
             </section>
 
         </section>
-
 
         <button type="submit" class="btn btn-info text-white   p-1 m-0 m-2 shadow text-center font-size-md  border border-dark text-hover-white  px-2 font-weight-bold font-size-md ">
             ذخیره اطلاعات
@@ -165,3 +145,61 @@
     </form>
 
 </section>
+
+
+<script>
+
+    new Vue({
+        el:"#form-info-product",
+        data: {
+            name: '{{(isset($product->name)) ? $product->name : ''}}' ,
+            num: '{{(isset($product->num)) ? $product->num : ''}}' ,
+            unit: '{{(isset($product->unit)) ? $product->unit : ''}}',
+            price: '{{(isset($product->price)) ? $product->price : '0' }}',
+            off: '{{(isset($product->off)) ? $product->off : '0' }}' ,
+            passPrice: '{{$passPrice}}'
+        } ,
+        computed:{
+            setNumAmdUnit: function () {
+                return this.num + " " + this.unit;
+            },
+            getProductOff: function () {
+                var total = this.off;
+                if (total > 0){
+                    return Intl.NumberFormat().format(total)
+                }
+                else {
+                    return "0";
+                }
+            },
+            getProductPrice: function () {
+                var total = this.price;
+                if (total !== ""){
+                    return Intl.NumberFormat().format(total);
+                }
+                else {
+                    return "0";
+                }
+            },
+            getOneProductPrice: function () {
+                var total = this.price - this.off;
+                if (total !==""){
+                    return Intl.NumberFormat().format(total)
+                }
+                else {
+                    return "0";
+                }
+            },
+            getTotalPrice: function () {
+                var total = (this.price - this.off)*this.num;
+                if (total !==""){
+                    return Intl.NumberFormat().format(total)
+                }
+                else {
+                    return "0";
+                }
+            }
+        }
+    });
+
+</script>

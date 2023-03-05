@@ -17,7 +17,11 @@ class Form extends Model
         "image" => "array"
     ];
 
-    protected $fillable = ["name" , "class", "image", "status", "selected", "form_category_id" , "subscribe_id"];
+    protected $fillable = [
+        "name" , "class", "image", "status", "selected",
+        "image_title" , "image_alt" ,
+        "form_category_id" , "subscribe_id"
+    ];
 
 
     ///==============================================

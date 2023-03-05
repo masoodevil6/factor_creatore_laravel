@@ -5,7 +5,7 @@
         <sitemap>
 
             <loc>
-                {{route("customer.subscribes.info" , $itemSitemapFile->title_en)}}
+                {{route("customer.sitemap.info" , $itemSitemapFile->title_en)}}
             </loc>
 
             <lastmod>{{date('Y-m-d',  strtotime($itemSitemapFile->created_at))}}</lastmod>

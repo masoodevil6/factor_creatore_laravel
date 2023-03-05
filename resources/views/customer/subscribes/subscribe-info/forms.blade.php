@@ -15,7 +15,7 @@
                 <section class=" p-1 h-100 ">
                     @if(!empty($itemForm->image))
                         <a href="{{asset($itemForm->image)}}">
-                            <img class="m-auto d-block " height="95" src="{{asset($itemForm->image)}}" alt="">
+                            <img class="m-auto d-block " height="95" src="{{asset($itemForm->image)}}" title="{{$itemForm->image_title}}" alt="{{$itemForm->image_alt}}">
                         </a>
                     @else
                         <i class="fa fa-spinner text-dark  text-center font-size-xxlg d-block py-4 line-height-40 " style="height: 100px"></i>
